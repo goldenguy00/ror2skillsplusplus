@@ -10,18 +10,17 @@ namespace Skills {
     
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.1")]
-
     public class PhotoModePlugin : BaseUnityPlugin {
 
         private HUD hud;
         private CharacterBody body;
 
         private SkillPointsController skillsController;
-        private SkillLevelIconController[] skillsHUDControllers;
-
-        
+        private SkillLevelIconController[] skillsHUDControllers;        
 
         public void Awake () {
+
+            SkillModifierManager.LoadSkillModifiers();
 
             On.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect += orig => { };
 

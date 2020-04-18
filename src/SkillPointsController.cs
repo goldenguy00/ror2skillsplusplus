@@ -46,6 +46,7 @@ namespace Skills {
                 TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong) (500 * Time.deltaTime));
             }
 #endif
+
         }
 
         public void OnLevelChanged() {
@@ -71,7 +72,6 @@ namespace Skills {
                     skillLevelIconController.SetCanUpgrade(unspentSkillPoints > 0 && spentOnSlot <= ((currentSkillLevel + 1) / skillLevelScaling));
                 }
             }
-
         }
 
         private static int SkillPointsAtLevel(int characterLevel) {
