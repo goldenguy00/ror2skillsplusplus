@@ -1,0 +1,10 @@
+{
+	"name": "PhotoMode",
+	"version_number": "1.0.0",
+	"website_url": "https://gitlab.com/cwmlolzlz/ror2photomode",
+	"description": "Adds a photo mode the game with fly camera and FOV control",
+	"dependencies": [
+		"bbepis-BepInExPack-3.2.0",
+		"tristanmcpherson-R2API-2.4.10"
+	]
+}
