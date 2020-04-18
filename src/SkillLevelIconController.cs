@@ -13,6 +13,8 @@ namespace Skills {
 
         private SkillIcon skillIcon;
         private GameObject CanBuyPanel;
+        private GameObject UpgradeLevelText;
+        private GameObject UpgradeLevelButton;
 
         private CanvasRenderer CanBuyRenderer;
 
@@ -32,6 +34,39 @@ namespace Skills {
             CanBuyRenderer = this.CanBuyPanel.GetComponent<CanvasRenderer>();
             // CanBuyRenderer.SetColor(ColorCatalog.GetColor(ColorCatalog.ColorIndex.Interactable));
             CanBuyRenderer.SetColor(Color.yellow);
+
+            // create the upgrade level label
+            UpgradeLevelText = new GameObject();
+            UpgradeLevelText.transform.parent = skillIcon.transform;
+            UpgradeLevelText.AddComponent<CanvasRenderer>();
+            RectTransform textTransform = UpgradeLevelText.AddComponent<RectTransform>();
+
+            HGTextMeshProUGUI textMesh = UpgradeLevelText.AddComponent<HGTextMeshProUGUI>();
+            textMesh.text = "";
+            for(int i = UnityEngine.Random.Range(0, 4); i > 0; i--) {
+                textMesh.text += "+";
+            }
+            textMesh.fontSize = 24;
+            textMesh.color = Color.yellow;
+            textMesh.alignment = TMPro.TextAlignmentOptions.BottomLeft;
+            textMesh.enableWordWrapping = false;
+
+
+            textTransform.ForceUpdateRectTransforms();
+            textTransform.localPosition = Vector2.zero;
+            textTransform.anchorMin = Vector2.zero;
+            textTransform.anchorMax = Vector2.zero;
+            textTransform.anchoredPosition = new Vector2(0, 0); // bottom right corner
+            textTransform.sizeDelta = Vector2.zero;
+            textTransform.offsetMin = new Vector2(0, -4);
+            textTransform.offsetMax = new Vector2(0, -4);
+            textTransform.ForceUpdateRectTransforms();
+
+
+            // create the clickable upgrade button
+
+
+
             SetCanUpgrade(false);
         }
 
@@ -40,7 +75,6 @@ namespace Skills {
             CanBuyPanel.SetActive(canUpgrade);
             CanBuyRenderer.SetColor(Color.yellow);
         }
-
 
     }
 }
