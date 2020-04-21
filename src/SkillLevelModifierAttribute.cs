@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using EntityStates.Huntress.HuntressWeapon;
 using RoR2.Skills;
+using UnityEngine;
 
 namespace Skills {
 
@@ -24,6 +25,14 @@ namespace Skills {
         public abstract int MaxLevel();
 
         public abstract void ApplyChanges(SkillDef skillDef, int level);
+        
+        protected float LinearScaling(float baseValue, float buffValue, int level) {
+            return baseValue + buffValue * (level - 1);
+        }
+
+        protected float LogScaling(float baseValue, float buffValue, int level) {
+            return baseValue + (Mathf.Log(level) * buffValue);
+        }
 
     }
 }

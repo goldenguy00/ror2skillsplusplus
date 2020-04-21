@@ -13,15 +13,16 @@ namespace Skills.Modifiers {
     class HuntressGlaiveSkillModifier : BaseSkillModifier {
 
         private static readonly float origDamageCoefficientPerBounce = ThrowGlaive.damageCoefficientPerBounce;
-        private static readonly int origGlaiveBounceCount = ThrowGlaive.maxBounceCount;
+        private static readonly int origGlaiveBounceCount = 6;       
 
         public override int MaxLevel() {
             return 5;
         }
 
         public override void ApplyChanges(SkillDef skillDef, int level) {
-            ThrowGlaive.maxBounceCount = origGlaiveBounceCount * level;
-            // ThrowGlaive.damageCoefficientPerBounce = origDamageCoefficientPerBounce * level;
+            ThrowGlaive.maxBounceCount = (int) LinearScaling(origGlaiveBounceCount, 2, level);
+            ThrowGlaive.damageCoefficientPerBounce = LinearScaling(origDamageCoefficientPerBounce, 0.1f, level);
+            Debug.LogFormat("Glaive stats - max bounces: {0}, damage coefficient: {1}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce);
         }
 
     }
@@ -29,7 +30,7 @@ namespace Skills.Modifiers {
     [SkillLevelModifier("ArrowRain")]
     class HuntressArrowRainSkillModifier : BaseSkillModifier {
 
-        private static readonly float origArrowRainRadius = ArrowRain.arrowRainRadius;
+        private static readonly float origArrowRainRadius = 15f;
         private static readonly float origDamageCoefficient = ArrowRain.damageCoefficient;
 
         public override int MaxLevel() {
@@ -38,8 +39,8 @@ namespace Skills.Modifiers {
 
         public override void ApplyChanges(SkillDef skillDef, int level) {
             ArrowRain.arrowRainRadius = origArrowRainRadius * level;
-            ArrowRain.damageCoefficient = origDamageCoefficient * level;
-            ArrowRain.projectilePrefab.transform.localScale = Vector3.one * level;
+            ArrowRain.damageCoefficient = LinearScaling(origDamageCoefficient, 0.5f, level);
+            ArrowRain.projectilePrefab.transform.localScale = Vector3.one * LinearScaling(origArrowRainRadius, 5, level);
         }
 
     }
