@@ -32,6 +32,8 @@ namespace Skills {
         private bool canUpgrade;
         private bool showBuyButton;
 
+        private bool canInvokeBuy = true;
+
         void Awake() {
             this.skillIcon = GetComponent<SkillIcon>();
             this.CanBuyPanel = Instantiate(skillIcon.isReadyPanelObject, skillIcon.transform);
@@ -65,7 +67,7 @@ namespace Skills {
                 textTransform.sizeDelta = Vector2.zero;
                 textTransform.offsetMin = new Vector2(0, -4);
                 textTransform.offsetMax = new Vector2(0, -4);
-                textTransform.ForceUpdateRectTransforms();  
+                textTransform.ForceUpdateRectTransforms();
             }
 
             // create the clickable upgrade button
@@ -87,7 +89,9 @@ namespace Skills {
 
                 HGButton button = UpgradeLevelButton.AddComponent<HGButton>();
                 button.onClick.AddListener(() => {
-                    this.OnBuy.Invoke(this.SkillSlot);
+                    if (canUpgrade) {
+                        this.OnBuy.Invoke(this.SkillSlot);
+                    }
                 });
 
                 buttonTransform.ForceUpdateRectTransforms();
@@ -107,21 +111,26 @@ namespace Skills {
             SetCanUpgrade(false);
         }
 
+
         public void SetCanUpgrade(bool canUpgrade) {
             this.canUpgrade = canUpgrade;
             CanBuyPanel.SetActive(canUpgrade);
             CanBuyRenderer.SetColor(Color.yellow);
-            UpgradeLevelButton.SetActive(showBuyButton && canUpgrade);
+            if (showBuyButton && canUpgrade != UpgradeLevelButton.activeInHierarchy) {
+                UpgradeLevelButton.SetActive(showBuyButton && canUpgrade);
+            }
         }
 
         public void ShowBuyButton(bool showButton) {
             this.showBuyButton = showButton;
-            UpgradeLevelButton.SetActive(showBuyButton && canUpgrade);
+            if (showBuyButton && canUpgrade != UpgradeLevelButton.activeInHierarchy) {
+                UpgradeLevelButton.SetActive(showBuyButton && canUpgrade);
+            }
         }
 
         public void SetLevel(int level) {
             string newText = "";
-            for(int i = level; i > 0; i--) {
+            for(int i = 1; i < level; i++) {
                 newText += "+";
             }
             levelTextMesh.text = newText;

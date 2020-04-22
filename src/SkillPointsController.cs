@@ -66,6 +66,10 @@ namespace Skills {
                 return;
             }
             Debug.LogFormat("OnBuySkill({0})", Enum.GetName(typeof(SkillSlot), skillSlot));
+
+            Debug.LogFormat("TestCallStack: {0}",
+                          Environment.StackTrace);
+
             if (skillLevels.TryGetValue(skillSlot, out int skillLevel)) {
                 SkillDef skillDef = body.skillLocator.GetSkill(skillSlot).skillDef;
                 BaseSkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
