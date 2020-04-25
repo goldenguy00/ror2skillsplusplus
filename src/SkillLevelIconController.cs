@@ -88,7 +88,9 @@ namespace Skills {
                 buttonTextMesh.enableWordWrapping = false;
 
                 HGButton button = UpgradeLevelButton.AddComponent<HGButton>();
+                Debug.Log("Add listener");
                 button.onClick.AddListener(() => {
+                    Debug.Log("onClick");
                     if (canUpgrade) {
                         this.OnBuy.Invoke(this.SkillSlot);
                     }
@@ -115,15 +117,14 @@ namespace Skills {
         public void SetCanUpgrade(bool canUpgrade) {
             this.canUpgrade = canUpgrade;
             CanBuyPanel.SetActive(canUpgrade);
-            CanBuyRenderer.SetColor(Color.yellow);
-            if (showBuyButton && canUpgrade != UpgradeLevelButton.activeInHierarchy) {
+            if ((showBuyButton && canUpgrade) != UpgradeLevelButton.activeInHierarchy) {
                 UpgradeLevelButton.SetActive(showBuyButton && canUpgrade);
             }
         }
 
         public void ShowBuyButton(bool showButton) {
             this.showBuyButton = showButton;
-            if (showBuyButton && canUpgrade != UpgradeLevelButton.activeInHierarchy) {
+            if ((showBuyButton && canUpgrade) != UpgradeLevelButton.activeInHierarchy) {
                 UpgradeLevelButton.SetActive(showBuyButton && canUpgrade);
             }
         }

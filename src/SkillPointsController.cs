@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Text;
+using EntityStates;
+using R2API;
 using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
 using UnityEngine;
 
 namespace Skills {
+
+    [RequireComponent(typeof(CharacterBody))]
+    [RequireComponent(typeof(SkillLocator))]
     class SkillPointsController : MonoBehaviour {
 
 #if DEBUG
@@ -17,36 +23,91 @@ namespace Skills {
 #endif
 
         private CharacterBody body;
+        private SkillLocator skillLocator;
+
         private SkillLevelIconController[] skillIconControllers;
 
-       //  private Dictionary<SkillSlot, int> spentSkillPoints;
+        //  private Dictionary<SkillSlot, int> spentSkillPoints;
         private Dictionary<SkillSlot, int> skillLevels;
 
         private int earnedSkillPoints = 0;
         private int unspentSkillPoints = 0;
 
         void Awake() {
+            this.body = this.GetComponent<CharacterBody>();
+            this.skillLocator = this.GetComponent<SkillLocator>();
             // this.spentSkillPoints = new Dictionary<SkillSlot, int>();
             this.skillLevels = new Dictionary<SkillSlot, int>();
-            foreach(SkillSlot value in Enum.GetValues(typeof(SkillSlot))) {
+            foreach (SkillSlot value in Enum.GetValues(typeof(SkillSlot))) {
                 skillLevels[value] = 1;
             }
+            On.RoR2.EntityStateMachine.SetState += this.OnInterceptSetState;
         }
 
-        public void SetCharacterBody(CharacterBody body) {
-            this.body = body;
+        void OnDestroy() {
+            On.RoR2.EntityStateMachine.SetState -= this.OnInterceptSetState;
+        }
+
+        private void OnInterceptSetState(On.RoR2.EntityStateMachine.orig_SetState orig, EntityStateMachine self, EntityState newState) {
+            if (newState != null && self.networker != null && self.networker.localPlayerAuthority) {
+                if (self.commonComponents.characterBody == this.body) {
+                    if (newState is BaseState) {
+                        ISkillModifier skillModifier = SkillModifierManager.GetSkillModifierForEntityStateType(newState.GetType());
+                        if (skillModifier != null && skillModifier.SkillDef?.skillName != null) {
+                            GenericSkill genericSkill = this.skillLocator.FindSkill(skillModifier.SkillDef.skillName);
+                            if (genericSkill != null) {
+                                SkillSlot skillSlot = this.skillLocator.FindSkillSlot(genericSkill);
+                                if (skillSlot != null) {
+                                    Debug.LogFormat("Successfully intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, newState.GetType().Name);
+                                    this.EnsureSkillModifiersAreInitialised();
+                                    skillModifier.OnSkillWillBeUsed((BaseState)newState, this.skillLevels[skillSlot]);
+                                } else {
+                                    Debug.LogErrorFormat("Could not identify skill slot for generic skill {0}", genericSkill);
+                                }
+                            } else {
+                                Debug.LogErrorFormat("Could not find generic skill instance for skill named {0}", skillModifier.SkillDef.skillName);
+                            }
+                        } else {
+
+                        }
+                    } else {
+                        Debug.Log(newState);
+                    }
+                } else {
+
+                }
+            }
+
+            orig(self, newState);
+        }
+
+        private bool skillModifiersAreInitialised = false;
+        private void EnsureSkillModifiersAreInitialised() {
+            if (skillModifiersAreInitialised) {
+                return;
+            }
+            skillModifiersAreInitialised = true;
+            foreach (SkillSlot skillSlot in Enum.GetValues(typeof(SkillSlot))) {
+                GenericSkill genericSkill = this.skillLocator.GetSkill(skillSlot);
+                SkillDef skillDef = this.skillLocator.GetSkill(skillSlot).skillDef;
+                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
+                modifier.SkillDef = skillDef;
+                modifier.OnSkillLeveledUp(skillLevels[skillSlot]);
+            }
         }
 
         public void SetSkillIconControllers(SkillLevelIconController[] skillIconControllers) {
             this.skillIconControllers = skillIconControllers;
-            foreach(SkillLevelIconController skillIconController in skillIconControllers) {
-                skillIconController.OnBuy += this.OnBuySkill;
+            if (skillIconControllers != null) {
+                foreach (SkillLevelIconController skillIconController in skillIconControllers) {
+                    skillIconController.OnBuy += this.OnBuySkill;
+                }
             }
         }
 
         void Update() {
-            if(body == null)
-                return;
+
+            EnsureSkillModifiersAreInitialised();
 
             bool infoButtonDown = body.master?.playerCharacterMasterController?.networkUser?.inputPlayer?.GetButton(RewiredConsts.Action.Info) == true;
             foreach(SkillLevelIconController skillLevelIconController in skillIconControllers) {
@@ -67,14 +128,11 @@ namespace Skills {
             }
             Debug.LogFormat("OnBuySkill({0})", Enum.GetName(typeof(SkillSlot), skillSlot));
 
-            Debug.LogFormat("TestCallStack: {0}",
-                          Environment.StackTrace);
-
             if (skillLevels.TryGetValue(skillSlot, out int skillLevel)) {
                 SkillDef skillDef = body.skillLocator.GetSkill(skillSlot).skillDef;
-                BaseSkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
+                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
 
-                if (skillLevel >= modifier.MaxLevel()) {
+                if (skillLevel >= modifier.MaxLevel) {
                     return;
                 }
 
@@ -88,7 +146,8 @@ namespace Skills {
                 // find an notify the modifer to update the skill's parameters
                 if (modifier != null)
                 {
-                    modifier.ApplyChanges(skillDef, skillLevel + 1);
+                    modifier.OnSkillLeveledUp(skillLevel + 1);
+                    body.skillLocator.GetSkill(skillSlot).RecalculateValues();
                 }
                 RefreshIconControllers();
             }
@@ -118,19 +177,20 @@ namespace Skills {
 
                     SkillSlot slot = skillLevelIconController.SkillSlot;
                     if(skillLevels.TryGetValue(slot, out int currentSkillLevel)) {
-                        BaseSkillModifier modifier = SkillModifierManager.GetSkillModifier(body.skillLocator.GetSkill(slot).skillDef);
+                        ISkillModifier modifier = SkillModifierManager.GetSkillModifier(body.skillLocator.GetSkill(slot).skillDef);
                     
                         int requiredLevelToBuySkill = (currentSkillLevel / skillLevelScaling);
                         // has skillpoints to spend
                         // meets required character level
                         // and the skill is less than its max level
-                        skillLevelIconController.SetCanUpgrade(unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill && currentSkillLevel < modifier.MaxLevel());
+                        skillLevelIconController.SetCanUpgrade(unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill && currentSkillLevel < modifier.MaxLevel);
                         skillLevelIconController.SetLevel(currentSkillLevel);
                     }
 
                     
                 }
-            }}
+            }
+        }
 
         private static int SkillPointsAtLevel(int characterLevel) {
             return (characterLevel - 1) / levelsPerPoint;

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using RoR2;
+using EntityStates;
 using RoR2.Skills;
 using UnityEngine;
 
 namespace Skills {
     class SkillModifierManager {
 
-        private static Dictionary<string, BaseSkillModifier> skillModifiers = new Dictionary<string, BaseSkillModifier>();
+        private static Dictionary<string, ISkillModifier> skillModifiers = new Dictionary<string, ISkillModifier>();
+        private static Dictionary<Type, ISkillModifier> stateTypeToSkillModifierDictionary = new Dictionary<Type, ISkillModifier>();
 
         public static void LoadSkillModifiers() {
             Assembly assembly = Assembly.GetCallingAssembly();
@@ -24,8 +24,9 @@ namespace Skills {
                         continue;
                     } else {
                         try {
-                            BaseSkillModifier modifier = type.GetConstructor(new Type[0]).Invoke(new object[0]) as BaseSkillModifier;
+                            ISkillModifier modifier = type.GetConstructor(new Type[0]).Invoke(new object[0]) as ISkillModifier;
                             skillModifiers[attribute.skillName] = modifier;
+                            stateTypeToSkillModifierDictionary[modifier.GetStateType()] = modifier;
                             Debug.LogFormat("Loaded {0} for skill named \"{1}\"", type.Name, attribute.skillName);
                         } catch (Exception error){
                             Debug.LogError(error);
@@ -35,27 +36,51 @@ namespace Skills {
             }
         }
 
-        public static BaseSkillModifier GetSkillModifier(SkillDef skillDef) {
-            if(skillDef && skillDef.skillName.Length != 0) {
-                if(skillModifiers.TryGetValue(skillDef.skillName, out BaseSkillModifier modifier)) {
+        internal static ISkillModifier GetSkillModifier(SkillDef skillDef) {
+            if (skillDef && skillDef.skillName.Length != 0) {
+                if (skillModifiers.TryGetValue(skillDef.skillName, out ISkillModifier modifier)) {
                     return modifier;
                 }
             }
             return NoopSkillModifier.Instance;
         }
 
+        internal static ISkillModifier GetSkillModifierForEntityStateType(Type entityStateType) {
+            if (stateTypeToSkillModifierDictionary.TryGetValue(entityStateType, out ISkillModifier modifier)) {
+                return modifier;
+            }
+            return NoopSkillModifier.Instance;
+        }
+
+        internal static ISkillModifier GetSkillName(Type entityStateType) {
+            if (stateTypeToSkillModifierDictionary.TryGetValue(entityStateType, out ISkillModifier modifier)) {
+                return modifier;
+            }
+            return NoopSkillModifier.Instance;
+        }
+
     }
 
-    internal class NoopSkillModifier : BaseSkillModifier {
+    public class NoopSkillModifier : ISkillModifier {
 
         internal static NoopSkillModifier Instance = new NoopSkillModifier();
 
-        public override void ApplyChanges(SkillDef skillDef, int level) {
+        public SkillDef SkillDef { get; set; }
+
+        public int MaxLevel {
+            get { return 1; }
+        }
+
+        public Type GetStateType() {
+            return typeof(BaseState);
+        }
+
+        public void OnSkillLeveledUp(int level) {
             // do nothing
         }
 
-        public override int MaxLevel() {
-            return 1;
+        public void OnSkillWillBeUsed(BaseState skillState, int level) {
+            // do nothing
         }
     }
 }

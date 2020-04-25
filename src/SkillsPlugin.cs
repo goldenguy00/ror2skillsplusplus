@@ -53,7 +53,6 @@ namespace Skills {
             if(skillsController == null) {
                 this.skillsController = body.gameObject.AddComponent<SkillPointsController>();
             }
-            skillsController.SetCharacterBody(body);
 
             if(hud && hud.mainUIPanel) {
 
