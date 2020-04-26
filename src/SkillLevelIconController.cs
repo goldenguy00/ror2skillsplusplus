@@ -6,10 +6,11 @@ using UnityEngine;
 using RoR2;
 using RoR2.UI;
 using RoR2.UI.SkinControllers;
+using UnityEngine.Events;
 
 namespace Skills {
 
-    delegate void BuyEvent(SkillSlot skillSlot);
+    delegate void UpgradeSkillEvent(SkillSlot skillSlot);
 
     [RequireComponent(typeof(SkillIcon))]
     class SkillLevelIconController : MonoBehaviour {
@@ -20,6 +21,7 @@ namespace Skills {
         private GameObject UpgradeLevelButton;
 
         private HGTextMeshProUGUI levelTextMesh;
+        private HGButton buyButton;
 
         private CanvasRenderer CanBuyRenderer;
 
@@ -27,12 +29,10 @@ namespace Skills {
             get { return skillIcon.targetSkillSlot; }
         }
 
-        public event BuyEvent OnBuy;
+        public event UpgradeSkillEvent OnUpgradeSkill;
 
         private bool canUpgrade;
         private bool showBuyButton;
-
-        private bool canInvokeBuy = true;
 
         void Awake() {
             this.skillIcon = GetComponent<SkillIcon>();
@@ -41,12 +41,11 @@ namespace Skills {
             CanBuyPanel.transform.SetSiblingIndex(1);
             // tint the upgrade colour
             CanBuyRenderer = this.CanBuyPanel.GetComponent<CanvasRenderer>();
-            // CanBuyRenderer.SetColor(ColorCatalog.GetColor(ColorCatalog.ColorIndex.Interactable));
-            CanBuyRenderer.SetColor(Color.yellow);
+            CanBuyRenderer.SetColor(ColorCatalog.GetColor(ColorCatalog.ColorIndex.Interactable));
 
             // create the upgrade level label
             {
-                UpgradeLevelText = new GameObject();
+                UpgradeLevelText = new GameObject("LevelIndicator");
                 UpgradeLevelText.transform.parent = skillIcon.transform;
                 UpgradeLevelText.AddComponent<CanvasRenderer>();
                 RectTransform textTransform = UpgradeLevelText.AddComponent<RectTransform>();
@@ -87,13 +86,9 @@ namespace Skills {
                 buttonTextMesh.alignment = TMPro.TextAlignmentOptions.Center;
                 buttonTextMesh.enableWordWrapping = false;
 
-                HGButton button = UpgradeLevelButton.AddComponent<HGButton>();
-                Debug.Log("Add listener");
-                button.onClick.AddListener(() => {
-                    Debug.Log("onClick");
-                    if (canUpgrade) {
-                        this.OnBuy.Invoke(this.SkillSlot);
-                    }
+                buyButton = UpgradeLevelButton.AddComponent<HGButton>();
+                buyButton.onClick.AddListener(() => {
+                    this.OnUpgradeSkill.Invoke(this.SkillSlot);
                 });
 
                 buttonTransform.ForceUpdateRectTransforms();
@@ -104,15 +99,16 @@ namespace Skills {
                 buttonTransform.sizeDelta = Vector2.zero;
                 buttonTransform.offsetMin = new Vector2(0, 0);
                 buttonTransform.offsetMax = new Vector2(0, 0);
-                buttonTransform.ForceUpdateRectTransforms();
+                buttonTransform.ForceUpdateRectTransforms(); 
 
                 // ButtonSkinController skinController = UpgradeLevelButton.AddComponent<ButtonSkinController>();
                 // skinController.skinData =
             }
 
+            //CanBuyRenderer.SetColor(Color.yellow);
             SetCanUpgrade(false);
+            CanBuyRenderer.SetColor(Color.yellow);
         }
-
 
         public void SetCanUpgrade(bool canUpgrade) {
             this.canUpgrade = canUpgrade;

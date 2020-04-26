@@ -97,10 +97,15 @@ namespace Skills {
         }
 
         public void SetSkillIconControllers(SkillLevelIconController[] skillIconControllers) {
+            if (this.skillIconControllers != null) {
+                foreach (SkillLevelIconController skillIconController in this.skillIconControllers) {
+                    skillIconController.OnUpgradeSkill -= this.OnBuySkill;
+                }
+            }
             this.skillIconControllers = skillIconControllers;
             if (skillIconControllers != null) {
                 foreach (SkillLevelIconController skillIconController in skillIconControllers) {
-                    skillIconController.OnBuy += this.OnBuySkill;
+                    skillIconController.OnUpgradeSkill += this.OnBuySkill;
                 }
             }
         }
@@ -115,8 +120,9 @@ namespace Skills {
             }
 
 #if DEBUG
-            if(Input.GetKey(KeyCode.Equals)) {
-                TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong) (500 * Time.deltaTime));
+            if(Input.GetKeyDown(KeyCode.Equals)) {
+                //TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong)(500 * Time.deltaTime));
+                TeamManager.instance.SetTeamLevel(body.teamComponent.teamIndex, TeamManager.instance.GetTeamLevel(body.teamComponent.teamIndex) + 1);
             }
 #endif
 
