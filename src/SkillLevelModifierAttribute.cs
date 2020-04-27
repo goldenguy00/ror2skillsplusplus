@@ -25,6 +25,8 @@ namespace Skills {
         void OnSkillWillBeUsed(BaseState skillState, int level);
         void OnSkillLeveledUp(int level);
 
+        string GetOverrideSkillDescriptionToken();
+
     }
 
     public abstract class BaseSkillModifier<SkillState> : ISkillModifier where SkillState : BaseState {
@@ -36,6 +38,9 @@ namespace Skills {
 
         public Type GetStateType() {
             return typeof(SkillState);
+        }
+        public virtual string GetOverrideSkillDescriptionToken() {
+            return null;
         }
 
         public void OnSkillWillBeUsed(BaseState skillState, int level) {

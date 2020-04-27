@@ -82,5 +82,9 @@ namespace Skills {
         public void OnSkillWillBeUsed(BaseState skillState, int level) {
             // do nothing
         }
+
+        public string GetOverrideSkillDescriptionToken() {
+            return null;
+        }
     }
 }
