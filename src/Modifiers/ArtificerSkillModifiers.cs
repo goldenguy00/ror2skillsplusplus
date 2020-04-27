@@ -40,13 +40,13 @@ namespace Skills.Modifiers {
     class MageWallSkillModifier : BaseSkillModifier<PrepWall> {
 
         public override int MaxLevel {
-            get { return 3; }
+            get { return 1; }
         }
 
         public override void OnSkillLeveledUp(int level) {
-            float scale = AdditiveScaling(1, 0.5f, level);
-            PrepWall.areaIndicatorPrefab.transform.localScale = Vector3.one * scale;
-            PrepWall.projectilePrefab.transform.localScale = Vector3.one * scale;
+            //float scale = AdditiveScaling(1, 0.5f, level);
+            ////PrepWall.areaIndicatorPrefab.transform.localScale = Vector3.one * scale;
+            ////PrepWall.projectilePrefab.transform.localScale = Vector3.one * scale;
         }
     
     }
