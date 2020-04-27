@@ -13,4 +13,12 @@ namespace Skills {
         }
 
     }
+    public static class ComponentExtension {
+
+        public static bool TryGetComponent<T>(this Component thisComponent, out T component) where T : Component {
+            component = thisComponent.GetComponent<T>();
+            return component != null;
+        }
+
+    }
 }
