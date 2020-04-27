@@ -41,7 +41,6 @@ namespace Skills {
             CanBuyPanel.transform.SetSiblingIndex(1);
             // tint the upgrade colour
             CanBuyRenderer = this.CanBuyPanel.GetComponent<CanvasRenderer>();
-            CanBuyRenderer.SetColor(ColorCatalog.GetColor(ColorCatalog.ColorIndex.Interactable));
 
             // create the upgrade level label
             {
@@ -107,12 +106,12 @@ namespace Skills {
 
             //CanBuyRenderer.SetColor(Color.yellow);
             SetCanUpgrade(false);
-            CanBuyRenderer.SetColor(Color.yellow);
         }
 
         public void SetCanUpgrade(bool canUpgrade) {
             this.canUpgrade = canUpgrade;
             CanBuyPanel.SetActive(canUpgrade);
+            CanBuyRenderer.SetColor(Color.yellow);
             if ((showBuyButton && canUpgrade) != UpgradeLevelButton.activeInHierarchy) {
                 UpgradeLevelButton.SetActive(showBuyButton && canUpgrade);
             }
