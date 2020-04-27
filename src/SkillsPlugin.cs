@@ -4,40 +4,43 @@ using RoR2.UI;
 using RoR2.UI.SkinControllers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using R2API.AssetPlus;
 using R2API.Utils;
+using System.Net.NetworkInformation;
+using Facepunch.Steamworks;
+using Skills.Modifiers;
 
 namespace Skills {
     
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.1")]
+    [R2APISubmoduleDependency("AssetPlus")]
     public class PhotoModePlugin : BaseUnityPlugin {
 
         private HUD hud;
-        private CharacterBody body;
+        private PlayerCharacterMasterController playerCharacterMasterController;
 
-        private SkillPointsController skillsController;
-        private SkillLevelIconController[] skillsHUDControllers;        
+        //private SkillPointsController skillsController;
+        //private SkillLevelIconController[] skillsHUDControllers;
 
         public void Awake () {
 
             SkillModifierManager.LoadSkillModifiers();
 
+#if DEBUG
             On.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect += orig => { };
+#endif
 
-            // On.Skill
-            On.RoR2.PlayerCharacterMasterController.SetBody += (orig, self, bodyGameObject) => {
-                orig(self, bodyGameObject);
-                if(bodyGameObject) {
-                    this.body = bodyGameObject.GetComponent<CharacterBody>();
-                    TryCreateSkillsController();
-                }
+            On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {
+                orig(self);
+                this.playerCharacterMasterController = self;
+                TryCreateSkillsController();
             };
 
-            On.RoR2.CharacterBody.RecalculateStats += (orig, self) => {
+            On.RoR2.UI.CharacterSelectController.Awake += (orig, self) => {
                 orig(self);
-                SkillPointsController skillsController = self.GetComponent<SkillPointsController>();
-                if(skillsController) {
-                    skillsController.OnLevelChanged();
+                if (self.gameObject.GetComponent<SkillModifierTooltipController>() == null) {
+                    SkillModifierTooltipController skillModifierTooltipController = self.gameObject.AddComponent<SkillModifierTooltipController>();
                 }
             };
 
@@ -50,11 +53,11 @@ namespace Skills {
         }
 
         private void TryCreateSkillsController() {
-            if(skillsController == null) {
-                this.skillsController = body.gameObject.AddComponent<SkillPointsController>();
-            }
-
-            if(hud && hud.mainUIPanel) {
+            if (hud && hud.mainUIPanel && playerCharacterMasterController != null) {
+                SkillPointsController skillsController;
+                if (playerCharacterMasterController.gameObject.TryGetComponent(out skillsController) == false) {
+                    skillsController = playerCharacterMasterController.gameObject.AddComponent<SkillPointsController>();
+                }
 
                 SkillIcon[] skillIcons = hud.mainUIPanel.GetComponentsInChildren<SkillIcon>();
                 SkillLevelIconController[] skillIconControllers = new SkillLevelIconController[skillIcons.Length];
@@ -68,7 +71,7 @@ namespace Skills {
                 }
                 skillsController.SetSkillIconControllers(skillIconControllers);
             } else {
-                skillsController.SetSkillIconControllers(null);
+                //skillsController.SetSkillIconControllers(null);
             }
         }
 

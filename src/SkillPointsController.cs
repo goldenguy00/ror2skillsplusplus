@@ -4,6 +4,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using EntityStates;
 using R2API;
+using Rewired;
 using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
@@ -11,19 +12,32 @@ using UnityEngine;
 
 namespace Skills {
 
-    [RequireComponent(typeof(CharacterBody))]
-    [RequireComponent(typeof(SkillLocator))]
+    [RequireComponent(typeof(PlayerCharacterMasterController))]
     class SkillPointsController : MonoBehaviour {
 
 #if DEBUG
         private static int levelsPerPoint = 1;
         private static int skillLevelScaling = 2;
 #else
-        private static int levelsPerPoint = 5;
+        private static int levelsPerPoint = 3;
+        private static int skillLevelScaling = 1;
 #endif
+        private PlayerCharacterMasterController playerCharacterMasterController;
+        private CharacterBody body { 
+            get { return playerCharacterMasterController.master.GetBody(); }
+        }
+        private SkillLocator skillLocator {
+            get { return body?.skillLocator; }
+        }
 
-        private CharacterBody body;
-        private SkillLocator skillLocator;
+        private TeamIndex PlayerTeamIndex {
+            get { 
+                if (playerCharacterMasterController.master.hasBody) {
+                    return playerCharacterMasterController.master.GetBody().teamComponent.teamIndex;
+                }
+                return TeamIndex.None;
+            }
+        }
 
         private SkillLevelIconController[] skillIconControllers;
 
@@ -34,23 +48,43 @@ namespace Skills {
         private int unspentSkillPoints = 0;
 
         void Awake() {
-            this.body = this.GetComponent<CharacterBody>();
-            this.skillLocator = this.GetComponent<SkillLocator>();
             // this.spentSkillPoints = new Dictionary<SkillSlot, int>();
             this.skillLevels = new Dictionary<SkillSlot, int>();
             foreach (SkillSlot value in Enum.GetValues(typeof(SkillSlot))) {
                 skillLevels[value] = 1;
             }
+
+            this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
+
+            if (this.playerCharacterMasterController.master.hasBody) {
+                this.OnBodyStart(this.playerCharacterMasterController.master.GetBody());
+            } else {
+                this.playerCharacterMasterController.master.onBodyStart += this.OnBodyStart;
+            }
             On.RoR2.EntityStateMachine.SetState += this.OnInterceptSetState;
+
+            On.RoR2.CharacterBody.RecalculateStats += this.OnRecalculateState;
         }
 
         void OnDestroy() {
+            this.playerCharacterMasterController.master.onBodyStart -= this.OnBodyStart;
             On.RoR2.EntityStateMachine.SetState -= this.OnInterceptSetState;
+            On.RoR2.CharacterBody.RecalculateStats -= this.OnRecalculateState;
+        }
+
+        private void OnBodyStart(CharacterBody body) {
+            //EnsureSkillModifiersAreInitialised(true);
+        }
+        private void OnRecalculateState(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self) {
+            orig(self);
+            if (self == this.body) {
+                this.OnLevelChanged();
+            }
         }
 
         private void OnInterceptSetState(On.RoR2.EntityStateMachine.orig_SetState orig, EntityStateMachine self, EntityState newState) {
             if (newState != null && self.networker != null && self.networker.localPlayerAuthority) {
-                if (self.commonComponents.characterBody == this.body) {
+                if (this.body != null && self.commonComponents.characterBody == this.body) {
                     if (newState is BaseState) {
                         ISkillModifier skillModifier = SkillModifierManager.GetSkillModifierForEntityStateType(newState.GetType());
                         if (skillModifier != null && skillModifier.SkillDef?.skillName != null) {
@@ -82,14 +116,25 @@ namespace Skills {
         }
 
         private bool skillModifiersAreInitialised = false;
-        private void EnsureSkillModifiersAreInitialised() {
-            if (skillModifiersAreInitialised) {
+        private void EnsureSkillModifiersAreInitialised(bool force = false) {            
+            if (skillModifiersAreInitialised && !force) {
                 return;
             }
+
+            var skillLocator = this.skillLocator;
+            if (skillLocator == null) {
+                Debug.Log("Unable to initialise skill modifiers since there is no skill locator to use");
+                return;
+            }
+
             skillModifiersAreInitialised = true;
             foreach (SkillSlot skillSlot in Enum.GetValues(typeof(SkillSlot))) {
-                GenericSkill genericSkill = this.skillLocator.GetSkill(skillSlot);
-                SkillDef skillDef = this.skillLocator.GetSkill(skillSlot).skillDef;
+                GenericSkill genericSkill = skillLocator.GetSkill(skillSlot);
+                if (genericSkill == null) {
+                    Debug.LogFormat("Skipping slot {0} since there is no generic skill for it", skillSlot);
+                    continue;
+                }
+                SkillDef skillDef = genericSkill.skillDef;
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
                 modifier.SkillDef = skillDef;
                 modifier.OnSkillLeveledUp(skillLevels[skillSlot]);
@@ -107,6 +152,7 @@ namespace Skills {
                 foreach (SkillLevelIconController skillIconController in skillIconControllers) {
                     skillIconController.OnUpgradeSkill += this.OnBuySkill;
                 }
+                RefreshIconControllers();
             }
         }
 
@@ -114,15 +160,19 @@ namespace Skills {
 
             EnsureSkillModifiersAreInitialised();
 
-            bool infoButtonDown = body.master?.playerCharacterMasterController?.networkUser?.inputPlayer?.GetButton(RewiredConsts.Action.Info) == true;
-            foreach(SkillLevelIconController skillLevelIconController in skillIconControllers) {
-                skillLevelIconController.ShowBuyButton(infoButtonDown);
+            if (skillIconControllers != null) {
+                bool infoButtonDown = playerCharacterMasterController?.networkUser?.inputPlayer?.GetButton(RewiredConsts.Action.Info) == true;
+                foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
+                    skillLevelIconController.ShowBuyButton(infoButtonDown);
+                }
             }
 
+
+
 #if DEBUG
-            if(Input.GetKeyDown(KeyCode.Equals)) {
+            if (Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
                 //TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong)(500 * Time.deltaTime));
-                TeamManager.instance.SetTeamLevel(body.teamComponent.teamIndex, TeamManager.instance.GetTeamLevel(body.teamComponent.teamIndex) + 1);
+                TeamManager.instance.SetTeamLevel(this.PlayerTeamIndex, TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex) + 1);
             }
 #endif
 
@@ -135,7 +185,7 @@ namespace Skills {
             Debug.LogFormat("OnBuySkill({0})", Enum.GetName(typeof(SkillSlot), skillSlot));
 
             if (skillLevels.TryGetValue(skillSlot, out int skillLevel)) {
-                SkillDef skillDef = body.skillLocator.GetSkill(skillSlot).skillDef;
+                SkillDef skillDef = skillLocator.GetSkill(skillSlot).skillDef;
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
 
                 if (skillLevel >= modifier.MaxLevel) {
@@ -160,13 +210,11 @@ namespace Skills {
         }
 
         public void OnLevelChanged() {
-            if(body == null && body.teamComponent) {
-                Debug.LogError("body or body.teamComponent was null");
+            int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
+            Debug.LogFormat("OnLevelChanged({0}) for team {1}", characterLevel, PlayerTeamIndex);
+            if (this.PlayerTeamIndex == TeamIndex.None) {
                 return;
             }
-
-            int characterLevel = (int) TeamManager.instance.GetTeamLevel(body.teamComponent.teamIndex);
-            Debug.LogFormat("OnLevelChanged(%d)", characterLevel);
 
             int newSkillPoints = Math.Max(0, SkillPointsAtLevel(characterLevel) - earnedSkillPoints);
 
@@ -177,14 +225,18 @@ namespace Skills {
         }
 
         private void RefreshIconControllers() {
-            if(skillIconControllers != null) {
-                int characterLevel = (int) TeamManager.instance.GetTeamLevel(body.teamComponent.teamIndex);
-                foreach(SkillLevelIconController skillLevelIconController in skillIconControllers) {
+            Debug.Log("RefreshIconControllers");
+            var skillLocator = this.skillLocator;
+            if(skillIconControllers != null && this.PlayerTeamIndex != TeamIndex.None && skillLocator != null) {
+                int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
+                Debug.LogFormat("RefreshIconControllers - characterLevel: {0}", characterLevel);
+                foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
 
                     SkillSlot slot = skillLevelIconController.SkillSlot;
-                    if(skillLevels.TryGetValue(slot, out int currentSkillLevel)) {
-                        ISkillModifier modifier = SkillModifierManager.GetSkillModifier(body.skillLocator.GetSkill(slot).skillDef);
-                    
+                    if (skillLevels.TryGetValue(slot, out int currentSkillLevel)) {
+                        ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillLocator.GetSkill(slot).skillDef);
+                        Debug.LogFormat("RefreshIconControllers - slot: {0}, skillLevelIconController: {1}, modifier: {2}", slot, skillLevelIconController, modifier);
+
                         int requiredLevelToBuySkill = (currentSkillLevel / skillLevelScaling);
                         // has skillpoints to spend
                         // meets required character level
