@@ -1,4 +1,4 @@
-# Risk of Rain 2 - Skills Mod
+# Risk of Rain 2 - Skills++ Mod
 
 ## Version 0.0.1
 
@@ -59,7 +59,7 @@ As of version 0.0.1 there are upgrades for select character abilities.
 
 ## Roadmap
 
+* [ ] Make every skill upgradeable
 * [ ] Write guide for custom character skills
 * [ ] Improved UI and UX for upgrading skills
-* [ ] Every skill upgradeable
 * [ ] Improve mod compatability with other skill altering mods

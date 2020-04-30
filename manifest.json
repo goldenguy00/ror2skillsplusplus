@@ -1,7 +1,7 @@
 {
-	"name": "PhotoMode",
-	"version_number": "1.0.0",
-	"website_url": "https://gitlab.com/cwmlolzlz/ror2photomode",
+	"name": "SkillsPlusPlus",
+	"version_number": "0.0.1",
+	"website_url": "https://gitlab.com/cwmlolzlz/ror2skillsplusplus",
 	"description": "Adds a photo mode the game with fly camera and FOV control",
 	"dependencies": [
 		"bbepis-BepInExPack-3.2.0",
