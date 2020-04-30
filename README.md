@@ -10,7 +10,10 @@ There is no guarantee that SkillsPlusPlus is going to work with other mods thats
 I often found some character abilities to be underwhelming as runs progressed and that one ability would become more powerful that others.
 This mod hopes to provide an additional sense of progression and giving your character a feeling of power throughout a run.
 
-## Mod status
+## Usage
+
+While ingame your will earn points every three levels that can be used to purches upgrades to your characters skills.
+To redeem points open the info screen (hold TAB by default) and clikc the skill you would like to buy.
 
 As of version 0.0.1 there are upgrades for select character abilities.
 
