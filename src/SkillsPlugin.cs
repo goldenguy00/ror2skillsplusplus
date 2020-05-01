@@ -39,10 +39,6 @@ namespace Skills {
             On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {
                 orig(self);
                 self.master.onBodyStart += _ => {
-                    Debug.LogFormat("{0} hasEffectiveAuthority {1}", self, self.hasEffectiveAuthority);
-                    Debug.LogFormat("{0} hasAuthority {1}", self, self.hasAuthority);
-                    Debug.LogFormat("{0} isLocalPlayer {1}", self, self.isLocalPlayer);
-                    Debug.LogFormat("{0} isClient {1}", self, self.isClient);
                     if (self.hasEffectiveAuthority) {
                         this.playerCharacterMasterController = self;
                         TryCreateSkillsController();

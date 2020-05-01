@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Text;
 using EntityStates;
 using R2API;
+using R2API.Utils;
 using Rewired;
 using RoR2;
 using RoR2.Skills;
@@ -228,11 +229,9 @@ namespace Skills {
         }
 
         private void RefreshIconControllers() {
-            Debug.Log("RefreshIconControllers");
             var skillLocator = this.skillLocator;
             if(skillIconControllers != null && this.PlayerTeamIndex != TeamIndex.None && skillLocator != null) {
                 int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
-                Debug.LogFormat("RefreshIconControllers - characterLevel: {0}", characterLevel);
                 foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
 
                     SkillSlot slot = skillLevelIconController.SkillSlot;
