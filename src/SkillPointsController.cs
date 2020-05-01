@@ -206,7 +206,7 @@ namespace Skills {
                 // find an notify the modifer to update the skill's parameters
                 if (modifier != null)
                 {
-                    modifier.OnSkillLeveledUp(skillLevel + 1);
+                    modifier.OnSkillLeveledUp(skillLevel);
                     body.skillLocator.GetSkill(skillSlot).RecalculateValues();
                 }
                 RefreshIconControllers();

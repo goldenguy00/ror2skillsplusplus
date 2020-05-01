@@ -9,7 +9,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>Current</OldToolsVersion>
     <ProjectGuid>{A41E554F-A2B3-451F-90DA-09878F5D70F8}</ProjectGuid>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
