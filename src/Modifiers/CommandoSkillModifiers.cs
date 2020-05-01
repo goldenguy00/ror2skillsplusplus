@@ -30,7 +30,7 @@ namespace Skills.Modifiers {
     class CommandoFMJSkillModifier : BaseSkillModifier<FireFMJ> {
 
         static CommandoFMJSkillModifier() {
-            R2API.LanguageAPI.Add("COMMANDO_SPECIAL_DESCRIPTION", "Fire a piercing bullet that hits all enemies in a line for <style=cIsDamage>300% damage</style>. Projectile travels faster at higher levels.");
+            R2API.LanguageAPI.Add("COMMANDO_SECONDARY_DESCRIPTION", "Fire a piercing bullet that hits all enemies in a line for <style=cIsDamage>300% damage</style>. Projectile travels faster at higher levels.");
         }
 
         public override int MaxLevel {
