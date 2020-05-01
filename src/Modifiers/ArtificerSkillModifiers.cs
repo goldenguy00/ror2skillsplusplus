@@ -17,8 +17,10 @@ namespace Skills.Modifiers {
         }
 
         public override void OnSkillLeveledUp(int level) {
+            Debug.LogFormat("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
             SkillDef.baseMaxStock = AdditiveScaling(4, 2, level);
             SkillDef.baseRechargeInterval = AdditiveScaling(1.3f, -0.1f, level);
+            Debug.LogFormat("FireFirebolt after - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
         }
 
     }

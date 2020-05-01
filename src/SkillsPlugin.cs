@@ -1,14 +1,8 @@
 using BepInEx;
 using RoR2;
 using RoR2.UI;
-using RoR2.UI.SkinControllers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using R2API.AssetPlus;
 using R2API.Utils;
-using System.Net.NetworkInformation;
-using Facepunch.Steamworks;
-using Skills.Modifiers;
 
 namespace Skills {
     
@@ -25,10 +19,21 @@ namespace Skills {
 
         public void Awake () {
 
+#if DEBUG
+            // disable client authing when connecting to a server to allow two game instances to run in parallel
+            On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
+#endif
+
             SkillModifierManager.LoadSkillModifiers();
 
 #if DEBUG
             On.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect += orig => { };
+            On.RoR2.CharacterMaster.Awake += (orig, self) => {
+                orig(self);
+                if(self.GetFieldValue<bool>("godMode") == false){
+                    self.InvokeMethod("ToggleGod");
+                }
+            }; // god mode for all
 #endif
 
             On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {

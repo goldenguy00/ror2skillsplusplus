@@ -23,7 +23,7 @@ namespace Skills.Modifiers {
         }
 
         public override void OnSkillLeveledUp(int level) {
-            Debug.LogFormat("Glaive statslevel - max bounces: {0}, damage coefficient: {1}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce);
+            Debug.LogFormat("Glaive stats - max bounces: {0}, damage coefficient: {1}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce);
             ThrowGlaive.maxBounceCount = AdditiveScaling(origGlaiveBounceCount, 2, level);
             ThrowGlaive.damageCoefficientPerBounce = AdditiveScaling(origDamageCoefficientPerBounce, 0.025f, level);
             ThrowGlaive.glaiveBounceRange = AdditiveScaling(origGlaiveBounceRange, 10, level);
