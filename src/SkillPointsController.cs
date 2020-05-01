@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -134,10 +134,13 @@ namespace Skills {
                     Debug.LogFormat("Skipping slot {0} since there is no generic skill for it", skillSlot);
                     continue;
                 }
-                SkillDef skillDef = genericSkill.skillDef;
+                // clone the current skill definition since we are going to mutating it
+                // and we don't want to persist any state between runs
+                SkillDef skillDef = Instantiate(genericSkill.skillDef);
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
                 modifier.SkillDef = skillDef;
                 modifier.OnSkillLeveledUp(skillLevels[skillSlot]);
+                genericSkill.SetBaseSkill(skillDef);
             }
         }
 
