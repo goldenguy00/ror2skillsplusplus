@@ -17,9 +17,9 @@ namespace Skills.Modifiers {
         }
 
         public override void OnSkillLeveledUp(int level) {
-            Debug.Log("FirePistol2");
-            Debug.Log(FirePistol2.baseDuration);
-            Debug.Log(FirePistol2.recoilAmplitude);
+            Logger.Debug("FirePistol2");
+            Logger.Debug(FirePistol2.baseDuration);
+            Logger.Debug(FirePistol2.recoilAmplitude);
             FirePistol2.baseDuration = AdditiveScaling(0.2f, -0.025f, level);
             FirePistol2.recoilAmplitude = AdditiveScaling(1.5f, -0.375f, level);
         }
@@ -69,10 +69,10 @@ namespace Skills.Modifiers {
         }
 
         public override void OnSkillLeveledUp(int level) {
-            Debug.Log("Barrage");
-            Debug.Log(FireBarrage.baseBulletCount);
-            Debug.Log(FireBarrage.baseDurationBetweenShots);
-            Debug.Log(FireBarrage.bulletRadius);
+            Logger.Debug("Barrage");
+            Logger.Debug(FireBarrage.baseBulletCount);
+            Logger.Debug(FireBarrage.baseDurationBetweenShots);
+            Logger.Debug(FireBarrage.bulletRadius);
             FireBarrage.baseBulletCount = AdditiveScaling(6, 4, level);
             FireBarrage.baseDurationBetweenShots = AdditiveScaling(0.12f, -0.01f, level);
             FireBarrage.bulletRadius = AdditiveScaling(1.5f, 0.5f, level);

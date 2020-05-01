@@ -84,7 +84,7 @@ namespace Skills {
                             }
                         }
                     } else {
-                        Debug.LogWarningFormat("BUG: Attempting to reference out of bounds skill at index %d", skillIndex);
+                        Logger.DebugWarningFormat("BUG: Attempting to reference out of bounds skill at index %d", skillIndex);
                     }
                     
                 }                

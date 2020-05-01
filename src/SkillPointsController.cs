@@ -93,20 +93,20 @@ namespace Skills {
                             if (genericSkill != null) {
                                 SkillSlot skillSlot = this.skillLocator.FindSkillSlot(genericSkill);
                                 if (skillSlot != null) {
-                                    Debug.LogFormat("Successfully intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, newState.GetType().Name);
+                                    Logger.Debug("Successfully intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, newState.GetType().Name);
                                     this.EnsureSkillModifiersAreInitialised();
                                     skillModifier.OnSkillWillBeUsed((BaseState)newState, this.skillLevels[skillSlot]);
                                 } else {
-                                    Debug.LogErrorFormat("Could not identify skill slot for generic skill {0}", genericSkill);
+                                    Logger.Error("Could not identify skill slot for generic skill {0}", genericSkill);
                                 }
                             } else {
-                                Debug.LogErrorFormat("Could not find generic skill instance for skill named {0}", skillModifier.SkillDef.skillName);
+                                Logger.Error("Could not find generic skill instance for skill named {0}", skillModifier.SkillDef.skillName);
                             }
                         } else {
 
                         }
                     } else {
-                        Debug.Log(newState);
+                        Logger.Debug(newState);
                     }
                 } else {
 
@@ -124,7 +124,7 @@ namespace Skills {
 
             var skillLocator = this.skillLocator;
             if (skillLocator == null) {
-                Debug.Log("Unable to initialise skill modifiers since there is no skill locator to use");
+                Logger.Debug("Unable to initialise skill modifiers since there is no skill locator to use");
                 return;
             }
 
@@ -132,7 +132,7 @@ namespace Skills {
             foreach (SkillSlot skillSlot in Enum.GetValues(typeof(SkillSlot))) {
                 GenericSkill genericSkill = skillLocator.GetSkill(skillSlot);
                 if (genericSkill == null) {
-                    Debug.LogFormat("Skipping slot {0} since there is no generic skill for it", skillSlot);
+                    Logger.Debug("Skipping slot {0} since there is no generic skill for it", skillSlot);
                     continue;
                 }
                 // clone the current skill definition since we are going to mutating it
@@ -186,7 +186,7 @@ namespace Skills {
             if (unspentSkillPoints <= 0) {
                 return;
             }
-            Debug.LogFormat("OnBuySkill({0})", Enum.GetName(typeof(SkillSlot), skillSlot));
+            Logger.Debug("OnBuySkill({0})", Enum.GetName(typeof(SkillSlot), skillSlot));
 
             if (skillLevels.TryGetValue(skillSlot, out int skillLevel)) {
                 SkillDef skillDef = skillLocator.GetSkill(skillSlot).skillDef;
@@ -201,7 +201,7 @@ namespace Skills {
 
                 // increment and store the new skill level
                 skillLevels[skillSlot] = ++skillLevel;
-                Debug.LogFormat("SkillSlot {0} @ level {1}", Enum.GetName(typeof(SkillSlot), skillSlot), skillLevel);
+                Logger.Debug("SkillSlot {0} @ level {1}", Enum.GetName(typeof(SkillSlot), skillSlot), skillLevel);
 
                 // find an notify the modifer to update the skill's parameters
                 if (modifier != null)
@@ -215,7 +215,7 @@ namespace Skills {
 
         public void OnLevelChanged() {
             int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
-            Debug.LogFormat("OnLevelChanged({0}) for team {1}", characterLevel, PlayerTeamIndex);
+            Logger.Debug("OnLevelChanged({0}) for team {1}", characterLevel, PlayerTeamIndex);
             if (this.PlayerTeamIndex == TeamIndex.None) {
                 return;
             }
@@ -237,7 +237,7 @@ namespace Skills {
                     SkillSlot slot = skillLevelIconController.SkillSlot;
                     if (skillLevels.TryGetValue(slot, out int currentSkillLevel)) {
                         ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillLocator.GetSkill(slot).skillDef);
-                        Debug.LogFormat("RefreshIconControllers - slot: {0}, skillLevelIconController: {1}, modifier: {2}", slot, skillLevelIconController, modifier);
+                        Logger.Debug("RefreshIconControllers - slot: {0}, skillLevelIconController: {1}, modifier: {2}", slot, skillLevelIconController, modifier);
 
                         int requiredLevelToBuySkill = (currentSkillLevel / skillLevelScaling);
                         // has skillpoints to spend
