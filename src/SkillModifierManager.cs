@@ -20,16 +20,16 @@ namespace Skills {
                 var attributes = type.GetCustomAttributes<SkillLevelModifierAttribute>();
                 foreach(SkillLevelModifierAttribute attribute in attributes) {
                     if(skillModifiers.ContainsKey(attribute.skillName)) {
-                        Debug.LogWarningFormat("Replacing an existing skill modifier it not permitted. Skill name = {0}", attribute.skillName);
+                        Logger.Warn("Replacing an existing skill modifier it not permitted. Skill name = {0}", attribute.skillName);
                         continue;
                     } else {
                         try {
                             ISkillModifier modifier = type.GetConstructor(new Type[0]).Invoke(new object[0]) as ISkillModifier;
                             skillModifiers[attribute.skillName] = modifier;
                             stateTypeToSkillModifierDictionary[modifier.GetStateType()] = modifier;
-                            Debug.LogFormat("Loaded {0} for skill named \"{1}\"", type.Name, attribute.skillName);
+                            Logger.Debug("Loaded {0} for skill named \"{1}\"", type.Name, attribute.skillName);
                         } catch (Exception error){
-                            Debug.LogError(error);
+                            Logger.Error(error);
                         }
                     }
                 }

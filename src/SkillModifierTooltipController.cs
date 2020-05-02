@@ -35,6 +35,12 @@ namespace Skills {
 
             if (characterSelectController == this.characterSelectController) {
 
+                // get the selected character game object and components
+                int bodyIndexFromSurvivorIndex = SurvivorCatalog.GetBodyIndexFromSurvivorIndex(characterSelectController.selectedSurvivorIndex);
+                GameObject bodyPrefab = BodyCatalog.GetBodyPrefab(bodyIndexFromSurvivorIndex);
+                SkillLocator skillLocator = bodyPrefab.GetComponent<SkillLocator>();
+                GenericSkill[] genericSkills = bodyPrefab.GetComponents<GenericSkill>();
+
                 UIElementAllocator<RectTransform> skillStripAllocator = characterSelectController.GetFieldValue<UIElementAllocator<RectTransform>>("skillStripAllocator");
                 for (int i = 0; i < skillStripAllocator.elements.Count; i++) {
                     
@@ -44,11 +50,9 @@ namespace Skills {
                     //HGTextMeshProUGUI component2 = skillStripTransform.Find("Inner/SkillDescriptionPanel/SkillName").GetComponent<HGTextMeshProUGUI>();
                     HGTextMeshProUGUI skillDescriptionText = skillStripTransform.Find("Inner/SkillDescriptionPanel/SkillDescription").GetComponent<HGTextMeshProUGUI>();
 
-
-                    int bodyIndexFromSurvivorIndex = SurvivorCatalog.GetBodyIndexFromSurvivorIndex(characterSelectController.selectedSurvivorIndex);
-                    GameObject bodyPrefab = BodyCatalog.GetBodyPrefab(bodyIndexFromSurvivorIndex);
-                    SkillLocator skillLocator = bodyPrefab.GetComponent<SkillLocator>();
                     int skillIndex = i;
+
+                    // assumes passive skills are always displayed in the first row of the loadout
                     if (skillLocator.passiveSkill.enabled) {
                         if (i == 0) {
                             continue;
@@ -56,28 +60,31 @@ namespace Skills {
                         skillIndex--;
                     }
 
-                    SkillSlot skillSlot = (SkillSlot)skillIndex;
+                    // assumes the order of the generic skills matches the order displayed in the UI
+                    if (skillIndex < genericSkills.Length) {
+                        GenericSkill genericSkill = genericSkills[skillIndex];
 
-                    LocalUser localUser = characterSelectController.GetFieldValue<LocalUser>("localUser");
-                    if (localUser != null && localUser.userProfile != null) {
-                        Loadout loadout = new Loadout();
-                        localUser.userProfile.CopyLoadout(loadout);
+                        LocalUser localUser = characterSelectController.GetFieldValue<LocalUser>("localUser");
+                        if (localUser != null && localUser.userProfile != null) {
+                            Loadout loadout = new Loadout();
+                            localUser.userProfile.CopyLoadout(loadout);
 
+                            uint variantIndex = loadout.bodyLoadoutManager.GetSkillVariant(bodyIndexFromSurvivorIndex, skillIndex);
+                            SkillDef skillDef = genericSkill.skillFamily.variants[variantIndex].skillDef;
 
-                        uint variantIndex = loadout.bodyLoadoutManager.GetSkillVariant(bodyIndexFromSurvivorIndex, skillIndex);
-                        GenericSkill genericSkill = skillLocator.GetSkill(skillSlot);
-                        SkillDef skillDef = genericSkill.skillFamily.variants[variantIndex].skillDef;
-
-                        ISkillModifier skillModifier = SkillModifierManager.GetSkillModifier(skillDef);
-                        string overrideDescriptionToken = skillModifier.GetOverrideSkillDescriptionToken();
-                        if (overrideDescriptionToken != null) {
-                            string overrideDescription = Language.GetString(overrideDescriptionToken);
-                            if (overrideDescription != null) {
-                                skillDescriptionText.text = overrideDescription;
-                            } else {
-                                skillDescriptionText.text = overrideDescriptionToken;
+                            ISkillModifier skillModifier = SkillModifierManager.GetSkillModifier(skillDef);
+                            string overrideDescriptionToken = skillModifier.GetOverrideSkillDescriptionToken();
+                            if (overrideDescriptionToken != null) {
+                                string overrideDescription = Language.GetString(overrideDescriptionToken);
+                                if (overrideDescription != null) {
+                                    skillDescriptionText.text = overrideDescription;
+                                } else {
+                                    skillDescriptionText.text = overrideDescriptionToken;
+                                }
                             }
                         }
+                    } else {
+                        Logger.Warn("BUG: Attempting to reference out of bounds skill at index %d", skillIndex);
                     }
                     
                 }                

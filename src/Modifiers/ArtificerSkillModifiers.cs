@@ -17,8 +17,10 @@ namespace Skills.Modifiers {
         }
 
         public override void OnSkillLeveledUp(int level) {
+            Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
             SkillDef.baseMaxStock = AdditiveScaling(4, 2, level);
             SkillDef.baseRechargeInterval = AdditiveScaling(1.3f, -0.1f, level);
+            Logger.Debug("FireFirebolt after - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
         }
 
     }
@@ -65,23 +67,23 @@ namespace Skills.Modifiers {
 
         protected override void OnSkillWillBeUsed(Flamethrower skillState, int level) {
             base.OnSkillWillBeUsed(skillState, level);
-            Debug.Log(skillState.maxDistance);
+            Logger.Debug(skillState.maxDistance);
             baseMaxDistance = skillState.maxDistance;
             skillState.maxDistance = AdditiveScaling(baseMaxDistance, baseMaxDistance, level);
 
-            Debug.Log(skillState.flamethrowerEffectPrefab.transform.localScale);
+            Logger.Debug(skillState.flamethrowerEffectPrefab.transform.localScale);
             skillState.flamethrowerEffectPrefab.transform.localScale = new Vector3(Flamethrower.radius, Flamethrower.radius, AdditiveScaling(1, 1, level));
             //if (skillState.flamethrowerEffectPrefab.TryGetComponent(out DestroyOnTimer timer)) {
             //    timer.duration = Flamethrower.baseFlamethrowerDuration;
             //}
-            Debug.Log(skillState.maxDistance);
+            Logger.Debug(skillState.maxDistance);
         }
 
         public override void OnSkillLeveledUp(int level) {
             Flamethrower.radius = AdditiveScaling(baseRadius, baseRadius * 0.5f, level);
             //Flamethrower.baseFlamethrowerDuration = AdditiveScaling(baseFlamethrowerDuration, 2, level);
             Flamethrower.totalDamageCoefficient = AdditiveScaling(totalDamageCoefficient, 0.2f, level);
-            Debug.LogFormat("Flamethrower stats - baseFlamethrowerDuration: {0}, totalDamageCoefficient: {1}, radius: {2}", Flamethrower.baseFlamethrowerDuration, Flamethrower.totalDamageCoefficient, Flamethrower.radius);
+            Logger.Debug("Flamethrower stats - baseFlamethrowerDuration: {0}, totalDamageCoefficient: {1}, radius: {2}", Flamethrower.baseFlamethrowerDuration, Flamethrower.totalDamageCoefficient, Flamethrower.radius);
         }
 
     }

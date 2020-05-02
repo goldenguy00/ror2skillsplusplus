@@ -58,6 +58,7 @@ namespace Skills {
 
 
                 textTransform.ForceUpdateRectTransforms();
+                textTransform.localScale = Vector3.one; // fixes multiplayer bug where joining players have overscaled buttons
                 textTransform.localPosition = Vector2.zero;
                 textTransform.anchorMin = Vector2.zero;
                 textTransform.anchorMax = Vector2.zero;
@@ -91,6 +92,7 @@ namespace Skills {
                 });
 
                 buttonTransform.ForceUpdateRectTransforms();
+                buttonTransform.localScale = Vector3.one; // fixes multiplayer bug where joining players have overscaled buttons
                 buttonTransform.localPosition = Vector2.zero;
                 buttonTransform.anchorMin = Vector2.zero;
                 buttonTransform.anchorMax = Vector2.one;

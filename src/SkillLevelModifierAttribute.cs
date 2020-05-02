@@ -47,7 +47,7 @@ namespace Skills {
             if (skillState is SkillState) {
                 this.OnSkillWillBeUsed(skillState as SkillState, level);
             } else {
-                Debug.LogFormat("Unable to cast {0} to {1} for skill modifier {2}", skillState, typeof(SkillState).FullName, SkillDef.skillName);
+                Logger.Debug("Unable to cast {0} to {1} for skill modifier {2}", skillState, typeof(SkillState).FullName, SkillDef.skillName);
             }
         }
 

@@ -23,11 +23,12 @@ namespace Skills.Modifiers {
         }
 
         public override void OnSkillLeveledUp(int level) {
-            Debug.LogFormat("Glaive statslevel - max bounces: {0}, damage coefficient: {1}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce);
+            Logger.Debug("OnSkillLeveledUp(level: {0})", level);
+            Logger.Debug("Glaive stats - max bounces: {0}, damage coefficient: {1}, glaiveBounceRange: {2}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce, ThrowGlaive.glaiveBounceRange);
             ThrowGlaive.maxBounceCount = AdditiveScaling(origGlaiveBounceCount, 2, level);
             ThrowGlaive.damageCoefficientPerBounce = AdditiveScaling(origDamageCoefficientPerBounce, 0.025f, level);
             ThrowGlaive.glaiveBounceRange = AdditiveScaling(origGlaiveBounceRange, 10, level);
-            Debug.LogFormat("Glaive stats - max bounces: {0}, damage coefficient: {1}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce);
+            Logger.Debug("Glaive stats - max bounces: {0}, damage coefficient: {1}, glaiveBounceRange: {2}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce, ThrowGlaive.glaiveBounceRange);
         }
 
     }
@@ -51,7 +52,7 @@ namespace Skills.Modifiers {
             ArrowRain.damageCoefficient = AdditiveScaling(origDamageCoefficient, 0.25f, level);
 
             ArrowRain.projectilePrefab.transform.localScale = Vector3.one * ArrowRain.arrowRainRadius * 2;
-            Debug.LogFormat("ArrowRain stats - arrowRainRadius: {0}, damageCoefficient: {1}, prefabScale {2}", ArrowRain.arrowRainRadius, ArrowRain.damageCoefficient, ArrowRain.projectilePrefab.transform.localScale);
+            Logger.Debug("ArrowRain stats - arrowRainRadius: {0}, damageCoefficient: {1}, prefabScale {2}", ArrowRain.arrowRainRadius, ArrowRain.damageCoefficient, ArrowRain.projectilePrefab.transform.localScale);
         }
 
     }
