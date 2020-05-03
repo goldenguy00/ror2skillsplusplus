@@ -40,6 +40,11 @@ As of version 0.0.1 there are upgrades for select character abilities.
 - Fire delay decreases by 25ms per level
 - Recoil reduces by 0.375 units per level
 
+**Phase blast**
+
+- Increases stock by 1 per level
+- Projectile size increases 50% per level
+
 **Supressive Fire**
 
 - Fires an extra 4 bullets per level
