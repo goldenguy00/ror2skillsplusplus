@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using RoR2.Skills;
 using EntityStates;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Skills {
 
     internal interface ISkillModifier {
 
-        Type GetStateType();
+        IList<Type> GetEntityStateTypes();
 
         int MaxLevel { get; }
         SkillDef SkillDef { get; set; }
@@ -36,8 +37,8 @@ namespace Skills {
 
         internal BaseSkillModifier() { }
 
-        public Type GetStateType() {
-            return typeof(SkillState);
+        public IList<Type> GetEntityStateTypes() {
+            return new List<Type>() { typeof(SkillState) };
         }
         public virtual string GetOverrideSkillDescriptionToken() {
             return null;
