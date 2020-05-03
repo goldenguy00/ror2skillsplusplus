@@ -52,7 +52,7 @@ namespace Skills.Modifiers {
     class CommandoRollSkillModifier : BaseSkillModifier<CombatDodge> {
 
         public override int MaxLevel {
-            get { return 3; }
+            get { return 1; }
         }
 
         public override void OnSkillLeveledUp(int level) {
