@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EntityStates;
+using RoR2;
 using RoR2.Skills;
 
 namespace Skills.Modifiers {
@@ -12,7 +13,9 @@ namespace Skills.Modifiers {
 
         int MaxLevel { get; }
         SkillDef SkillDef { get; set; }
-        void OnSkillWillBeUsed(BaseState skillState, int level);
+        CharacterBody CharacterBody { get; set; }
+        void OnSkillEnter(BaseState skillState, int level);
+        void OnSkillExit(BaseState skillState, int level);
         void OnSkillLeveledUp(int level);
 
         string GetOverrideSkillDescriptionToken();

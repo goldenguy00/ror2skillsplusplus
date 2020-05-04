@@ -38,8 +38,8 @@ namespace Skills.Modifiers {
             get { return 3; }
         }
 
-        protected override void OnSkillWillBeUsed(FireFMJ skillState, int level) {
-            base.OnSkillWillBeUsed(skillState, level);
+        protected override void OnSkillEnter(FireFMJ skillState, int level) {
+            base.OnSkillEnter(skillState, level);
             skillState.projectilePrefab.transform.localScale = new Vector3(2.90f, 2.19f, 3.86f) * AdditiveScaling(1, 0.5f, level);
         }
 

@@ -49,8 +49,8 @@ namespace Skills.Modifiers {
             get { return 4; }
         }
 
-        protected override void OnSkillWillBeUsed(ChargeNovabomb skillState, int level) {
-            base.OnSkillWillBeUsed(skillState, level);
+        protected override void OnSkillEnter(ChargeNovabomb skillState, int level) {
+            base.OnSkillEnter(skillState, level);
             Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", skillState.baseChargeDuration, skillState.maxDamageCoefficient, skillState.maxRadius);
             skillState.baseChargeDuration = MultScaling(skillState.baseChargeDuration, 0.5f, level);
             skillState.maxDamageCoefficient = MultScaling(skillState.maxDamageCoefficient, 0.5f, level);
@@ -80,7 +80,7 @@ namespace Skills.Modifiers {
         public override int MaxLevel {
             get { return 3; }
         }
-        protected override void OnSkillWillBeUsed(PrepWall skillState, int level) {
+        protected override void OnSkillEnter(PrepWall skillState, int level) {
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);            
             PrepWall.damageCoefficient = AdditiveScaling(1, 0.5f, level);
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
@@ -118,8 +118,8 @@ namespace Skills.Modifiers {
             get { return 4; }
         }
 
-        protected override void OnSkillWillBeUsed(Flamethrower skillState, int level) {
-            base.OnSkillWillBeUsed(skillState, level);
+        protected override void OnSkillEnter(Flamethrower skillState, int level) {
+            base.OnSkillEnter(skillState, level);
             Logger.Debug(skillState.maxDistance);
             baseMaxDistance = skillState.maxDistance;
             skillState.maxDistance = AdditiveScaling(baseMaxDistance, baseMaxDistance, level);
@@ -149,8 +149,8 @@ namespace Skills.Modifiers {
             get { return 4; }
         }
 
-        protected override void OnSkillWillBeUsed(FlyUpState skillState, int level) {
-            base.OnSkillWillBeUsed(skillState, level);
+        protected override void OnSkillEnter(FlyUpState skillState, int level) {
+            base.OnSkillEnter(skillState, level);
         }
 
         public override void OnSkillLeveledUp(int level) {

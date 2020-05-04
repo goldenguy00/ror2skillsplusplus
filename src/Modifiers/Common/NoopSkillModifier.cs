@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EntityStates;
+using RoR2;
 using RoR2.Skills;
 
 namespace Skills.Modifiers {
@@ -10,6 +11,7 @@ namespace Skills.Modifiers {
         internal static NoopSkillModifier Instance = new NoopSkillModifier();
 
         public SkillDef SkillDef { get; set; }
+        public CharacterBody CharacterBody { get; set; }
 
         public int MaxLevel {
             get { return 1; }
@@ -23,7 +25,11 @@ namespace Skills.Modifiers {
             // do nothing
         }
 
-        public void OnSkillWillBeUsed(BaseState skillState, int level) {
+        public void OnSkillEnter(BaseState skillState, int level) {
+            // do nothing
+        }
+
+        public void OnSkillExit(BaseState skillState, int level) {
             // do nothing
         }
 

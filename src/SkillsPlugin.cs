@@ -31,17 +31,16 @@ namespace Skills {
                 return true;
             };
             On.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect += orig => { };
-            On.RoR2.CharacterMaster.Awake += (orig, self) => {
-                orig(self);
-                if(self.GetFieldValue<bool>("godMode") == false){
-                    self.InvokeMethod("ToggleGod");
-                }
-            }; // god mode for all
 #endif
 
             On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {
                 orig(self);
                 self.master.onBodyStart += _ => {
+#if DEBUG
+                    if(self.master.GetBody().healthComponent.godMode == false){
+                        self.master.GetBody().healthComponent.godMode = true;
+                    }
+#endif
                     if (self.hasEffectiveAuthority) {
                         this.playerCharacterMasterController = self;
                         TryCreateSkillsController();

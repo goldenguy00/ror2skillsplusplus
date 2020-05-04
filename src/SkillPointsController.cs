@@ -21,7 +21,7 @@ namespace Skills {
         private static int skillLevelScaling = 1;
 #endif
         private PlayerCharacterMasterController playerCharacterMasterController;
-        private CharacterBody body { 
+        private CharacterBody body {
             get { return playerCharacterMasterController.master.GetBody(); }
         }
         private SkillLocator skillLocator {
@@ -29,7 +29,7 @@ namespace Skills {
         }
 
         private TeamIndex PlayerTeamIndex {
-            get { 
+            get {
                 if (playerCharacterMasterController.master.hasBody) {
                     return playerCharacterMasterController.master.GetBody().teamComponent.teamIndex;
                 }
@@ -54,12 +54,16 @@ namespace Skills {
 
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
 
+            this.playerCharacterMasterController.master.onBodyStart += OnBodyStart;
             On.EntityStates.BaseState.OnEnter += OnEnterState;
+            On.EntityStates.EntityState.OnExit += OnExitState;
             On.RoR2.CharacterBody.RecalculateStats += this.OnRecalculateState;
         }
 
         void OnDestroy() {
+            this.playerCharacterMasterController.master.onBodyStart -= OnBodyStart;
             On.EntityStates.BaseState.OnEnter -= OnEnterState;
+            On.EntityStates.EntityState.OnExit -= OnExitState;
             On.RoR2.CharacterBody.RecalculateStats -= this.OnRecalculateState;
 
         }
@@ -70,15 +74,19 @@ namespace Skills {
             }
         }
 
-        private void OnEnterState(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
+        private void OnBodyStart(CharacterBody body) {
+            EnsureSkillModifiersAreInitialised(true);
+        }
 
-            var entityStateMachine = self.outer;
+        private bool TryGetSkillModifierForState(BaseState state, out ISkillModifier skillModifierOut, out SkillSlot skillSlotOut) {
+            var entityStateMachine = state.outer;
             if (entityStateMachine != null) {
                 if (entityStateMachine.networker != null && entityStateMachine.networker.localPlayerAuthority) {
                     if (this.body != null && entityStateMachine.commonComponents.characterBody == this.body) {
-                        var stateType = self.GetType();
+                        var stateType = state.GetType();
                         Logger.Debug("{0}.OnEnter()", stateType.FullName);
                         ICollection<ISkillModifier> skillModifiers = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
+                        this.EnsureSkillModifiersAreInitialised();
                         foreach (ISkillModifier skillModifier in skillModifiers) {
                             var skillName = skillModifier.SkillDef?.skillName;
                             if (skillName == null) {
@@ -96,12 +104,34 @@ namespace Skills {
                                 continue;
                             }
                             Logger.Debug("Successfully intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, stateType.Name);
-                            this.EnsureSkillModifiersAreInitialised();
-                            skillModifier.OnSkillWillBeUsed(self, this.skillLevels[skillSlot]);
+                            skillSlotOut = skillSlot;
+                            skillModifierOut = skillModifier;
+                            return true;
                         }
                     }
                 }
             }
+            skillSlotOut = SkillSlot.None;
+            skillModifierOut = null;
+            return false;
+        }
+
+        private void OnEnterState(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
+            if (TryGetSkillModifierForState(self, out ISkillModifier skillModifier, out SkillSlot skillSlot)) {
+                skillModifier.OnSkillEnter(self, this.skillLevels[skillSlot]);
+            }
+
+            orig(self);
+        }
+
+        private void OnExitState(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
+            if (self is BaseState) {
+                BaseState baseState = (BaseState)self;
+                if (TryGetSkillModifierForState(baseState, out ISkillModifier skillModifier, out SkillSlot skillSlot)) {
+                    skillModifier.OnSkillExit(baseState, this.skillLevels[skillSlot]);
+                }
+            }
+
             orig(self);
         }
 
@@ -130,6 +160,7 @@ namespace Skills {
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
                 modifier.SkillDef = skillDef;
                 modifier.OnSkillLeveledUp(skillLevels[skillSlot]);
+                modifier.CharacterBody = this.body;
                 genericSkill.SetBaseSkill(skillDef);
             }
         }

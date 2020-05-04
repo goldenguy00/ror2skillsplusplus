@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using EntityStates;
+using RoR2;
 using RoR2.Skills;
 
 namespace Skills.Modifiers {
     public abstract class BaseSkillModifer : ISkillModifier {
         public SkillDef SkillDef { get; set; }
+        public CharacterBody CharacterBody { get; set; }
 
         public abstract int MaxLevel { get; }
 
         internal BaseSkillModifer() { }
         public abstract IList<Type> GetEntityStateTypes();
-        public abstract void OnSkillWillBeUsed(BaseState skillState, int level);
+        public abstract void OnSkillEnter(BaseState skillState, int level);
+        public abstract void OnSkillExit(BaseState skillState, int level);
         public abstract void OnSkillLeveledUp(int level);
         public virtual string GetOverrideSkillDescriptionToken() {
             return null;
