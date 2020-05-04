@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Text;
 using EntityStates;
-using R2API;
-using R2API.Utils;
-using Rewired;
 using RoR2;
 using RoR2.Skills;
-using RoR2.UI;
 using UnityEngine;
+
+using Skills.Modifiers;
+using System.Linq;
 
 namespace Skills {
 
@@ -57,24 +54,14 @@ namespace Skills {
 
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
 
-            if (this.playerCharacterMasterController.master.hasBody) {
-                this.OnBodyStart(this.playerCharacterMasterController.master.GetBody());
-            } else {
-                this.playerCharacterMasterController.master.onBodyStart += this.OnBodyStart;
-            }
-            On.RoR2.EntityStateMachine.SetState += this.OnInterceptSetState;
-
+            On.EntityStates.BaseState.OnEnter += OnEnterState;
             On.RoR2.CharacterBody.RecalculateStats += this.OnRecalculateState;
         }
 
         void OnDestroy() {
-            this.playerCharacterMasterController.master.onBodyStart -= this.OnBodyStart;
-            On.RoR2.EntityStateMachine.SetState -= this.OnInterceptSetState;
+            On.EntityStates.BaseState.OnEnter -= OnEnterState;
             On.RoR2.CharacterBody.RecalculateStats -= this.OnRecalculateState;
-        }
 
-        private void OnBodyStart(CharacterBody body) {
-            //EnsureSkillModifiersAreInitialised(true);
         }
         private void OnRecalculateState(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self) {
             orig(self);
@@ -83,37 +70,39 @@ namespace Skills {
             }
         }
 
-        private void OnInterceptSetState(On.RoR2.EntityStateMachine.orig_SetState orig, EntityStateMachine self, EntityState newState) {
-            if (newState != null && self.networker != null && self.networker.localPlayerAuthority) {
-                if (this.body != null && self.commonComponents.characterBody == this.body) {
-                    if (newState is BaseState) {
-                        ISkillModifier skillModifier = SkillModifierManager.GetSkillModifierForEntityStateType(newState.GetType());
-                        if (skillModifier != null && skillModifier.SkillDef?.skillName != null) {
-                            GenericSkill genericSkill = this.skillLocator.FindSkill(skillModifier.SkillDef.skillName);
-                            if (genericSkill != null) {
-                                SkillSlot skillSlot = this.skillLocator.FindSkillSlot(genericSkill);
-                                if (skillSlot != null) {
-                                    Logger.Debug("Successfully intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, newState.GetType().Name);
-                                    this.EnsureSkillModifiersAreInitialised();
-                                    skillModifier.OnSkillWillBeUsed((BaseState)newState, this.skillLevels[skillSlot]);
-                                } else {
-                                    Logger.Error("Could not identify skill slot for generic skill {0}", genericSkill);
-                                }
-                            } else {
-                                Logger.Error("Could not find generic skill instance for skill named {0}", skillModifier.SkillDef.skillName);
+        private void OnEnterState(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
+
+            var entityStateMachine = self.outer;
+            if (entityStateMachine != null) {
+                if (entityStateMachine.networker != null && entityStateMachine.networker.localPlayerAuthority) {
+                    if (this.body != null && entityStateMachine.commonComponents.characterBody == this.body) {
+                        var stateType = self.GetType();
+                        Logger.Debug("{0}.OnEnter()", stateType.FullName);
+                        ICollection<ISkillModifier> skillModifiers = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
+                        foreach (ISkillModifier skillModifier in skillModifiers) {
+                            var skillName = skillModifier.SkillDef?.skillName;
+                            if (skillName == null) {
+                                continue;
                             }
-                        } else {
-
+                            var genericSkills = this.body.GetComponents<GenericSkill>();
+                            var genericSkill = genericSkills.FirstOrDefault(it => { return it.skillDef.skillName == skillName; });
+                            if (genericSkill == null) {
+                                Logger.Error("Could not find generic skill instance for skill named {0}", skillName);
+                                continue;
+                            }
+                            SkillSlot skillSlot = this.skillLocator.FindSkillSlot(genericSkill);
+                            if (skillSlot == SkillSlot.None) {
+                                Logger.Error("Could not identify skill slot for generic skill {0}", genericSkill);
+                                continue;
+                            }
+                            Logger.Debug("Successfully intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, stateType.Name);
+                            this.EnsureSkillModifiersAreInitialised();
+                            skillModifier.OnSkillWillBeUsed(self, this.skillLevels[skillSlot]);
                         }
-                    } else {
-                        Logger.Debug(newState);
                     }
-                } else {
-
                 }
             }
-
-            orig(self, newState);
+            orig(self);
         }
 
         private bool skillModifiersAreInitialised = false;
@@ -215,7 +204,7 @@ namespace Skills {
 
         public void OnLevelChanged() {
             int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
-            Logger.Debug("OnLevelChanged({0}) for team {1}", characterLevel, PlayerTeamIndex);
+            // Logger.Debug("OnLevelChanged({0}) for team {1}", characterLevel, PlayerTeamIndex);
             if (this.PlayerTeamIndex == TeamIndex.None) {
                 return;
             }
@@ -237,7 +226,7 @@ namespace Skills {
                     SkillSlot slot = skillLevelIconController.SkillSlot;
                     if (skillLevels.TryGetValue(slot, out int currentSkillLevel)) {
                         ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillLocator.GetSkill(slot).skillDef);
-                        Logger.Debug("RefreshIconControllers - slot: {0}, skillLevelIconController: {1}, modifier: {2}", slot, skillLevelIconController, modifier);
+                        // Logger.Debug("RefreshIconControllers - slot: {0}, skillLevelIconController: {1}, modifier: {2}", slot, skillLevelIconController, modifier);
 
                         int requiredLevelToBuySkill = (currentSkillLevel / skillLevelScaling);
                         // has skillpoints to spend

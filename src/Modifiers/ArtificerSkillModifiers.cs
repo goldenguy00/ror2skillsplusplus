@@ -6,11 +6,28 @@ using EntityStates.Mage;
 using EntityStates.Mage.Weapon;
 using UnityEngine;
 using RoR2;
+using RoR2.Projectile;
 
 namespace Skills.Modifiers {
 
     [SkillLevelModifier("FireFirebolt")]
-    class ArtificerFireBoltSkillModifier : BaseSkillModifier<FireFireBolt> {
+    class ArtificerFireBoltSkillModifier : TypedBaseSkillModifier<FireFireBolt> {
+
+        public override int MaxLevel {
+            get { return 5; }
+        }
+
+        public override void OnSkillLeveledUp(int level) {
+            Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
+            SkillDef.baseMaxStock = AdditiveScaling(4, 2, level);
+            SkillDef.baseRechargeInterval = AdditiveScaling(1.3f, -0.1f, level);
+            Logger.Debug("FireFirebolt after - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
+        }
+
+    }
+
+    [SkillLevelModifier("FireLightningBolt")]
+    class ArtificerLightningBoltSkillModifier : TypedBaseSkillModifier<FireLightningBolt> {
 
         public override int MaxLevel {
             get { return 5; }
@@ -26,35 +43,71 @@ namespace Skills.Modifiers {
     }
 
     [SkillLevelModifier("NovaBomb")]
-    class HuntressNovaBombSkillModifier : BaseSkillModifier<ChargeNovabomb> {
+    class MageNovaBombSkillModifier : TypedBaseSkillModifier<ChargeNovabomb> {
 
         public override int MaxLevel {
-            get { return 3; }
+            get { return 4; }
+        }
+
+        protected override void OnSkillWillBeUsed(ChargeNovabomb skillState, int level) {
+            base.OnSkillWillBeUsed(skillState, level);
+            Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", skillState.baseChargeDuration, skillState.maxDamageCoefficient, skillState.maxRadius);
+            skillState.baseChargeDuration = MultScaling(skillState.baseChargeDuration, 0.5f, level);
+            skillState.maxDamageCoefficient = MultScaling(skillState.maxDamageCoefficient, 0.5f, level);
+            skillState.maxRadius = MultScaling(skillState.maxRadius, 0.5f, level);
+            skillState.force = MultScaling(skillState.force, 0.5f, level);
+            Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", skillState.baseChargeDuration, skillState.maxDamageCoefficient, skillState.maxRadius);
         }
 
         public override void OnSkillLeveledUp(int level) {
-            SkillDef.baseMaxStock = AdditiveScaling(1, 1, level);
+
+        }
+
+    }
+
+    [SkillLevelModifier("IceBomb")]
+    class MageIceBombSkillModifier : MageNovaBombSkillModifier {
+
+        public override IList<Type> GetEntityStateTypes() {
+            return new List<Type>() { typeof(ChargeIcebomb) };
         }
 
     }
 
     [SkillLevelModifier("Wall")]
-    class MageWallSkillModifier : BaseSkillModifier<PrepWall> {
+    class MageWallSkillModifier : TypedBaseSkillModifier<PrepWall> {
 
         public override int MaxLevel {
-            get { return 1; }
+            get { return 3; }
+        }
+        protected override void OnSkillWillBeUsed(PrepWall skillState, int level) {
+            Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);            
+            PrepWall.damageCoefficient = AdditiveScaling(1, 0.5f, level);
+            Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
         }
 
         public override void OnSkillLeveledUp(int level) {
-            //float scale = AdditiveScaling(1, 0.5f, level);
-            ////PrepWall.areaIndicatorPrefab.transform.localScale = Vector3.one * scale;
-            ////PrepWall.projectilePrefab.transform.localScale = Vector3.one * scale;
+            Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
+            PrepWall.damageCoefficient = AdditiveScaling(1, 0.5f, level);
+
+            foreach (Component component in PrepWall.projectilePrefab.GetComponents<Component>()) {
+                Logger.Debug(component);
+            }
+
+            if(PrepWall.projectilePrefab.TryGetComponent(out ProjectileCharacterController projectileCharacterController)) {
+                projectileCharacterController.lifetime = MultScaling(0.3f, 0.25f, level);
+                Logger.Debug("projectileCharacterController.lifetime: {0}", projectileCharacterController.lifetime);
+            }
+            
+            float newXScale = MultScaling(23.69f, 0.25f, level);
+            PrepWall.areaIndicatorPrefab.transform.localScale = new Vector3(newXScale, PrepWall.areaIndicatorPrefab.transform.localScale.y, PrepWall.areaIndicatorPrefab.transform.localScale.z);
+            Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
         }
     
     }
 
     [SkillLevelModifier("Flamethrower")]
-    class MageFlamethrowerSkillModifier : BaseSkillModifier<Flamethrower> {
+    class MageFlamethrowerSkillModifier : TypedBaseSkillModifier<Flamethrower> {
 
         private float baseRadius = 2f;
         private float totalDamageCoefficient = 1.2f;
@@ -84,6 +137,27 @@ namespace Skills.Modifiers {
             //Flamethrower.baseFlamethrowerDuration = AdditiveScaling(baseFlamethrowerDuration, 2, level);
             Flamethrower.totalDamageCoefficient = AdditiveScaling(totalDamageCoefficient, 0.2f, level);
             Logger.Debug("Flamethrower stats - baseFlamethrowerDuration: {0}, totalDamageCoefficient: {1}, radius: {2}", Flamethrower.baseFlamethrowerDuration, Flamethrower.totalDamageCoefficient, Flamethrower.radius);
+        }
+
+    }
+
+
+    [SkillLevelModifier("FlyUp")]
+    class MageFlyUpSkillModifier : TypedBaseSkillModifier<FlyUpState> {
+
+        public override int MaxLevel {
+            get { return 4; }
+        }
+
+        protected override void OnSkillWillBeUsed(FlyUpState skillState, int level) {
+            base.OnSkillWillBeUsed(skillState, level);
+        }
+
+        public override void OnSkillLeveledUp(int level) {
+            Logger.Debug("FlyUpState stats - duration: {0}, blastAttackDamageCoefficient: {1}, blastAttackRadius: {2}, blastAttackProcCoefficient: {3}", FlyUpState.duration, FlyUpState.blastAttackDamageCoefficient, FlyUpState.blastAttackRadius, FlyUpState.blastAttackProcCoefficient);
+            FlyUpState.blastAttackDamageCoefficient = MultScaling(8, 0.25f, level);
+            FlyUpState.blastAttackRadius = MultScaling(8, 0.5f, level);
+            Logger.Debug("FlyUpState stats - duration: {0}, blastAttackDamageCoefficient: {1}, blastAttackRadius: {2}, blastAttackProcCoefficient: {3}", FlyUpState.duration, FlyUpState.blastAttackDamageCoefficient, FlyUpState.blastAttackRadius, FlyUpState.blastAttackProcCoefficient);
         }
 
     }

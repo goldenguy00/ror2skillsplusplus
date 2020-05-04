@@ -27,6 +27,9 @@ namespace Skills {
             SkillModifierManager.LoadSkillModifiers();
 
 #if DEBUG
+            On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
+                return true;
+            };
             On.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect += orig => { };
             On.RoR2.CharacterMaster.Awake += (orig, self) => {
                 orig(self);
