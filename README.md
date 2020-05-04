@@ -1,6 +1,6 @@
 # Risk of Rain 2 - Skills++ Mod
 
-**Version 0.0.2**\
+**Version 0.0.3**  
 [Changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
 The Skills++ adds skills upgrades that can be purchased as your character levels up throughout a run.
@@ -31,7 +31,7 @@ To redeem points open the info screen (hold TAB by default) and clikc the skill 
 > ***NOTE:*** This mod is still a work in progress. There is no guarantee that SkillsPlusPlus is going to work with other mods thats alter character abilities. If you have found a bug refer to [Report a bug](#report-a-bug)
 
 ## Upgrade descriptions
-As of version 0.0.1 there are upgrades for select character abilities.
+As of version 0.0.3 there are upgrades for select character abilities.
 
 ### Commando
 

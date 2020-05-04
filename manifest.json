@@ -1,6 +1,6 @@
 {
 	"name": "SkillsPlusPlus",
-	"version_number": "0.0.2",
+	"version_number": "0.0.3",
 	"website_url": "https://gitlab.com/cwmlolzlz/ror2skillsplusplus",
 	"description": "Adds upgradable skills to purchase during a run",
 	"dependencies": [

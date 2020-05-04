@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 0.0.3
+
+Changes:
+
+- Released upgrade paths for all Artificer abilities.
+- Refactored mechism for applying upgrades to abilities. Will make future work easier and much more powerful.
+
+Bug Fixes:
+
+- Removed upgrading for Commando's tactical roll since there is no upgrade path yet
+
 ## Version 0.0.2
 
 Bug fixes:

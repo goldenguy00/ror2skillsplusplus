@@ -10,6 +10,11 @@
     <OldToolsVersion>Current</OldToolsVersion>
     <ProjectGuid>{A41E554F-A2B3-451F-90DA-09878F5D70F8}</ProjectGuid>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <Authors>CWMlolzlz</Authors>
+    <Product />
+    <Company />
+    <PackageProjectUrl>https://thunderstore.io/package/CWMlolzlz/SkillsPlusPlus/</PackageProjectUrl>
+    <RepositoryUrl>https://gitlab.com/cwmlolzlz/ror2skillsplusplus</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
