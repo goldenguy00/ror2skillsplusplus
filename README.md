@@ -61,20 +61,42 @@ As of version 0.0.1 there are upgrades for select character abilities.
 
 ### Artificer
 
-**Flame bolt**
+**Flame bolt, Plasma Bolt**
+
+![](https://vignette.wikia.nocookie.net/riskofrain2/images/5/5e/Flame_Bolt.png/revision/latest/scale-to-width-down/112?cb=20190411060759)
+![](https://vignette.wikia.nocookie.net/riskofrain2/images/5/57/Plasma_Bolt.png/revision/latest/scale-to-width-down/112?cb=20190917181142)
 
 - Increases stock by 2 per level
 - Decreases stock recharge time by 0.1 seconds per level
 
-**Charged Nano-Bomb**
+**Charged Nano-Bomb, Charged Nano-Spear**
 
-- Increases stock by 1 per level
+![](https://vignette.wikia.nocookie.net/riskofrain2/images/c/c8/Charged_Nano-Bomb.png/revision/latest/scale-to-width-down/112?cb=20190411060744)
+![](https://vignette.wikia.nocookie.net/riskofrain2/images/9/92/Cast_Nano-Spear.png/revision/latest/scale-to-width-down/112?cb=20190917181115)
+
+- Increases maximum charge time by 50% per level
+
+**Snapfreeze**
+
+![](https://vignette.wikia.nocookie.net/riskofrain2/images/c/ce/Snapfreeze.png/revision/latest/scale-to-width-down/112?cb=20190920004726)
+
+- Increases wall damage by 50% per level
+- Wall length increases by 25% per level
 
 **Flamethrower**
+
+![](https://vignette.wikia.nocookie.net/riskofrain2/images/a/ad/Flamethrower.png/revision/latest/scale-to-width-down/112?cb=20190411060804)
 
 - Increases flamethrower range by 100% per level
 - Increases flamethrower radius by 50% per level
 - Increases flamethrower damage by 20% per level
+
+**Ion Surge**
+
+![](https://vignette.wikia.nocookie.net/riskofrain2/images/d/d1/Ion_Surge.png/revision/latest/scale-to-width-down/112?cb=20190917181140)
+
+- Increases damage by 25% per level
+- Increases area of effect by 50% per level
 
 ## Found a bug?
 
