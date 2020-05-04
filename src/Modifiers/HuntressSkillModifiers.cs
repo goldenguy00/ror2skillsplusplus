@@ -8,7 +8,7 @@ using RoR2;
 namespace Skills.Modifiers {
 
     [SkillLevelModifier("Glaive")]
-    class HuntressGlaiveSkillModifier : BaseSkillModifier<ThrowGlaive> {
+    class HuntressGlaiveSkillModifier : TypedBaseSkillModifier<ThrowGlaive> {
 
         static HuntressGlaiveSkillModifier() {
             R2API.LanguageAPI.Add("HUNTRESS_SECONDARY_DESCRIPTION", "Throw a seeking glaive that bounces up to <style=cIsDamage>6 (+2)</style> times for <style=cIsDamage>250% damage</style>. Damage increases by <style=cIsDamage>10% (+2.5%)</style> per bounce.");
@@ -34,7 +34,7 @@ namespace Skills.Modifiers {
     }
 
     [SkillLevelModifier("ArrowRain")]
-    class HuntressArrowRainSkillModifier : BaseSkillModifier<ArrowRain> {
+    class HuntressArrowRainSkillModifier : TypedBaseSkillModifier<ArrowRain> {
 
         static HuntressArrowRainSkillModifier() {
             R2API.LanguageAPI.Add("HUNTRESS_SPECIAL_DESCRIPTION", "<style=cIsUtility>Teleport</style> into the sky. Target a <style=cIsDamage>7.5 unit (+2.5)</style> radius area to rain arrows, <style=cIsUtility>slowing</style> all enemies and dealing <style=cIsDamage>225% (+%25) damage per second</style>.");     

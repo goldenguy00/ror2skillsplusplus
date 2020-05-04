@@ -10,7 +10,7 @@ using RoR2;
 namespace Skills.Modifiers {
 
     [SkillLevelModifier("FireFirebolt")]
-    class ArtificerFireBoltSkillModifier : BaseSkillModifier<FireFireBolt> {
+    class ArtificerFireBoltSkillModifier : TypedBaseSkillModifier<FireFireBolt> {
 
         public override int MaxLevel {
             get { return 5; }
@@ -26,20 +26,25 @@ namespace Skills.Modifiers {
     }
 
     [SkillLevelModifier("NovaBomb")]
-    class HuntressNovaBombSkillModifier : BaseSkillModifier<ChargeNovabomb> {
+    class MageNovaBombSkillModifier : BaseSkillModifer {
 
-        public override int MaxLevel {
+
+
+        public int MaxLevel {
             get { return 3; }
         }
 
         public override void OnSkillLeveledUp(int level) {
-            SkillDef.baseMaxStock = AdditiveScaling(1, 1, level);
+
         }
 
     }
 
+    [SkillLevelModifier("IceBomb")]
+    class MangeIceBombSkillModifier : MageNovaBombSkillModifier { }
+
     [SkillLevelModifier("Wall")]
-    class MageWallSkillModifier : BaseSkillModifier<PrepWall> {
+    class MageWallSkillModifier : TypedBaseSkillModifier<PrepWall> {
 
         public override int MaxLevel {
             get { return 1; }
@@ -54,7 +59,7 @@ namespace Skills.Modifiers {
     }
 
     [SkillLevelModifier("Flamethrower")]
-    class MageFlamethrowerSkillModifier : BaseSkillModifier<Flamethrower> {
+    class MageFlamethrowerSkillModifier : TypedBaseSkillModifier<Flamethrower> {
 
         private float baseRadius = 2f;
         private float totalDamageCoefficient = 1.2f;

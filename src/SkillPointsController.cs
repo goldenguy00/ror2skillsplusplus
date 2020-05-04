@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Text;
 using EntityStates;
-using R2API;
-using R2API.Utils;
-using Rewired;
 using RoR2;
 using RoR2.Skills;
-using RoR2.UI;
 using UnityEngine;
+
+using Skills.Modifiers;
+using System.Linq;
 
 namespace Skills {
 
@@ -87,7 +84,8 @@ namespace Skills {
                             if (skillName == null) {
                                 continue;
                             }
-                            GenericSkill genericSkill = this.skillLocator.FindSkill(skillName);
+                            var genericSkills = this.body.GetComponents<GenericSkill>();
+                            var genericSkill = genericSkills.FirstOrDefault(it => { return it.skillDef.skillName == skillName; });
                             if (genericSkill == null) {
                                 Logger.Error("Could not find generic skill instance for skill named {0}", skillName);
                                 continue;

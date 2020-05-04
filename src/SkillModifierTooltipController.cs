@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-using UnityEngine;
-using UnityEngine.UI;
-
-using R2API;
+﻿using UnityEngine;
 using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
 using R2API.Utils;
-using MonoMod.Cil;
+using Skills.Modifiers;
 
 namespace Skills {
 

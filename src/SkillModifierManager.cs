@@ -5,6 +5,7 @@ using EntityStates;
 using Mono.Collections.Generic;
 using RoR2.Skills;
 using UnityEngine;
+using Skills.Modifiers;
 
 namespace Skills {
     class SkillModifierManager {
@@ -57,6 +58,7 @@ namespace Skills {
             if (stateTypeToSkillModifierDictionary.TryGetValue(entityStateType, out ISet<ISkillModifier> modifiers)) {
                 return modifiers;
             }
+            Logger.Debug("Could not find any ISkillModifiers for entity state {0}", entityStateType.FullName);
             return new Collection<ISkillModifier>();
         }
 
@@ -67,32 +69,5 @@ namespace Skills {
         //    return NoopSkillModifier.Instance;
         //}
 
-    }
-
-    public class NoopSkillModifier : ISkillModifier {
-
-        internal static NoopSkillModifier Instance = new NoopSkillModifier();
-
-        public SkillDef SkillDef { get; set; }
-
-        public int MaxLevel {
-            get { return 1; }
-        }
-
-        public IList<Type> GetEntityStateTypes() {
-            return new List<Type>() { typeof(BaseState) };
-        }
-
-        public void OnSkillLeveledUp(int level) {
-            // do nothing
-        }
-
-        public void OnSkillWillBeUsed(BaseState skillState, int level) {
-            // do nothing
-        }
-
-        public string GetOverrideSkillDescriptionToken() {
-            return null;
-        }
     }
 }

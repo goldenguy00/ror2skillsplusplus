@@ -10,10 +10,15 @@ using EntityStates.Commando.CommandoWeapon;
 namespace Skills.Modifiers {
 
     [SkillLevelModifier("FirePistol")]
-    class CommandoFirePistolSkillModifier : BaseSkillModifier<FirePistol2> {
+    class CommandoFirePistolSkillModifier : TypedBaseSkillModifier<FirePistol2> {
 
         public override int MaxLevel {
             get { return 4; }
+        }
+
+        protected override void OnSkillWillBeUsed(FirePistol2 skillState, int level) {
+            base.OnSkillWillBeUsed(skillState, level);
+            skillState.projectilePrefab.transform.localScale = new Vector3(2.90f, 2.19f, 3.86f) * AdditiveScaling(1, 0.5f, level);
         }
 
         public override void OnSkillLeveledUp(int level) {
@@ -22,12 +27,13 @@ namespace Skills.Modifiers {
             Logger.Debug(FirePistol2.recoilAmplitude);
             FirePistol2.baseDuration = AdditiveScaling(0.2f, -0.025f, level);
             FirePistol2.recoilAmplitude = AdditiveScaling(1.5f, -0.375f, level);
+            
         }
 
     }
 
     [SkillLevelModifier("FireFMJ")]
-    class CommandoFMJSkillModifier : BaseSkillModifier<FireFMJ> {
+    class CommandoFMJSkillModifier : TypedBaseSkillModifier<FireFMJ> {
 
         static CommandoFMJSkillModifier() {
             R2API.LanguageAPI.Add("COMMANDO_SECONDARY_DESCRIPTION", "Fire a piercing bullet that hits all enemies in a line for <style=cIsDamage>300% damage</style>. Projectile travels faster at higher levels.");
@@ -49,7 +55,7 @@ namespace Skills.Modifiers {
     }
 
     [SkillLevelModifier("Roll")]
-    class CommandoRollSkillModifier : BaseSkillModifier<CombatDodge> {
+    class CommandoRollSkillModifier : TypedBaseSkillModifier<CombatDodge> {
 
         public override int MaxLevel {
             get { return 3; }
@@ -62,7 +68,7 @@ namespace Skills.Modifiers {
     }
 
     [SkillLevelModifier("Barrage")]
-    class CommandoBarrageSkillModifier : BaseSkillModifier<FireBarrage> {
+    class CommandoBarrageSkillModifier : TypedBaseSkillModifier<FireBarrage> {
 
         public override int MaxLevel {
             get { return 4; }

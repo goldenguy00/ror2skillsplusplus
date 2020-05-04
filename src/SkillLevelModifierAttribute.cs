@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Skills {
 
     [AttributeUsage(AttributeTargets.Class)]
-    class SkillLevelModifierAttribute : Attribute {
+    public class SkillLevelModifierAttribute : Attribute {
 
         public readonly string skillName;
 
@@ -15,58 +15,5 @@ namespace Skills {
             this.skillName = skillName;
         }
 
-    }
-
-    internal interface ISkillModifier {
-
-        IList<Type> GetEntityStateTypes();
-
-        int MaxLevel { get; }
-        SkillDef SkillDef { get; set; }
-        void OnSkillWillBeUsed(BaseState skillState, int level);
-        void OnSkillLeveledUp(int level);
-
-        string GetOverrideSkillDescriptionToken();
-
-    }
-
-    public abstract class BaseSkillModifier<SkillState> : ISkillModifier where SkillState : BaseState {
-        public SkillDef SkillDef { get; set; }
-
-        public abstract int MaxLevel { get; }
-
-        internal BaseSkillModifier() { }
-
-        public IList<Type> GetEntityStateTypes() {
-            return new List<Type>() { typeof(SkillState) };
-        }
-        public virtual string GetOverrideSkillDescriptionToken() {
-            return null;
-        }
-
-        public void OnSkillWillBeUsed(BaseState skillState, int level) {
-            if (skillState is SkillState) {
-                this.OnSkillWillBeUsed(skillState as SkillState, level);
-            } else {
-                Logger.Debug("Unable to cast {0} to {1} for skill modifier {2}", skillState, typeof(SkillState).FullName, SkillDef.skillName);
-            }
-        }
-
-        protected virtual void OnSkillWillBeUsed(SkillState skillState, int level) { 
-            // do nothing in base implementation
-        }
-
-        public abstract void OnSkillLeveledUp(int level);
-
-        protected static float AdditiveScaling(float baseValue, float buffValue, int level) {
-            return baseValue + buffValue * (level - 1);
-        }
-        protected static int AdditiveScaling(int baseValue, int buffValue, int level) {
-            return baseValue + buffValue * (level - 1);
-        }
-
-        protected static float LogScaling(float baseValue, float buffValue, int level) {
-            return baseValue + (Mathf.Log(level) * buffValue);
-        }
     }
 }
