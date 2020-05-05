@@ -27,6 +27,10 @@ namespace Skills.Modifiers {
             }
         }
 
+        public override void OnSkillLeveledUp(int level) {
+            // no-op
+        }
+
         protected virtual void OnSkillEnter(SkillState skillState, int level) {
             // no-op
         }

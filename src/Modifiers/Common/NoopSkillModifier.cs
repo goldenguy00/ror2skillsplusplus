@@ -6,35 +6,28 @@ using RoR2;
 using RoR2.Skills;
 
 namespace Skills.Modifiers {
-    class NoopSkillModifier : ISkillModifier {
+    class NoopSkillModifier : BaseSkillModifer {
 
         internal static NoopSkillModifier Instance = new NoopSkillModifier();
 
-        public SkillDef SkillDef { get; set; }
-        public CharacterBody CharacterBody { get; set; }
-
-        public int MaxLevel {
+        public override int MaxLevel {
             get { return 1; }
         }
 
-        public IList<Type> GetEntityStateTypes() {
+        public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() { typeof(BaseState) };
         }
 
-        public void OnSkillLeveledUp(int level) {
+        public override void OnSkillLeveledUp(int level) {
             // do nothing
         }
 
-        public void OnSkillEnter(BaseState skillState, int level) {
+        public override void OnSkillEnter(BaseState skillState, int level) {
             // do nothing
         }
 
-        public void OnSkillExit(BaseState skillState, int level) {
+        public override void OnSkillExit(BaseState skillState, int level) {
             // do nothing
-        }
-
-        public string GetOverrideSkillDescriptionToken() {
-            return null;
         }
     }
 }

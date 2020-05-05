@@ -1,12 +1,13 @@
 ﻿using EntityStates.Huntress;
 using EntityStates.Huntress.HuntressWeapon;
-using R2API.AssetPlus;
+using EntityStates.Huntress.Weapon;
 using UnityEngine;
 using RoR2.UI;
 using RoR2;
 using System.Collections.Generic;
 using System;
 using EntityStates;
+using Skills.Modifiers;
 
 namespace Skills.Modifiers {
 
@@ -15,6 +16,7 @@ namespace Skills.Modifiers {
         public override int MaxLevel {
             get { return 4; }
         }
+
         protected override void OnSkillEnter(FireSeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);
             var huntressTracker = skillState.outer.GetComponent<HuntressTracker>();
@@ -41,7 +43,7 @@ namespace Skills.Modifiers {
             base.OnSkillEnter(skillState, level);
             var huntressTracker = skillState.outer.GetComponent<HuntressTracker>();
             Logger.Debug("orbProcCoefficient: {0}, trackingDistance: {1}, trackingAngle: {3}, maxArrowCount: {2}", skillState.orbProcCoefficient, huntressTracker.maxTrackingDistance, skillState.maxArrowCount, huntressTracker.maxTrackingAngle);
-            huntressTracker.maxTrackingDistance = AdditiveScaling(60, 10, level);
+            huntressTracker.maxTrackingDistance = AdditiveScaling(60, 10, level); // 16%
             huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
             skillState.maxArrowCount = AdditiveScaling(3, 1, level);
             //skillState.orbProcCoefficient;
@@ -78,30 +80,6 @@ namespace Skills.Modifiers {
 
     }
 
-    [SkillLevelModifier("ArrowRain")]
-    class HuntressArrowRainSkillModifier : TypedBaseSkillModifier<ArrowRain> {
-
-        static HuntressArrowRainSkillModifier() {
-            R2API.LanguageAPI.Add("HUNTRESS_SPECIAL_DESCRIPTION", "<style=cIsUtility>Teleport</style> into the sky. Target a <style=cIsDamage>7.5 unit (+2.5)</style> radius area to rain arrows, <style=cIsUtility>slowing</style> all enemies and dealing <style=cIsDamage>225% (+%25) damage per second</style>.");
-        }
-
-        private static readonly float origArrowRainRadius = 7.5f;
-        private static readonly float origDamageCoefficient = ArrowRain.damageCoefficient;
-
-        public override int MaxLevel {
-            get { return 5; }
-        }
-
-        public override void OnSkillLeveledUp(int level) {
-            ArrowRain.arrowRainRadius = AdditiveScaling(origArrowRainRadius, 2.5f, level);
-            ArrowRain.damageCoefficient = AdditiveScaling(origDamageCoefficient, 0.25f, level);
-
-            ArrowRain.projectilePrefab.transform.localScale = Vector3.one * ArrowRain.arrowRainRadius * 2;
-            Logger.Debug("ArrowRain stats - arrowRainRadius: {0}, damageCoefficient: {1}, prefabScale {2}", ArrowRain.arrowRainRadius, ArrowRain.damageCoefficient, ArrowRain.projectilePrefab.transform.localScale);
-        }
-
-    }
-
     [SkillLevelModifier("Blink")]
     class HuntressBlinkSkillModifier : BaseSkillModifer {
         public override int MaxLevel {
@@ -123,14 +101,121 @@ namespace Skills.Modifiers {
         }
 
         public override void OnSkillExit(BaseState skillState, int level) {
-            float duration = AdditiveScaling(0.0f, 1.5f, level);
+            float duration = AdditiveScaling(0.0f, 1f, level);
             if (skillState is MiniBlinkState) {
                 duration /= 2f;
             }
-            if (duration > 0) { 
+            if (duration > 0) {
                 this.CharacterBody?.AddTimedBuff(BuffIndex.FullCrit, duration);
             }
         }
+    }
+
+    [SkillLevelModifier("ArrowRain")]
+    class HuntressArrowRainSkillModifier : TypedBaseSkillModifier<ArrowRain> {
+
+        static HuntressArrowRainSkillModifier() {
+            R2API.LanguageAPI.Add("HUNTRESS_SPECIAL_DESCRIPTION", "<style=cIsUtility>Teleport</style> into the sky. Target a <style=cIsDamage>7.5 unit (+2.5)</style> radius area to rain arrows, <style=cIsUtility>slowing</style> all enemies and dealing <style=cIsDamage>225% (+%25) damage per second</style>.");
+        }
+
+        private static readonly float origArrowRainRadius = 7.5f;
+        private static readonly float origDamageCoefficient = ArrowRain.damageCoefficient;
+
+        public override int MaxLevel {
+            get { return 4; }
+        }
+
+        public override void OnSkillLeveledUp(int level) {
+            ArrowRain.arrowRainRadius = AdditiveScaling(origArrowRainRadius, 2.5f, level);
+            ArrowRain.damageCoefficient = MultScaling(origDamageCoefficient, 0.25f, level);
+
+            ArrowRain.projectilePrefab.transform.localScale = Vector3.one * ArrowRain.arrowRainRadius * 2;
+            Logger.Debug("ArrowRain stats - arrowRainRadius: {0}, damageCoefficient: {1}, prefabScale {2}", ArrowRain.arrowRainRadius, ArrowRain.damageCoefficient, ArrowRain.projectilePrefab.transform.localScale);
+        }
+
+    }
+
+    [SkillLevelModifier("AimArrowSnipe")]
+    class HuntressSnipeSkillModifier : BaseSkillModifer {
+
+        static readonly float stockImageInterspacing = 18.0f;
+
+        public override int MaxLevel {
+            get { return 4; }
+        }
+
+        public override IList<Type> GetEntityStateTypes() {
+            return new List<Type>() { typeof(FireArrowSnipe), typeof(AimArrowSnipe) };
+        }
+
+        public override void OnSkillEnter(BaseState skillState, int level) {
+            if (skillState is FireArrowSnipe) {
+                FireArrowSnipe snipeState = (FireArrowSnipe)skillState;
+                snipeState.damageCoefficient = MultScaling(9, 0.2, level);
+                Logger.Debug("damageCoefficient: {0}", snipeState.damageCoefficient);
+            }
+        }
+
+        public override void OnSkillExit(BaseState skillState, int level) {
+            // do nothing
+        }
+
+        public override void OnSkillLeveledUp(int level) {
+            int stocks = AdditiveScaling(3, 1, level);
+            AimArrowSnipe.primarySkillDef.baseMaxStock = stocks;
+            if (AimArrowSnipe.crosshairOverridePrefab.TryGetComponent(out CrosshairController crosshairController)) {
+                GameObject stockCountHolderGameObject = crosshairController.gameObject.transform.Find("StockCountHolder").gameObject;
+                RectTransform stockCountHolderRectTransform = stockCountHolderGameObject.GetComponent<RectTransform>();
+
+
+                List<GameObject> stockGameObjects = new List<GameObject>();
+                GameObject stockPrefab = null;
+                for (int i = 0; i < stockCountHolderGameObject.transform.childCount; i++) {
+                    if (stockPrefab == null) {
+                        stockPrefab = stockCountHolderGameObject.transform.GetChild(i).gameObject;
+                    }
+                    stockGameObjects.Add(stockCountHolderGameObject.transform.GetChild(i).gameObject);
+                }
+
+                if (stockPrefab) {
+                    while (stockGameObjects.Count < stocks) {
+                        GameObject newStock = GameObject.Instantiate(stockPrefab);
+                        newStock.transform.parent = stockCountHolderGameObject.transform;
+                        RectTransform stockRectTransform = newStock.GetComponent<RectTransform>();
+                        stockRectTransform.localPosition = Vector2.zero;
+                        stockRectTransform.anchorMin = Vector2.zero;
+                        stockRectTransform.anchorMax = Vector2.zero;
+                        stockRectTransform.offsetMin = new Vector2(4f, 0);
+                        stockRectTransform.offsetMax = new Vector2(-4f, 0);
+                        stockRectTransform.sizeDelta = new Vector2(-8f, 0);
+                        stockRectTransform.ForceUpdateRectTransforms();
+                        stockGameObjects.Add(newStock);
+                        newStock.name = "Stock, " + stockGameObjects.Count;
+                    }
+                }
+
+                stockCountHolderRectTransform.sizeDelta = new Vector2(stocks * stockImageInterspacing, 10);
+
+                CrosshairController.SkillStockSpriteDisplay[] stockDisplays = new CrosshairController.SkillStockSpriteDisplay[stocks];
+                float anchorIncrement = 1f / stocks;
+                for (int i = 0; i < Math.Min(stocks, stockGameObjects.Count); i++) {
+                    stockDisplays[i] = new CrosshairController.SkillStockSpriteDisplay() {
+                        target = stockGameObjects[i],
+                        skillSlot = SkillSlot.Primary,
+                        minimumStockCountToBeValid = i + 1,
+                        maximumStockCountToBeValid = 999
+                    };
+                    RectTransform stockRectTransform = stockGameObjects[i].GetComponent<RectTransform>();
+                    stockRectTransform.anchorMin = new Vector2(anchorIncrement * i, 0);
+                    stockRectTransform.anchorMax = new Vector2(anchorIncrement * (i + 1), 1);
+                    stockRectTransform.ForceUpdateRectTransforms();
+                }
+
+                crosshairController.skillStockSpriteDisplays = stockDisplays;
+
+            }
+        }
+
     }
 
 }
