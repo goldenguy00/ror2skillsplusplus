@@ -7,7 +7,7 @@ using R2API.Utils;
 namespace Skills {
     
     [BepInDependency ("com.bepis.r2api")]
-    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.3")]
+    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.4")]
     [R2APISubmoduleDependency("AssetPlus")]
     public class PhotoModePlugin : BaseUnityPlugin {
 

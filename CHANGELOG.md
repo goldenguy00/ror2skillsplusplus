@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 0.0.4
+
+Changes:
+
+- Completed upgrade paths for all Huntress abilities
+- Improved internal skill upgrade API to support character buffing
+
 ## Version 0.0.3
 
 Changes:
