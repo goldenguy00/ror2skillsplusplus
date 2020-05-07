@@ -84,7 +84,6 @@ namespace Skills {
                 if (entityStateMachine.networker != null && entityStateMachine.networker.localPlayerAuthority) {
                     if (this.body != null && entityStateMachine.commonComponents.characterBody == this.body) {
                         var stateType = state.GetType();
-                        Logger.Debug("{0}.OnEnter()", stateType.FullName);
                         ICollection<ISkillModifier> skillModifiers = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
                         this.EnsureSkillModifiersAreInitialised();
                         foreach (ISkillModifier skillModifier in skillModifiers) {
@@ -100,10 +99,10 @@ namespace Skills {
                             }
                             SkillSlot skillSlot = this.skillLocator.FindSkillSlot(genericSkill);
                             if (skillSlot == SkillSlot.None) {
-                                Logger.Error("Could not identify skill slot for generic skill {0}", genericSkill);
+                                Logger.Error("Could not identify skill slot for generic skill {0} named {1}", genericSkill, skillName);
                                 continue;
                             }
-                            Logger.Debug("Successfully intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, stateType.Name);
+                            // Logger.Debug("Successfully intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, stateType.Name);
                             skillSlotOut = skillSlot;
                             skillModifierOut = skillModifier;
                             return true;
