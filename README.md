@@ -26,7 +26,7 @@ This mod hopes to provide an additional sense of progression and giving your cha
 ## Usage
 
 While ingame your will earn points every third level gained (4, 7, 10,...) that can be used to purches upgrades to your characters skills.
-To redeem points open the info screen (hold TAB by default) and clikc the skill you would like to buy.
+To redeem points open the info screen (hold TAB by default) and click the skill you would like to buy.
 
 > ***NOTE:*** This mod is still a work in progress. There is no guarantee that SkillsPlusPlus is going to work with other mods thats alter character abilities. If you have found a bug refer to [Report a bug](#report-a-bug)
 
