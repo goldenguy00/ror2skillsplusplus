@@ -32,9 +32,8 @@ namespace Skills.Modifiers {
         protected static float MultScaling(float baseValue, float multiplier, int level) {
             return baseValue * (1 + multiplier * (level - 1));
         }
-
-        protected static float LogScaling(float baseValue, float buffValue, int level) {
-            return baseValue + (Mathf.Log(level) * buffValue);
+        protected static int MultScaling(int baseValue, float multiplier, int level) {
+            return (int)(baseValue * (1 + multiplier * (level - 1)));
         }
         #endregion
     }

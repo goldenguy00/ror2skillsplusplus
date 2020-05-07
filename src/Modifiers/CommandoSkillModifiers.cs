@@ -4,6 +4,7 @@ using System.Text;
 using RoR2.Skills;
 using UnityEngine;
 using RoR2;
+using RoR2.Projectile;
 using EntityStates.Commando;
 using EntityStates.Commando.CommandoWeapon;
 
@@ -35,31 +36,84 @@ namespace Skills.Modifiers {
         }
 
         public override int MaxLevel {
-            get { return 3; }
+            get { return 4; }
         }
 
         protected override void OnSkillEnter(FireFMJ skillState, int level) {
             base.OnSkillEnter(skillState, level);
+            Logger.Debug("recoilAmplitude: {0},s damageCoefficient: {1}", skillState.recoilAmplitude, skillState.damageCoefficient);
             skillState.projectilePrefab.transform.localScale = new Vector3(2.90f, 2.19f, 3.86f) * AdditiveScaling(1, 0.5f, level);
+            if (skillState.projectilePrefab.TryGetComponent<ProjectileSimple>(out ProjectileSimple projectileSimple)) {
+                projectileSimple.velocity = MultScaling(120f, 0.5f, level);
+            }
+            skillState.recoilAmplitude = MultScaling(skillState.recoilAmplitude, 0.5f, level);
+            skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.5f, level);
         }
 
         public override void OnSkillLeveledUp(int level) {
-            SkillDef.baseMaxStock = AdditiveScaling(1, 1, level);
+
         }
 
     }
 
-    [SkillLevelModifier("Roll")]
-    class CommandoRollSkillModifier : TypedBaseSkillModifier<CombatDodge> {
-
+    [SkillLevelModifier("FireShotgunBlast")]
+    class CommandoShotgunBlastSkillModifier : TypedBaseSkillModifier<FireShotgunBlast> {
         public override int MaxLevel {
-            get { return 1; }
+            get { return 4; }
+        }
+
+        protected override void OnSkillEnter(FireShotgunBlast skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+            Logger.Debug("procCoefficient: {0}, damageCoefficient: {1}, maxDistance: {2}", skillState.procCoefficient, skillState.damageCoefficient, skillState.maxDistance);
+            skillState.bulletCount = MultScaling(skillState.bulletCount, 0.66f, level);
+            skillState.maxDistance = MultScaling(skillState.maxDistance, 0.25f, level);
         }
 
         public override void OnSkillLeveledUp(int level) {
 
         }
-    
+    }
+
+    [SkillLevelModifier("Roll")]
+    class CommandoRollSkillModifier : TypedBaseSkillModifier<DodgeState> {
+
+        public override int MaxLevel {
+            get { return 4; }
+        }
+        protected override void OnSkillEnter(DodgeState skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+            Logger.Debug("duration: {0}", skillState.duration);
+            float duration = skillState.duration * AdditiveScaling(0, 0.75f, level);
+            if (duration > 0) {
+                CharacterBody.AddTimedBuff(BuffIndex.Immune, duration);
+            }
+        }
+
+        public override void OnSkillLeveledUp(int level) {
+
+        }
+
+    }
+
+    [SkillLevelModifier("Slide")]
+    class CommandoDiveSkillModifier : TypedBaseSkillModifier<SlideState> {
+
+        public override int MaxLevel {
+            get { return 4; }
+        }
+
+        protected override void OnSkillEnter(SlideState skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+            float duration = SlideState.slideDuration * AdditiveScaling(0f, 0.75f, level);
+            if (duration > 0) {
+                CharacterBody.AddTimedBuff(BuffIndex.Energized, duration);
+            }
+        }
+
+        public override void OnSkillLeveledUp(int level) {
+
+        }
+
     }
 
     [SkillLevelModifier("Barrage")]
@@ -68,17 +122,36 @@ namespace Skills.Modifiers {
         public override int MaxLevel {
             get { return 4; }
         }
-
-        public override void OnSkillLeveledUp(int level) {
-            Logger.Debug("Barrage");
-            Logger.Debug(FireBarrage.baseBulletCount);
-            Logger.Debug(FireBarrage.baseDurationBetweenShots);
-            Logger.Debug(FireBarrage.bulletRadius);
-            FireBarrage.baseBulletCount = AdditiveScaling(6, 4, level);
-            FireBarrage.baseDurationBetweenShots = AdditiveScaling(0.12f, -0.01f, level);
-            FireBarrage.bulletRadius = AdditiveScaling(1.5f, 0.5f, level);
-            // FireBarrage.totalDuration = AdditiveScaling(2f, 0.5f, level);
+        protected override void OnSkillEnter(FireBarrage skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+            //skillState.
         }
 
+        public override void OnSkillLeveledUp(int level) {
+            Logger.Debug("Barrage - baseBulletCount: {0}, baseDurationBetweenShots: {1}, totalDuration: {2}, bulletRadius: {3}", FireBarrage.baseBulletCount, FireBarrage.baseDurationBetweenShots, FireBarrage.totalDuration, FireBarrage.bulletRadius);
+            
+            FireBarrage.baseBulletCount = MultScaling(6, 0.5f, level);
+            FireBarrage.totalDuration = MultScaling(1f, 0.25f, level);
+            FireBarrage.baseDurationBetweenShots = 1 / MultScaling(1 / 0.12f, 0.25f, level);
+            // FireBarrage.baseDurationBetweenShots = AdditiveScaling(0.12f, -0.01f, level);
+        }
+
+    }
+
+    [SkillLevelModifier("ThrowGrenade")]
+    class CommandoGrenadeSkillModifier : TypedBaseSkillModifier<ThrowGrenade> {
+        public override int MaxLevel {
+            get { return 4; }
+        }
+        
+        protected override void OnSkillEnter(ThrowGrenade skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+            Logger.Debug("force: {0}, damageCoefficient: {1}", skillState.force, skillState.damageCoefficient);
+            skillState.force = MultScaling(skillState.force, 0.5f, level);
+            skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.33f, level);
+            if (skillState.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion)) {
+                projectileImpactExplosion.blastRadius = MultScaling(11, 0.25f, level);
+            }
+        }
     }
 }
