@@ -43,7 +43,6 @@ To redeem points open the info screen (hold TAB by default) and click the skill 
 | Tactical Slide | ![Tactical Slide](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/e/e8/Tactical_Slide.png?version=46594be2f8d139de21b67c744bf36101) | [WIP] |
 | Supressive Fire | ![Supressive fire](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/db/Suppressive_Fire.png?version=c2660d649079b7a33697698cc2460cc7) | - Fires an extra 4 bullets per level</br>- Fire delay decreases by 10ms per level</br>- Bullet size increase every level |
 | Frag Grenade | ![Frag Grenade](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/6/6b/Frag_Grenade.png?version=317d27bd9e4809671a2a5858501bdd63) | [WIP] |
-||||
 
 ### Huntress
 
@@ -56,7 +55,6 @@ To redeem points open the info screen (hold TAB by default) and click the skill 
 | Phase Blink | ![Phase Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/dd/Phase_Blink.png?version=e5f06fa5f8cbe671e1e730ca9955f1df) | - Upon blinking gain 0.50 seconds of full crit per level |
 | Arrow Rain | ![Arrow Rain](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/5/59/Arrow_Rain.png?version=4c6450cf90c89762b61a38224ce9ab66) | - Area of effect by 33% per level</br>- Area of effect damage increases by 25% per level |
 | Ballista | ![Ballista](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/d5/Ballista.png?version=b606a0a22dc203327b91fc5fd96d2930) | - Adds one extra bullet per level</br> - Increases damage by 20% per level |
-| | | |
 
 ### Artificer
 
@@ -69,7 +67,6 @@ To redeem points open the info screen (hold TAB by default) and click the skill 
 | Snapfreeze | ![Snapfreeze](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/c/ce/Snapfreeze.png?version=6f15a989c9b98a8ad36f39a3ccd0b514) | - Increases wall damage by 50% per level</br>- Wall length increases by 25% per level |
 | Flamethrower | ![Flamethrower](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/a/ad/Flamethrower.png/128px-Flamethrower.png?version=df4f797fe7e0a9fff8e6777a2204b85d) | - Increases flamethrower range by 100% per level</br>- Increases flamethrower radius by 50% per level</br>- Increases flamethrower damage by 20% per level |
 | Ion Surge | ![Ion Surge](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/d1/Ion_Surge.png?version=a945f2d18ec9387976fafb92e68b9be9) | - Increases damage by 25% per level</br>- Increases area of effect by 50% per level |
-||||
 
 ## Found a bug?
 
