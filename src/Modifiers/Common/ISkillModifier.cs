@@ -5,7 +5,7 @@ using EntityStates;
 using RoR2;
 using RoR2.Skills;
 
-namespace Skills.Modifiers {
+namespace SkillsPlusPlus.Modifiers {
 
     internal interface ISkillModifier {
 

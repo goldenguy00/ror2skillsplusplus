@@ -5,9 +5,9 @@ using EntityStates;
 using Mono.Collections.Generic;
 using RoR2.Skills;
 using UnityEngine;
-using Skills.Modifiers;
+using SkillsPlusPlus.Modifiers;
 
-namespace Skills {
+namespace SkillsPlusPlus {
     class SkillModifierManager {
 
         private static Dictionary<string, ISkillModifier> skillModifiers = new Dictionary<string, ISkillModifier>();

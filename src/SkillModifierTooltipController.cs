@@ -3,9 +3,9 @@ using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
 using R2API.Utils;
-using Skills.Modifiers;
+using SkillsPlusPlus.Modifiers;
 
-namespace Skills {
+namespace SkillsPlusPlus {
 
     [RequireComponent(typeof(CharacterSelectController))]
     class SkillModifierTooltipController : MonoBehaviour {

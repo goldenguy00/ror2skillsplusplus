@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Skills {
+namespace SkillsPlusPlus {
     class Logger {
 
         public static void Debug(string message, params object[] formatArgs) {

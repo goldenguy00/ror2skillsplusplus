@@ -1,10 +1,9 @@
 using BepInEx;
 using RoR2;
 using RoR2.UI;
-using UnityEngine;
 using R2API.Utils;
 
-namespace Skills {
+namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.4")]

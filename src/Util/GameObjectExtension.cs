@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEngine;
 
-namespace Skills {
+namespace SkillsPlusPlus {
     public static class GameObjectExtension {
 
         public static bool TryGetComponent<T>(this GameObject gameObject, out T component) where T : Component {

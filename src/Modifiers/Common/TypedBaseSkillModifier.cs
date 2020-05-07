@@ -4,7 +4,7 @@ using System.Text;
 using EntityStates;
 using RoR2.Skills;
 
-namespace Skills.Modifiers {
+namespace SkillsPlusPlus.Modifiers {
 
     public abstract class TypedBaseSkillModifier<SkillState> : BaseSkillModifer where SkillState : BaseState {
 

@@ -5,10 +5,10 @@ using RoR2;
 using RoR2.Skills;
 using UnityEngine;
 
-using Skills.Modifiers;
+using SkillsPlusPlus.Modifiers;
 using System.Linq;
 
-namespace Skills {
+namespace SkillsPlusPlus {
 
     [RequireComponent(typeof(PlayerCharacterMasterController))]
     class SkillPointsController : MonoBehaviour {

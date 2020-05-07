@@ -8,7 +8,7 @@ using RoR2.Projectile;
 using EntityStates.Commando;
 using EntityStates.Commando.CommandoWeapon;
 
-namespace Skills.Modifiers {
+namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FirePistol")]
     class CommandoFirePistolSkillModifier : TypedBaseSkillModifier<FirePistol2> {

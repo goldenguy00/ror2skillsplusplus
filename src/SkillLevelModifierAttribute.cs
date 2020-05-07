@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using RoR2.Skills;
-using EntityStates;
-using UnityEngine;
 
-namespace Skills {
+namespace SkillsPlusPlus {
 
     [AttributeUsage(AttributeTargets.Class)]
     public class SkillLevelModifierAttribute : Attribute {

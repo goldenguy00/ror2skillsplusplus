@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -6,7 +6,7 @@ using EntityStates;
 using RoR2;
 using RoR2.Skills;
 
-namespace Skills.Modifiers {
+namespace SkillsPlusPlus.Modifiers {
     public abstract class BaseSkillModifer : ISkillModifier {
         public SkillDef SkillDef { get; set; }
         public CharacterBody CharacterBody { get; set; }

@@ -7,9 +7,8 @@ using RoR2;
 using System.Collections.Generic;
 using System;
 using EntityStates;
-using Skills.Modifiers;
 
-namespace Skills.Modifiers {
+namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireSeekingArrow")]
     class HuntressSeekingArrowSkillModifier : TypedBaseSkillModifier<FireSeekingArrow> {

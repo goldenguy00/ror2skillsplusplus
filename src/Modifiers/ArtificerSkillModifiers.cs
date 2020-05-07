@@ -8,7 +8,7 @@ using UnityEngine;
 using RoR2;
 using RoR2.Projectile;
 
-namespace Skills.Modifiers {
+namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireFirebolt")]
     class ArtificerFireBoltSkillModifier : TypedBaseSkillModifier<FireFireBolt> {

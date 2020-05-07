@@ -8,7 +8,7 @@ using RoR2.UI;
 using RoR2.UI.SkinControllers;
 using UnityEngine.Events;
 
-namespace Skills {
+namespace SkillsPlusPlus {
 
     delegate void UpgradeSkillEvent(SkillSlot skillSlot);
 
