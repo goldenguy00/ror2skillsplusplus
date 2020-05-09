@@ -1,4 +1,4 @@
-﻿using EntityStates.Huntress;
+using EntityStates.Huntress;
 using EntityStates.Huntress.HuntressWeapon;
 using EntityStates.Huntress.Weapon;
 using UnityEngine;
@@ -41,14 +41,18 @@ namespace SkillsPlusPlus.Modifiers {
         protected override void OnSkillEnter(FireFlurrySeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);
             var huntressTracker = skillState.outer.GetComponent<HuntressTracker>();
-            Logger.Debug("orbProcCoefficient: {0}, trackingDistance: {1}, trackingAngle: {3}, maxArrowCount: {2}", skillState.orbProcCoefficient, huntressTracker.maxTrackingDistance, skillState.maxArrowCount, huntressTracker.maxTrackingAngle);
+            Logger.Debug("orbProcCoefficient: {0}, trackingDistance: {1}, trackingAngle: {3}, maxArrowCount: {2}, baseArrowReloadDuration: {4}", skillState.orbProcCoefficient, huntressTracker.maxTrackingDistance, skillState.maxArrowCount, huntressTracker.maxTrackingAngle, skillState.baseArrowReloadDuration);
             huntressTracker.maxTrackingDistance = AdditiveScaling(60, 10, level); // 16%
             huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
             skillState.maxArrowCount = AdditiveScaling(3, 1, level);
-            //skillState.orbProcCoefficient;
+            // FireFlurrySeekingArrow.baseArrowReloadDuration = AdditiveScaling(6, 2, level);
         }
 
         public override void OnSkillLeveledUp(int level) {
+            // when the flurry crits it uses the following number of arrows
+            Logger.Debug("critMaxArrowCount: {0}, critBaseArrowReloadDuration: {1}", FireFlurrySeekingArrow.critMaxArrowCount, FireFlurrySeekingArrow.critBaseArrowReloadDuration);
+
+            FireFlurrySeekingArrow.critMaxArrowCount = AdditiveScaling(6, 2, level);
         }
 
     }

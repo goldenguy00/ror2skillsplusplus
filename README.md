@@ -49,7 +49,7 @@ To redeem points open the info screen (hold TAB by default) and click the skill 
 | Skill | | Description |
 |:-|-|------|
 | Strafe | ![Strafe](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/a/af/Strafe.png?version=d0a6dd80cf2a02f8633d4e2d24781c53) | - Range increases by 33% per level</br> - Item proc chance increases by 20% per level |
-| Flurry | ![Flurry](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/2/24/Flurry.png?version=2d9c753d649ead966ad6232f7e4e37f4) | - Range increases by 16% per level</br> - Fires an additional arrow per level |
+| Flurry | ![Flurry](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/2/24/Flurry.png?version=2d9c753d649ead966ad6232f7e4e37f4) | - Range increases by 16% per level</br> - Fires an additional arrow per level. Crits fire be double the base arrow count |
 | Laser Glaive | ![Laser Glaive](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/f/f6/Laser_Glaive.png?version=8ec21d23c6dcbf77ad57e1579208d85c) | - Bounces an additional 2 times per level</br>- Per bounce damage increases by 2.5% per level</br>- Bounce range increases by 10 units per level |
 | Blink | ![Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/1/16/Blink.png?version=7f46f9aceb48babddfca64c5778500c6) | - Upon blinking gain 1 second of full crit per level |
 | Phase Blink | ![Phase Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/dd/Phase_Blink.png?version=e5f06fa5f8cbe671e1e730ca9955f1df) | - Upon blinking gain 0.50 seconds of full crit per level |
