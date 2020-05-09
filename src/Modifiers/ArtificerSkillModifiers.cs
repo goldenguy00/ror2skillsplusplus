@@ -136,7 +136,7 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("Flamethrower stats - baseFlamethrowerDuration: {0}, totalDamageCoefficient: {1}, radius: {2}", Flamethrower.baseFlamethrowerDuration, Flamethrower.totalDamageCoefficient, Flamethrower.radius);
             Flamethrower.radius = AdditiveScaling(baseRadius, baseRadius * 0.5f, level);
             //Flamethrower.baseFlamethrowerDuration = AdditiveScaling(baseFlamethrowerDuration, 2, level);
-            Flamethrower.totalDamageCoefficient = AdditiveScaling(20, 0.2f, level);
+            Flamethrower.totalDamageCoefficient = MultScaling(20, 0.25f, level);
             Logger.Debug("Flamethrower stats - baseFlamethrowerDuration: {0}, totalDamageCoefficient: {1}, radius: {2}", Flamethrower.baseFlamethrowerDuration, Flamethrower.totalDamageCoefficient, Flamethrower.radius);
         }
 
