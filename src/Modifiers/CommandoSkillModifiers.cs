@@ -21,8 +21,8 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("FirePistol2");
             Logger.Debug(FirePistol2.baseDuration);
             Logger.Debug(FirePistol2.recoilAmplitude);
-            FirePistol2.baseDuration = AdditiveScaling(0.2f, -0.025f, level);
-            FirePistol2.recoilAmplitude = AdditiveScaling(1.5f, -0.375f, level);
+            FirePistol2.baseDuration = MultScaling(0.2f, -0.15f, level);
+            FirePistol2.recoilAmplitude = MultScaling(1.5f, -0.15f, level);
             
         }
 
@@ -32,7 +32,7 @@ namespace SkillsPlusPlus.Modifiers {
     class CommandoFMJSkillModifier : TypedBaseSkillModifier<FireFMJ> {
 
         static CommandoFMJSkillModifier() {
-            R2API.LanguageAPI.Add("COMMANDO_SECONDARY_DESCRIPTION", "Fire a piercing bullet that hits all enemies in a line for <style=cIsDamage>300% damage</style>. Projectile travels faster at higher levels.");
+            // R2API.LanguageAPI.Add("COMMANDO_SECONDARY_DESCRIPTION", "Fire a piercing bullet that hits all enemies in a line for <style=cIsDamage>300% damage</style>. Projectile travels faster at higher levels.");
         }
 
         public override int MaxLevel {
@@ -65,7 +65,7 @@ namespace SkillsPlusPlus.Modifiers {
         protected override void OnSkillEnter(FireShotgunBlast skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("procCoefficient: {0}, damageCoefficient: {1}, maxDistance: {2}", skillState.procCoefficient, skillState.damageCoefficient, skillState.maxDistance);
-            skillState.bulletCount = MultScaling(skillState.bulletCount, 0.66f, level);
+            skillState.bulletCount = MultScaling(skillState.bulletCount, 0.5f, level);
             skillState.maxDistance = MultScaling(skillState.maxDistance, 0.25f, level);
         }
 

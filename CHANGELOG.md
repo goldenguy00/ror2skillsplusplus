@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 0.0.5
+
+Changes:
+
+- Released Commando's skill upgrade kit
+
+Bug fixes:
+
+- Fixed bug where Huntress's flurry wouldn't fire the correct number of arrows when critting.
+- [#12](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/12) - Fixed Artificer's flamethrower dealign 1 damage per tick and not scaling with upgrades purchased.
+
 ## Version 0.0.4
 
 Changes:
