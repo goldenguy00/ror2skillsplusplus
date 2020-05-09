@@ -1,6 +1,6 @@
 # Risk of Rain 2 - Skills++ Mod
 
-**Version 0.0.4**  
+**Version 0.0.5**  
 [Changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
 The Skills++ adds skills upgrades that can be purchased as your character levels up throughout a run.

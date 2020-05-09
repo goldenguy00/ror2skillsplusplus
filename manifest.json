@@ -1,8 +1,8 @@
 {
 	"name": "SkillsPlusPlus",
-	"version_number": "0.0.4",
+	"version_number": "0.0.5",
 	"website_url": "https://gitlab.com/cwmlolzlz/ror2skillsplusplus",
-	"description": "Adds upgradable skills to purchase during a run",
+	"description": "Commando upgrades release! Add redeemable skill upgrades",
 	"dependencies": [
 		"bbepis-BepInExPack-3.2.0",
 		"tristanmcpherson-R2API-2.4.10"
