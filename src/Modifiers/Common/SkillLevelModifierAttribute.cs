@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SkillsPlusPlus {
+namespace SkillsPlusPlus.Modifiers {
 
     [AttributeUsage(AttributeTargets.Class)]
     public class SkillLevelModifierAttribute : Attribute {
