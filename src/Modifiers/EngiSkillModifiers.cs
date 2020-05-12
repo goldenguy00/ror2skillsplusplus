@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -114,7 +114,7 @@ namespace SkillsPlusPlus.Modifiers {
             Deployed.lifetime = MultScaling(20, 0.25f, level);
         }
 
-        protected override void OnSkillEnter(FireBubbleShield skillState, int level) {
+        public override void OnSkillEnter(FireBubbleShield skillState, int level) {
             base.OnSkillEnter(skillState, level);
             float bubbleSize = MultScaling(20, 0.25f, level);
             // float shieldDuration = MultScaling();

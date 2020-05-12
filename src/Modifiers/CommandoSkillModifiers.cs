@@ -39,7 +39,7 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 4; }
         }
 
-        protected override void OnSkillEnter(FireFMJ skillState, int level) {
+        public override void OnSkillEnter(FireFMJ skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("recoilAmplitude: {0},s damageCoefficient: {1}", skillState.recoilAmplitude, skillState.damageCoefficient);
             skillState.projectilePrefab.transform.localScale = new Vector3(2.90f, 2.19f, 3.86f) * AdditiveScaling(1, 0.5f, level);
@@ -62,7 +62,7 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 4; }
         }
 
-        protected override void OnSkillEnter(FireShotgunBlast skillState, int level) {
+        public override void OnSkillEnter(FireShotgunBlast skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("procCoefficient: {0}, damageCoefficient: {1}, maxDistance: {2}", skillState.procCoefficient, skillState.damageCoefficient, skillState.maxDistance);
             skillState.bulletCount = MultScaling(skillState.bulletCount, 0.5f, level);
@@ -80,7 +80,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override int MaxLevel {
             get { return 4; }
         }
-        protected override void OnSkillEnter(DodgeState skillState, int level) {
+        public override void OnSkillEnter(DodgeState skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("duration: {0}", skillState.duration);
             float duration = skillState.duration * AdditiveScaling(0, 0.75f, level);
@@ -102,7 +102,7 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 4; }
         }
 
-        protected override void OnSkillEnter(SlideState skillState, int level) {
+        public override void OnSkillEnter(SlideState skillState, int level) {
             base.OnSkillEnter(skillState, level);
             float duration = SlideState.slideDuration * AdditiveScaling(0f, 0.75f, level);
             if (duration > 0) {
@@ -122,7 +122,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override int MaxLevel {
             get { return 4; }
         }
-        protected override void OnSkillEnter(FireBarrage skillState, int level) {
+        public override void OnSkillEnter(FireBarrage skillState, int level) {
             base.OnSkillEnter(skillState, level);
             //skillState.
         }
@@ -143,8 +143,8 @@ namespace SkillsPlusPlus.Modifiers {
         public override int MaxLevel {
             get { return 4; }
         }
-        
-        protected override void OnSkillEnter(ThrowGrenade skillState, int level) {
+
+        public override void OnSkillEnter(ThrowGrenade skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("force: {0}, damageCoefficient: {1}", skillState.force, skillState.damageCoefficient);
             skillState.force = MultScaling(skillState.force, 0.5f, level);

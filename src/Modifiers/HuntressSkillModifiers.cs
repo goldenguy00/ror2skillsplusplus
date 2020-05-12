@@ -16,7 +16,7 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 4; }
         }
 
-        protected override void OnSkillEnter(FireSeekingArrow skillState, int level) {
+        public override void OnSkillEnter(FireSeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);
             var huntressTracker = skillState.outer.GetComponent<HuntressTracker>();
             Logger.Debug("orbProcCoefficient: {0}, trackingDistance: {1}, trackingAngle: {3}, maxArrowCount: {2}", skillState.orbProcCoefficient, huntressTracker.maxTrackingDistance, skillState.maxArrowCount, huntressTracker.maxTrackingAngle);
@@ -38,7 +38,7 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 4; }
         }
 
-        protected override void OnSkillEnter(FireFlurrySeekingArrow skillState, int level) {
+        public override void OnSkillEnter(FireFlurrySeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);
             var huntressTracker = skillState.outer.GetComponent<HuntressTracker>();
             Logger.Debug("orbProcCoefficient: {0}, trackingDistance: {1}, trackingAngle: {3}, maxArrowCount: {2}, baseArrowReloadDuration: {4}", skillState.orbProcCoefficient, huntressTracker.maxTrackingDistance, skillState.maxArrowCount, huntressTracker.maxTrackingAngle, skillState.baseArrowReloadDuration);

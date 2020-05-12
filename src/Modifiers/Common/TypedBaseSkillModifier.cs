@@ -31,11 +31,11 @@ namespace SkillsPlusPlus.Modifiers {
             // no-op
         }
 
-        protected virtual void OnSkillEnter(SkillState skillState, int level) {
+        public virtual void OnSkillEnter(SkillState skillState, int level) {
             // no-op
         }
 
-        protected virtual void OnSkillExit(SkillState skillState, int level) {
+        public virtual void OnSkillExit(SkillState skillState, int level) {
             // no-op
         }
     }
