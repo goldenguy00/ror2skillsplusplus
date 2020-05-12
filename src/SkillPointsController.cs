@@ -223,6 +223,9 @@ namespace SkillsPlusPlus {
                 //TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong)(500 * Time.deltaTime));
                 TeamManager.instance.SetTeamLevel(this.PlayerTeamIndex, TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex) + 1);
             }
+            if(Input.GetKeyDown(KeyCode.Keypad2) && this.playerCharacterMasterController != null) {
+                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.UtilitySkillMagazine);
+            }
 #endif
 
         }
