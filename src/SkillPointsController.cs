@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using EntityStates;
 using RoR2;
@@ -81,34 +81,53 @@ namespace SkillsPlusPlus {
         private bool TryGetSkillModifierForState(BaseState state, out ISkillModifier skillModifierOut, out SkillSlot skillSlotOut) {
             var entityStateMachine = state.outer;
             if(entityStateMachine != null && entityStateMachine.destroying == false) {
-                if (entityStateMachine.networker != null && entityStateMachine.networker.localPlayerAuthority) {
-                    if (this.body != null && entityStateMachine.commonComponents.characterBody == this.body) {
-                        var stateType = state.GetType();
-                        ICollection<ISkillModifier> skillModifiers = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
-                        this.EnsureSkillModifiersAreInitialised();
-                        foreach (ISkillModifier skillModifier in skillModifiers) {
-                            var skillName = skillModifier.SkillDef?.skillName;
-                            if (skillName == null) {
-                                continue;
-                            }
-                            var genericSkills = this.body.GetComponents<GenericSkill>();
-                            var genericSkill = genericSkills.FirstOrDefault(it => { return it.skillDef.skillName == skillName; });
-                            if (genericSkill == null) {
-                                Logger.Error("Could not find generic skill instance for skill named {0}", skillName);
-                                continue;
-                            }
-                            SkillSlot skillSlot = this.skillLocator.FindSkillSlot(genericSkill);
-                            if (skillSlot == SkillSlot.None) {
-                                Logger.Error("Could not identify skill slot for generic skill {0} named {1}", genericSkill, skillName);
-                                continue;
-                            }
-                            // Logger.Debug("Successfully intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, stateType.Name);
-                            skillSlotOut = skillSlot;
-                            skillModifierOut = skillModifier;
-                            return true;
-                        }
-                    }
+                // if(entityStateMachine.networker != null && entityStateMachine.networker.localPlayerAuthority) {
+                bool belongsToCharacter = false;
+                if(this.body != null && entityStateMachine.commonComponents.characterBody == this.body) {
+                    belongsToCharacter = true;
+                } else if(entityStateMachine.commonComponents.projectileController != null && entityStateMachine.commonComponents.projectileController.owner == this.body.gameObject) {
+                    belongsToCharacter = true;
+                } else if(this.playerCharacterMasterController.master != null && entityStateMachine.commonComponents.characterBody?.master?.minionOwnership?.ownerMaster == this.playerCharacterMasterController.master) {
+                    belongsToCharacter = true;
                 }
+
+                if(belongsToCharacter == false) {
+                    Logger.Debug("Could not associate {0} to the current player", state);
+                    skillModifierOut = null;
+                    skillSlotOut = SkillSlot.None;
+                    return false;
+                }
+
+                var stateType = state.GetType();
+                ICollection<ISkillModifier> skillModifiers = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
+                this.EnsureSkillModifiersAreInitialised();
+                foreach(ISkillModifier skillModifier in skillModifiers) {
+                    var skillName = skillModifier.SkillDef?.skillName;
+                    if(skillName == null) {
+                        continue;
+                    }
+                    var genericSkills = this.body.GetComponents<GenericSkill>();
+                    var genericSkill = genericSkills.FirstOrDefault(it => { return it.skillDef.skillName == skillName; });
+                    if(genericSkill == null) {
+                        Logger.Debug("Could not find generic skill instance for skill named {0}", skillName);
+                        continue;
+                    }
+                    SkillSlot skillSlot = this.skillLocator.FindSkillSlot(genericSkill);
+                    if(skillSlot == SkillSlot.None) {
+                        Logger.Debug("Could not identify skill slot for generic skill {0} named {1}", genericSkill, skillName);
+                        continue;
+                    }
+                    // Logger.Debug("Intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, stateType.Name);
+                    skillSlotOut = skillSlot;
+                    skillModifierOut = skillModifier;
+                    return true;
+                }
+
+                // } else {
+                //     Logger.Debug("{0} does not belong to a entity state machine");
+                // }
+            } else {
+                Logger.Debug("{0} does not have a running entity state machine", state);            
             }
             skillSlotOut = SkillSlot.None;
             skillModifierOut = null;

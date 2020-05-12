@@ -15,9 +15,9 @@ namespace SkillsPlusPlus.Modifiers {
 
         internal BaseSkillModifer() { }
         public abstract IList<Type> GetEntityStateTypes();
-        public abstract void OnSkillEnter(BaseState skillState, int level);
-        public abstract void OnSkillExit(BaseState skillState, int level);
-        public abstract void OnSkillLeveledUp(int level);
+        public virtual void OnSkillEnter(BaseState skillState, int level) { }
+        public virtual void OnSkillExit(BaseState skillState, int level) { }
+        public virtual void OnSkillLeveledUp(int level) { }
         public virtual string GetOverrideSkillDescriptionToken() {
             return null;
         }

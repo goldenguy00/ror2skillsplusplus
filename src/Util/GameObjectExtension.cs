@@ -12,11 +12,21 @@ namespace SkillsPlusPlus {
             return component != null;
         }
 
+        public static bool TryGetComponentInChildren<T>(this GameObject gameObject, out T component) where T : Component {
+            component = gameObject.GetComponentInChildren<T>();
+            return component != null;
+        }
+
     }
     public static class ComponentExtension {
 
         public static bool TryGetComponent<T>(this Component thisComponent, out T component) where T : Component {
             component = thisComponent.GetComponent<T>();
+            return component != null;
+        }
+
+        public static bool TryGetComponentInChildren<T>(this Component thisComponent, out T component) where T : Component {
+            component = thisComponent.GetComponentInChildren<T>();
             return component != null;
         }
 
