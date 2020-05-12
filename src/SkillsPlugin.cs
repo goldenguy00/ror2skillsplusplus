@@ -2,6 +2,7 @@ using BepInEx;
 using RoR2;
 using RoR2.UI;
 using R2API.Utils;
+using UnityEngine;
 
 namespace SkillsPlusPlus {
     
@@ -39,6 +40,7 @@ namespace SkillsPlusPlus {
                     if(self.master.GetBody().healthComponent.godMode == false){
                         self.master.GetBody().healthComponent.godMode = true;
                     }
+
 #endif
                     if (self.hasEffectiveAuthority) {
                         this.playerCharacterMasterController = self;
@@ -60,6 +62,19 @@ namespace SkillsPlusPlus {
                 TryCreateSkillsController();
             };
 
+        }
+
+        public void Update() {
+#if DEBUG
+            if(Input.GetKeyDown(KeyCode.Keypad1) && playerCharacterMasterController != null && playerCharacterMasterController.master.GetBody() != null) {
+                GameObject teleporter = GameObject.Find("Teleporter1(Clone)");
+                Transform spawnLocation = playerCharacterMasterController.master.GetBody().transform;
+                if(teleporter != null && teleporter.TryGetComponent(out TeleporterInteraction teleporterInteraction)) {
+                    GameObject.Instantiate(teleporterInteraction.shopPortalSpawnCard.prefab, spawnLocation.position, spawnLocation.rotation, null);
+                                        
+                }
+            }
+#endif
         }
 
         private void TryCreateSkillsController() {
