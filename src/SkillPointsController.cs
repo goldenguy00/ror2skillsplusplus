@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using EntityStates;
 using RoR2;
@@ -80,7 +80,7 @@ namespace SkillsPlusPlus {
 
         private bool TryGetSkillModifierForState(BaseState state, out ISkillModifier skillModifierOut, out SkillSlot skillSlotOut) {
             var entityStateMachine = state.outer;
-            if (entityStateMachine != null) {
+            if(entityStateMachine != null && entityStateMachine.destroying == false) {
                 if (entityStateMachine.networker != null && entityStateMachine.networker.localPlayerAuthority) {
                     if (this.body != null && entityStateMachine.commonComponents.characterBody == this.body) {
                         var stateType = state.GetType();
@@ -183,6 +183,13 @@ namespace SkillsPlusPlus {
 
             EnsureSkillModifiersAreInitialised();
 
+            if(this.body == null && this.skillIconControllers != null) {
+                // #14
+                // if the body is null then we must unset the skillIconControllers.
+                // it it likely that the character has just left the scene and the hud is still present
+                this.skillIconControllers = null;
+            }
+
             if (skillIconControllers != null) {
                 bool infoButtonDown = playerCharacterMasterController?.networkUser?.inputPlayer?.GetButton(RewiredConsts.Action.Info) == true;
                 foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
@@ -252,7 +259,6 @@ namespace SkillsPlusPlus {
             if(skillIconControllers != null && this.PlayerTeamIndex != TeamIndex.None && skillLocator != null) {
                 int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
                 foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
-
                     SkillSlot slot = skillLevelIconController.SkillSlot;
                     if (skillLevels.TryGetValue(slot, out int currentSkillLevel)) {
                         ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillLocator.GetSkill(slot).skillDef);
