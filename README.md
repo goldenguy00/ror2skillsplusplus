@@ -14,6 +14,7 @@ The Skills++ adds skills upgrades that can be purchased as your character levels
   - [Upgrade paths](#upgrade-paths)
     - [Commando](#commando)
     - [Huntress](#huntress)
+  - [Engineer](#engineer)
     - [Artificer](#artificer)
   - [Found a bug?](#found-a-bug)
   - [Have a suggestion?](#have-a-suggestion)
@@ -57,6 +58,18 @@ Mutliplayer is supported however there may be cases when game state is not corre
 | Phase Blink | ![Phase Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/dd/Phase_Blink.png?version=e5f06fa5f8cbe671e1e730ca9955f1df) | Upon blinking gain 0.50 seconds of full crit per level |
 | Arrow Rain | ![Arrow Rain](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/5/59/Arrow_Rain.png?version=4c6450cf90c89762b61a38224ce9ab66) | Area of effect by 33% per level. Area of effect damage increases by 25% per level |
 | Ballista | ![Ballista](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/d5/Ballista.png?version=b606a0a22dc203327b91fc5fd96d2930) | Adds one extra bullet per level. Increases damage by 20% per level |
+
+## Engineer
+
+| Skill | | Description |
+|:-|-|------|
+| Bouncing Grenades | ![Bouncing Grenades](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/0/08/Bouncing_Grenades.png?version=a49107eccea1acc6be75f6eeb280e77c) | |
+| Pressure Mines | ![Pressure Mines](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/9e/Pressure_Mines.png?version=bc1cc946c19e73379eba73b8b181da08) | |
+| Spider Mines | ![Spider Mines](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/6/61/Spider_Mines.png?version=c9fbe949643ffa5288d31c89d8a5e063) | |
+| Bubble Shield | ![Bubble Shield](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/da/Bubble_Shield.png?version=528e249613f7923f2df377251ec0394a) | |
+| Thermal Harpoons | ![Thermal Harpoons](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/b/b7/Thermal_Harpoons.png?version=bb32066c6dc3552e1bca5dff720dc79c) | |
+| TR12 Gauss Auto-Turret | ![TR12 Gauss Auto-Turret](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/6/60/TR12_Gauss_Auto-Turret.png?version=462607ca2de8fe7b5d8b9df093e50951) | |
+| TR58 Carbonizer Turret | ![TR58 Carbonizer Turret](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/4/4f/TR58_Carbonizer_Turret.png?version=8189f9c2f4ef8614ab225be5cd6ccc4f) | |
 
 ### Artificer
 
