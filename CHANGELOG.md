@@ -12,7 +12,7 @@ Changes:
 
 Bug fixes:
 
-* Fixed bug where travelling to the Bazaar or Void Plains would reverts the character's loadout to defaults.
+* [#13](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/13), [#14](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/14) - Fixed bug where travelling to the Bazaar or Void Plains would reverts the character's loadout to defaults.
 
 ## Version 0.0.5
 
