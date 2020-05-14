@@ -25,6 +25,19 @@ using System.Linq;
 
 namespace SkillsPlusPlus.Modifiers {
 
+    class EngiSkillModifier {
+
+        public static Dictionary<DeployableSlot, int> deployableSlotCountOverrides = new Dictionary<DeployableSlot, int>();
+
+        public static bool TryGetDeployableSameSlotLimit(DeployableSlot slot, out int overrideCount) { 
+            if(deployableSlotCountOverrides.TryGetValue(slot, out overrideCount)) {
+                return true;
+            }
+            return false;
+        }
+
+    }
+
     [SkillLevelModifier("FireGrenade")]
     class EngiGrenadesSkillModifier : TypedBaseSkillModifier<ChargeGrenades> {
 
@@ -96,8 +109,6 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("triggerRadius: {0}, blastRadiusScale: {1}, force: {2}, damageScale: {3}", skillState.triggerRadius, skillState.blastRadiusScale, skillState.forceScale, skillState.damageScale);
         }
     }
-
-
 
     [SkillLevelModifier("PlaceSpiderMine")]
     class EngiSpiderMineSkillModifier : BaseSkillModifer {
@@ -220,6 +231,7 @@ namespace SkillsPlusPlus.Modifiers {
             // an extra turret every two levels
             SkillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
             FireGauss.damageCoefficient = MultScaling(0.7f, 0.2f, level);
+            EngiSkillModifier.deployableSlotCountOverrides[DeployableSlot.EngiTurret] = SkillDef.baseMaxStock;
         }
 
     }
@@ -256,7 +268,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level) {
             base.OnSkillLeveledUp(level);
             SkillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
-
+            EngiSkillModifier.deployableSlotCountOverrides[DeployableSlot.EngiTurret] = SkillDef.baseMaxStock;
         }
     }
 }

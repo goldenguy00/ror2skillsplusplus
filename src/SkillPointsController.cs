@@ -7,6 +7,7 @@ using UnityEngine;
 
 using SkillsPlusPlus.Modifiers;
 using System.Linq;
+using EntityStates.Engi.EngiWeapon;
 
 namespace SkillsPlusPlus {
 
@@ -55,6 +56,7 @@ namespace SkillsPlusPlus {
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
 
             this.playerCharacterMasterController.master.onBodyStart += OnBodyStart;
+            On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += GetDeployableSameSlotLimit;
             On.EntityStates.BaseState.OnEnter += OnEnterState;
             On.EntityStates.EntityState.OnExit += OnExitState;
             On.RoR2.CharacterBody.RecalculateStats += this.OnRecalculateState;
@@ -62,6 +64,7 @@ namespace SkillsPlusPlus {
 
         void OnDestroy() {
             this.playerCharacterMasterController.master.onBodyStart -= OnBodyStart;
+            On.RoR2.CharacterMaster.GetDeployableSameSlotLimit -= GetDeployableSameSlotLimit;
             On.EntityStates.BaseState.OnEnter -= OnEnterState;
             On.EntityStates.EntityState.OnExit -= OnExitState;
             On.RoR2.CharacterBody.RecalculateStats -= this.OnRecalculateState;
@@ -76,6 +79,15 @@ namespace SkillsPlusPlus {
 
         private void OnBodyStart(CharacterBody body) {
             EnsureSkillModifiersAreInitialised(true);
+        }
+
+        private int GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot) {
+            if(self == this.playerCharacterMasterController.master) {
+                if(EngiSkillModifier.TryGetDeployableSameSlotLimit(slot, out int overrideSlotCount)) {
+                    return overrideSlotCount;
+                }
+            }
+            return orig(self, slot);
         }
 
         private bool TryGetSkillModifierForState(BaseState state, out ISkillModifier skillModifierOut, out SkillSlot skillSlotOut) {
@@ -215,8 +227,6 @@ namespace SkillsPlusPlus {
                     skillLevelIconController.ShowBuyButton(infoButtonDown);
                 }
             }
-
-
 
 #if DEBUG
             if (Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
