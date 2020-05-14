@@ -17,13 +17,16 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 4; }
         }
 
+        public override void OnSkillEnter(FirePistol2 skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+        }
+
         public override void OnSkillLeveledUp(int level) {
             Logger.Debug("FirePistol2");
             Logger.Debug(FirePistol2.baseDuration);
             Logger.Debug(FirePistol2.recoilAmplitude);
-            FirePistol2.baseDuration = MultScaling(0.2f, -0.15f, level);
-            FirePistol2.recoilAmplitude = MultScaling(1.5f, -0.15f, level);
-            
+            FirePistol2.baseDuration = MultScaling(0.2f, -0.20f, level);
+            FirePistol2.recoilAmplitude = MultScaling(1.5f, -0.15f, level);            
         }
 
     }
@@ -68,10 +71,6 @@ namespace SkillsPlusPlus.Modifiers {
             skillState.bulletCount = MultScaling(skillState.bulletCount, 0.5f, level);
             skillState.maxDistance = MultScaling(skillState.maxDistance, 0.25f, level);
         }
-
-        public override void OnSkillLeveledUp(int level) {
-
-        }
     }
 
     [SkillLevelModifier("Roll")]
@@ -88,11 +87,6 @@ namespace SkillsPlusPlus.Modifiers {
                 CharacterBody.AddTimedBuff(BuffIndex.Immune, duration);
             }
         }
-
-        public override void OnSkillLeveledUp(int level) {
-
-        }
-
     }
 
     [SkillLevelModifier("Slide")]
@@ -109,11 +103,6 @@ namespace SkillsPlusPlus.Modifiers {
                 CharacterBody.AddTimedBuff(BuffIndex.Energized, duration);
             }
         }
-
-        public override void OnSkillLeveledUp(int level) {
-
-        }
-
     }
 
     [SkillLevelModifier("Barrage")]

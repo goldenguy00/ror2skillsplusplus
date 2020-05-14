@@ -75,9 +75,9 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("triggerRadius: {0}, blastRadiusScale: {1}, force: {2}, damageScale: {3}", skillState.triggerRadius, skillState.blastRadiusScale, skillState.forceScale, skillState.damageScale);
 
             if(skillState is MineArmingFull) {
+                skillState.forceScale = MultScaling(3, 0.25f, level);
                 skillState.damageScale = MultScaling(3, 0.25f, level);
                 skillState.blastRadiusScale = MultScaling(2, 0.25f, level);
-                skillState.damageScale = MultScaling(3, 0.25f, level);
                 skillState.triggerRadius = MultScaling(8, 0.25f, level);
 
                 Transform strongIndicator = skillState.outer.commonComponents.transform.Find(skillState.pathToChildToEnable);
@@ -123,7 +123,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         private void OnBurrowEnter(EntityStates.Engi.SpiderMine.WaitForTarget waitForTarget, int level) {
             if(waitForTarget.outer.TryGetComponent(out ProjectileSphereTargetFinder targetFinder)) {
-                targetFinder.lookRange = MultScaling(25, 0.25f, level);
+                targetFinder.lookRange = MultScaling(25, 0.40f, level);
             } else {
                 ReportBroken("ProjectileSphereTargetFinder component in EntityStates.Engi.SpiderMine.WaitForTarget");
             }
@@ -210,7 +210,7 @@ namespace SkillsPlusPlus.Modifiers {
             if(skillState.outer.commonComponents.characterBody.master.TryGetComponent(out BaseAI baseAI)) {
                 AISkillDriver skillDriver = baseAI.skillDrivers.FirstOrDefault(it => { return it.customName == "FireAtEnemy"; });
                 if(skillDriver != null) {
-                    skillDriver.maxDistance = MultScaling(60, 0.25f, level);
+                    skillDriver.maxDistance = MultScaling(60, 0.40f, level);
                 }
             }
         }
@@ -219,7 +219,7 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillLeveledUp(level);
             // an extra turret every two levels
             SkillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
-            FireGauss.damageCoefficient = MultScaling(0.7f, 0.1f, level);
+            FireGauss.damageCoefficient = MultScaling(0.7f, 0.2f, level);
         }
 
     }
@@ -248,7 +248,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         private void OnFireBeamEnter(FireBeam fireBeam, int level) {            
             Logger.Debug("damageCoefficient: {0}, fireFrequency: {1}, procCoefficient: {2}", fireBeam.damageCoefficient, fireBeam.fireFrequency, fireBeam.procCoefficient);
-            fireBeam.damageCoefficient = MultScaling(2, 0.25f, level);
+            fireBeam.damageCoefficient = MultScaling(2, 0.20f, level);
             fireBeam.procCoefficient = MultScaling(3, 0.5f, level);
             fireBeam.fireFrequency = MultScaling(5, 0.10f, level);
         }

@@ -20,7 +20,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level) {
             Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
             SkillDef.baseMaxStock = AdditiveScaling(4, 2, level);
-            SkillDef.baseRechargeInterval = AdditiveScaling(1.3f, -0.1f, level);
+            SkillDef.baseRechargeInterval = MultScaling(1.3f, -0.1f, level);
             Logger.Debug("FireFirebolt after - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
         }
 
@@ -36,7 +36,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level) {
             Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
             SkillDef.baseMaxStock = AdditiveScaling(4, 2, level);
-            SkillDef.baseRechargeInterval = AdditiveScaling(1.3f, -0.1f, level);
+            SkillDef.baseRechargeInterval = MultScaling(1.3f, -0.1f, level);
             Logger.Debug("FireFirebolt after - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
         }
 
@@ -53,7 +53,8 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", skillState.baseChargeDuration, skillState.maxDamageCoefficient, skillState.maxRadius);
             skillState.baseChargeDuration = MultScaling(skillState.baseChargeDuration, 0.5f, level);
-            skillState.maxDamageCoefficient = MultScaling(skillState.maxDamageCoefficient, 0.5f, level);
+            skillState.minDamageCoefficient = MultScaling(skillState.minDamageCoefficient, 0.25f, level);
+            skillState.maxDamageCoefficient = MultScaling(skillState.maxDamageCoefficient, 0.75f, level); // 50% to keep up with charge duration + 25% damage bonus
             skillState.maxRadius = MultScaling(skillState.maxRadius, 0.5f, level);
             skillState.force = MultScaling(skillState.force, 0.5f, level);
             Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", skillState.baseChargeDuration, skillState.maxDamageCoefficient, skillState.maxRadius);
