@@ -22,6 +22,11 @@ namespace SkillsPlusPlus.Modifiers {
             return null;
         }
 
+        protected void ReportBroken(params String[] fields) {
+            var fieldInfo = String.Join(",", fields);
+            Logger.Warn("Skill {0} is broken. Cannot access the following items: {1}", SkillDef.name, fieldInfo);
+        }
+
         #region Helpers
         public static float AdditiveScaling(float baseValue, float buffValue, int level) {
             return baseValue + buffValue * (level - 1);
