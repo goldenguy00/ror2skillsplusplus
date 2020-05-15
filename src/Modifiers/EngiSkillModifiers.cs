@@ -53,7 +53,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("PlaceMine")]
-    class EngiMineSkillModifier : BaseSkillModifer {
+    class EngiMineSkillModifier : BaseSkillModifier {
         public override int MaxLevel {
             get { return 5; }
         }
@@ -111,7 +111,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("PlaceSpiderMine")]
-    class EngiSpiderMineSkillModifier : BaseSkillModifer {
+    class EngiSpiderMineSkillModifier : BaseSkillModifier {
         public override int MaxLevel {
             get { return 5; }
         }
@@ -194,7 +194,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("PlaceTurret")]
-    class EngiTurretSkillModifier : BaseSkillModifer {
+    class EngiTurretSkillModifier : BaseSkillModifier {
         public override int MaxLevel {
             get { return 5; }
         }
@@ -237,7 +237,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("PlaceWalkerTurret")]
-    class EngiWalkerTurretSkillModifier : BaseSkillModifer {
+    class EngiWalkerTurretSkillModifier : BaseSkillModifier {
         public override int MaxLevel {
             get { return 5; }
         }

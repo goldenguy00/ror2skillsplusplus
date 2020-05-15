@@ -7,13 +7,13 @@ using RoR2;
 using RoR2.Skills;
 
 namespace SkillsPlusPlus.Modifiers {
-    public abstract class BaseSkillModifer : ISkillModifier {
+    public abstract class BaseSkillModifier : ISkillModifier {
         public SkillDef SkillDef { get; set; }
         public CharacterBody CharacterBody { get; set; }
 
         public abstract int MaxLevel { get; }
 
-        internal BaseSkillModifer() { }
+        internal BaseSkillModifier() { }
         public abstract IList<Type> GetEntityStateTypes();
         public virtual void OnSkillEnter(BaseState skillState, int level) { }
         public virtual void OnSkillExit(BaseState skillState, int level) { }

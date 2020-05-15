@@ -6,7 +6,7 @@ using RoR2;
 using RoR2.Skills;
 
 namespace SkillsPlusPlus.Modifiers {
-    class NoopSkillModifier : BaseSkillModifer {
+    class NoopSkillModifier : BaseSkillModifier {
 
         internal static NoopSkillModifier Instance = new NoopSkillModifier();
 

@@ -84,7 +84,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Blink")]
-    class HuntressBlinkSkillModifier : BaseSkillModifer {
+    class HuntressBlinkSkillModifier : BaseSkillModifier {
         public override int MaxLevel {
             get { return 4; }
         }
@@ -139,7 +139,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("AimArrowSnipe")]
-    class HuntressSnipeSkillModifier : BaseSkillModifer {
+    class HuntressSnipeSkillModifier : BaseSkillModifier {
 
         static readonly float stockImageInterspacing = 18.0f;
 
