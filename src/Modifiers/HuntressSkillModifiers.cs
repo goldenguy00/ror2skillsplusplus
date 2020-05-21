@@ -121,19 +121,16 @@ namespace SkillsPlusPlus.Modifiers {
             R2API.LanguageAPI.Add("HUNTRESS_SPECIAL_DESCRIPTION", "<style=cIsUtility>Teleport</style> into the sky. Target a <style=cIsDamage>7.5 unit (+2.5)</style> radius area to rain arrows, <style=cIsUtility>slowing</style> all enemies and dealing <style=cIsDamage>225% (+%25) damage per second</style>.");
         }
 
-        private static readonly float origArrowRainRadius = 7.5f;
-        private static readonly float origDamageCoefficient = ArrowRain.damageCoefficient;
-
         public override int MaxLevel {
             get { return 4; }
         }
 
         public override void OnSkillLeveledUp(int level) {
-            ArrowRain.arrowRainRadius = AdditiveScaling(origArrowRainRadius, 2.5f, level);
-            ArrowRain.damageCoefficient = MultScaling(origDamageCoefficient, 0.25f, level);
+            Logger.Debug("ArrowRain stats - arrowRainRadius: {0}, damageCoefficient: {1}, prefabScale {2}", ArrowRain.arrowRainRadius, ArrowRain.damageCoefficient, ArrowRain.projectilePrefab.transform.localScale);
+            ArrowRain.arrowRainRadius = AdditiveScaling(7.5f, 2.5f, level);
+            ArrowRain.damageCoefficient = MultScaling(2.2f, 0.25f, level);
 
             ArrowRain.projectilePrefab.transform.localScale = Vector3.one * ArrowRain.arrowRainRadius * 2;
-            Logger.Debug("ArrowRain stats - arrowRainRadius: {0}, damageCoefficient: {1}, prefabScale {2}", ArrowRain.arrowRainRadius, ArrowRain.damageCoefficient, ArrowRain.projectilePrefab.transform.localScale);
         }
 
     }
