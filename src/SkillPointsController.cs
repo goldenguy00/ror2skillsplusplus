@@ -8,6 +8,7 @@ using UnityEngine;
 using SkillsPlusPlus.Modifiers;
 using System.Linq;
 using EntityStates.Engi.EngiWeapon;
+using SkillsPlusPlus.Util;
 
 namespace SkillsPlusPlus {
 
@@ -41,17 +42,14 @@ namespace SkillsPlusPlus {
         private SkillLevelIconController[] skillIconControllers;
 
         //  private Dictionary<SkillSlot, int> spentSkillPoints;
-        private Dictionary<SkillSlot, int> skillLevels;
+        private Dictionary<string, int> skillLevels;
 
         private int earnedSkillPoints = 0;
         private int unspentSkillPoints = 0;
 
         void Awake() {
             // this.spentSkillPoints = new Dictionary<SkillSlot, int>();
-            this.skillLevels = new Dictionary<SkillSlot, int>();
-            foreach (SkillSlot value in Enum.GetValues(typeof(SkillSlot))) {
-                skillLevels[value] = 1;
-            }
+            this.skillLevels = new Dictionary<string, int>();
 
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
 
@@ -90,7 +88,7 @@ namespace SkillsPlusPlus {
             return orig(self, slot);
         }
 
-        private bool TryGetSkillModifierForState(BaseState state, out ISkillModifier skillModifierOut, out SkillSlot skillSlotOut) {
+        private bool TryGetSkillModifierForState(BaseState state, out ISkillModifier skillModifierOut, out string skillNameOut) {
             var entityStateMachine = state.outer;
             if(entityStateMachine != null && entityStateMachine.destroying == false) {
                 // if(entityStateMachine.networker != null && entityStateMachine.networker.localPlayerAuthority) {
@@ -104,9 +102,9 @@ namespace SkillsPlusPlus {
                 }
 
                 if(belongsToCharacter == false) {
-                    Logger.Debug("Could not associate {0} to the current player", state);
+                    // Logger.Debug("Could not associate {0} to the current player", state);
                     skillModifierOut = null;
-                    skillSlotOut = SkillSlot.None;
+                    skillNameOut = null;
                     return false;
                 }
 
@@ -116,10 +114,11 @@ namespace SkillsPlusPlus {
                 foreach(ISkillModifier skillModifier in skillModifiers) {
                     var skillName = skillModifier.SkillDef?.skillName;
                     if(skillName == null) {
+                        Logger.Debug("Skill modifier {0} does not have a skill name", skillModifier);
                         continue;
                     }
-                    var genericSkills = this.body.GetComponents<GenericSkill>();
-                    var genericSkill = genericSkills.FirstOrDefault(it => { return it.skillDef.skillName == skillName; });
+
+                    var genericSkill = this.skillLocator.FindGenericSkill(skillName);
                     if(genericSkill == null) {
                         Logger.Debug("Could not find generic skill instance for skill named {0}", skillName);
                         continue;
@@ -130,7 +129,7 @@ namespace SkillsPlusPlus {
                         continue;
                     }
                     // Logger.Debug("Intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, stateType.Name);
-                    skillSlotOut = skillSlot;
+                    skillNameOut = skillName;
                     skillModifierOut = skillModifier;
                     return true;
                 }
@@ -141,27 +140,27 @@ namespace SkillsPlusPlus {
             } else {
                 Logger.Debug("{0} does not have a running entity state machine", state);            
             }
-            skillSlotOut = SkillSlot.None;
+            skillNameOut = null;
             skillModifierOut = null;
             return false;
         }
 
         private void OnEnterState(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
-            if (TryGetSkillModifierForState(self, out ISkillModifier skillModifier, out SkillSlot skillSlot)) {
-                skillModifier.OnSkillEnter(self, this.skillLevels[skillSlot]);
+            if(TryGetSkillModifierForState(self, out ISkillModifier skillModifier, out string skillName) && this.skillLevels.TryGetValue(skillName, out int level)) {
+                skillModifier.OnSkillEnter(self, level);
             }
-
             orig(self);
         }
 
         private void OnExitState(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
             if (self is BaseState) {
                 BaseState baseState = (BaseState)self;
-                if (TryGetSkillModifierForState(baseState, out ISkillModifier skillModifier, out SkillSlot skillSlot)) {
-                    skillModifier.OnSkillExit(baseState, this.skillLevels[skillSlot]);
+                if (TryGetSkillModifierForState(baseState, out ISkillModifier skillModifier, out string skillName)) {
+                    if(this.skillLevels.TryGetValue(skillName, out int level)) {
+                        skillModifier.OnSkillExit(baseState, level);
+                    }
                 }
             }
-
             orig(self);
         }
 
@@ -176,12 +175,16 @@ namespace SkillsPlusPlus {
                 Logger.Debug("Unable to initialise skill modifiers since there is no skill locator to use");
                 return;
             }
+            foreach(GenericSkill genericSkill in skillLocator.FindAllGenericSkills()) {
+                if(skillLevels.ContainsKey(genericSkill.skillDef.skillName) == false) {
+                    Logger.Debug("Setting {0} to level 1", genericSkill.skillDef.skillName);
+                    skillLevels[genericSkill.skillDef.skillName] = 1;
+                }
+            }
 
             skillModifiersAreInitialised = true;
-            foreach (SkillSlot skillSlot in Enum.GetValues(typeof(SkillSlot))) {
-                GenericSkill genericSkill = skillLocator.GetSkill(skillSlot);
+            foreach (GenericSkill genericSkill in skillLocator.FindAllGenericSkills()) {
                 if (genericSkill == null) {
-                    Logger.Debug("Skipping slot {0} since there is no generic skill for it", skillSlot);
                     continue;
                 }
                 // clone the current skill definition since we are going to mutating it
@@ -189,7 +192,7 @@ namespace SkillsPlusPlus {
                 SkillDef skillDef = Instantiate(genericSkill.skillDef);
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
                 modifier.SkillDef = skillDef;
-                modifier.OnSkillLeveledUp(skillLevels[skillSlot]);
+                modifier.OnSkillLeveledUp(skillLevels[skillDef.skillName]);
                 modifier.CharacterBody = this.body;
                 genericSkill.SetBaseSkill(skillDef);
             }
@@ -236,19 +239,29 @@ namespace SkillsPlusPlus {
             if(Input.GetKeyDown(KeyCode.Keypad2) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.UtilitySkillMagazine);
             }
+            if(Input.GetKeyDown(KeyCode.Keypad3) && this.playerCharacterMasterController != null) {
+                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.ExtraLife);
+            }
+            if(Input.GetKeyDown(KeyCode.Keypad4) && this.playerCharacterMasterController != null) {
+                this.body.skillLocator.ResetSkills();
+            }
 #endif
 
         }
 
-        private void OnBuySkill(SkillSlot skillSlot) {
+        private void OnBuySkill(string skillName) {
+            if(skillName == null) {
+                return;
+            }
             if (unspentSkillPoints <= 0) {
                 return;
             }
-            Logger.Debug("OnBuySkill({0})", Enum.GetName(typeof(SkillSlot), skillSlot));
+            Logger.Debug("OnBuySkill({0})", skillName);
 
-            if (skillLevels.TryGetValue(skillSlot, out int skillLevel)) {
-                SkillDef skillDef = skillLocator.GetSkill(skillSlot).skillDef;
-                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
+            if (skillLevels.TryGetValue(skillName, out int skillLevel)) {
+                GenericSkill genericSkill = skillLocator.FindGenericSkill(skillName);
+                SkillDef skillDef = genericSkill.skillDef;
+                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillName);
 
                 if (skillLevel >= modifier.MaxLevel) {
                     return;
@@ -258,14 +271,14 @@ namespace SkillsPlusPlus {
 
 
                 // increment and store the new skill level
-                skillLevels[skillSlot] = ++skillLevel;
-                Logger.Debug("SkillSlot {0} @ level {1}", Enum.GetName(typeof(SkillSlot), skillSlot), skillLevel);
+                skillLevels[skillName] = ++skillLevel;
+                Logger.Debug("SkillSlot {0} @ level {1}", skillName, skillLevel);
 
                 // find an notify the modifer to update the skill's parameters
                 if (modifier != null)
                 {
                     modifier.OnSkillLeveledUp(skillLevel);
-                    body.skillLocator.GetSkill(skillSlot).RecalculateValues();
+                    genericSkill.RecalculateValues();
                 }
                 RefreshIconControllers();
             }
@@ -291,9 +304,9 @@ namespace SkillsPlusPlus {
             if(skillIconControllers != null && this.PlayerTeamIndex != TeamIndex.None && skillLocator != null) {
                 int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
                 foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
-                    SkillSlot slot = skillLevelIconController.SkillSlot;
-                    if (skillLevels.TryGetValue(slot, out int currentSkillLevel)) {
-                        ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillLocator.GetSkill(slot).skillDef);
+                    string skillName = skillLevelIconController.skillName;
+                    if(skillName != null && skillLevels.TryGetValue(skillName, out int currentSkillLevel)) {
+                        ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillName);
                         // Logger.Debug("RefreshIconControllers - slot: {0}, skillLevelIconController: {1}, modifier: {2}", slot, skillLevelIconController, modifier);
 
                         int requiredLevelToBuySkill = (currentSkillLevel / skillLevelScaling);
@@ -302,9 +315,9 @@ namespace SkillsPlusPlus {
                         // and the skill is less than its max level
                         skillLevelIconController.SetCanUpgrade(unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill && currentSkillLevel < modifier.MaxLevel);
                         skillLevelIconController.SetLevel(currentSkillLevel);
+                    } else {
+                        Logger.Debug("Could not refresh the icon controller for skill named {0}", skillName);
                     }
-
-                    
                 }
             }
         }

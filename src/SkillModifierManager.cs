@@ -46,8 +46,12 @@ namespace SkillsPlusPlus {
         }
 
         internal static ISkillModifier GetSkillModifier(SkillDef skillDef) {
-            if (skillDef && skillDef.skillName.Length != 0) {
-                if (skillModifiers.TryGetValue(skillDef.skillName, out ISkillModifier modifier)) {
+            return GetSkillModifier(skillDef.skillName);
+        }
+
+        internal static ISkillModifier GetSkillModifier(string skillName) {
+            if(skillName != null && skillName.Length != 0) {
+                if(skillModifiers.TryGetValue(skillName, out ISkillModifier modifier)) {
                     return modifier;
                 }
             }

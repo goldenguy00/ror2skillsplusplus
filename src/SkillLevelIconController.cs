@@ -10,7 +10,7 @@ using UnityEngine.Events;
 
 namespace SkillsPlusPlus {
 
-    delegate void UpgradeSkillEvent(SkillSlot skillSlot);
+    delegate void UpgradeSkillEvent(string skillName);
 
     [RequireComponent(typeof(SkillIcon))]
     class SkillLevelIconController : MonoBehaviour {
@@ -25,8 +25,8 @@ namespace SkillsPlusPlus {
 
         private CanvasRenderer CanBuyRenderer;
 
-        public SkillSlot SkillSlot {
-            get { return skillIcon.targetSkillSlot; }
+        public string skillName {
+            get { return skillIcon.targetSkill?.skillDef?.skillName; }
         }
 
         public event UpgradeSkillEvent OnUpgradeSkill;
@@ -88,7 +88,7 @@ namespace SkillsPlusPlus {
 
                 buyButton = UpgradeLevelButton.AddComponent<HGButton>();
                 buyButton.onClick.AddListener(() => {
-                    this.OnUpgradeSkill.Invoke(this.SkillSlot);
+                    this.OnUpgradeSkill.Invoke(this.skillName);
                 });
 
                 buttonTransform.ForceUpdateRectTransforms();
