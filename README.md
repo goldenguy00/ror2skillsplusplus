@@ -14,6 +14,7 @@ The Skills++ adds skills upgrades that can be purchased as your character levels
   - [Upgrade paths](#upgrade-paths)
     - [Commando](#commando)
     - [Huntress](#huntress)
+    - [MUL-T](#mul-t)
     - [Engineer](#engineer)
     - [Artificer](#artificer)
   - [Found a bug?](#found-a-bug)
@@ -58,6 +59,18 @@ Mutliplayer is supported however there may be cases when game state is not corre
 | Phase Blink | ![Phase Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/dd/Phase_Blink.png?version=e5f06fa5f8cbe671e1e730ca9955f1df) | Grants `0.5 seconds` per level or full crit time |
 | Arrow Rain | ![Arrow Rain](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/5/59/Arrow_Rain.png?version=4c6450cf90c89762b61a38224ce9ab66) | `+33%` area of effect per level. `+25%` damage per level |
 | Ballista | ![Ballista](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/d5/Ballista.png?version=b606a0a22dc203327b91fc5fd96d2930) | `+1` bullet per level. `+20%` damage per level |
+
+### MUL-T
+
+| Skill | | Description |
+|:-|-|------|
+| Auto-Nailgun | ![Auto-Nailgun](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/e/ec/Auto-Nailgun.png/128px-Auto-Nailgun.png?version=e955112af188f212b6911f5feb3c117b) | `+2` bullets to initial burst and `+25%` damage per level |
+| Rebar Puncher | ![Rebar Puncher](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/1/10/Rebar_Puncher.png/128px-Rebar_Puncher.png?version=c6312b8ad9b87116c00b04a82aae1c99) | `+25%` faster wind up and `+25%` damage per level |
+| Scrap Launcher | ![Scrap Launcher](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/e/e6/Scrap_Launcher.png?version=e4b5fde76f9cb3ba3853e874532ce56b) | `+1` stock, `+25%` damage, and `+20%` blast radius per level |
+| Power-Saw | ![Power-Saw](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/8/8e/Power-Saw.png/128px-Power-Saw.png?version=de4e4c071db8036e40d2623be38c2a53) | `+25%` rate of fire, `+25%` damage, and `+50%` blade hitbox size per level |
+| Blast Cannister | ![Blast Cannister](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/f/f2/Blast_Canister.png/128px-Blast_Canister.png?version=8a890dd16b6811607def84527e8f2b07) | `+3` child bombs, `+25%` spread radius, `+25%` child blast radius, and `+25%` damage per level |
+| Transport Mode | ![Transport Mode](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/8/85/Transport_Mode.png/128px-Transport_Mode.png?version=2dbe3c42bd9d303918c79d9d964bb02f) | `+25%` duration, and `+50%` damage per level |
+| Swap | ![Swap](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/8/8d/Retool.png/128px-Retool.png?version=53426b923f0280f1016f58327be358df) | `+25%` faster switching per level. Gain `+1 second` of bonus attack speed per level |
 
 ### Engineer
 
