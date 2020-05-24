@@ -12,7 +12,7 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoPoisonSkillModifier : BaseSkillModifier {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
         public override IList<Type> GetEntityStateTypes() {
@@ -25,7 +25,7 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoBlightSkillModifier : BaseSkillModifier {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
         public override IList<Type> GetEntityStateTypes() {
@@ -38,7 +38,7 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoSlashSkillModifier : TypedBaseSkillModifier<Slash> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -47,7 +47,7 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoSpitSkillModifier : TypedBaseSkillModifier<FireSpit> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -56,7 +56,7 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoBiteSkillModifier : TypedBaseSkillModifier<Bite> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -65,7 +65,7 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoLeapSkillModifier : TypedBaseSkillModifier<Leap> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -74,7 +74,7 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoChainableLeapSkillModifier : TypedBaseSkillModifier<ChainableLeap> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -83,7 +83,7 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoDiseaseSkillModifier : TypedBaseSkillModifier<Disease> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }

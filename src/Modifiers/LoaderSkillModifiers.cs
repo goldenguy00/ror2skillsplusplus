@@ -12,7 +12,7 @@ namespace SkillsPlusPlus.Modifiers {
     class LoaderKnucklesSkillModifier : TypedBaseSkillModifier<SwingComboFist> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -21,7 +21,7 @@ namespace SkillsPlusPlus.Modifiers {
     class LoaderHookSkillModifier : TypedBaseSkillModifier<FireHook> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -30,7 +30,7 @@ namespace SkillsPlusPlus.Modifiers {
     class LoaderYankHookSkillModifier : TypedBaseSkillModifier<FireYankHook> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -39,7 +39,7 @@ namespace SkillsPlusPlus.Modifiers {
     class LoaderChargeFistSkillModifier : TypedBaseSkillModifier<ChargeFist> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -48,7 +48,7 @@ namespace SkillsPlusPlus.Modifiers {
     class LoaderChargeZapFistSkillModifier : TypedBaseSkillModifier<ChargeZapFist> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }
@@ -58,7 +58,7 @@ namespace SkillsPlusPlus.Modifiers {
     class LoaderPylonFistSkillModifier : TypedBaseSkillModifier<ThrowPylon> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
     }

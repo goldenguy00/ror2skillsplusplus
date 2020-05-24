@@ -12,7 +12,7 @@ namespace SkillsPlusPlus.Modifiers {
     class TreebotSyringeSkillModifier : TypedBaseSkillModifier<FireSyringe> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 
@@ -20,7 +20,7 @@ namespace SkillsPlusPlus.Modifiers {
     class TreebotMortarRainSkillModifier : TypedBaseSkillModifier<AimMortarRain> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 
@@ -28,7 +28,7 @@ namespace SkillsPlusPlus.Modifiers {
     class TreebotMortar2SkillModifier : TypedBaseSkillModifier<AimMortar2> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 
@@ -36,7 +36,7 @@ namespace SkillsPlusPlus.Modifiers {
     class TreebotSonicBoomSkillModifier : TypedBaseSkillModifier<ChargeSonicBoom> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 
@@ -44,7 +44,7 @@ namespace SkillsPlusPlus.Modifiers {
     class TreebotPlantSonicBoomSkillModifier : TypedBaseSkillModifier<ChargePlantSonicBoom> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 
@@ -52,7 +52,7 @@ namespace SkillsPlusPlus.Modifiers {
     class TreebotFlowerSkillModifier : TypedBaseSkillModifier<PrepFlower2> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 }

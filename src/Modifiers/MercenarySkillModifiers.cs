@@ -13,7 +13,7 @@ namespace SkillsPlusPlus.Modifiers {
     class SwordSkillModifier : TypedBaseSkillModifier<GroundLight> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 
@@ -21,7 +21,7 @@ namespace SkillsPlusPlus.Modifiers {
     class WhirlwindSkillModifier : TypedBaseSkillModifier<WhirlwindEntry> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 
@@ -29,7 +29,7 @@ namespace SkillsPlusPlus.Modifiers {
     class UppercutSkillModifier : TypedBaseSkillModifier<Uppercut> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 
@@ -37,7 +37,7 @@ namespace SkillsPlusPlus.Modifiers {
     class AssaultSkillModifier : TypedBaseSkillModifier<Assaulter> {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
     }
 
@@ -46,7 +46,7 @@ namespace SkillsPlusPlus.Modifiers {
     class EviscerateSkillModifier : BaseSkillModifier {
 
         public override int MaxLevel {
-            get { return 4; }
+            get { return 1; }
         }
 
         public override IList<Type> GetEntityStateTypes() {
