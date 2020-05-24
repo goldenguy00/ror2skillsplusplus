@@ -189,8 +189,8 @@ namespace SkillsPlusPlus.Modifiers {
             SkillDef.baseMaxStock = AdditiveScaling(4, 1, level);
             Logger.Debug("paintInterval: {0}", Paint.stackInterval);
             Logger.Debug("baseDurationPerMissile: {0}, damageCoefficient: {1}", Fire.baseDurationPerMissile, Fire.damageCoefficient);
-            Fire.baseDurationPerMissile = MultScaling(0.15f, -0.25f, level);
             Fire.damageCoefficient = MultScaling(5, 0.25f, level);
+            Paint.maxDistance = MultScaling(150, 0.5f, level);
         }
     }
 

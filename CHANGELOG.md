@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 0.0.8
+
+Changes:
+
+* Removed Engi's thermal harpoon target paint duration per missile
+* Added `+50%` targetting range to Engi's thermal harpoon
+
 ## Version 0.0.7
 
 Changes:
