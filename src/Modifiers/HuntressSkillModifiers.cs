@@ -25,10 +25,6 @@ namespace SkillsPlusPlus.Modifiers {
             skillState.orbProcCoefficient = AdditiveScaling(1f, 0.2f, level);
             //skillState.orbProcCoefficient;
         }
-
-        public override void OnSkillLeveledUp(int level) {
-            
-        }
     }
 
     [SkillLevelModifier("FireFlurrySeekingArrow")]
@@ -48,7 +44,8 @@ namespace SkillsPlusPlus.Modifiers {
             // FireFlurrySeekingArrow.baseArrowReloadDuration = AdditiveScaling(6, 2, level);
         }
 
-        public override void OnSkillLeveledUp(int level) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
             // when the flurry crits it uses the following number of arrows
             Logger.Debug("critMaxArrowCount: {0}, critBaseArrowReloadDuration: {1}", FireFlurrySeekingArrow.critMaxArrowCount, FireFlurrySeekingArrow.critBaseArrowReloadDuration);
 
@@ -72,7 +69,8 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 5; }
         }
 
-        public override void OnSkillLeveledUp(int level) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
             Logger.Debug("OnSkillLeveledUp(level: {0})", level);
             Logger.Debug("Glaive stats - max bounces: {0}, damage coefficient: {1}, glaiveBounceRange: {2}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce, ThrowGlaive.glaiveBounceRange);
             ThrowGlaive.maxBounceCount = AdditiveScaling(origGlaiveBounceCount, 1, level);
@@ -96,7 +94,7 @@ namespace SkillsPlusPlus.Modifiers {
             };
         }
 
-        public override void OnSkillLeveledUp(int level) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
 
         }
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -109,7 +107,7 @@ namespace SkillsPlusPlus.Modifiers {
                 duration /= 2f;
             }
             if (duration > 0) {
-                this.CharacterBody?.AddTimedBuff(BuffIndex.FullCrit, duration);
+                skillState.outer.commonComponents.characterBody?.AddTimedBuff(BuffIndex.FullCrit, duration);
             }
         }
     }
@@ -125,7 +123,8 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 4; }
         }
 
-        public override void OnSkillLeveledUp(int level) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
             Logger.Debug("ArrowRain stats - arrowRainRadius: {0}, damageCoefficient: {1}, prefabScale {2}", ArrowRain.arrowRainRadius, ArrowRain.damageCoefficient, ArrowRain.projectilePrefab.transform.localScale);
             ArrowRain.arrowRainRadius = AdditiveScaling(7.5f, 2.5f, level);
             ArrowRain.damageCoefficient = MultScaling(2.2f, 0.25f, level);
@@ -160,7 +159,7 @@ namespace SkillsPlusPlus.Modifiers {
             // do nothing
         }
 
-        public override void OnSkillLeveledUp(int level) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
             int stocks = AdditiveScaling(3, 1, level);
             AimArrowSnipe.primarySkillDef.baseMaxStock = stocks;
             if (AimArrowSnipe.crosshairOverridePrefab.TryGetComponent(out CrosshairController crosshairController)) {

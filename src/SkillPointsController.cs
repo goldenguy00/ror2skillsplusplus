@@ -192,8 +192,7 @@ namespace SkillsPlusPlus {
                 SkillDef skillDef = Instantiate(genericSkill.skillDef);
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
                 modifier.SkillDef = skillDef;
-                modifier.OnSkillLeveledUp(skillLevels[skillDef.skillName]);
-                modifier.CharacterBody = this.body;
+                modifier.OnSkillLeveledUp(skillLevels[skillDef.skillName], this.body);
                 genericSkill.SetBaseSkill(skillDef);
             }
         }
@@ -277,7 +276,7 @@ namespace SkillsPlusPlus {
                 // find an notify the modifer to update the skill's parameters
                 if (modifier != null)
                 {
-                    modifier.OnSkillLeveledUp(skillLevel);
+                    modifier.OnSkillLeveledUp(skillLevel, this.body);
                     genericSkill.RecalculateValues();
                 }
                 RefreshIconControllers();

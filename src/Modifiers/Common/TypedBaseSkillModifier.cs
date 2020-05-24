@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EntityStates;
+using RoR2;
 using RoR2.Skills;
 
 namespace SkillsPlusPlus.Modifiers {
@@ -27,7 +28,7 @@ namespace SkillsPlusPlus.Modifiers {
             }
         }
 
-        public override void OnSkillLeveledUp(int level) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
             // no-op
         }
 

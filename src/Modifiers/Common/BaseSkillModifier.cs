@@ -9,7 +9,6 @@ using RoR2.Skills;
 namespace SkillsPlusPlus.Modifiers {
     public abstract class BaseSkillModifier : ISkillModifier {
         public SkillDef SkillDef { get; set; }
-        public CharacterBody CharacterBody { get; set; }
 
         public abstract int MaxLevel { get; }
 
@@ -17,14 +16,14 @@ namespace SkillsPlusPlus.Modifiers {
         public abstract IList<Type> GetEntityStateTypes();
         public virtual void OnSkillEnter(BaseState skillState, int level) { }
         public virtual void OnSkillExit(BaseState skillState, int level) { }
-        public virtual void OnSkillLeveledUp(int level) { }
+        public virtual void OnSkillLeveledUp(int level, CharacterBody characterBody) { }
         public virtual string GetOverrideSkillDescriptionToken() {
             return null;
         }
 
         protected void ReportBroken(params String[] fields) {
             var fieldInfo = String.Join(",", fields);
-            Logger.Warn("Skill {0} is broken. Cannot access the following items: {1}", SkillDef.name, fieldInfo);
+            Logger.Warn("Skill {0} is broken. Cannot access the following items: {1}", SkillDef.skillName, fieldInfo);
         }
 
         #region Helpers

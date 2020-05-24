@@ -13,10 +13,9 @@ namespace SkillsPlusPlus.Modifiers {
 
         int MaxLevel { get; }
         SkillDef SkillDef { get; set; }
-        CharacterBody CharacterBody { get; set; }
         void OnSkillEnter(BaseState skillState, int level);
         void OnSkillExit(BaseState skillState, int level);
-        void OnSkillLeveledUp(int level);
+        void OnSkillLeveledUp(int level, CharacterBody characterBody);
 
         string GetOverrideSkillDescriptionToken();
 

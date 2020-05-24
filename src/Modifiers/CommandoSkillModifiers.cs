@@ -21,7 +21,8 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(skillState, level);
         }
 
-        public override void OnSkillLeveledUp(int level) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
             Logger.Debug("FirePistol2");
             Logger.Debug(FirePistol2.baseDuration);
             Logger.Debug(FirePistol2.recoilAmplitude);
@@ -53,10 +54,6 @@ namespace SkillsPlusPlus.Modifiers {
             skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.5f, level);
         }
 
-        public override void OnSkillLeveledUp(int level) {
-
-        }
-
     }
 
     [SkillLevelModifier("FireShotgunBlast")]
@@ -84,7 +81,7 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("duration: {0}", skillState.duration);
             float duration = skillState.duration * AdditiveScaling(0, 0.75f, level);
             if (duration > 0) {
-                CharacterBody.AddTimedBuff(BuffIndex.Immune, duration);
+                skillState.outer.commonComponents.characterBody.AddTimedBuff(BuffIndex.Immune, duration);
             }
         }
     }
@@ -100,7 +97,7 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(skillState, level);
             float duration = SlideState.slideDuration * AdditiveScaling(0f, 0.75f, level);
             if (duration > 0) {
-                CharacterBody.AddTimedBuff(BuffIndex.Energized, duration);
+                skillState.outer.commonComponents.characterBody.AddTimedBuff(BuffIndex.Energized, duration);
             }
         }
     }
@@ -116,7 +113,8 @@ namespace SkillsPlusPlus.Modifiers {
             //skillState.
         }
 
-        public override void OnSkillLeveledUp(int level) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
             Logger.Debug("Barrage - baseBulletCount: {0}, baseDurationBetweenShots: {1}, totalDuration: {2}, bulletRadius: {3}", FireBarrage.baseBulletCount, FireBarrage.baseDurationBetweenShots, FireBarrage.totalDuration, FireBarrage.bulletRadius);
             
             FireBarrage.baseBulletCount = MultScaling(6, 0.5f, level);
