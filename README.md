@@ -1,6 +1,6 @@
 # Risk of Rain 2 - Skills++ Mod
 
-**Version 0.0.6**  
+**Version 0.0.7**  
 [Changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
 The Skills++ adds skills upgrades that can be purchased as your character levels up throughout a run.
@@ -19,6 +19,7 @@ The Skills++ adds skills upgrades that can be purchased as your character levels
     - [Artificer](#artificer)
   - [Found a bug?](#found-a-bug)
   - [Have a suggestion?](#have-a-suggestion)
+- [Special thanks](#special-thanks)
 
 ## Project goals
 
@@ -108,4 +109,12 @@ Bug fixing can be difficult sometimes so the more information provided the easie
 ## Have a suggestion?
 If you have a suggestion you can log it through [project's GitLab issue tracker](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/new?issuable_template=skill_suggestion).
 
-You can also message me on the [community discord](https://discord.gg/5MbXZvd) with a bug report or suggestion and I can create it on your behalf.
+You can also ping me on the [community discord](https://discord.gg/5MbXZvd) or message me directoy. with a bug report or suggestions.
+
+# Special thanks
+
+A very special thanks to the following people. They have been amazing people providing feedback and bug reports for the mod
+
+- K'Not Devourer of Worlds
+- Maxi
+- TEA

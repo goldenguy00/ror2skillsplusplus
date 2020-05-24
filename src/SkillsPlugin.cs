@@ -7,7 +7,7 @@ using UnityEngine;
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
-    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.6")]
+    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.7")]
     [R2APISubmoduleDependency("AssetPlus")]
     public class PhotoModePlugin : BaseUnityPlugin {
 

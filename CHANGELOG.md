@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 0.0.7
+
+Changes:
+
+* Added MULT skill upgrades
+
+Bug fixes:
+
+* [#19](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/19) - Fixed Huntress's arrow rain not dealing any damage
+* Fixed robustness of upgrade icons showing for the correct skills
+
 ## Version 0.0.6
 
 Changes:
