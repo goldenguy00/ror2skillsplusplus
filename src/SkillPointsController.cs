@@ -187,13 +187,19 @@ namespace SkillsPlusPlus {
                 if (genericSkill == null) {
                     continue;
                 }
-                // clone the current skill definition since we are going to mutating it
-                // and we don't want to persist any state between runs
-                SkillDef skillDef = Instantiate(genericSkill.skillDef);
-                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
-                modifier.SkillDef = skillDef;
-                modifier.OnSkillLeveledUp(skillLevels[skillDef.skillName], this.body);
-                genericSkill.SetBaseSkill(skillDef);
+                // #22
+                // Previous versions of the mod would Instantiate a clone of the generic skills current skill definition
+                // This caused a bug for Acrid where its passive would not trigger due to the cloned skill def not being 
+                // equal to other preset SkillDefs.
+                // It appears to be safe just referencing the skillDef directly. It behaves correctly when transitioning
+                // stages and starting runs.
+                SkillDef skillDef = genericSkill.skillDef;
+                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef.skillName);
+                if(modifier != null) {
+                    modifier.SkillDef = skillDef;
+                    modifier.OnSkillLeveledUp(skillLevels[skillDef.skillName], this.body);
+                    genericSkill.SetBaseSkill(skillDef);
+                }
             }
         }
 
@@ -259,7 +265,6 @@ namespace SkillsPlusPlus {
 
             if (skillLevels.TryGetValue(skillName, out int skillLevel)) {
                 GenericSkill genericSkill = skillLocator.FindGenericSkill(skillName);
-                SkillDef skillDef = genericSkill.skillDef;
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillName);
 
                 if (skillLevel >= modifier.MaxLevel) {

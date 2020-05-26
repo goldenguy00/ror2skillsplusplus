@@ -65,7 +65,7 @@ namespace SkillsPlusPlus {
                             uint variantIndex = loadout.bodyLoadoutManager.GetSkillVariant(bodyIndexFromSurvivorIndex, skillIndex);
                             SkillDef skillDef = genericSkill.skillFamily.variants[variantIndex].skillDef;
 
-                            ISkillModifier skillModifier = SkillModifierManager.GetSkillModifier(skillDef);
+                            ISkillModifier skillModifier = SkillModifierManager.GetSkillModifier(skillDef.skillName);
                             string overrideDescriptionToken = skillModifier.GetOverrideSkillDescriptionToken();
                             if (overrideDescriptionToken != null) {
                                 string overrideDescription = Language.GetString(overrideDescriptionToken);
