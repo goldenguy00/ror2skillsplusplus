@@ -7,6 +7,10 @@ Changes:
 * Removed Engi's thermal harpoon target paint duration per missile
 * Added `+50%` targetting range to Engi's thermal harpoon
 
+Bug fixes:
+
+* [#20](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/20), [#22](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/22) - Fixed Acrid's passive ability not working
+
 ## Version 0.0.7
 
 Changes:
