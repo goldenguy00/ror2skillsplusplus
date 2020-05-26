@@ -1,8 +1,8 @@
 {
 	"name": "SkillsPlusPlus",
-	"version_number": "0.0.7",
+	"version_number": "0.0.8",
 	"website_url": "https://gitlab.com/cwmlolzlz/ror2skillsplusplus",
-	"description": "MUL-T update!!! Add redeemable skill upgrades during a run",
+	"description": "[Hotfix] Add redeemable skill upgrades during a run",
 	"dependencies": [
 		"bbepis-BepInExPack-3.2.0",
 		"tristanmcpherson-R2API-2.4.10"
