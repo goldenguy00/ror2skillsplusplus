@@ -4,12 +4,15 @@ using UnityEngine;
 namespace SkillsPlusPlus {
     class Logger {
 
+        private static readonly string LOG_TAG = "Skills++";
+
         public static void Debug(string message, params object[] formatArgs) {
 #if DEBUG
-            if (message == null) {
-                message = "null";
+            var formattedMessage = "null";
+            if(message != null) {
+                formattedMessage = String.Format(message, formatArgs);
             }
-            UnityEngine.Debug.LogFormat(message, formatArgs);
+            UnityEngine.Debug.unityLogger.Log(LOG_TAG, formattedMessage);
 #endif
         }
         public static void Debug(object message) {
@@ -17,26 +20,28 @@ namespace SkillsPlusPlus {
             if (message == null) {
                 message = "null";
             }
-            UnityEngine.Debug.LogFormat(message.ToString());
+            UnityEngine.Debug.unityLogger.Log(LOG_TAG, message);
 #endif
         }
 
         public static void Warn(string message, params object[] formatArgs) {
-            if (message == null) {
-                message = "null";
+            var formattedMessage = "null";
+            if(message != null) {
+                formattedMessage = String.Format(message, formatArgs);
             }
-            UnityEngine.Debug.LogWarningFormat(message, formatArgs);
+            UnityEngine.Debug.unityLogger.LogWarning(LOG_TAG, formattedMessage);
         }
 
         public static void Error(string message, params object[] formatArgs) {
-            if (message == null) {
-                message = "null";
+            var formattedMessage = "null";
+            if (message != null) {
+                formattedMessage = String.Format(message, formatArgs);
             }
-            UnityEngine.Debug.LogErrorFormat(message, formatArgs);
+            UnityEngine.Debug.unityLogger.LogError(LOG_TAG, formattedMessage);
         }
 
         public static void Error(Exception exception) {
-            UnityEngine.Debug.LogError(exception);
+            UnityEngine.Debug.unityLogger.LogError(LOG_TAG, exception);
         }
 
     }
