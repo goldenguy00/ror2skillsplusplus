@@ -31,6 +31,12 @@ namespace SkillsPlusPlus {
                 return true;
             };
             On.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect += orig => { };
+
+            On.RoR2.CombatDirector.OnEnable += (orig, self) => {
+                orig(self);
+                self.creditMultiplier = 10;    
+            };
+
 #endif
 
             On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {
