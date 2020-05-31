@@ -15,6 +15,7 @@ The Skills++ adds skills upgrades that can be purchased as your character levels
     - [MUL-T](#mul-t)
     - [Engineer](#engineer)
     - [Artificer](#artificer)
+    - [Acrid](#acrid)
   - [Found a bug?](#found-a-bug)
   - [Have a suggestion?](#have-a-suggestion)
   - [Special thanks](#special-thanks)
@@ -108,6 +109,17 @@ Mutliplayer is supported however there may be cases when game state is not corre
 | Snapfreeze | ![Snapfreeze](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/c/ce/Snapfreeze.png?version=6f15a989c9b98a8ad36f39a3ccd0b514) | `+50%` wall damage per level. `+25%` wall length per level |
 | Flamethrower | ![Flamethrower](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/a/ad/Flamethrower.png/128px-Flamethrower.png?version=df4f797fe7e0a9fff8e6777a2204b85d) | `+100%` range per level. `+50%` flame radius per level. `+20%` damage per level |
 | Ion Surge | ![Ion Surge](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/d1/Ion_Surge.png?version=a945f2d18ec9387976fafb92e68b9be9) | `+25%` damage per level. `+50%` area of effect per level |
+
+### Acrid
+
+| Skill | | Description |
+|:-|-|------|
+| Vicious Wounds | ![Vicious Wounds](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/5/5a/Vicious_Wounds.png?version=2bf16e4d4644a16c2c9e450ac0b4490d) | `+25%` normal damage, `+30%` combo finisher damage, and `+20%` attack speed per level. |
+| Neurotoxin | ![Neurotoxin](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/2/2b/Neurotoxin.png?version=47fb02a7cc34bf60f197a92ffb3c7a0b) | `+25%` damage, `+50` projectile speed, and `+50%` blast radius per level. `+1 stock` per two levels. |
+| Ravenous Bite | ![Ravenous Bite](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/8/8b/Ravenous_Bite.png?version=da9fcc5ab5b26987c160f065b8c95d73) | `+25%` damage and `+1` stock per level |
+| Caustic Leap | ![Caustic Leap](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/9e/Caustic_Leap.png?version=e067644005e3fbe939dc6c0e74cb680c) | `+25%` blast damage, `+50%` acid pool damage, and `+25%` accid pool size per level. |
+| Frenzied Leap | ![Frenzied Leap](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/96/Frenzied_Leap.png?version=05eb87da91cfb184824ae53eac148f4f) | `+30%` blast damage and `+25%` refunded time per level. |
+| Epidemic | ![Epidemic](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/9d/Epidemic.png?version=c285fc0546271c32d190c85ae8f5516b) | `+5` infection bounces, `+25%` infection range, and `+25%` on hit damage per level. |
 
 ## Found a bug?
 
