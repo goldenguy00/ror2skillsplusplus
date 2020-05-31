@@ -1,44 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-using SkillsPlusPlus.Modifiers;
+﻿using RoR2;
+using RoR2.Skills;
+using RoR2.Projectile;
 
 using EntityStates.Croco;
-
+using UnityEngine;
 namespace SkillsPlusPlus.Modifiers {
-
-    [SkillLevelModifier("Poison")]
-    class CrocoPoisonSkillModifier : BaseSkillModifier {
-
-        public override int MaxLevel {
-            get { return 1; }
-        }
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>();
-        }
-
-    }
-
-    [SkillLevelModifier("Blight")]
-    class CrocoBlightSkillModifier : BaseSkillModifier {
-
-        public override int MaxLevel {
-            get { return 1; }
-        }
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>();
-        }
-
-    }
 
     [SkillLevelModifier("CrocoSlash")]
     class CrocoSlashSkillModifier : TypedBaseSkillModifier<Slash> {
 
         public override int MaxLevel {
-            get { return 1; }
+            get { return 4; }
+        }
+
+        public override void OnSkillEnter(Slash slash, int level) {
+            base.OnSkillEnter(slash, level);
+            Logger.Debug("hitPauseDuration: {0}, damageCoefficient: {1}", slash.hitPauseDuration, slash.damageCoefficient);
+            slash.hitPauseDuration = MultScaling(slash.hitPauseDuration, -0.5f, level);
+            slash.damageCoefficient = MultScaling(slash.damageCoefficient, 0.25f, level);
+            Logger.Debug("hitPauseDuration: {0}, damageCoefficient: {1}", slash.hitPauseDuration, slash.damageCoefficient);
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
+            Logger.Debug("baseDurationBeforeInterruptable: {0}", Slash.baseDurationBeforeInterruptable);
+            Logger.Debug("comboFinisherDamageCoefficient: {0}, comboFinisherBaseDurationBeforeInterruptable: {1}", Slash.comboFinisherDamageCoefficient, Slash.comboFinisherBaseDurationBeforeInterruptable);
+            Slash.comboFinisherDamageCoefficient = MultScaling(4, 0.25f, level); // combined with +25% of damage bonus this is effectively 50% for the final attack
         }
 
     }
@@ -47,7 +34,21 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoSpitSkillModifier : TypedBaseSkillModifier<FireSpit> {
 
         public override int MaxLevel {
-            get { return 1; }
+            get { return 4; }
+        }
+
+        public override void OnSkillEnter(FireSpit fireSpit, int level) {
+            base.OnSkillEnter(fireSpit, level);
+            fireSpit.damageCoefficient = MultScaling(fireSpit.damageCoefficient, 0.25f, level);
+            fireSpit.force = MultScaling(fireSpit.force, 0.5f, level);
+            if(fireSpit.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion)) {
+                projectileImpactExplosion.blastRadius = MultScaling(3, 0.75f, level);
+            }
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
+            SkillDef.baseMaxStock = (int)AdditiveScaling(1, 0.5f, level);
         }
 
     }
@@ -56,16 +57,63 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoBiteSkillModifier : TypedBaseSkillModifier<Bite> {
 
         public override int MaxLevel {
-            get { return 1; }
+            get { return 4; }
         }
 
+        public override void OnSkillEnter(Bite bite, int level) {
+            base.OnSkillEnter(bite, level);
+            
+            bite.damageCoefficient = MultScaling(bite.damageCoefficient, 0.20f, level);
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
+            SkillDef.baseMaxStock = AdditiveScaling(1, 1, level);
+        }
     }
 
     [SkillLevelModifier("CrocoLeap")]
     class CrocoLeapSkillModifier : TypedBaseSkillModifier<Leap> {
 
         public override int MaxLevel {
-            get { return 1; }
+            get { return 5; }
+        }
+
+        public override void OnSkillEnter(Leap leap, int level) {
+            base.OnSkillEnter(leap, level);            
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
+            SkillDef.baseMaxStock = (int)AdditiveScaling(1, 0.5f, level);
+            if(Leap.projectilePrefab.TryGetComponent(out ProjectileDotZone dotZone)) {
+                dotZone.damageCoefficient = MultScaling(0.25f, 0.50f, level);                
+            }
+
+            // the FX game object contains the hitbox so the effective area can be changed with the following
+            Transform fxTransform = Leap.projectilePrefab.transform.Find("FX");
+            if(fxTransform) {
+                fxTransform.localScale = Vector3.one * MultScaling(8.0f, 0.25f, level);
+            }
+        }
+
+    }
+
+    [SkillLevelModifier("CrocoDisease")]
+    class CrocoDiseaseSkillModifier : TypedBaseSkillModifier<FireDiseaseProjectile> {
+        public override int MaxLevel {
+            get { return 4; }
+        }
+
+        public override void OnSkillEnter(FireDiseaseProjectile fireDisease, int level) {
+            base.OnSkillEnter(fireDisease, level);
+            fireDisease.damageCoefficient = MultScaling(fireDisease.damageCoefficient, 0.25f, level);
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
+            Disease.maxBounces = AdditiveScaling(20, 5, level);
+            Disease.bounceRange = MultScaling(25, 0.25f, level);
         }
 
     }
@@ -74,16 +122,20 @@ namespace SkillsPlusPlus.Modifiers {
     class CrocoChainableLeapSkillModifier : TypedBaseSkillModifier<ChainableLeap> {
 
         public override int MaxLevel {
-            get { return 1; }
+            get { return 4; }
         }
 
-    }
+        public override void OnSkillEnter(ChainableLeap skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+            skillState.blastDamageCoefficient = MultScaling(skillState.blastDamageCoefficient, 0.25f, level);
+            skillState.blastBonusForce = skillState.blastBonusForce * MultScaling(1, 0.25f, level);
+        }
 
-    [SkillLevelModifier("CrocoDisease")]
-    class CrocoDiseaseSkillModifier : TypedBaseSkillModifier<Disease> {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+            base.OnSkillLeveledUp(level, characterBody);
 
-        public override int MaxLevel {
-            get { return 1; }
+            // 0.5s extra cooldown per level
+            ChainableLeap.refundPerHit = MultScaling(2, 0.25f, level);
         }
 
     }
