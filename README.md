@@ -6,7 +6,7 @@ The Skills++ adds skills upgrades that can be purchased as your character levels
 
 - [Risk of Rain 2 - Skills++ Mod](#risk-of-rain-2---skills-mod)
   - [Table of Contents](#table-of-contents)
-  - [What's new in 0.0.8](#whats-new-in-008)
+  - [What's new in 0.0.9](#whats-new-in-009)
   - [Project goals](#project-goals)
   - [Usage](#usage)
   - [Upgrade paths](#upgrade-paths)
@@ -20,16 +20,15 @@ The Skills++ adds skills upgrades that can be purchased as your character levels
   - [Have a suggestion?](#have-a-suggestion)
   - [Special thanks](#special-thanks)
   
-## What's new in 0.0.8
+## What's new in 0.0.9
 
 Changes:
 
-- Removed Engi's thermal harpoon target paint duration per missile
-- Added `+50%` targetting range to Engi's thermal harpoon
+- Added upgrades for all of Acrid's abilities
 
 Bug fixes:
 
-- [#20](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/20), [#22](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/22) - Fixed Acrid's passive ability not working
+- [#28](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/28) - Improved mod compatibility for engi's turrets when using [Classic Items](https://thunderstore.io/package/ThinkInvis/ClassicItems/)
 
 [Changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 0.0.9
+
+Changes:
+
+- Added upgrades for all of Acrid's abilities
+
+Bug fixes:
+
+- [#28](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/28) - Improved mod compatibility for engi's turrets when using [Classic Items](https://thunderstore.io/package/ThinkInvis/ClassicItems/)
+
+[Changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
+
 ## Version 0.0.8
 
 Changes:
