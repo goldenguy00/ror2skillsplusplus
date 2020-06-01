@@ -20,28 +20,33 @@ namespace SkillsPlusPlus {
             }
             foreach(Type type in assembly.GetTypes()) {
                 var attributes = type.GetCustomAttributes<SkillLevelModifierAttribute>();
-                foreach(SkillLevelModifierAttribute attribute in attributes) {
-                    if(skillModifiers.ContainsKey(attribute.skillName)) {
-                        Logger.Warn("Replacing an existing skill modifier it not permitted. Skill name = {0}", attribute.skillName);
-                        continue;
-                    } else {
-                        try {
-                            ISkillModifier modifier = type.GetConstructor(new Type[0]).Invoke(new object[0]) as ISkillModifier;
-                            skillModifiers[attribute.skillName] = modifier;
-                            foreach(Type baseStateType in modifier.GetEntityStateTypes()) {
-                                ISet<ISkillModifier> skillModifiers;
-                                if (stateTypeToSkillModifierDictionary.TryGetValue(baseStateType, out skillModifiers) == false) {
-                                    skillModifiers = new HashSet<ISkillModifier>();
-                                    stateTypeToSkillModifierDictionary[baseStateType] = skillModifiers;
+
+                try {
+                    ISkillModifier modifier = type.GetConstructor(new Type[0]).Invoke(new object[0]) as ISkillModifier;
+                    foreach(SkillLevelModifierAttribute attribute in attributes) {
+                        foreach(string registeredSkillName in attribute.skillNames) {
+                            if(skillModifiers.ContainsKey(registeredSkillName)) {
+                                Logger.Warn("Replacing an existing skill modifier it not permitted. Skill name = {0}", registeredSkillName);
+                                continue;
+                            } else {
+                                skillModifiers[registeredSkillName] = modifier;
+                                foreach(Type baseStateType in modifier.GetEntityStateTypes()) {
+                                    ISet<ISkillModifier> skillModifiers;
+                                    if(stateTypeToSkillModifierDictionary.TryGetValue(baseStateType, out skillModifiers) == false) {
+                                        skillModifiers = new HashSet<ISkillModifier>();
+                                        stateTypeToSkillModifierDictionary[baseStateType] = skillModifiers;
+                                    }
+                                    skillModifiers.Add(modifier);
                                 }
-                                skillModifiers.Add(modifier);
+                                Logger.Debug("Loaded {0} for skill named \"{1}\"", type.Name, registeredSkillName);
                             }
-                            Logger.Debug("Loaded {0} for skill named \"{1}\"", type.Name, attribute.skillName);
-                        } catch (Exception error){
-                            Logger.Error(error);
                         }
                     }
+                } catch(Exception error) {
+                    Logger.Error(error);
+                    continue;
                 }
+                
             }
         }
 

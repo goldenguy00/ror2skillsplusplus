@@ -80,12 +80,11 @@ namespace SkillsPlusPlus {
         }
 
         private int GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot) {
+            int bonusSlots = 0;
             if(self == this.playerCharacterMasterController.master) {
-                if(EngiSkillModifier.TryGetDeployableSameSlotLimit(slot, out int overrideSlotCount)) {
-                    return overrideSlotCount;
-                }
+                bonusSlots = EngiSkillModifier.GetDeployableSameSlotBonus(slot);
             }
-            return orig(self, slot);
+            return orig(self, slot) + bonusSlots;
         }
 
         private bool TryGetSkillModifierForState(BaseState state, out ISkillModifier skillModifierOut, out string skillNameOut) {
@@ -187,18 +186,25 @@ namespace SkillsPlusPlus {
                 if (genericSkill == null) {
                     continue;
                 }
+                SkillDef baseSkillDef = Instantiate(genericSkill.baseSkill);
+                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(baseSkillDef.skillName);
+                if(modifier != null) {
+                    modifier.SkillDef = baseSkillDef;
+                    modifier.OnSkillLeveledUp(skillLevels[baseSkillDef.skillName], this.body);
+                    genericSkill.SetBaseSkill(baseSkillDef);
+                }
                 // #22
-                // Previous versions of the mod would Instantiate a clone of the generic skills current skill definition
+                // This mod is instantiating a clone of the generic skills current skill definition
                 // This caused a bug for Acrid where its passive would not trigger due to the cloned skill def not being 
                 // equal to other preset SkillDefs.
-                // It appears to be safe just referencing the skillDef directly. It behaves correctly when transitioning
-                // stages and starting runs.
-                SkillDef skillDef = genericSkill.skillDef;
-                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef.skillName);
-                if(modifier != null) {
-                    modifier.SkillDef = skillDef;
-                    modifier.OnSkillLeveledUp(skillLevels[skillDef.skillName], this.body);
-                    genericSkill.SetBaseSkill(skillDef);
+                // Here we access Acrid's damage controller and assign the skill definitions to uphold the equality 
+                if(body.TryGetComponent(out CrocoDamageTypeController crocoDamageTypeController)) {
+                    if(genericSkill.skillDef.skillName == crocoDamageTypeController.poisonSkillDef.skillName) {
+                        crocoDamageTypeController.poisonSkillDef = baseSkillDef;
+                    }
+                    if(genericSkill.skillDef.skillName == crocoDamageTypeController.blightSkillDef.skillName) {
+                        crocoDamageTypeController.blightSkillDef = baseSkillDef;
+                    }
                 }
             }
         }
@@ -250,6 +256,9 @@ namespace SkillsPlusPlus {
             if(Input.GetKeyDown(KeyCode.Keypad4) && this.playerCharacterMasterController != null) {
                 this.body.skillLocator.ResetSkills();
             }
+            if(Input.GetKeyDown(KeyCode.Keypad5) && this.playerCharacterMasterController != null) {
+                this.playerCharacterMasterController.master?.inventory.GiveItemString("CIScepter");
+            }
 #endif
 
         }
@@ -263,7 +272,9 @@ namespace SkillsPlusPlus {
             }
             Logger.Debug("OnBuySkill({0})", skillName);
 
-            if (skillLevels.TryGetValue(skillName, out int skillLevel)) {
+            string resolvedSkillName = ResolveSkillNameToInternalName(skillName);
+
+            if (skillLevels.TryGetValue(resolvedSkillName, out int skillLevel)) {
                 GenericSkill genericSkill = skillLocator.FindGenericSkill(skillName);
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillName);
 
@@ -275,8 +286,8 @@ namespace SkillsPlusPlus {
 
 
                 // increment and store the new skill level
-                skillLevels[skillName] = ++skillLevel;
-                Logger.Debug("SkillSlot {0} @ level {1}", skillName, skillLevel);
+                skillLevels[resolvedSkillName] = ++skillLevel;
+                Logger.Debug("SkillSlot {2} ({0}) @ level {1}", skillName, skillLevel, resolvedSkillName);
 
                 // find an notify the modifer to update the skill's parameters
                 if (modifier != null)
@@ -308,7 +319,7 @@ namespace SkillsPlusPlus {
             if(skillIconControllers != null && this.PlayerTeamIndex != TeamIndex.None && skillLocator != null) {
                 int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
                 foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
-                    string skillName = skillLevelIconController.skillName;
+                    string skillName = ResolveSkillNameToInternalName(skillLevelIconController.skillName);
                     if(skillName != null && skillLevels.TryGetValue(skillName, out int currentSkillLevel)) {
                         ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillName);
                         // Logger.Debug("RefreshIconControllers - slot: {0}, skillLevelIconController: {1}, modifier: {2}", slot, skillLevelIconController, modifier);
@@ -324,6 +335,16 @@ namespace SkillsPlusPlus {
                     }
                 }
             }
+        }
+
+        private string ResolveSkillNameToInternalName(string skillName) {
+            foreach(GenericSkill skill in this.skillLocator.FindAllGenericSkills()) {
+                if(skill.skillDef?.skillName == skillName) {
+                    return skill.baseSkill.skillName;
+                }
+            }
+            return skillName;
+        
         }
 
         private static int SkillPointsAtLevel(int characterLevel) {

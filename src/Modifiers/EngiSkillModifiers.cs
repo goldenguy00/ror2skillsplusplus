@@ -27,13 +27,13 @@ namespace SkillsPlusPlus.Modifiers {
 
     class EngiSkillModifier {
 
-        public static Dictionary<DeployableSlot, int> deployableSlotCountOverrides = new Dictionary<DeployableSlot, int>();
+        public static Dictionary<DeployableSlot, int> deployableSlotCountBonus = new Dictionary<DeployableSlot, int>();
 
-        public static bool TryGetDeployableSameSlotLimit(DeployableSlot slot, out int overrideCount) { 
-            if(deployableSlotCountOverrides.TryGetValue(slot, out overrideCount)) {
-                return true;
+        public static int GetDeployableSameSlotBonus(DeployableSlot slot) { 
+            if(deployableSlotCountBonus.TryGetValue(slot, out int bonusCount)) {
+                return bonusCount;
             }
-            return false;
+            return 0;
         }
 
     }
@@ -194,7 +194,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("PlaceTurret")]
+    [SkillLevelModifier("PlaceTurret", "TR12-C Gauss Compact")]
     class EngiTurretSkillModifier : BaseSkillModifier {
         public override int MaxLevel {
             get { return 5; }
@@ -232,12 +232,12 @@ namespace SkillsPlusPlus.Modifiers {
             // an extra turret every two levels
             SkillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
             FireGauss.damageCoefficient = MultScaling(0.7f, 0.2f, level);
-            EngiSkillModifier.deployableSlotCountOverrides[DeployableSlot.EngiTurret] = SkillDef.baseMaxStock;
+            EngiSkillModifier.deployableSlotCountBonus[DeployableSlot.EngiTurret] = (int)AdditiveScaling(0, 0.5f, level);
         }
 
     }
 
-    [SkillLevelModifier("PlaceWalkerTurret")]
+    [SkillLevelModifier("PlaceWalkerTurret", "TR58-C Carbonizer Mini")]
     class EngiWalkerTurretSkillModifier : BaseSkillModifier {
         public override int MaxLevel {
             get { return 5; }
@@ -269,7 +269,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
             base.OnSkillLeveledUp(level, characterBody);
             SkillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
-            EngiSkillModifier.deployableSlotCountOverrides[DeployableSlot.EngiTurret] = SkillDef.baseMaxStock;
+            EngiSkillModifier.deployableSlotCountBonus[DeployableSlot.EngiTurret] = (int)AdditiveScaling(0, 0.5f, level);
         }
     }
 }
