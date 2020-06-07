@@ -18,7 +18,7 @@ namespace SkillsPlusPlus.Modifiers {
             return new List<Type>() { typeof(BaseState) };
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             // do nothing
         }
 

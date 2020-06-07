@@ -111,7 +111,7 @@ namespace SkillsPlusPlus {
                 ICollection<ISkillModifier> skillModifiers = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
                 this.EnsureSkillModifiersAreInitialised();
                 foreach(ISkillModifier skillModifier in skillModifiers) {
-                    var skillName = skillModifier.SkillDef?.skillName;
+                    var skillName = skillModifier?.skillName;
                     if(skillName == null) {
                         Logger.Debug("Skill modifier {0} does not have a skill name", skillModifier);
                         continue;
@@ -120,11 +120,6 @@ namespace SkillsPlusPlus {
                     var genericSkill = this.skillLocator.FindGenericSkill(skillName);
                     if(genericSkill == null) {
                         Logger.Debug("Could not find generic skill instance for skill named {0}", skillName);
-                        continue;
-                    }
-                    SkillSlot skillSlot = this.skillLocator.FindSkillSlot(genericSkill);
-                    if(skillSlot == SkillSlot.None) {
-                        Logger.Debug("Could not identify skill slot for generic skill {0} named {1}", genericSkill, skillName);
                         continue;
                     }
                     // Logger.Debug("Intercepted entity state {1} for skill named {0}", skillModifier.SkillDef.skillName, stateType.Name);
@@ -189,8 +184,9 @@ namespace SkillsPlusPlus {
                 SkillDef baseSkillDef = Instantiate(genericSkill.baseSkill);
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(baseSkillDef.skillName);
                 if(modifier != null) {
-                    modifier.SkillDef = baseSkillDef;
-                    modifier.OnSkillLeveledUp(skillLevels[baseSkillDef.skillName], this.body);
+                    // modifier.SkillDef = baseSkillDef;
+                    modifier.skillName = baseSkillDef.skillName;
+                    modifier.OnSkillLeveledUp(skillLevels[baseSkillDef.skillName], this.body, baseSkillDef);
                     genericSkill.SetBaseSkill(baseSkillDef);
                 }
                 // #22
@@ -292,7 +288,7 @@ namespace SkillsPlusPlus {
                 // find an notify the modifer to update the skill's parameters
                 if (modifier != null)
                 {
-                    modifier.OnSkillLeveledUp(skillLevel, this.body);
+                    modifier.OnSkillLeveledUp(skillLevel, this.body, genericSkill.skillDef);
                     genericSkill.RecalculateValues();
                 }
                 RefreshIconControllers();

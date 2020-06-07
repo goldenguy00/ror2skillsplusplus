@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using EntityStates;
 using RoR2;
@@ -11,11 +12,12 @@ namespace SkillsPlusPlus.Modifiers {
 
         IList<Type> GetEntityStateTypes();
 
+        string skillName { get; set; }
+
         int MaxLevel { get; }
-        SkillDef SkillDef { get; set; }
         void OnSkillEnter(BaseState skillState, int level);
         void OnSkillExit(BaseState skillState, int level);
-        void OnSkillLeveledUp(int level, CharacterBody characterBody);
+        void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef);
 
         string GetOverrideSkillDescriptionToken();
 

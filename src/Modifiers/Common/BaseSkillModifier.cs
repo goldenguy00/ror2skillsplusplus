@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-using EntityStates;
+﻿using EntityStates;
 using RoR2;
 using RoR2.Skills;
+using System;
+using System.Collections.Generic;
 
 namespace SkillsPlusPlus.Modifiers {
     public abstract class BaseSkillModifier : ISkillModifier {
-        public SkillDef SkillDef { get; set; }
 
+        public string skillName { get; set; }
         public abstract int MaxLevel { get; }
 
         internal BaseSkillModifier() { }
         public abstract IList<Type> GetEntityStateTypes();
         public virtual void OnSkillEnter(BaseState skillState, int level) { }
         public virtual void OnSkillExit(BaseState skillState, int level) { }
-        public virtual void OnSkillLeveledUp(int level, CharacterBody characterBody) { }
+        public virtual void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) { }
         public virtual string GetOverrideSkillDescriptionToken() {
             return null;
         }
 
         protected void ReportBroken(params String[] fields) {
             var fieldInfo = String.Join(",", fields);
-            Logger.Warn("Skill {0} is broken. Cannot access the following items: {1}", SkillDef.skillName, fieldInfo);
+            Logger.Warn("Skill {0} is broken. Cannot access the following items: {1}", this.GetType().FullName, fieldInfo);
         }
 
         #region Helpers

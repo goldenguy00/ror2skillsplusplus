@@ -17,18 +17,19 @@ namespace SkillsPlusPlus.Modifiers {
             if (skillState is SkillState) {
                 this.OnSkillEnter(skillState as SkillState, level);
             } else {
-                Logger.Warn("Unable to cast {0} to {1} for skill modifier {2}", skillState, typeof(SkillState).FullName, SkillDef.skillName);
+                Logger.Warn("Unable to cast {0} to {1}", skillState, typeof(SkillState).FullName);
             }
         }
+
         public sealed override void OnSkillExit(BaseState skillState, int level) {
             if (skillState is SkillState) {
                 this.OnSkillExit(skillState as SkillState, level);
             } else {
-                Logger.Warn("Unable to cast {0} to {1} for skill modifier {2}", skillState, typeof(SkillState).FullName, SkillDef.skillName);
+                Logger.Warn("Unable to cast {0} to {1}", skillState, typeof(SkillState).FullName);
             }
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             // no-op
         }
 

@@ -21,8 +21,8 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(skillState, level);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("FirePistol2");
             Logger.Debug(FirePistol2.baseDuration);
             Logger.Debug(FirePistol2.recoilAmplitude);
@@ -113,8 +113,8 @@ namespace SkillsPlusPlus.Modifiers {
             //skillState.
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("Barrage - baseBulletCount: {0}, baseDurationBetweenShots: {1}, totalDuration: {2}, bulletRadius: {3}", FireBarrage.baseBulletCount, FireBarrage.baseDurationBetweenShots, FireBarrage.totalDuration, FireBarrage.bulletRadius);
             
             FireBarrage.baseBulletCount = MultScaling(6, 0.5f, level);

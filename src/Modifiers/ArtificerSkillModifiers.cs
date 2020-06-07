@@ -17,12 +17,12 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 5; }
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
-            Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
-            SkillDef.baseMaxStock = AdditiveScaling(4, 2, level);
-            SkillDef.baseRechargeInterval = MultScaling(1.3f, -0.1f, level);
-            Logger.Debug("FireFirebolt after - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", skillDef.baseMaxStock, skillDef.baseRechargeInterval);
+            skillDef.baseMaxStock = AdditiveScaling(4, 2, level);
+            skillDef.baseRechargeInterval = MultScaling(1.3f, -0.1f, level);
+            Logger.Debug("FireFirebolt after - baseMaxStock: {0}, baseRechargeInterval: {1}", skillDef.baseMaxStock, skillDef.baseRechargeInterval);
         }
 
     }
@@ -34,12 +34,12 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 5; }
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
-            Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
-            SkillDef.baseMaxStock = AdditiveScaling(4, 2, level);
-            SkillDef.baseRechargeInterval = MultScaling(1.3f, -0.1f, level);
-            Logger.Debug("FireFirebolt after - baseMaxStock: {0}, baseRechargeInterval: {1}", SkillDef.baseMaxStock, SkillDef.baseRechargeInterval);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", skillDef.baseMaxStock, skillDef.baseRechargeInterval);
+            skillDef.baseMaxStock = AdditiveScaling(4, 2, level);
+            skillDef.baseRechargeInterval = MultScaling(1.3f, -0.1f, level);
+            Logger.Debug("FireFirebolt after - baseMaxStock: {0}, baseRechargeInterval: {1}", skillDef.baseMaxStock, skillDef.baseRechargeInterval);
         }
 
     }
@@ -60,10 +60,6 @@ namespace SkillsPlusPlus.Modifiers {
             skillState.maxRadius = MultScaling(skillState.maxRadius, 0.5f, level);
             skillState.force = MultScaling(skillState.force, 0.5f, level);
             Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", skillState.baseChargeDuration, skillState.maxDamageCoefficient, skillState.maxRadius);
-        }
-
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-
         }
 
     }
@@ -89,7 +85,8 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
             PrepWall.damageCoefficient = AdditiveScaling(1, 0.5f, level);
 
@@ -135,8 +132,8 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug(skillState.maxDistance);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("Flamethrower stats - baseFlamethrowerDuration: {0}, totalDamageCoefficient: {1}, radius: {2}", Flamethrower.baseFlamethrowerDuration, Flamethrower.totalDamageCoefficient, Flamethrower.radius);
             Flamethrower.radius = AdditiveScaling(baseRadius, baseRadius * 0.5f, level);
             //Flamethrower.baseFlamethrowerDuration = AdditiveScaling(baseFlamethrowerDuration, 2, level);
@@ -158,8 +155,8 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(skillState, level);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("FlyUpState stats - duration: {0}, blastAttackDamageCoefficient: {1}, blastAttackRadius: {2}, blastAttackProcCoefficient: {3}", FlyUpState.duration, FlyUpState.blastAttackDamageCoefficient, FlyUpState.blastAttackRadius, FlyUpState.blastAttackProcCoefficient);
             FlyUpState.blastAttackDamageCoefficient = MultScaling(8, 0.25f, level);
             FlyUpState.blastAttackRadius = MultScaling(8, 0.5f, level);

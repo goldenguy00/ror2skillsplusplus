@@ -21,8 +21,8 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("hitPauseDuration: {0}, damageCoefficient: {1}", slash.hitPauseDuration, slash.damageCoefficient);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("baseDurationBeforeInterruptable: {0}", Slash.baseDurationBeforeInterruptable);
             Logger.Debug("comboFinisherDamageCoefficient: {0}, comboFinisherBaseDurationBeforeInterruptable: {1}", Slash.comboFinisherDamageCoefficient, Slash.comboFinisherBaseDurationBeforeInterruptable);
             Slash.comboFinisherDamageCoefficient = MultScaling(4, 0.3f, level); // combined with +25% of damage bonus this is effectively 50% for the final attack
@@ -46,9 +46,9 @@ namespace SkillsPlusPlus.Modifiers {
             }
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
-            SkillDef.baseMaxStock = (int)AdditiveScaling(1, 0.5f, level);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            skillDef.baseMaxStock = (int)AdditiveScaling(1, 0.5f, level);
         }
 
     }
@@ -66,9 +66,9 @@ namespace SkillsPlusPlus.Modifiers {
             bite.damageCoefficient = MultScaling(bite.damageCoefficient, 0.25f, level);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
-            SkillDef.baseMaxStock = AdditiveScaling(1, 1, level);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            skillDef.baseMaxStock = AdditiveScaling(1, 1, level);
         }
     }
 
@@ -84,9 +84,9 @@ namespace SkillsPlusPlus.Modifiers {
             leap.blastDamageCoefficient = MultScaling(leap.blastDamageCoefficient, 0.25f, level);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
-            SkillDef.baseMaxStock = (int)AdditiveScaling(1, 0.5f, level);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            skillDef.baseMaxStock = (int)AdditiveScaling(1, 0.5f, level);
             if(Leap.projectilePrefab.TryGetComponent(out ProjectileDotZone dotZone)) {
                 dotZone.damageCoefficient = MultScaling(0.25f, 0.50f, level);                
             }
@@ -113,8 +113,8 @@ namespace SkillsPlusPlus.Modifiers {
             skillState.blastBonusForce = skillState.blastBonusForce * MultScaling(1, 0.25f, level);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
 
             // 0.5s extra cooldown per level
             ChainableLeap.refundPerHit = MultScaling(2, 0.25f, level);
@@ -133,8 +133,8 @@ namespace SkillsPlusPlus.Modifiers {
             fireDisease.damageCoefficient = MultScaling(fireDisease.damageCoefficient, 0.25f, level);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Disease.maxBounces = AdditiveScaling(20, 5, level);
             Disease.bounceRange = MultScaling(25, 0.25f, level);
         }

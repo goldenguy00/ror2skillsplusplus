@@ -26,8 +26,8 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(skillState, level);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("damageCoefficient: {0}, bulletCount: {1}, procCoefficient: {2}, baseCooldownDuration: {3}", FireNailgun.damageCoefficient, FireNailgun.bulletCount, FireNailgun.procCoefficient, FireNailgun.baseCooldownDuration);
             FireNailgun.bulletCount = AdditiveScaling(6, 2, level);
             FireNailgun.damageCoefficient = MultScaling(0.6f, 0.25f, level);
@@ -47,8 +47,8 @@ namespace SkillsPlusPlus.Modifiers {
             fireSpear.baseDuration = MultScaling(fireSpear.baseDuration, -0.25f, level);
             fireSpear.damageCoefficient = MultScaling(fireSpear.damageCoefficient, 0.25f, level);
         }
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("damageCoefficient: {0}, bulletCount: {1}, procCoefficient: {2}, baseCooldownDuration: {3}", FireNailgun.damageCoefficient, FireNailgun.bulletCount, FireNailgun.procCoefficient, FireNailgun.baseCooldownDuration);
         }
     }
@@ -70,17 +70,17 @@ namespace SkillsPlusPlus.Modifiers {
             }
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             int stocks = AdditiveScaling(4, 1, level);
 
-            SkillDef.baseMaxStock = stocks;
+            skillDef.baseMaxStock = stocks;
             
-            if(this.SkillDef is ToolbotWeaponSkillDef) {
+            if(skillDef is ToolbotWeaponSkillDef) {
                 // return;
                 // instantiate a new version of the prefab because it will cause the crosshair manager to recognize a new
                 // prefab and reload the crosshair displayed on screen
-                GameObject crosshairPrefab = ((ToolbotWeaponSkillDef)this.SkillDef).crosshairPrefab;
+                GameObject crosshairPrefab = ((ToolbotWeaponSkillDef)skillDef).crosshairPrefab;
                 if(crosshairPrefab.TryGetComponent(out CrosshairController crosshairController)) {
                     GameObject stockCountHolderGameObject = crosshairController.gameObject.transform.Find("StockCountHolder").gameObject;
                     RectTransform stockCountHolderRectTransform = stockCountHolderGameObject.GetComponent<RectTransform>();
@@ -156,8 +156,8 @@ namespace SkillsPlusPlus.Modifiers {
             }
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("baseFireFrequency: {0}", FireBuzzsaw.baseFireFrequency);
             FireBuzzsaw.damageCoefficientPerSecond = MultScaling(10, 0.25f, level);
             FireBuzzsaw.baseFireFrequency = MultScaling(10, 0.25f, level);
@@ -205,8 +205,8 @@ namespace SkillsPlusPlus.Modifiers {
             toolbotDash.speedMultiplier = MultScaling(2.2f, 0.25f, level);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             ToolbotDash.chargeDamageCoefficient = MultScaling(10, 0.50f, level);
             ToolbotDash.knockbackDamageCoefficient = MultScaling(10, 0.50f, level);
             ToolbotDash.massThresholdForKnockback = MultScaling(250, 0.5f, level);

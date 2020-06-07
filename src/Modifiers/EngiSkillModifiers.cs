@@ -45,8 +45,8 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 5; }
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             ChargeGrenades.minGrenadeCount = AdditiveScaling(2, 1, level);
             ChargeGrenades.maxGrenadeCount = AdditiveScaling(8, 4, level);
         }
@@ -67,8 +67,8 @@ namespace SkillsPlusPlus.Modifiers {
             };
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             MineArmingWeak.duration = AdditiveScaling(3, -0.5f, level);
             Logger.Debug("MineArmingWeak.duration: {0}", MineArmingWeak.duration);
         }
@@ -146,10 +146,10 @@ namespace SkillsPlusPlus.Modifiers {
             fireSpiderMine.damageCoefficient = MultScaling(6, 0.25f, level);           
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("blastRadius: {0}", EntityStates.Engi.SpiderMine.Detonate.blastRadius);
-            SkillDef.baseMaxStock = AdditiveScaling(4, 1, level);
+            skillDef.baseMaxStock = AdditiveScaling(4, 1, level);
             EntityStates.Engi.SpiderMine.Detonate.blastRadius = MultScaling(14, 0.25f, level);
         }
     }
@@ -159,8 +159,9 @@ namespace SkillsPlusPlus.Modifiers {
         public override int MaxLevel {
             get { return 4; }
         }
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             Deployed.lifetime = MultScaling(20, 0.25f, level);
         }
 
@@ -184,9 +185,9 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 4; }
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
-            SkillDef.baseMaxStock = AdditiveScaling(4, 1, level);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            skillDef.baseMaxStock = AdditiveScaling(4, 1, level);
             Logger.Debug("paintInterval: {0}", Paint.stackInterval);
             Logger.Debug("baseDurationPerMissile: {0}, damageCoefficient: {1}", Fire.baseDurationPerMissile, Fire.damageCoefficient);
             Fire.damageCoefficient = MultScaling(5, 0.25f, level);
@@ -227,10 +228,10 @@ namespace SkillsPlusPlus.Modifiers {
             }
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
             // an extra turret every two levels
-            SkillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
+            skillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
             FireGauss.damageCoefficient = MultScaling(0.7f, 0.2f, level);
             EngiSkillModifier.deployableSlotCountBonus[DeployableSlot.EngiTurret] = (int)AdditiveScaling(0, 0.5f, level);
         }
@@ -266,9 +267,9 @@ namespace SkillsPlusPlus.Modifiers {
             fireBeam.fireFrequency = MultScaling(5, 0.10f, level);
         }
 
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody) {
-            base.OnSkillLeveledUp(level, characterBody);
-            SkillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            skillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
             EngiSkillModifier.deployableSlotCountBonus[DeployableSlot.EngiTurret] = (int)AdditiveScaling(0, 0.5f, level);
         }
     }
