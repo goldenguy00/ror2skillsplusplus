@@ -6,6 +6,8 @@ using Mono.Collections.Generic;
 using RoR2.Skills;
 using UnityEngine;
 using SkillsPlusPlus.Modifiers;
+using Rewired.Platforms.PS4.Internal;
+using System.Linq;
 
 namespace SkillsPlusPlus {
     class SkillModifierManager {
@@ -20,9 +22,14 @@ namespace SkillsPlusPlus {
             }
             foreach(Type type in assembly.GetTypes()) {
                 var attributes = type.GetCustomAttributes<SkillLevelModifierAttribute>();
-
+                if(attributes == null || attributes.Count() == 0) {
+                    continue;
+                }
                 try {
-                    ISkillModifier modifier = type.GetConstructor(new Type[0]).Invoke(new object[0]) as ISkillModifier;
+                    ISkillModifier modifier = type.GetConstructor(new Type[0])?.Invoke(new object[0]) as ISkillModifier;
+                    if(modifier == null) {
+                        continue;
+                    }
                     foreach(SkillLevelModifierAttribute attribute in attributes) {
                         foreach(string registeredSkillName in attribute.skillNames) {
                             if(skillModifiers.ContainsKey(registeredSkillName)) {
