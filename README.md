@@ -67,7 +67,7 @@ Mutliplayer is supported however there may be cases when game state is not corre
 |:-|-|------|
 | Strafe | ![Strafe](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/a/af/Strafe.png?version=d0a6dd80cf2a02f8633d4e2d24781c53) | `+33%` range and `+20%` proc chance per level |
 | Flurry | ![Flurry](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/2/24/Flurry.png?version=2d9c753d649ead966ad6232f7e4e37f4) | `+16%` range and `+1` arrow fired per level. *Crits fire twice as many arrows* |
-| Laser Glaive | ![Laser Glaive](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/f/f6/Laser_Glaive.png?version=8ec21d23c6dcbf77ad57e1579208d85c) | `+1` bounce, `+2.5%` bounce damage per bounce, and `+10 units` of bounce range per level |
+| Laser Glaive | ![Laser Glaive](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/f/f6/Laser_Glaive.png?version=8ec21d23c6dcbf77ad57e1579208d85c) | `+1` bounce, `+10%` damage, and `+10 units` of bounce range per level |
 | Blink | ![Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/1/16/Blink.png?version=7f46f9aceb48babddfca64c5778500c6) | Grants `1 second` per level or full crit time |
 | Phase Blink | ![Phase Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/dd/Phase_Blink.png?version=e5f06fa5f8cbe671e1e730ca9955f1df) | Grants `0.5 seconds` per level or full crit time |
 | Arrow Rain | ![Arrow Rain](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/5/59/Arrow_Rain.png?version=4c6450cf90c89762b61a38224ce9ab66) | `+33%` area of effect and `+25%` damage per level |

@@ -59,10 +59,9 @@ namespace SkillsPlusPlus.Modifiers {
     class HuntressGlaiveSkillModifier : TypedBaseSkillModifier<ThrowGlaive> {
 
         static HuntressGlaiveSkillModifier() {
-            R2API.LanguageAPI.Add("HUNTRESS_SECONDARY_DESCRIPTION", "Throw a seeking glaive that bounces up to <style=cIsDamage>6 (+2)</style> times for <style=cIsDamage>250% damage</style>. Damage increases by <style=cIsDamage>10% (+2.5%)</style> per bounce.");
+            // R2API.LanguageAPI.Add("HUNTRESS_SECONDARY_DESCRIPTION", "Throw a seeking glaive that bounces up to <style=cIsDamage>6 (+2)</style> times for <style=cIsDamage>250% damage</style>. Damage increases by <style=cIsDamage>10% (+2.5%)</style> per bounce.");
         }
 
-        private static readonly float origDamageCoefficientPerBounce = ThrowGlaive.damageCoefficientPerBounce;
         private static readonly int origGlaiveBounceCount = 6;
         private static readonly float origGlaiveBounceRange = 35f;
 
@@ -75,7 +74,7 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("OnSkillLeveledUp(level: {0})", level);
             Logger.Debug("Glaive stats - max bounces: {0}, damage coefficient: {1}, glaiveBounceRange: {2}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce, ThrowGlaive.glaiveBounceRange);
             ThrowGlaive.maxBounceCount = AdditiveScaling(origGlaiveBounceCount, 1, level);
-            ThrowGlaive.damageCoefficientPerBounce = AdditiveScaling(origDamageCoefficientPerBounce, 0.025f, level);
+            ThrowGlaive.damageCoefficient = MultScaling(2.5f, 0.1f, level);
             ThrowGlaive.glaiveBounceRange = AdditiveScaling(origGlaiveBounceRange, 10, level);
             Logger.Debug("Glaive stats - max bounces: {0}, damage coefficient: {1}, glaiveBounceRange: {2}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce, ThrowGlaive.glaiveBounceRange);
         }
