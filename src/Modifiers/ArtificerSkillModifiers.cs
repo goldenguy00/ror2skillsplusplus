@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using RoR2.Skills;
@@ -77,7 +77,7 @@ namespace SkillsPlusPlus.Modifiers {
     class MageWallSkillModifier : TypedBaseSkillModifier<PrepWall> {
 
         public override int MaxLevel {
-            get { return 3; }
+            get { return 4; }
         }
         public override void OnSkillEnter(PrepWall skillState, int level) {
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);            
