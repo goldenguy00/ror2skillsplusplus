@@ -35,7 +35,6 @@ Bug fixes:
 
 [Changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
-
 ## Project goals
 
 I often found some character abilities to be underwhelming as runs progressed and that one ability would become more powerful that others.
@@ -45,6 +44,8 @@ This mod hopes to provide an additional sense of progression and giving your cha
 
 While ingame your will earn points every third level gained (4, 7, 10,...) that can be used to purches upgrades to your characters skills.
 To redeem points open the info screen (hold TAB by default) and click the skill you would like to buy.
+Most skills can be levelled up to three or four times.
+Upgrades do not carry over between runs so you will be starting from scratch every time.
 
 Mutliplayer is supported however there may be cases when game state is not correctly synced between connected clients. This is a known issue and will be worked on once all the characters' upgrade sets are done.
 
