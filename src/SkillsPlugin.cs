@@ -9,7 +9,7 @@ namespace SkillsPlusPlus {
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.9")]
     [R2APISubmoduleDependency("AssetPlus")]
-    public class PhotoModePlugin : BaseUnityPlugin {
+    public class SkillsPlusPlusPlugin : BaseUnityPlugin {
 
         private HUD hud;
         private PlayerCharacterMasterController playerCharacterMasterController;
