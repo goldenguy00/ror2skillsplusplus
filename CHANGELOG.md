@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 0.0.10
+
+Changes:
+
+- Added upgrades for Mercenary
+- Replaced `+2.5%` bounce damage from Huntress's Glaive skill with `+10%` flat damage bonus. The bonus damage per bounce made the skill far to over powered as the skill levelled up.
+- Added support across the remaining characters for [Classic Items's](https://thunderstore.io/package/ThinkInvis/ClassicItems/) scepter item
+
+Bug fixes:
+
+- Fixed a null pointer happening on launch
+
 ## Version 0.0.9
 
 Changes:
