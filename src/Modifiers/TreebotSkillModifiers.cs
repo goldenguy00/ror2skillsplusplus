@@ -48,7 +48,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("FireFlower2")]
+    [SkillLevelModifier("FireFlower2", "Chaotic Growth")]
     class TreebotFlowerSkillModifier : TypedBaseSkillModifier<PrepFlower2> {
 
         public override int MaxLevel {
