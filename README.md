@@ -54,10 +54,10 @@ Mutliplayer is supported however there may be cases when game state is not corre
 | Skill | | Description |
 |:-|-|------|
 | Double Tap | ![Double tap](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/7/7c/Double_Tap.png?version=8348516f319278a9ce5a38a2ab9bde5f) | `+20%` rate of fire and `+15%` recoil reduction per level |
-| Phase Round | ![Phase Round](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/3/38/Phase_Round.png?version=4a5aa5a7fc21bb738483e4651e4aae23) | `+50%` damage and `50%` projectile velocity per level |
+| Phase Round | ![Phase Round](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/3/38/Phase_Round.png?version=4a5aa5a7fc21bb738483e4651e4aae23) | `+50%` damage and `+50%` projectile velocity per level |
 | Phase Blast | ![Phase Blast](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/4/49/Phase_Blast.png?version=ecab07bd3d0ea7ac621800fd515cf00a) | `+50%` bullets fires and `+25%` blast range per level |
-| Tactical Dive | ![Tactical Dive](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/2/25/Tactical_Dive.png?version=304aa13b595665c29447fd6d42e65d5e) | Grants `0.75 seconds` of invulnerability per level |
-| Tactical Slide | ![Tactical Slide](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/e/e8/Tactical_Slide.png?version=46594be2f8d139de21b67c744bf36101) | Grants `0.75 seconds` of bonus attack speed per level |
+| Tactical Dive | ![Tactical Dive](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/2/25/Tactical_Dive.png?version=304aa13b595665c29447fd6d42e65d5e) | Grants `+0.75 seconds` of invulnerability per level |
+| Tactical Slide | ![Tactical Slide](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/e/e8/Tactical_Slide.png?version=46594be2f8d139de21b67c744bf36101) | Grants `+0.75 seconds` of bonus attack speed per level |
 | Supressive Fire | ![Supressive fire](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/db/Suppressive_Fire.png?version=c2660d649079b7a33697698cc2460cc7) | `+50%` bullets fired per level |
 | Frag Grenade | ![Frag Grenade](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/6/6b/Frag_Grenade.png?version=317d27bd9e4809671a2a5858501bdd63) | `+33%` explosion damage and `+25%` blast radius per level |
 
@@ -68,8 +68,8 @@ Mutliplayer is supported however there may be cases when game state is not corre
 | Strafe | ![Strafe](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/a/af/Strafe.png?version=d0a6dd80cf2a02f8633d4e2d24781c53) | `+33%` range and `+20%` proc chance per level |
 | Flurry | ![Flurry](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/2/24/Flurry.png?version=2d9c753d649ead966ad6232f7e4e37f4) | `+16%` range and `+1` arrow fired per level. *Crits fire twice as many arrows* |
 | Laser Glaive | ![Laser Glaive](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/f/f6/Laser_Glaive.png?version=8ec21d23c6dcbf77ad57e1579208d85c) | `+1` bounce, `+10%` damage, and `+10 units` of bounce range per level |
-| Blink | ![Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/1/16/Blink.png?version=7f46f9aceb48babddfca64c5778500c6) | Grants `1 second` per level or full crit time |
-| Phase Blink | ![Phase Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/dd/Phase_Blink.png?version=e5f06fa5f8cbe671e1e730ca9955f1df) | Grants `0.5 seconds` per level or full crit time |
+| Blink | ![Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/1/16/Blink.png?version=7f46f9aceb48babddfca64c5778500c6) | Grants `+1 second` per level or full crit time |
+| Phase Blink | ![Phase Blink](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/dd/Phase_Blink.png?version=e5f06fa5f8cbe671e1e730ca9955f1df) | Grants `+0.5 seconds` per level or full crit time |
 | Arrow Rain | ![Arrow Rain](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/5/59/Arrow_Rain.png?version=4c6450cf90c89762b61a38224ce9ab66) | `+33%` area of effect and `+25%` damage per level |
 | Ballista | ![Ballista](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/d5/Ballista.png?version=b606a0a22dc203327b91fc5fd96d2930) | `+1` bullet and `+20%` damage per level |
 
@@ -109,6 +109,17 @@ Mutliplayer is supported however there may be cases when game state is not corre
 | Flamethrower | ![Flamethrower](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/a/ad/Flamethrower.png/128px-Flamethrower.png?version=df4f797fe7e0a9fff8e6777a2204b85d) | `+100%` range, `+50%` flame radius, and `+20%` damage per level |
 | Ion Surge | ![Ion Surge](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/d1/Ion_Surge.png?version=a945f2d18ec9387976fafb92e68b9be9) | `+25%` damage and `+50%` area of effect per level |
 
+### Mercenary
+
+| Skill | | Description |
+|:-|-|------|
+| Laser Sword | ![Laser Sword](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/e/e2/Laser_Sword.png/128px-Laser_Sword.png?version=3a9875734bc89fdbef834264cfaa4713) | `+20%` first and second hit damage, `+40%` finisher damage, and `+15%` attack speed per level |
+| Whirlwind | ![Whirlwind](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/e/e0/Whirlwind.png/128px-Whirlwind.png?version=077953d0f21ba522ac23092a1acac734) | `+40%` damage and `+50%` larger hitbox per level |
+| Rising Thunder | ![Rising Thunder](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/d/d4/Rising_Thunder.png/128px-Rising_Thunder.png?version=ab9e85a71cf761228816b626a7bafc6d) | `+40%` damage per level. `+1` stock per two levels |
+| Blinding Assault | ![Blinding Assault](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/8/87/Blinding_Assault.png/128px-Blinding_Assault.png?version=83b40986e4f6151932ffd8d4d4e7bbe6) | `+20%` damage, `+0.5 seconds` extra delay before reset, and `+0.5 seconds` recharge to all other skills per level |
+| Eviscerate | ![Eviscerate](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/9/9f/Eviscerate.png/128px-Eviscerate.png?version=073ebfc6fec123029ebed3108195aa7a) | `+50%` chain range, `+20%` attack speed, `+10%` proc chance per level |
+| Slicing Winds | ![Slicing Winds](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/b/bc/Slicing_Winds.png/128px-Slicing_Winds.png?version=39f32fdb68b806c809dc4050d5862417) | `+25%` attack speed and `+25%` damage per level |
+
 ### Acrid
 
 | Skill | | Description |
@@ -116,7 +127,7 @@ Mutliplayer is supported however there may be cases when game state is not corre
 | Vicious Wounds | ![Vicious Wounds](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/5/5a/Vicious_Wounds.png?version=2bf16e4d4644a16c2c9e450ac0b4490d) | `+25%` normal damage, `+30%` combo finisher damage, and `+20%` attack speed per level |
 | Neurotoxin | ![Neurotoxin](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/2/2b/Neurotoxin.png?version=47fb02a7cc34bf60f197a92ffb3c7a0b) | `+25%` damage, `+50` projectile speed, and `+50%` blast radius per level. `+1 stock` per two levels |
 | Ravenous Bite | ![Ravenous Bite](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/8/8b/Ravenous_Bite.png?version=da9fcc5ab5b26987c160f065b8c95d73) | `+25%` damage and `+1` stock per level |
-| Caustic Leap | ![Caustic Leap](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/9e/Caustic_Leap.png?version=e067644005e3fbe939dc6c0e74cb680c) | `+25%` blast damage, `+50%` acid pool damage, and `+25%` accid pool size per level |
+| Caustic Leap | ![Caustic Leap](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/9e/Caustic_Leap.png?version=e067644005e3fbe939dc6c0e74cb680c) | `+25%` blast damage, `+50%` acid pool damage, and `+25%` acid pool size per level |
 | Frenzied Leap | ![Frenzied Leap](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/96/Frenzied_Leap.png?version=05eb87da91cfb184824ae53eac148f4f) | `+30%` blast damage and `+25%` refunded time per level |
 | Epidemic | ![Epidemic](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/9d/Epidemic.png?version=c285fc0546271c32d190c85ae8f5516b) | `+5` infection bounces, `+25%` infection range, and `+25%` on hit damage per level |
 

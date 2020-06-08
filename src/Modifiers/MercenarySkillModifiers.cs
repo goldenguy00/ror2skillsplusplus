@@ -11,6 +11,7 @@ using R2API.Utils;
 using UnityEngine;
 using RoR2.Projectile;
 using EntityStates.Engi.EngiMissilePainter;
+using SkillsPlusPlus.Util;
 
 namespace SkillsPlusPlus.Modifiers {
 
@@ -26,7 +27,9 @@ namespace SkillsPlusPlus.Modifiers {
             GroundLight.forceMagnitude = MultScaling(600, 0.25f, level);
             GroundLight.selfForceMagnitude = MultScaling(600, 0.25f, level);
             GroundLight.comboDamageCoefficient = MultScaling(1.3f, 0.2f, level);
-            GroundLight.finisherDamageCoefficient= MultScaling(3, 0.4f, level);
+            GroundLight.baseComboAttackDuration = MultScaling(0.6f, -0.15f, level);
+            GroundLight.finisherDamageCoefficient = MultScaling(3, 0.4f, level);
+            GroundLight.baseFinisherAttackDuration = MultScaling(1, -0.15f, level);
         }
 
     }
@@ -74,6 +77,13 @@ namespace SkillsPlusPlus.Modifiers {
         public override int MaxLevel {
             get { return 4; }
         }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            Uppercut.baseDamageCoefficient = MultScaling(5.5f, 0.4f, level);
+            skillDef.baseMaxStock = (int)AdditiveScaling(1, 0.5f, level);
+        }
+
     }
 
     [SkillLevelModifier("Dash1")]
@@ -83,22 +93,25 @@ namespace SkillsPlusPlus.Modifiers {
             get { return 4; }
         }
 
-        public override void OnSkillExit(Assaulter skillState, int level) {
-            base.OnSkillExit(skillState, level);
+        public override void OnSkillEnter(Assaulter skillState, int level) {
+            base.OnSkillEnter(skillState, level);
 
-            HealthComponent characterHealthComponent = skillState.outer?.commonComponents.characterBody?.healthComponent;
-            if(characterHealthComponent) {
-                float barrierAmount = characterHealthComponent.fullCombinedHealth * AdditiveScaling(0, 0.04f, level); // +5% per level
-                if(barrierAmount > 0) {
-                    skillState.outer?.commonComponents.characterBody?.healthComponent?.AddBarrier(barrierAmount);
+            GenericSkill[] genericSkills = skillState.outer?.commonComponents.characterBody.skillLocator.FindAllGenericSkills();
+            float cooldownAmount = AdditiveScaling(0, 0.5f, level);
+            if(genericSkills != null && cooldownAmount > 0) {
+                foreach(GenericSkill skill in genericSkills) {
+                    if(skill.skillDef.skillName != this.skillName) {
+                        skill.RunRecharge(cooldownAmount);
+                    }
                 }
+                
             }
         }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
 
-            Assaulter.damageCoefficient = MultScaling(3, 0.3f, level);
+            Assaulter.damageCoefficient = MultScaling(3, 0.2f, level);
 
             if(skillDef is MercDashSkillDef) {
                 MercDashSkillDef mercDashSkillDef = (MercDashSkillDef)skillDef;
