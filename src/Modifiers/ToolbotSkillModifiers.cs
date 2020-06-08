@@ -190,7 +190,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("ToolbotDash")]
+    [SkillLevelModifier("ToolbotDash", "Breach Mode")]
     class ToolbotDashSkillModifier : TypedBaseSkillModifier<ToolbotDash> {
 
         public override int MaxLevel {

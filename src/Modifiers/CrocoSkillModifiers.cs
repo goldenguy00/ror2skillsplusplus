@@ -122,7 +122,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("CrocoDisease")]
+    [SkillLevelModifier("CrocoDisease", "Plague")]
     class CrocoDiseaseSkillModifier : TypedBaseSkillModifier<FireDiseaseProjectile> {
         public override int MaxLevel {
             get { return 4; }

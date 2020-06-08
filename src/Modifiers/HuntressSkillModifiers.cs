@@ -107,7 +107,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("ArrowRain")]
+    [SkillLevelModifier("ArrowRain", "Burning Rain")]
     class HuntressArrowRainSkillModifier : TypedBaseSkillModifier<ArrowRain> {
 
         static HuntressArrowRainSkillModifier() {
@@ -129,7 +129,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("AimArrowSnipe")]
+    [SkillLevelModifier("AimArrowSnipe", "Rabauld")]
     class HuntressSnipeSkillModifier : BaseSkillModifier {
 
         static readonly float stockImageInterspacing = 18.0f;

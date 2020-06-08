@@ -35,7 +35,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("ChargeFist")]
+    [SkillLevelModifier("ChargeFist", "Megaton Punch")]
     class LoaderChargeFistSkillModifier : TypedBaseSkillModifier<ChargeFist> {
 
         public override int MaxLevel {
@@ -44,7 +44,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("ChargeZapFist")]
+    [SkillLevelModifier("ChargeZapFist", "Thundercrash")]
     class LoaderChargeZapFistSkillModifier : TypedBaseSkillModifier<ChargeZapFist> {
 
         public override int MaxLevel {

@@ -102,7 +102,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Barrage")]
+    [SkillLevelModifier("Barrage", "Death Blossom")]
     class CommandoBarrageSkillModifier : TypedBaseSkillModifier<FireBarrage> {
 
         public override int MaxLevel {
@@ -125,7 +125,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("ThrowGrenade")]
+    [SkillLevelModifier("ThrowGrenade", "Carpet Bomb")]
     class CommandoGrenadeSkillModifier : TypedBaseSkillModifier<ThrowGrenade> {
         public override int MaxLevel {
             get { return 4; }

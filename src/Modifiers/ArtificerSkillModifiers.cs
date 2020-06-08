@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using RoR2.Skills;
@@ -106,7 +106,7 @@ namespace SkillsPlusPlus.Modifiers {
     
     }
 
-    [SkillLevelModifier("Flamethrower")]
+    [SkillLevelModifier("Flamethrower", "Dragon's Breath")]
     class MageFlamethrowerSkillModifier : TypedBaseSkillModifier<Flamethrower> {
 
         private float baseRadius = 2f;
@@ -144,7 +144,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
 
-    [SkillLevelModifier("FlyUp")]
+    [SkillLevelModifier("FlyUp", "Antimatter Surge")]
     class MageFlyUpSkillModifier : TypedBaseSkillModifier<FlyUpState> {
 
         public override int MaxLevel {
