@@ -1,6 +1,6 @@
 # Risk of Rain 2 - Skills++ Mod
 
-The Skills++ adds skills upgrades that can be purchased as your character levels up throughout a run.
+Skills++ adds skills upgrades that can be purchased as your character levels up throughout a run.
 
 ## Table of Contents
 

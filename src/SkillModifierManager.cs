@@ -6,7 +6,6 @@ using Mono.Collections.Generic;
 using RoR2.Skills;
 using UnityEngine;
 using SkillsPlusPlus.Modifiers;
-using Rewired.Platforms.PS4.Internal;
 using System.Linq;
 
 namespace SkillsPlusPlus {
