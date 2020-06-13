@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using RoR2;
@@ -132,6 +132,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() {
                 typeof(Evis),
+                typeof(EvisDash),
                 typeof(ThrowEvisProjectile)
             };
         }
@@ -162,7 +163,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            if(skillDef.activationState.stateType == typeof(Evis)) {
+            if(skillDef.activationState.stateType == typeof(EvisDash)) {
                 Evis.maxRadius = MultScaling(16, 0.5f, level);
                 Evis.damageFrequency = MultScaling(7, 0.20f, level);
                 Evis.procCoefficient = MultScaling(1, 0.1f, level);
