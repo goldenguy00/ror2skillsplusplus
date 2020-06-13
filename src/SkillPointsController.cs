@@ -255,6 +255,9 @@ namespace SkillsPlusPlus {
             if(Input.GetKeyDown(KeyCode.Keypad5) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItemString("CIScepter");
             }
+            if(Input.GetKeyDown(KeyCode.Keypad6) && this.playerCharacterMasterController != null) {
+                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.Syringe, 5);
+            }
 #endif
 
         }
