@@ -86,7 +86,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            skillDef.baseMaxStock = (int)AdditiveScaling(1, 0.5f, level);
+            skillDef.baseMaxStock = (int)AdditiveScaling(2, 0.5f, level);
             if(Leap.projectilePrefab.TryGetComponent(out ProjectileDotZone dotZone)) {
                 dotZone.damageCoefficient = MultScaling(0.25f, 0.50f, level);                
             }
