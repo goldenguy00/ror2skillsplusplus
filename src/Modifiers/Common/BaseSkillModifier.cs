@@ -38,9 +38,9 @@ namespace SkillsPlusPlus.Modifiers {
                 return baseValue * (1 + multiplier * (level - 1));
             }
         }
-        public static int MultScaling(int baseValue, float multiplier, int level) {
-            return (int)MultScaling((float)baseValue, multiplier, level);            
-        }
+        // public static int MultScaling(int baseValue, float multiplier, int level) {
+        //     return (int)MultScaling((float)baseValue, multiplier, level);            
+        // }
         #endregion
     }
 }

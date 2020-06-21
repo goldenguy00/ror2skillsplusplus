@@ -65,7 +65,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(FireShotgunBlast skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("procCoefficient: {0}, damageCoefficient: {1}, maxDistance: {2}", skillState.procCoefficient, skillState.damageCoefficient, skillState.maxDistance);
-            skillState.bulletCount = MultScaling(skillState.bulletCount, 0.5f, level);
+            skillState.bulletCount = (int)MultScaling(skillState.bulletCount, 0.5f, level);
             skillState.maxDistance = MultScaling(skillState.maxDistance, 0.25f, level);
         }
     }
@@ -117,7 +117,7 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("Barrage - baseBulletCount: {0}, baseDurationBetweenShots: {1}, totalDuration: {2}, bulletRadius: {3}", FireBarrage.baseBulletCount, FireBarrage.baseDurationBetweenShots, FireBarrage.totalDuration, FireBarrage.bulletRadius);
             
-            FireBarrage.baseBulletCount = MultScaling(6, 0.5f, level);
+            FireBarrage.baseBulletCount = (int)MultScaling(6, 0.5f, level);
             FireBarrage.totalDuration = MultScaling(1f, 0.25f, level);
             FireBarrage.baseDurationBetweenShots = 1 / MultScaling(1 / 0.12f, 0.25f, level);
             // FireBarrage.baseDurationBetweenShots = AdditiveScaling(0.12f, -0.01f, level);
