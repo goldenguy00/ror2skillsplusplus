@@ -16,6 +16,7 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
     - [Engineer](#engineer)
     - [Artificer](#artificer)
     - [Mercenary](#mercenary)
+    - [Loader](#loader)
     - [Acrid](#acrid)
   - [Found a bug?](#found-a-bug)
   - [Have a suggestion?](#have-a-suggestion)
@@ -98,7 +99,7 @@ Mutliplayer is supported however there may be cases when game state is not corre
 | Spider Mines | ![Spider Mines](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/6/61/Spider_Mines.png?version=c9fbe949643ffa5288d31c89d8a5e063) | `+40%` activation range and `+25%` damage per level |
 | Bubble Shield | ![Bubble Shield](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/d/da/Bubble_Shield.png?version=528e249613f7923f2df377251ec0394a) | `+25%` duration and `+25%` size per level |
 | Thermal Harpoons | ![Thermal Harpoons](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/b/b7/Thermal_Harpoons.png?version=bb32066c6dc3552e1bca5dff720dc79c) | `+1` harpoon ammo, `+25%` damage, and `+50%` target range per level |
-| TR12 Gauss Auto-Turret | ![TR12 Gauss Auto-Turret](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/6/60/TR12_Gauss_Auto-Turret.png?version=462607ca2de8fe7b5d8b9df093e50951) | `+40%` enemy detection range and `+20%` damage per level. `+1` deployable turret per two levels. |
+| TR12 Gauss Auto-Turret | ![TR12 Gauss Auto-Turret](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/6/60/TR12_Gauss_Auto-Turret.png?version=462607ca2de8fe7b5d8b9df093e50951) | `+40%` enemy detection range and `+20%` damage per level. `+1` deployable turret per two levels |
 | TR58 Carbonizer Turret | ![TR58 Carbonizer Turret](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/4/4f/TR58_Carbonizer_Turret.png?version=8189f9c2f4ef8614ab225be5cd6ccc4f) | `+20%` damage, `+50%` proc chance, and `+10%` rate of fire per level. `+1` deployable turret per two levels |
 
 ### Artificer
@@ -123,6 +124,17 @@ Mutliplayer is supported however there may be cases when game state is not corre
 | Blinding Assault | ![Blinding Assault](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/8/87/Blinding_Assault.png/128px-Blinding_Assault.png?version=83b40986e4f6151932ffd8d4d4e7bbe6) | `+20%` damage, `+0.5 seconds` extra delay before reset, and `+0.5 seconds` recharge to all other skills per level |
 | Eviscerate | ![Eviscerate](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/9/9f/Eviscerate.png/128px-Eviscerate.png?version=073ebfc6fec123029ebed3108195aa7a) | `+50%` chain range, `+20%` attack speed, `+10%` proc chance per level |
 | Slicing Winds | ![Slicing Winds](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/thumb/b/bc/Slicing_Winds.png/128px-Slicing_Winds.png?version=39f32fdb68b806c809dc4050d5862417) | `+25%` attack speed and `+25%` damage per level |
+
+### Loader
+
+| Skill | | Description |
+|:-|-|------|
+| Knuckleboom | ![Knuckleboom](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/b/b2/Knuckleboom.png?version=4d7fb1484fb2bf3f211770644d5e60aa) | `+1%` barrier gained and `+25%` damage per level |
+| Grapple Fist | ![Grapple Fist](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/2/25/Grapple_Fist.png?version=bfb4deca6cf26aa24ba26bb1956e0b6f) | `+50%` hook range per level. |
+| Spiked Fist | ![Spiked Fist](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/6/62/Spiked_Fist.png?version=57f8c08e3bea7b07fd6a1bfb09905a3a) | `+20%` hook range and `+30%` damage per level |
+| Charged Gauntlet | ![Charged Gauntlet](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/7/79/Charged_Gauntlet.png?version=b7b77a9caf70ee5392fc91d72117f487) | `+10%` max charge, `+25%` base damage, and `+20%` velocity based damage per level |
+| Thunder Gauntlet | ![Thunder Gauntlet](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/f/f3/Thunder_Gauntlet.png?version=8432d38598a6a1793013abbeb9701420) | `+15%` damage and `+25%` cone range per level |
+| M551 Pylon | ![M551 Pylon](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/3/37/M551_Pylon.png?version=8ce17c1b445a3a173a70e909e3389705) | `+20%` damage, `+30%` range, and `+30%` rate of fire per level |
 
 ### Acrid
 

@@ -1,14 +1,17 @@
 using BepInEx;
 using RoR2;
+using RoR2.Skills;
 using RoR2.UI;
+using R2API.AssetPlus;
 using R2API.Utils;
 using UnityEngine;
+using SkillsPlusPlus.Modifiers;
 
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.10")]
-    [R2APISubmoduleDependency("AssetPlus")]
+    [R2APISubmoduleDependency(nameof(AssetPlus))]
     public class SkillsPlusPlusPlugin : BaseUnityPlugin {
 
         private HUD hud;
@@ -18,6 +21,9 @@ namespace SkillsPlusPlus {
         //private SkillLevelIconController[] skillsHUDControllers;
 
         public void Awake () {
+
+            LoaderKnucklesSkillModifier.PatchSkillName();
+            LoaderThrowPylonSkillModifier.PatchSkillName();
 
 #if DEBUG
             // disable client authing when connecting to a server to allow two game instances to run in parallel
