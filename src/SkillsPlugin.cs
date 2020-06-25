@@ -10,8 +10,8 @@ using SkillsPlusPlus.Modifiers;
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
-    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.10")]
-    [R2APISubmoduleDependency(nameof(AssetPlus))]
+    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.11")]
+    [R2APISubmoduleDependency("AssetPlus")]
     public class SkillsPlusPlusPlugin : BaseUnityPlugin {
 
         private HUD hud;

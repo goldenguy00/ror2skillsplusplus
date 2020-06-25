@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 0.0.11
+
+Changes:
+
+- Added upgrades for Loader
+- Improved readme's mod usage section with images.
+- Added FAQ section to readme
+
+Bug fixes:
+
+- [#31](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/31) - Fixed Mercenary's eviscerate not applying upgrades
+- [#33](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/33) - Fixed Acrid's caustic leap ability having only one charge instead of two.
+
 ## Version 0.0.10
 
 Changes:

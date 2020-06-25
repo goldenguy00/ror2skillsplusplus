@@ -6,7 +6,7 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
 
 - [Risk of Rain 2 - Skills++ Mod](#risk-of-rain-2---skills-mod)
   - [Table of Contents](#table-of-contents)
-  - [Version 0.0.10](#version-0010)
+  - [What's new in 0.0.11](#whats-new-in-0011)
   - [Project goals](#project-goals)
   - [Usage](#usage)
   - [Upgrade paths](#upgrade-paths)
@@ -22,19 +22,18 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
   - [Have a suggestion?](#have-a-suggestion)
   - [Special thanks](#special-thanks)
 
-## Version 0.0.10
+## What's new in 0.0.11
 
 Changes:
 
-- Added upgrades for Mercenary
-- Replaced `+2.5%` bounce damage from Huntress's Glaive skill with `+10%` flat damage bonus. The bonus damage per bounce made the skill far to over powered as the skill levelled up.
-- Added support across the remaining characters for [Classic Items's](https://thunderstore.io/package/ThinkInvis/ClassicItems/) scepter item
+- Added upgrades for Loader
+- Improved readme's mod usage section with images.
+- Added FAQ section to readme
 
 Bug fixes:
 
-- Fixed a null pointer happening on launch
-
-[Changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
+- [#31](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/31) - Fixed Mercenary's eviscerate not applying upgrades
+- [#33](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/33) - Fixed Acrid's caustic leap ability having only one charge instead of two.
 
 ## Project goals
 
