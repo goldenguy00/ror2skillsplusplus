@@ -10,7 +10,7 @@ namespace SkillsPlusPlus.Modifiers {
         public string skillName { get; set; }
         public abstract int MaxLevel { get; }
 
-        internal BaseSkillModifier() { }
+        public BaseSkillModifier() { }
         public abstract IList<Type> GetEntityStateTypes();
         public virtual void OnSkillEnter(BaseState skillState, int level) { }
         public virtual void OnSkillExit(BaseState skillState, int level) { }
