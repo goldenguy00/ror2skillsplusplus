@@ -20,6 +20,7 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
     - [Acrid](#acrid)
   - [Found a bug?](#found-a-bug)
   - [Have a suggestion?](#have-a-suggestion)
+  - [FAQ](#faq)
   - [Special thanks](#special-thanks)
 
 ## What's new in 0.0.11
@@ -40,16 +41,34 @@ Bug fixes:
 I often found some character abilities to be underwhelming as runs progressed and that one ability would become more powerful that others.
 This mod hopes to provide an additional sense of progression and giving your character a feeling of power throughout a run.
 
+The roadmap of the project is evolving as feedback is received. The current state is
+
+1. Implement all vanilla characters skill upgrades. Only REX remains.
+2. Support modded characters
+3. Proper multiplayer support
+4. Rebuild UX to fix UI bugs and support controllers.
+
 ## Usage
 
-While ingame your will earn points every third level gained (4, 7, 10,...) that can be used to purches upgrades to your characters skills.
+While ingame your will earn points every third level gained that can be used to purchase upgrades to your characters skills. Your first skill point is earned upon reaching level 4, the next point is earned level 7, and so on.
 To redeem points open the info screen (hold TAB by default) and click the skill you would like to buy.
-Most skills can be levelled up to three or four times.
 Upgrades do not carry over between runs so you will be starting from scratch every time.
+
+1. When you have levelled up enough to buy a skill the icons will change to have a yellow border.
+![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skillpoint_available.png)
+
+1. Opening the info screen will present 'Buy' buttons over the top of skills that can be purchased.
+![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/buy_options.png)
+
+1. Clicking on any of the 'Buy' buttons will spend a single point and the skill will upgrade. The plus indicates the number of skillpoints invested in the skill.,
+![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skillpoint_spent.png)
+
+1. Once a skill has been fully upgraded it will no longer light up yellow nor show a 'Buy' button in the info screen.
+![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skill_fully_upgraded.png)
 
 Mutliplayer is supported however there may be cases when game state is not correctly synced between connected clients. This is a known issue and will be worked on once all the characters' upgrade sets are done.
 
-> ***NOTE:*** This mod is still a work in progress. There is no guarantee that SkillsPlusPlus is going to work with other mods thats alter character abilities. If you have found a bug refer to [Report a bug](#report-a-bug)
+> ***NOTE:*** This mod is still a work in progress. There is no guarantee that SkillsPlusPlus is going to work with other mods thats alter character abilities. If you have found a bug refer to [Report a bug](#report-a-bug).
 
 ## Upgrade paths
 
@@ -159,7 +178,17 @@ Bug fixing can be difficult sometimes so the more information provided the easie
 
 If you have a suggestion you can log it through [project's GitLab issue tracker](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/new?issuable_template=skill_suggestion).
 
-The best way to reach me is directly through discord, you can find me on the [modding community discord](https://discord.gg/5MbXZvd). I cannot guarentee responding to any pings in the discord
+The best way to reach me is directly through discord, you can find me on the [modding community discord](https://discord.gg/5MbXZvd). I cannot guarentee responding to any pings in the discord.
+
+## FAQ
+
+**Will Skills++ support modded characters?**
+  
+Yes, in time. Internally the Skills++ has been built to support more upgrade logic paths for any skill. What is lacking is instructional guides and public API for modders to integrate with.
+
+**Skills++ makes the game a cakewalk. Do you recommend any other mods to balance the game?**
+
+I'd highly recommend harb's [Diluvian Difficulty](https://thunderstore.io/package/Harb/DiluvianDifficulty/) mod. It adds a new harder difficulty to the game that should level the playing fields a bit more.
 
 ## Special thanks
 
