@@ -35,6 +35,11 @@ If your custom skill uses multiple entity states then refer to [advanced skill m
 The other important requirement for a skill modifier is that the class is attributed with the `SkillModifier`.
 The attribute needs to name the skills the modifier can be applied to.
 
+There are three methods that are used to implement the 
+**OnSkillLeveledUp**
+**OnSkillEnter**
+**OnSkillExit**
+
 Here is an example of modifying the Commando's primary attack to increase it's rate of fire every level.
 ```c#
 [SkillLevelModifier("FirePistol")]
@@ -75,17 +80,38 @@ It is used to specify the entity state this skill modifer concerns.
 Despite the maximum level for this skill being four this skill can be levelled up three times.
 Within Skills++ a skill with no upgrades is considered to be at level one.
 
+```c#
+    public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+        base.OnSkillLeveledUp(level, characterBody, skillDef);
+        FirePistol2.baseDuration = MultScaling(0.2f, -0.20f, level);         
+    }
+```
+This defines the changes to the skill when the user spends a point on the skill.
+This 
 
 
-> More advanced implementations can be found later in this guide.
 
 ## Loading the skill modifier in game
 
 ## Common upgrades
 
 ### Granting buffs
+
+Coming soon
+
 ### Adding stock
-### Changing projectile
+
+Coming soon
+
+### Changing projectile behaviour
+
+Coming soon
+
 ### Changing hitbox
 
+Coming soon
+
 ## Advanced skill modifier implementations
+
+Sometimes a single skill has complex behaviour that is spread amongst several 
+
