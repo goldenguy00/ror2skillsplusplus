@@ -3,6 +3,7 @@ using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Assertions;
 
 namespace SkillsPlusPlus.Modifiers {
     public abstract class BaseSkillModifier : ISkillModifier {
@@ -28,15 +29,13 @@ namespace SkillsPlusPlus.Modifiers {
         public static float AdditiveScaling(float baseValue, float buffValue, int level) {
             return baseValue + buffValue * (level - 1);
         }
+
         public static int AdditiveScaling(int baseValue, int buffValue, int level) {
             return baseValue + buffValue * (level - 1);
         }
         public static float MultScaling(float baseValue, float multiplier, int level) {
-            if(multiplier < 0) {
-                return 1 / ((1 / baseValue) * (1 - multiplier * (level - 1)));
-            } else {
-                return baseValue * (1 + multiplier * (level - 1));
-            }
+            Assert.IsTrue(multiplier >= -1, "Compound multipliers less than -1 are not allowed as it causes sporadic behaviour with the scaling.");
+            return (float)((Math.Pow(multiplier + 1, level - 1) - 1) * baseValue) + baseValue;
         }
         // public static int MultScaling(int baseValue, float multiplier, int level) {
         //     return (int)MultScaling((float)baseValue, multiplier, level);            
