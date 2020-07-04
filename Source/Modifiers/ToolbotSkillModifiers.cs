@@ -16,7 +16,7 @@ using UnityEngine;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireNailgun")]
-    class ToolbotSkillModifier : TypedBaseSkillModifier<FireNailgun> {
+    class ToolbotSkillModifier : SimpleSkillModifier<FireNailgun> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -36,7 +36,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireSpear")]
-    class ToolbotSpearSkillModifier : TypedBaseSkillModifier<FireSpear> {
+    class ToolbotSpearSkillModifier : SimpleSkillModifier<FireSpear> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -54,7 +54,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireGrenadeLauncher")]
-    class ToolbotGrenadeLauncherSkillModifier : TypedBaseSkillModifier<FireGrenadeLauncher> {
+    class ToolbotGrenadeLauncherSkillModifier : SimpleSkillModifier<FireGrenadeLauncher> {
 
         private static readonly float stockImageInterspacing = 13.5f;
 
@@ -139,7 +139,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireBuzzsaw")]
-    class ToolbotBuzzsawSkillModifier : TypedBaseSkillModifier<FireBuzzsaw> {
+    class ToolbotBuzzsawSkillModifier : SimpleSkillModifier<FireBuzzsaw> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -165,7 +165,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("StunDrone")]
-    class ToolbotStunDroneSkillModifier : TypedBaseSkillModifier<AimStunDrone> {
+    class ToolbotStunDroneSkillModifier : SimpleSkillModifier<AimStunDrone> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -191,7 +191,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("ToolbotDash", "Breach Mode")]
-    class ToolbotDashSkillModifier : TypedBaseSkillModifier<ToolbotDash> {
+    class ToolbotDashSkillModifier : SimpleSkillModifier<ToolbotDash> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -215,7 +215,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Swap")]
-    class ToolbotEquipmentSwapSkillModifier : TypedBaseSkillModifier<ToolbotStanceSwap> {
+    class ToolbotEquipmentSwapSkillModifier : SimpleSkillModifier<ToolbotStanceSwap> {
 
         public override int MaxLevel {
             get { return 4; }

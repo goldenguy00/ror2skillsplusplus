@@ -25,7 +25,7 @@ using System.Linq;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    class EngiSkillModifier {
+    sealed class EngiSkillModifier {
 
         public static Dictionary<DeployableSlot, int> deployableSlotCountBonus = new Dictionary<DeployableSlot, int>();
 
@@ -39,7 +39,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireGrenade")]
-    class EngiGrenadesSkillModifier : TypedBaseSkillModifier<ChargeGrenades> {
+    class EngiGrenadesSkillModifier : SimpleSkillModifier<ChargeGrenades> {
 
         public override int MaxLevel {
             get { return 5; }
@@ -155,7 +155,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("PlaceBubbleShield")]
-    class EngiBubbleShieldSkillModifier : TypedBaseSkillModifier<FireBubbleShield> {
+    class EngiBubbleShieldSkillModifier : SimpleSkillModifier<FireBubbleShield> {
         public override int MaxLevel {
             get { return 4; }
         }
@@ -180,7 +180,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("EngiHarpoons")]
-    class EngiHarpoonsSkillModifier : TypedBaseSkillModifier<Paint> {
+    class EngiHarpoonsSkillModifier : SimpleSkillModifier<Paint> {
         public override int MaxLevel {
             get { return 4; }
         }

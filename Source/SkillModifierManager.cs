@@ -9,7 +9,7 @@ using SkillsPlusPlus.Modifiers;
 using System.Linq;
 
 namespace SkillsPlusPlus {
-    public class SkillModifierManager {
+    public sealed class SkillModifierManager {
 
         private static Dictionary<string, ISkillModifier> skillModifiers = new Dictionary<string, ISkillModifier>();
         private static Dictionary<Type, ISet<ISkillModifier>> stateTypeToSkillModifierDictionary = new Dictionary<Type, ISet<ISkillModifier>>();

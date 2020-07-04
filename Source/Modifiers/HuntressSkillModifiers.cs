@@ -12,7 +12,7 @@ using EntityStates;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireSeekingArrow")]
-    class HuntressSeekingArrowSkillModifier : TypedBaseSkillModifier<FireSeekingArrow> {
+    class HuntressSeekingArrowSkillModifier : SimpleSkillModifier<FireSeekingArrow> {
         public override int MaxLevel {
             get { return 4; }
         }
@@ -29,7 +29,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireFlurrySeekingArrow")]
-    class HuntressFlurrySkillModifier : TypedBaseSkillModifier<FireFlurrySeekingArrow> {
+    class HuntressFlurrySkillModifier : SimpleSkillModifier<FireFlurrySeekingArrow> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -56,7 +56,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Glaive")]
-    class HuntressGlaiveSkillModifier : TypedBaseSkillModifier<ThrowGlaive> {
+    class HuntressGlaiveSkillModifier : SimpleSkillModifier<ThrowGlaive> {
 
         static HuntressGlaiveSkillModifier() {
             // R2API.LanguageAPI.Add("HUNTRESS_SECONDARY_DESCRIPTION", "Throw a seeking glaive that bounces up to <style=cIsDamage>6 (+2)</style> times for <style=cIsDamage>250% damage</style>. Damage increases by <style=cIsDamage>10% (+2.5%)</style> per bounce.");
@@ -107,7 +107,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("ArrowRain", "Burning Rain")]
-    class HuntressArrowRainSkillModifier : TypedBaseSkillModifier<ArrowRain> {
+    class HuntressArrowRainSkillModifier : SimpleSkillModifier<ArrowRain> {
 
         static HuntressArrowRainSkillModifier() {
             // R2API.LanguageAPI.Add("HUNTRESS_SPECIAL_DESCRIPTION", "<style=cIsUtility>Teleport</style> into the sky. Target a <style=cIsDamage>7.5 unit (+2.5)</style> radius area to rain arrows, <style=cIsUtility>slowing</style> all enemies and dealing <style=cIsDamage>225% (+%25) damage per second</style>.");

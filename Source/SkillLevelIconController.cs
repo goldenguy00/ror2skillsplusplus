@@ -13,7 +13,7 @@ namespace SkillsPlusPlus {
     delegate void UpgradeSkillEvent(string skillName);
 
     [RequireComponent(typeof(SkillIcon))]
-    class SkillLevelIconController : MonoBehaviour {
+    sealed class SkillLevelIconController : MonoBehaviour {
 
         private SkillIcon skillIcon;
         private GameObject CanBuyPanel;

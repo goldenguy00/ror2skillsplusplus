@@ -17,7 +17,7 @@ using RoR2.UI;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("Knuckleboom")]
-    class LoaderKnucklesSkillModifier : TypedBaseSkillModifier<SwingComboFist> {
+    class LoaderKnucklesSkillModifier : SimpleSkillModifier<SwingComboFist> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -46,7 +46,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireHook")]
-    class LoaderHookSkillModifier : TypedBaseSkillModifier<FireHook> {
+    class LoaderHookSkillModifier : SimpleSkillModifier<FireHook> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -79,7 +79,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireYankHook")]
-    class LoaderYankHookSkillModifier : TypedBaseSkillModifier<FireYankHook> {
+    class LoaderYankHookSkillModifier : SimpleSkillModifier<FireYankHook> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -173,7 +173,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     // duplicate skill name
     [SkillLevelModifier("ThrowPylon")]
-    class LoaderThrowPylonSkillModifier : TypedBaseSkillModifier<ThrowPylon> {
+    class LoaderThrowPylonSkillModifier : SimpleSkillModifier<ThrowPylon> {
 
         public override int MaxLevel {
             get { return 4; }

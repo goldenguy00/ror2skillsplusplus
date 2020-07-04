@@ -11,7 +11,7 @@ using EntityStates.Commando.CommandoWeapon;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FirePistol")]
-    class CommandoFirePistolSkillModifier : TypedBaseSkillModifier<FirePistol2> {
+    class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -33,7 +33,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireFMJ")]
-    class CommandoFMJSkillModifier : TypedBaseSkillModifier<FireFMJ> {
+    class CommandoFMJSkillModifier : SimpleSkillModifier<FireFMJ> {
 
         static CommandoFMJSkillModifier() {
             // R2API.LanguageAPI.Add("COMMANDO_SECONDARY_DESCRIPTION", "Fire a piercing bullet that hits all enemies in a line for <style=cIsDamage>300% damage</style>. Projectile travels faster at higher levels.");
@@ -57,7 +57,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireShotgunBlast")]
-    class CommandoShotgunBlastSkillModifier : TypedBaseSkillModifier<FireShotgunBlast> {
+    class CommandoShotgunBlastSkillModifier : SimpleSkillModifier<FireShotgunBlast> {
         public override int MaxLevel {
             get { return 4; }
         }
@@ -71,7 +71,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Roll")]
-    class CommandoRollSkillModifier : TypedBaseSkillModifier<DodgeState> {
+    class CommandoRollSkillModifier : SimpleSkillModifier<DodgeState> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -87,7 +87,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Slide")]
-    class CommandoDiveSkillModifier : TypedBaseSkillModifier<SlideState> {
+    class CommandoDiveSkillModifier : SimpleSkillModifier<SlideState> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -103,7 +103,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Barrage", "Death Blossom")]
-    class CommandoBarrageSkillModifier : TypedBaseSkillModifier<FireBarrage> {
+    class CommandoBarrageSkillModifier : SimpleSkillModifier<FireBarrage> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -126,7 +126,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("ThrowGrenade", "Carpet Bomb")]
-    class CommandoGrenadeSkillModifier : TypedBaseSkillModifier<ThrowGrenade> {
+    class CommandoGrenadeSkillModifier : SimpleSkillModifier<ThrowGrenade> {
         public override int MaxLevel {
             get { return 4; }
         }

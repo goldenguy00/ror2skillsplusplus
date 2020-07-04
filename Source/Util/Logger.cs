@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace SkillsPlusPlus {
-    class Logger {
+    internal class Logger {
 
         private static readonly string LOG_TAG = "Skills++";
 

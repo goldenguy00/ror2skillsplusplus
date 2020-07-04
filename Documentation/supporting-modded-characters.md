@@ -12,7 +12,7 @@ When it comes to implementing your character you will only need to work with the
 
 ```mermaid
 graph TD
-    A[TypedSkillModifier<T>] -->B[BaseSkillModifier]
+    A[SimpleSkillModifier<T>] -->B[BaseSkillModifier]
     B --> |implements| C[ISkillModifier]
 ```
 
@@ -25,9 +25,9 @@ It is highly recommended that you understand how Risk of Rain 2's skills are imp
 
 ## Implementing a skill modifier
 
-The simplest way to implement a skill modifier is to subclass `TypedSkillModifier`.
-The `TypedSkillModifier` simplifies the implementation immensely by making some assumptions which are often true for simple skills.
-There is a single generic type parameter for a `TypedSkillModifier`.
+The simplest way to implement a skill modifier is to subclass `SimpleSkillModifier`.
+The `SimpleSkillModifier` simplifies the implementation immensely by making some assumptions which are often true for simple skills.
+There is a single generic type parameter for a `SimpleSkillModifier`.
 The type represents the entity state used when the skill is activated.
 
 If your custom skill uses multiple entity states then refer to [advanced skill modifier implementations](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/feature/public-api/Documentation/supporting-modded-characters.md#advanced-skill-modifier-implementations)
@@ -47,13 +47,13 @@ There are three hooks that can be implemented.
 
 * `OnSkillExit(BaseState state, int level)`</br>
 
-If you are implementing a `TypedSkillModifier<T>` then the type of the state provided to `OnSkillEnter` and `OnSkillExit` will match the generic type `T`.
+If you are implementing a `SimpleSkillModifier<T>` then the type of the state provided to `OnSkillEnter` and `OnSkillExit` will match the generic type `T`.
 
 Here is an example of modifying the Commando's primary attack to increase it's rate of fire every level.
 
 ```c#
 [SkillLevelModifier("FirePistol")]
-class CommandoFirePistolSkillModifier : TypedBaseSkillModifier<FirePistol2> {
+class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
 
     public override int MaxLevel {
         get { return 4; }
@@ -77,7 +77,7 @@ This marks that the `CommandoFirePistolSkillModifier` is for the skill named `Fi
 `FirePistol` is the internal name for Commando's double tap skill.
 
 ```c#
-class CommandoFirePistolSkillModifier : TypedBaseSkillModifier<FirePistol2> {
+class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
 ```
 
 Here the name of this new class is not important.
@@ -137,7 +137,7 @@ namespace MyCommandoSkillModifierMod {
     }
 
     [SkillLevelModifier("FirePistol")]
-    class CommandoFirePistolSkillModifier : TypedBaseSkillModifier<FirePistol2> {
+    class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
 
         public override int MaxLevel {
             get { return 4; }

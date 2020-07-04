@@ -8,7 +8,7 @@ using SkillsPlusPlus.Modifiers;
 namespace SkillsPlusPlus {
 
     [RequireComponent(typeof(CharacterSelectController))]
-    class SkillModifierTooltipController : MonoBehaviour {
+    sealed class SkillModifierTooltipController : MonoBehaviour {
 
         private CharacterSelectController characterSelectController;
 

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("CrocoSlash")]
-    class CrocoSlashSkillModifier : TypedBaseSkillModifier<Slash> {
+    class CrocoSlashSkillModifier : SimpleSkillModifier<Slash> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -31,7 +31,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("CrocoSpit")]
-    class CrocoSpitSkillModifier : TypedBaseSkillModifier<FireSpit> {
+    class CrocoSpitSkillModifier : SimpleSkillModifier<FireSpit> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -54,7 +54,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("CrocoBite")]
-    class CrocoBiteSkillModifier : TypedBaseSkillModifier<Bite> {
+    class CrocoBiteSkillModifier : SimpleSkillModifier<Bite> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -73,7 +73,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("CrocoLeap")]
-    class CrocoLeapSkillModifier : TypedBaseSkillModifier<Leap> {
+    class CrocoLeapSkillModifier : SimpleSkillModifier<Leap> {
 
         public override int MaxLevel {
             get { return 5; }
@@ -101,7 +101,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("CrocoChainableLeap")]
-    class CrocoChainableLeapSkillModifier : TypedBaseSkillModifier<ChainableLeap> {
+    class CrocoChainableLeapSkillModifier : SimpleSkillModifier<ChainableLeap> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -123,7 +123,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("CrocoDisease", "Plague")]
-    class CrocoDiseaseSkillModifier : TypedBaseSkillModifier<FireDiseaseProjectile> {
+    class CrocoDiseaseSkillModifier : SimpleSkillModifier<FireDiseaseProjectile> {
         public override int MaxLevel {
             get { return 4; }
         }

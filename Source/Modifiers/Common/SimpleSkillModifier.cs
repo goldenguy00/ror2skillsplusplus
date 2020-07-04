@@ -7,9 +7,9 @@ using RoR2.Skills;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    public abstract class TypedBaseSkillModifier<SkillState> : BaseSkillModifier where SkillState : BaseState {
+    public abstract class SimpleSkillModifier<SkillState> : BaseSkillModifier where SkillState : BaseState {
 
-        public override IList<Type> GetEntityStateTypes() {
+        public sealed override IList<Type> GetEntityStateTypes() {
             return new List<Type>() { typeof(SkillState) };
         }
 

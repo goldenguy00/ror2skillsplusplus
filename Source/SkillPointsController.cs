@@ -13,7 +13,7 @@ using SkillsPlusPlus.Util;
 namespace SkillsPlusPlus {
 
     [RequireComponent(typeof(PlayerCharacterMasterController))]
-    class SkillPointsController : MonoBehaviour {
+    sealed class SkillPointsController : MonoBehaviour {
 
 #if DEBUG
         private static int levelsPerPoint = 1;

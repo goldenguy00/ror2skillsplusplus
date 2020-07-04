@@ -11,7 +11,7 @@ using RoR2.Projectile;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireFirebolt")]
-    class ArtificerFireBoltSkillModifier : TypedBaseSkillModifier<FireFireBolt> {
+    class ArtificerFireBoltSkillModifier : SimpleSkillModifier<FireFireBolt> {
 
         public override int MaxLevel {
             get { return 5; }
@@ -28,7 +28,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("FireLightningBolt")]
-    class ArtificerLightningBoltSkillModifier : TypedBaseSkillModifier<FireLightningBolt> {
+    class ArtificerLightningBoltSkillModifier : SimpleSkillModifier<FireLightningBolt> {
 
         public override int MaxLevel {
             get { return 5; }
@@ -45,7 +45,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("NovaBomb")]
-    class MageNovaBombSkillModifier : TypedBaseSkillModifier<ChargeNovabomb> {
+    class MageNovaBombSkillModifier : SimpleSkillModifier<ChargeNovabomb> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -74,7 +74,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Wall")]
-    class MageWallSkillModifier : TypedBaseSkillModifier<PrepWall> {
+    class MageWallSkillModifier : SimpleSkillModifier<PrepWall> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -107,7 +107,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Flamethrower", "Dragon's Breath")]
-    class MageFlamethrowerSkillModifier : TypedBaseSkillModifier<Flamethrower> {
+    class MageFlamethrowerSkillModifier : SimpleSkillModifier<Flamethrower> {
 
         private float baseRadius = 2f;
         private float totalDamageCoefficient = 1.2f;
@@ -145,7 +145,7 @@ namespace SkillsPlusPlus.Modifiers {
 
 
     [SkillLevelModifier("FlyUp", "Antimatter Surge")]
-    class MageFlyUpSkillModifier : TypedBaseSkillModifier<FlyUpState> {
+    class MageFlyUpSkillModifier : SimpleSkillModifier<FlyUpState> {
 
         public override int MaxLevel {
             get { return 4; }

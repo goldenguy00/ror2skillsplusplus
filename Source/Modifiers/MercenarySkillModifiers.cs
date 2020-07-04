@@ -16,7 +16,7 @@ using SkillsPlusPlus.Util;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("GroundLight")]
-    class SwordSkillModifier : TypedBaseSkillModifier<GroundLight> {
+    class SwordSkillModifier : SimpleSkillModifier<GroundLight> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -72,7 +72,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Uppercut")]
-    class UppercutSkillModifier : TypedBaseSkillModifier<Uppercut> {
+    class UppercutSkillModifier : SimpleSkillModifier<Uppercut> {
 
         public override int MaxLevel {
             get { return 4; }
@@ -87,7 +87,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("Dash1")]
-    class AssaultSkillModifier : TypedBaseSkillModifier<Assaulter> {
+    class AssaultSkillModifier : SimpleSkillModifier<Assaulter> {
 
         public override int MaxLevel {
             get { return 4; }
