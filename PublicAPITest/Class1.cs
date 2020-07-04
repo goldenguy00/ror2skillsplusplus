@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System;
 using EntityStates;
 
-
-
 using RoR2;
 using RoR2.Skills;
 
