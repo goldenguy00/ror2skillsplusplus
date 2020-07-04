@@ -142,8 +142,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
-            if (skillState is FireArrowSnipe) {
-                FireArrowSnipe snipeState = (FireArrowSnipe)skillState;
+            if (skillState is FireArrowSnipe snipeState) {
                 snipeState.damageCoefficient = MultScaling(9, 0.2f, level);
                 Logger.Debug("damageCoefficient: {0}", snipeState.damageCoefficient);
             }

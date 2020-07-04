@@ -91,8 +91,7 @@ namespace SkillsPlusPlus {
 
         private void TryCreateSkillsController() {
             if (hud && hud.mainUIPanel && playerCharacterMasterController != null) {
-                SkillPointsController skillsController;
-                if (playerCharacterMasterController.gameObject.TryGetComponent(out skillsController) == false) {
+                if(playerCharacterMasterController.gameObject.TryGetComponent(out SkillPointsController skillsController) == false) {
                     skillsController = playerCharacterMasterController.gameObject.AddComponent<SkillPointsController>();
                 }
 

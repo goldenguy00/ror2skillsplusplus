@@ -7,6 +7,7 @@ using EntityStates.Mage.Weapon;
 using UnityEngine;
 using RoR2;
 using RoR2.Projectile;
+using EntityStates;
 
 namespace SkillsPlusPlus.Modifiers {
 
@@ -45,21 +46,27 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("NovaBomb")]
-    class MageNovaBombSkillModifier : SimpleSkillModifier<ChargeNovabomb> {
+    class MageNovaBombSkillModifier : BaseSkillModifier {
+
+        public override IList<Type> GetEntityStateTypes() {
+            return new List<Type>() { typeof(ChargeNovabomb) };
+        }
 
         public override int MaxLevel {
             get { return 4; }
         }
 
-        public override void OnSkillEnter(ChargeNovabomb skillState, int level) {
+        public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", skillState.baseChargeDuration, skillState.maxDamageCoefficient, skillState.maxRadius);
-            skillState.baseChargeDuration = MultScaling(skillState.baseChargeDuration, 0.5f, level);
-            skillState.minDamageCoefficient = MultScaling(skillState.minDamageCoefficient, 0.25f, level);
-            skillState.maxDamageCoefficient = MultScaling(skillState.maxDamageCoefficient, 0.75f, level); // 50% to keep up with charge duration + 25% damage bonus
-            skillState.maxRadius = MultScaling(skillState.maxRadius, 0.5f, level);
-            skillState.force = MultScaling(skillState.force, 0.5f, level);
-            Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", skillState.baseChargeDuration, skillState.maxDamageCoefficient, skillState.maxRadius);
+            if(skillState is ChargeNovabomb chargeBomb) {
+                Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", chargeBomb.baseChargeDuration, chargeBomb.maxDamageCoefficient, chargeBomb.maxRadius);
+                chargeBomb.baseChargeDuration = MultScaling(chargeBomb.baseChargeDuration, 0.5f, level);
+                chargeBomb.minDamageCoefficient = MultScaling(chargeBomb.minDamageCoefficient, 0.25f, level);
+                chargeBomb.maxDamageCoefficient = MultScaling(chargeBomb.maxDamageCoefficient, 0.75f, level); // 50% to keep up with charge duration + 25% damage bonus
+                chargeBomb.maxRadius = MultScaling(chargeBomb.maxRadius, 0.5f, level);
+                chargeBomb.force = MultScaling(chargeBomb.force, 0.5f, level);
+                Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", chargeBomb.baseChargeDuration, chargeBomb.maxDamageCoefficient, chargeBomb.maxRadius);
+            }
         }
 
     }
@@ -110,9 +117,6 @@ namespace SkillsPlusPlus.Modifiers {
     class MageFlamethrowerSkillModifier : SimpleSkillModifier<Flamethrower> {
 
         private float baseRadius = 2f;
-        private float totalDamageCoefficient = 1.2f;
-
-        private float baseMaxDistance;
 
         public override int MaxLevel {
             get { return 4; }
@@ -121,8 +125,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(Flamethrower skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug(skillState.maxDistance);
-            baseMaxDistance = skillState.maxDistance;
-            skillState.maxDistance = AdditiveScaling(baseMaxDistance, baseMaxDistance, level);
+            skillState.maxDistance = AdditiveScaling(skillState.maxDistance, skillState.maxDistance, level);
 
             Logger.Debug(skillState.flamethrowerEffectPrefab.transform.localScale);
             skillState.flamethrowerEffectPrefab.transform.localScale = new Vector3(Flamethrower.radius, Flamethrower.radius, AdditiveScaling(1, 1, level));

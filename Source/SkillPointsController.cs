@@ -16,8 +16,8 @@ namespace SkillsPlusPlus {
     sealed class SkillPointsController : MonoBehaviour {
 
 #if DEBUG
-        private static int levelsPerPoint = 1;
-        private static int skillLevelScaling = 2;
+        private static readonly int levelsPerPoint = 1;
+        private static readonly int skillLevelScaling = 2;
 #else
         private static int levelsPerPoint = 3;
         private static int skillLevelScaling = 1;
@@ -147,8 +147,7 @@ namespace SkillsPlusPlus {
         }
 
         private void OnExitState(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
-            if (self is BaseState) {
-                BaseState baseState = (BaseState)self;
+            if (self is BaseState baseState) {
                 if (TryGetSkillModifierForState(baseState, out ISkillModifier skillModifier, out string skillName)) {
                     if(this.skillLevels.TryGetValue(skillName, out int level)) {
                         skillModifier.OnSkillExit(baseState, level);

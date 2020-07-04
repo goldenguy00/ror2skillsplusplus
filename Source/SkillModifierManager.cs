@@ -11,8 +11,8 @@ using System.Linq;
 namespace SkillsPlusPlus {
     public sealed class SkillModifierManager {
 
-        private static Dictionary<string, ISkillModifier> skillModifiers = new Dictionary<string, ISkillModifier>();
-        private static Dictionary<Type, ISet<ISkillModifier>> stateTypeToSkillModifierDictionary = new Dictionary<Type, ISet<ISkillModifier>>();
+        private static readonly Dictionary<string, ISkillModifier> skillModifiers = new Dictionary<string, ISkillModifier>();
+        private static readonly Dictionary<Type, ISet<ISkillModifier>> stateTypeToSkillModifierDictionary = new Dictionary<Type, ISet<ISkillModifier>>();
 
         public static void LoadSkillModifiers() {
             Assembly assembly = Assembly.GetCallingAssembly();
@@ -37,8 +37,7 @@ namespace SkillsPlusPlus {
                             } else {
                                 skillModifiers[registeredSkillName] = modifier;
                                 foreach(Type baseStateType in modifier.GetEntityStateTypes()) {
-                                    ISet<ISkillModifier> skillModifiers;
-                                    if(stateTypeToSkillModifierDictionary.TryGetValue(baseStateType, out skillModifiers) == false) {
+                                    if(stateTypeToSkillModifierDictionary.TryGetValue(baseStateType, out ISet<ISkillModifier> skillModifiers) == false) {
                                         skillModifiers = new HashSet<ISkillModifier>();
                                         stateTypeToSkillModifierDictionary[baseStateType] = skillModifiers;
                                     }
