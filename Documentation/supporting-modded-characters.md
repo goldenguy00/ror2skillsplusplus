@@ -6,6 +6,21 @@ Mod version: 0.0.11
 > All code examples and described methods may change in future releases.
 > **Breaking changes will occur as the mod evolves.**
 
+## Table of Contents
+
+- [Supporting Skills++ for modded characters](#supporting-skills-for-modded-characters)
+  - [Table of Contents](#table-of-contents)
+  - [Before you begin](#before-you-begin)
+  - [Creating the plugin](#creating-the-plugin)
+  - [Implementing a skill modifier](#implementing-a-skill-modifier)
+  - [Loading the skill modifier in game](#loading-the-skill-modifier-in-game)
+  - [Common upgrade patterns](#common-upgrade-patterns)
+    - [Granting buffs](#granting-buffs)
+    - [Adding stock](#adding-stock)
+    - [Changing projectile behaviour](#changing-projectile-behaviour)
+    - [Changing hitbox](#changing-hitbox)
+  - [Advanced skill modifier implementations](#advanced-skill-modifier-implementations)
+
 Skills++ is built upon Risk of Rain 2's entity state system that describes the behaviour of a skill.
 The core concept for Skills++ is are the `SkillModifier` classes that are associated to skills.
 When it comes to implementing your character you will only need to work with the skills since the mod does not care about the character loaded.
@@ -67,7 +82,9 @@ class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
 }
 ```
 
-Let's break this down line by line.
+Let's break this down piece by piece.
+
+---
 
 ```c#
 [SkillLevelModifier("FirePistol")]
@@ -75,6 +92,8 @@ Let's break this down line by line.
 
 This marks that the `CommandoFirePistolSkillModifier` is for the skill named `FirePistol`.
 `FirePistol` is the internal name for Commando's double tap skill.
+
+---
 
 ```c#
 class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
@@ -84,6 +103,8 @@ Here the name of this new class is not important.
 `FirePistol2` is the game's internal class for handling the firing of the Commando's primary skill.
 It is used to specify the entity state this skill modifer concerns.
 
+---
+
 ```c#
     public override int MaxLevel {
         get { return 4; }
@@ -92,6 +113,8 @@ It is used to specify the entity state this skill modifer concerns.
 
 Despite the maximum level for this skill being four this skill can be levelled up three times.
 Within Skills++ a skill with no upgrades is considered to be at level one.
+
+---
 
 ```c#
     public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -105,6 +128,8 @@ The base duration for the firing of the pistol is reduced by 20% per level. This
 
 > `MultScaling` is a special utility function that makes it easier to express the scaling of a parameter.</br>
 > Refer to the [scaling operators guide](scaling-operators.md) for details
+
+---
 
 ## Loading the skill modifier in game
 
@@ -156,11 +181,28 @@ namespace MyCommandoSkillModifierMod {
 
 ### Granting buffs
 
-Coming soon
+If you are planning to grant a buff that lasts longer at higher levels then it is important to check the duration is greater than zero. The buff will last one frame if it is added for zero seconds and will flash on the character and HUD for that frame.
+
+Granting full crit when the skill is finished for +0.1s per level.
+
+```c#
+public override void OnSkillExit(BaseState skillState, int level) {
+    base.OnSkillExit(skillState, level);
+    float duration = AdditiveScaling(0.0f, 1f, level);
+    if (duration > 0) {
+        skillState.outer.commonComponents.characterBody?.AddTimedBuff(BuffIndex.FullCrit, duration);
+    }
+}
+```
 
 ### Adding stock
 
-Coming soon
+```c#
+public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+    base.OnSkillLeveledUp(level, characterBody, skillDef);
+    skillDef.baseMaxStock = AdditiveScaling(4, 2, level);
+}
+```
 
 ### Changing projectile behaviour
 
@@ -172,4 +214,36 @@ Coming soon
 
 ## Advanced skill modifier implementations
 
-Sometimes a single skill has complex behaviour that is spread amongst several 
+Sometimes a single skill has complex behaviour that exist amongst multiple different entity states.
+In this situation the skill modifier needs to be implemented in such a way to respond to each entity state.
+Up until now this guide has focused on using the `SimpleSkillModifier<T>` class.
+From here on the underlying `BaseSkillModifier` is the base class used for such a skill modifier.
+
+Consider Huntress's sniper ability.
+This one skill consists of two entity states `FireArrowSnipe` and `AimArrowSnipe`.
+`AimArrowSnipe` is the first part of the skill when the character rises in the air and can take aim.
+`FireArrowSnipe` is used every time the player fires.
+These two entity states work in conjuction to give the skill it's behaviour.
+
+The `BaseSkillModifier` has the method `GetEntityStateTypes()` that returns a list of types that the modifier implementation is wanting to alter.
+Taking the example above we would use the following code.
+
+```c#
+public override IList<Type> GetEntityStateTypes() {
+    return new List<Type>() { typeof(FireArrowSnipe), typeof(AimArrowSnipe) };
+}
+```
+
+Later when the skill is used there are the enter and exit events.
+These are no longer typed to a specific base state type.
+Instead, it will provide the skill state as just a `BaseState` and you will need to down cast it yourself.
+
+```c#
+public override void OnSkillEnter(BaseState skillState, int level) {
+    if (skillState is AimArrowSnipe aimState) {
+        // make changes to AimArrowSnipe instance
+    } else if (skillState is FireArrowSnipe snipeState) {
+        // make changes to FireArrowSnipe instance
+    }
+}
+```
