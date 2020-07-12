@@ -20,7 +20,7 @@ namespace SkillsPlusPlus {
         //private SkillPointsController skillsController;
         //private SkillLevelIconController[] skillsHUDControllers;
 
-        public void Awake () {
+        void Awake () {
 
 #if DEBUG
             Logger.LOG_LEVEL = Logger.LogLevel.Debug;
@@ -76,7 +76,7 @@ namespace SkillsPlusPlus {
 
         }
 
-        public void Update() {
+        void Update() {
 #if DEBUG
             if(Input.GetKeyDown(KeyCode.Keypad1) && playerCharacterMasterController != null && playerCharacterMasterController.master.GetBody() != null) {
                 GameObject teleporter = GameObject.Find("Teleporter1(Clone)");

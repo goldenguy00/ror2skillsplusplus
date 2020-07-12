@@ -14,6 +14,11 @@ namespace SkillsPlusPlus {
         private static readonly Dictionary<string, ISkillModifier> skillModifiers = new Dictionary<string, ISkillModifier>();
         private static readonly Dictionary<Type, ISet<ISkillModifier>> stateTypeToSkillModifierDictionary = new Dictionary<Type, ISet<ISkillModifier>>();
 
+        /// <summary>
+        /// Finds and loads all skill modifiers in the current assembly.
+        /// 
+        /// Calling this is essential to have your skill modifiers available to Skills++
+        /// </summary>
         public static void LoadSkillModifiers() {
             Assembly assembly = Assembly.GetCallingAssembly();
             if(assembly == null) {
