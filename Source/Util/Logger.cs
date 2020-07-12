@@ -2,17 +2,44 @@
 using UnityEngine;
 
 namespace SkillsPlusPlus {
+
+    /// <summary>
+    /// Helper class for logging details to the runtime's output.
+    /// It the logging behaviour is internally available however the log
+    /// level can be configured if you need visibility of the Skills++ mod.
+    /// </summary>
     public class Logger {
 
-        public enum LogLevel { 
+        /// <summary>
+        /// The different log levels availble for filtering
+        /// </summary>
+        public enum LogLevel {
+            /// <summary>
+            /// Log nothing
+            /// </summary>
             None = 0,
+            /// <summary>
+            /// Log only errors
+            /// </summary>
             Error = 1,
+            /// <summary>
+            /// Log warnings and errors
+            /// </summary>
             Warning = 2,
+            /// <summary>
+            /// Log debugs, warnings, and errors
+            /// </summary>
             Debug = 3
         }
 
         private static readonly string LOG_TAG = "Skills++";
 
+        /// <summary>
+        /// The current log level for the logger. Any changes are effective immediately
+        /// <remark>
+        /// This field is set to to <see cref="LogLevel.Warning"/> by default
+        /// </remark>
+        /// </summary>
         public static LogLevel LOG_LEVEL = LogLevel.Warning;
 
         internal static void Debug(string message, params object[] formatArgs) {

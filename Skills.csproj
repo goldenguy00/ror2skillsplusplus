@@ -10,6 +10,7 @@
     <OldToolsVersion>Current</OldToolsVersion>
     <ProjectGuid>{A41E554F-A2B3-451F-90DA-09878F5D70F8}</ProjectGuid>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>CWMlolzlz</Authors>
     <Product />
     <Company />
@@ -20,6 +21,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
