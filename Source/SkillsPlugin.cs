@@ -22,17 +22,12 @@ namespace SkillsPlusPlus {
 
         public void Awake () {
 
-            LoaderKnucklesSkillModifier.PatchSkillName();
-            LoaderThrowPylonSkillModifier.PatchSkillName();
-
 #if DEBUG
+            Logger.LOG_LEVEL = Logger.LogLevel.Debug;
+
             // disable client authing when connecting to a server to allow two game instances to run in parallel
             On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
-#endif
 
-            SkillModifierManager.LoadSkillModifiers();
-
-#if DEBUG
             On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
                 return true;
             };
@@ -44,6 +39,11 @@ namespace SkillsPlusPlus {
             };
 
 #endif
+
+            LoaderKnucklesSkillModifier.PatchSkillName();
+            LoaderThrowPylonSkillModifier.PatchSkillName();
+
+            SkillModifierManager.LoadSkillModifiers();
 
             On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {
                 orig(self);
