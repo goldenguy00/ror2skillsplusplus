@@ -1,6 +1,6 @@
 # Supporting Skills++ for modded characters
 
-Mod version: 0.0.11
+Mod version: 0.1.0-rc1
 
 > Note: This guide is for alpha versions of the Skills++ mod.
 > All code examples and described methods may change in future releases.

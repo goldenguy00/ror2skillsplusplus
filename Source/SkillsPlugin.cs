@@ -10,7 +10,7 @@ using SkillsPlusPlus.Modifiers;
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
-    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.0.11")]
+    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.0-rc1")]
     // [R2APISubmoduleDependency("AssetPlus")]
     public sealed class SkillsPlusPlusPlugin : BaseUnityPlugin {
 
