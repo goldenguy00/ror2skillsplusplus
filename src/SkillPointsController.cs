@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using EntityStates;
 using RoR2;
@@ -277,10 +277,6 @@ namespace SkillsPlusPlus {
                 GenericSkill genericSkill = skillLocator.FindGenericSkill(skillName);
                 ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillName);
 
-                if (skillLevel >= modifier.MaxLevel) {
-                    return;
-                }
-
                 unspentSkillPoints--;
 
 
@@ -327,7 +323,7 @@ namespace SkillsPlusPlus {
                         // has skillpoints to spend
                         // meets required character level
                         // and the skill is less than its max level
-                        skillLevelIconController.SetCanUpgrade(unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill && currentSkillLevel < modifier.MaxLevel);
+                        skillLevelIconController.SetCanUpgrade(unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill);
                         skillLevelIconController.SetLevel(currentSkillLevel);
                     } else {
                         Logger.Debug("Could not refresh the icon controller for skill named {0}", skillName);
