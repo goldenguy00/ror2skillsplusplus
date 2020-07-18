@@ -26,16 +26,16 @@ namespace SkillsPlusPlus.Modifiers {
 
         #region Helpers
         public static float AdditiveScaling(float baseValue, float buffValue, int level) {
-            return baseValue + buffValue * (level - 1);
+            return baseValue + buffValue * level;
         }
         public static int AdditiveScaling(int baseValue, int buffValue, int level) {
-            return baseValue + buffValue * (level - 1);
+            return baseValue + buffValue * level;
         }
         public static float MultScaling(float baseValue, float multiplier, int level) {
             if(multiplier < 0) {
-                return 1 / ((1 / baseValue) * (1 - multiplier * (level - 1)));
+                return 1 / ((1 / baseValue) * (1 - multiplier * level));
             } else {
-                return baseValue * (1 + multiplier * (level - 1));
+                return baseValue * (1 + multiplier * level);
             }
         }
         // public static int MultScaling(int baseValue, float multiplier, int level) {

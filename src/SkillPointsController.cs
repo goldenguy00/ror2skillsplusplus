@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using EntityStates;
 using RoR2;
@@ -172,7 +172,7 @@ namespace SkillsPlusPlus {
             foreach(GenericSkill genericSkill in skillLocator.FindAllGenericSkills()) {
                 if(skillLevels.ContainsKey(genericSkill.skillDef.skillName) == false) {
                     Logger.Debug("Setting {0} to level 1", genericSkill.skillDef.skillName);
-                    skillLevels[genericSkill.skillDef.skillName] = 1;
+                    skillLevels[genericSkill.skillDef.skillName] = 0;
                 }
             }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -127,11 +127,8 @@ namespace SkillsPlusPlus {
         }
 
         public void SetLevel(int level) {
-            string newText = "";
-            for(int i = 1; i < level; i++) {
-                newText += "+";
-            }
-            levelTextMesh.text = newText;
+            // only show the level if it is non-zero
+            levelTextMesh.text = level != 0 ? level.ToString() : null;
         }
 
     }
