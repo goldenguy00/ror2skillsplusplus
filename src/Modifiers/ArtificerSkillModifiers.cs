@@ -13,10 +13,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireFirebolt")]
     class ArtificerFireBoltSkillModifier : TypedBaseSkillModifier<FireFireBolt> {
 
-        public override int MaxLevel {
-            get { return 5; }
-        }
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", skillDef.baseMaxStock, skillDef.baseRechargeInterval);
@@ -30,10 +26,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireLightningBolt")]
     class ArtificerLightningBoltSkillModifier : TypedBaseSkillModifier<FireLightningBolt> {
 
-        public override int MaxLevel {
-            get { return 5; }
-        }
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("FireFirebolt before - baseMaxStock: {0}, baseRechargeInterval: {1}", skillDef.baseMaxStock, skillDef.baseRechargeInterval);
@@ -46,10 +38,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("NovaBomb")]
     class MageNovaBombSkillModifier : TypedBaseSkillModifier<ChargeNovabomb> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(ChargeNovabomb skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -75,10 +63,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("Wall")]
     class MageWallSkillModifier : TypedBaseSkillModifier<PrepWall> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
         public override void OnSkillEnter(PrepWall skillState, int level) {
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);            
             PrepWall.damageCoefficient = AdditiveScaling(1, 0.5f, level);
@@ -114,10 +98,6 @@ namespace SkillsPlusPlus.Modifiers {
 
         private float baseMaxDistance;
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(Flamethrower skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug(skillState.maxDistance);
@@ -146,10 +126,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FlyUp", "Antimatter Surge")]
     class MageFlyUpSkillModifier : TypedBaseSkillModifier<FlyUpState> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(FlyUpState skillState, int level) {
             base.OnSkillEnter(skillState, level);

@@ -13,8 +13,6 @@ namespace SkillsPlusPlus.Modifiers {
         IList<Type> GetEntityStateTypes();
 
         string skillName { get; set; }
-
-        int MaxLevel { get; }
         void OnSkillEnter(BaseState skillState, int level);
         void OnSkillExit(BaseState skillState, int level);
         void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef);

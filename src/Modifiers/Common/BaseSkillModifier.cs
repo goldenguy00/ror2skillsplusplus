@@ -8,7 +8,6 @@ namespace SkillsPlusPlus.Modifiers {
     public abstract class BaseSkillModifier : ISkillModifier {
 
         public string skillName { get; set; }
-        public abstract int MaxLevel { get; }
 
         internal BaseSkillModifier() { }
         public abstract IList<Type> GetEntityStateTypes();

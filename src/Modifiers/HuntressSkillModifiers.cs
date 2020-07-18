@@ -13,9 +13,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireSeekingArrow")]
     class HuntressSeekingArrowSkillModifier : TypedBaseSkillModifier<FireSeekingArrow> {
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(FireSeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -30,10 +27,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireFlurrySeekingArrow")]
     class HuntressFlurrySkillModifier : TypedBaseSkillModifier<FireFlurrySeekingArrow> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(FireFlurrySeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -65,10 +58,6 @@ namespace SkillsPlusPlus.Modifiers {
         private static readonly int origGlaiveBounceCount = 6;
         private static readonly float origGlaiveBounceRange = 35f;
 
-        public override int MaxLevel {
-            get { return 5; }
-        }
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("OnSkillLeveledUp(level: {0})", level);
@@ -83,9 +72,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("Blink")]
     class HuntressBlinkSkillModifier : BaseSkillModifier {
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() {
@@ -113,10 +99,6 @@ namespace SkillsPlusPlus.Modifiers {
             // R2API.LanguageAPI.Add("HUNTRESS_SPECIAL_DESCRIPTION", "<style=cIsUtility>Teleport</style> into the sky. Target a <style=cIsDamage>7.5 unit (+2.5)</style> radius area to rain arrows, <style=cIsUtility>slowing</style> all enemies and dealing <style=cIsDamage>225% (+%25) damage per second</style>.");
         }
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("ArrowRain stats - arrowRainRadius: {0}, damageCoefficient: {1}, prefabScale {2}", ArrowRain.arrowRainRadius, ArrowRain.damageCoefficient, ArrowRain.projectilePrefab.transform.localScale);
@@ -132,10 +114,6 @@ namespace SkillsPlusPlus.Modifiers {
     class HuntressSnipeSkillModifier : BaseSkillModifier {
 
         static readonly float stockImageInterspacing = 18.0f;
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() { typeof(FireArrowSnipe), typeof(AimArrowSnipe) };

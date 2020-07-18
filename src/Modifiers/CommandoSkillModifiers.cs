@@ -13,10 +13,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FirePistol")]
     class CommandoFirePistolSkillModifier : TypedBaseSkillModifier<FirePistol2> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(FirePistol2 skillState, int level) {
             base.OnSkillEnter(skillState, level);
         }
@@ -39,10 +35,6 @@ namespace SkillsPlusPlus.Modifiers {
             // R2API.LanguageAPI.Add("COMMANDO_SECONDARY_DESCRIPTION", "Fire a piercing bullet that hits all enemies in a line for <style=cIsDamage>300% damage</style>. Projectile travels faster at higher levels.");
         }
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(FireFMJ skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("recoilAmplitude: {0},s damageCoefficient: {1}", skillState.recoilAmplitude, skillState.damageCoefficient);
@@ -58,9 +50,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireShotgunBlast")]
     class CommandoShotgunBlastSkillModifier : TypedBaseSkillModifier<FireShotgunBlast> {
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(FireShotgunBlast skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -73,9 +62,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("Roll")]
     class CommandoRollSkillModifier : TypedBaseSkillModifier<DodgeState> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
         public override void OnSkillEnter(DodgeState skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("duration: {0}", skillState.duration);
@@ -89,10 +75,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("Slide")]
     class CommandoDiveSkillModifier : TypedBaseSkillModifier<SlideState> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(SlideState skillState, int level) {
             base.OnSkillEnter(skillState, level);
             float duration = SlideState.slideDuration * AdditiveScaling(0f, 0.75f, level);
@@ -105,9 +87,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("Barrage", "Death Blossom")]
     class CommandoBarrageSkillModifier : TypedBaseSkillModifier<FireBarrage> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
         public override void OnSkillEnter(FireBarrage skillState, int level) {
             base.OnSkillEnter(skillState, level);
             //skillState.
@@ -127,9 +106,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("ThrowGrenade", "Carpet Bomb")]
     class CommandoGrenadeSkillModifier : TypedBaseSkillModifier<ThrowGrenade> {
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(ThrowGrenade skillState, int level) {
             base.OnSkillEnter(skillState, level);

@@ -18,10 +18,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("GroundLight")]
     class SwordSkillModifier : TypedBaseSkillModifier<GroundLight> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             GroundLight.forceMagnitude = MultScaling(600, 0.25f, level);
@@ -36,10 +32,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("Whirlwind")]
     class WhirlwindSkillModifier : BaseSkillModifier {
-
-        public override int MaxLevel {
-            get { return 5; }
-        }
 
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() {
@@ -74,10 +66,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("Uppercut")]
     class UppercutSkillModifier : TypedBaseSkillModifier<Uppercut> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Uppercut.baseDamageCoefficient = MultScaling(5.5f, 0.4f, level);
@@ -88,10 +76,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("Dash1")]
     class AssaultSkillModifier : TypedBaseSkillModifier<Assaulter> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(Assaulter skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -124,10 +108,6 @@ namespace SkillsPlusPlus.Modifiers {
     // both Mercenary special skills have the same skill name
     [SkillLevelModifier("Evis", "Massacre", "Gale-Force")]
     class EviscerateSkillModifier : BaseSkillModifier {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() {

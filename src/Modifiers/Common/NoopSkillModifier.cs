@@ -10,10 +10,6 @@ namespace SkillsPlusPlus.Modifiers {
 
         internal static NoopSkillModifier Instance = new NoopSkillModifier();
 
-        public override int MaxLevel {
-            get { return 1; }
-        }
-
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() { typeof(BaseState) };
         }
