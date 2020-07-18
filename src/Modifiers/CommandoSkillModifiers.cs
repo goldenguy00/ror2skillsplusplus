@@ -27,7 +27,8 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug(FirePistol2.baseDuration);
             Logger.Debug(FirePistol2.recoilAmplitude);
             FirePistol2.baseDuration = MultScaling(0.2f, -0.20f, level);
-            FirePistol2.recoilAmplitude = MultScaling(1.5f, -0.15f, level);            
+            FirePistol2.recoilAmplitude = MultScaling(1.5f, -0.1f, level);
+            FirePistol2.spreadBloomValue = MultScaling(0.3f, -0.1f, level);
         }
 
     }
