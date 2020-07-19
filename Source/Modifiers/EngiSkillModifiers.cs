@@ -6,21 +6,15 @@ using RoR2;
 using RoR2.CharacterAI;
 
 using EntityStates;
-using EntityStates.Engi;
 using EntityStates.Engi.EngiWeapon;
 using EntityStates.Engi.EngiBubbleShield;
 using EntityStates.Engi.EngiMissilePainter;
 using EntityStates.Engi.Mine;
-using EntityStates.Engi.SpiderMine;
-using EntityStates.EngiTurret;
 using EntityStates.EngiTurret.EngiTurretWeapon;
 
 using RoR2.Projectile;
 using RoR2.Skills;
 
-using SkillsPlusPlus.Modifiers;
-
-using R2API.Utils;
 using System.Linq;
 
 namespace SkillsPlusPlus.Modifiers {
@@ -41,10 +35,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireGrenade")]
     class EngiGrenadesSkillModifier : SimpleSkillModifier<ChargeGrenades> {
 
-        public override int MaxLevel {
-            get { return 5; }
-        }
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             ChargeGrenades.minGrenadeCount = AdditiveScaling(2, 1, level);
@@ -55,9 +45,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("PlaceMine")]
     class EngiMineSkillModifier : BaseSkillModifier {
-        public override int MaxLevel {
-            get { return 5; }
-        }
 
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() { 
@@ -113,9 +100,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("PlaceSpiderMine")]
     class EngiSpiderMineSkillModifier : BaseSkillModifier {
-        public override int MaxLevel {
-            get { return 5; }
-        }
 
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() {
@@ -156,9 +140,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("PlaceBubbleShield")]
     class EngiBubbleShieldSkillModifier : SimpleSkillModifier<FireBubbleShield> {
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -181,9 +162,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("EngiHarpoons")]
     class EngiHarpoonsSkillModifier : SimpleSkillModifier<Paint> {
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -197,9 +175,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("PlaceTurret", "TR12-C Gauss Compact")]
     class EngiTurretSkillModifier : BaseSkillModifier {
-        public override int MaxLevel {
-            get { return 5; }
-        }
 
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() {
@@ -240,9 +215,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("PlaceWalkerTurret", "TR58-C Carbonizer Mini")]
     class EngiWalkerTurretSkillModifier : BaseSkillModifier {
-        public override int MaxLevel {
-            get { return 5; }
-        }
 
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() {

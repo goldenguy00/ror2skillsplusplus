@@ -18,10 +18,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireNailgun")]
     class ToolbotSkillModifier : SimpleSkillModifier<FireNailgun> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(FireNailgun skillState, int level) {
             base.OnSkillEnter(skillState, level);
         }
@@ -38,10 +34,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireSpear")]
     class ToolbotSpearSkillModifier : SimpleSkillModifier<FireSpear> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(FireSpear fireSpear, int level) {
             base.OnSkillEnter(fireSpear, level);
             fireSpear.baseDuration = MultScaling(fireSpear.baseDuration, -0.25f, level);
@@ -57,10 +49,6 @@ namespace SkillsPlusPlus.Modifiers {
     class ToolbotGrenadeLauncherSkillModifier : SimpleSkillModifier<FireGrenadeLauncher> {
 
         private static readonly float stockImageInterspacing = 13.5f;
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(FireGrenadeLauncher skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -141,10 +129,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireBuzzsaw")]
     class ToolbotBuzzsawSkillModifier : SimpleSkillModifier<FireBuzzsaw> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(FireBuzzsaw fireBuzzsaw, int level) {
             base.OnSkillEnter(fireBuzzsaw, level);
             Transform modelTransform = fireBuzzsaw.outer?.commonComponents.modelLocator?.modelTransform;
@@ -166,10 +150,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("StunDrone")]
     class ToolbotStunDroneSkillModifier : SimpleSkillModifier<AimStunDrone> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(AimStunDrone aimStunDrone, int level) {
             base.OnSkillEnter(aimStunDrone, level);
@@ -193,10 +173,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("ToolbotDash", "Breach Mode")]
     class ToolbotDashSkillModifier : SimpleSkillModifier<ToolbotDash> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(ToolbotDash toolbotDash, int level) {
             base.OnSkillEnter(toolbotDash, level);
             Logger.Debug("baseDuration: {0}, speedMultiplier: {2}, chargeDamageCoefficient: {5}, knockbackForce: {1}, knockbackDamageCoefficient: {3}, massThresholdForKnockback: {4}", toolbotDash.baseDuration, ToolbotDash.knockbackForce, toolbotDash.speedMultiplier, ToolbotDash.knockbackDamageCoefficient, ToolbotDash.massThresholdForKnockback, ToolbotDash.chargeDamageCoefficient);
@@ -216,10 +192,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("Swap")]
     class ToolbotEquipmentSwapSkillModifier : SimpleSkillModifier<ToolbotStanceSwap> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(ToolbotStanceSwap toolbotStanceSwap, int level) {
             base.OnSkillEnter(toolbotStanceSwap, level);

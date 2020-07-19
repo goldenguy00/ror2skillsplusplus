@@ -22,12 +22,6 @@ namespace SkillsPlusPlus.Modifiers {
         string skillName { get; set; }
 
         /// <summary>
-        /// The upper limit of this skill's level.
-        /// <remark>Note: Skill levels begin from one. E.g. Returning 4 would mean the skill can have a maximum of three points invested.</remark>
-        /// </summary>
-        int MaxLevel { get; }
-
-        /// <summary>
         /// Called immediately before the character enters one of the listed entity state types
         /// </summary>
         /// <param name="skillState">The entity state instance</param>

@@ -19,10 +19,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("Knuckleboom")]
     class LoaderKnucklesSkillModifier : SimpleSkillModifier<SwingComboFist> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(SwingComboFist skillState, int level) {
             base.OnSkillEnter(skillState, level);
             skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.25f, level);
@@ -47,10 +43,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireHook")]
     class LoaderHookSkillModifier : SimpleSkillModifier<FireHook> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(FireHook skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -81,10 +73,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireYankHook")]
     class LoaderYankHookSkillModifier : SimpleSkillModifier<FireYankHook> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(FireYankHook skillState, int level) {
             base.OnSkillEnter(skillState, level);
             if(skillState.projectilePrefab.TryGetComponent(out ProjectileGrappleController grappleController)) {
@@ -103,10 +91,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("ChargeFist", "Megaton Punch")]
     class LoaderChargeFistSkillModifier : BaseSkillModifier {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() {
@@ -140,10 +124,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("ChargeZapFist", "Thundercrash")]
     class LoaderChargeZapFistSkillModifier : BaseSkillModifier {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>() {
                 typeof(ChargeZapFist),
@@ -174,10 +154,6 @@ namespace SkillsPlusPlus.Modifiers {
     // duplicate skill name
     [SkillLevelModifier("ThrowPylon")]
     class LoaderThrowPylonSkillModifier : SimpleSkillModifier<ThrowPylon> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         internal static void PatchSkillName() {
             var loaderBody = Resources.Load<GameObject>("prefabs/characterbodies/LoaderBody");

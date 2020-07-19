@@ -29,12 +29,15 @@
   <ItemGroup>
     <Compile Remove="libs\**" />
     <Compile Remove="PublicAPITest\**" />
+    <Compile Remove="Tests\**" />
     <EmbeddedResource Remove="Images\**" />
     <EmbeddedResource Remove="libs\**" />
     <EmbeddedResource Remove="PublicAPITest\**" />
+    <EmbeddedResource Remove="Tests\**" />
     <None Remove="Images\**" />
     <None Remove="libs\**" />
     <None Remove="PublicAPITest\**" />
+    <None Remove="Tests\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".gitattributes" />
@@ -441,7 +444,7 @@
     </None>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="taskkill /F /IM &quot;Risk of Rain 2.exe&quot;&#xD;&#xA;SLEEP 1&#xD;&#xA;xcopy /y $(TargetPath) &quot;&quot;&quot;C:\Program Files (x86)\SteamApps\steamapps\common\Risk of Rain 2\BepInEx\plugins\$(TargetName)\&quot;&quot;&quot;&#xD;&#xA;&#xD;&#xA;SLEEP 1&#xD;&#xA;&#xD;&#xA;powershell start-process &quot;&quot;&quot;C:\Program Files (x86)\SteamApps\steamapps\common\Risk of Rain 2\Risk of Rain 2.exe&quot;&quot;&quot;&#xD;&#xA;IF &quot;$(ConfigurationName)&quot; == &quot;Release&quot; (&#xD;&#xA;del /Q &quot;$(TargetDir)\$(TargetName).deps.json&quot;&#xD;&#xA;7z a &quot;&quot;&quot;$(TargetDir)\$(TargetName).zip&quot;&quot;&quot; &quot;$(TargetDir)\*&quot;&#xD;&#xA;)" />
+    <Exec Command="taskkill /F /IM &quot;Risk of Rain 2.exe&quot;&#xD;&#xA;SLEEP 1&#xD;&#xA;xcopy /y $(TargetPath) &quot;&quot;&quot;C:\Program Files (x86)\SteamApps\steamapps\common\Risk of Rain 2\BepInEx\plugins\$(TargetName)\&quot;&quot;&quot;&#xD;&#xA;&#xD;&#xA;SLEEP 1&#xD;&#xA;&#xD;&#xA;# powershell start-process &quot;&quot;&quot;C:\Program Files (x86)\SteamApps\steamapps\common\Risk of Rain 2\Risk of Rain 2.exe&quot;&quot;&quot;&#xD;&#xA;&#xD;&#xA;IF &quot;$(ConfigurationName)&quot; == &quot;Release&quot; (&#xD;&#xA;del /Q &quot;$(TargetDir)\$(TargetName).deps.json&quot;&#xD;&#xA;7z a &quot;&quot;&quot;$(TargetDir)\$(TargetName).zip&quot;&quot;&quot; &quot;$(TargetDir)\*&quot;&#xD;&#xA;)" />
   </Target>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="IF &quot;$(ConfigurationName)&quot; == &quot;Release&quot; (&#xD;&#xA;del /Q &quot;$(TargetDir)\$(TargetName).zip&quot;&#xD;&#xA;)" />

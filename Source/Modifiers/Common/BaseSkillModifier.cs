@@ -11,9 +11,6 @@ namespace SkillsPlusPlus.Modifiers {
         /// <inheritdoc/>
         public string skillName { get; set; }
 
-        /// <inheritdoc/>
-        public abstract int MaxLevel { get; }
-
         public BaseSkillModifier() { }
 
         /// <inheritdoc/>
@@ -51,7 +48,7 @@ namespace SkillsPlusPlus.Modifiers {
         /// <param name="level">The current level to scale up to</param>
         /// <returns></returns>
         public static float AdditiveScaling(float baseValue, float constant, int level) {
-            return baseValue + constant * (level - 1);
+            return baseValue + constant * level;
         }
 
         /// <summary>
@@ -65,7 +62,7 @@ namespace SkillsPlusPlus.Modifiers {
         /// <param name="level">The current level to scale up to</param>
         /// <returns></returns>
         public static int AdditiveScaling(int baseValue, int constant, int level) {
-            return baseValue + constant * (level - 1);
+            return baseValue + constant * level;
         }
 
         /// <summary>
@@ -80,12 +77,17 @@ namespace SkillsPlusPlus.Modifiers {
         /// <param name="level">The current level to scale up to</param>
         /// <returns></returns>
         public static float MultScaling(float baseValue, float multiplier, int level) {
-            Assert.IsTrue(multiplier >= -1, "Compound multipliers less than -1 are not allowed as it causes sporadic behaviour with the scaling.");
-            return (float)((Math.Pow(multiplier + 1, level - 1) - 1) * baseValue) + baseValue;
+            if(multiplier <= -1) {
+                Logger.Error("Multipliers less than -1 are not allowed as it causes sporadic behaviour with the scaling.");
+                return baseValue;
+            }
+            return (float)((Math.Pow(multiplier + 1, level) - 1) * baseValue) + baseValue;
         }
+
         // public static int MultScaling(int baseValue, float multiplier, int level) {
         //     return (int)MultScaling((float)baseValue, multiplier, level);            
         // }
+
         #endregion
     }
 }

@@ -9,10 +9,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("CrocoSlash")]
     class CrocoSlashSkillModifier : SimpleSkillModifier<Slash> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(Slash slash, int level) {
             base.OnSkillEnter(slash, level);
             Logger.Debug("hitPauseDuration: {0}, damageCoefficient: {1}", slash.hitPauseDuration, slash.damageCoefficient);
@@ -33,10 +29,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("CrocoSpit")]
     class CrocoSpitSkillModifier : SimpleSkillModifier<FireSpit> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(FireSpit fireSpit, int level) {
             base.OnSkillEnter(fireSpit, level);
             fireSpit.damageCoefficient = MultScaling(fireSpit.damageCoefficient, 0.25f, level);
@@ -56,10 +48,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("CrocoBite")]
     class CrocoBiteSkillModifier : SimpleSkillModifier<Bite> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(Bite bite, int level) {
             base.OnSkillEnter(bite, level);
             
@@ -74,10 +62,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("CrocoLeap")]
     class CrocoLeapSkillModifier : SimpleSkillModifier<Leap> {
-
-        public override int MaxLevel {
-            get { return 5; }
-        }
 
         public override void OnSkillEnter(Leap leap, int level) {
             base.OnSkillEnter(leap, level);
@@ -103,10 +87,6 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("CrocoChainableLeap")]
     class CrocoChainableLeapSkillModifier : SimpleSkillModifier<ChainableLeap> {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override void OnSkillEnter(ChainableLeap skillState, int level) {
             base.OnSkillEnter(skillState, level);
             skillState.blastDamageCoefficient = MultScaling(skillState.blastDamageCoefficient, 0.30f, level);
@@ -124,9 +104,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("CrocoDisease", "Plague")]
     class CrocoDiseaseSkillModifier : SimpleSkillModifier<FireDiseaseProjectile> {
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillEnter(FireDiseaseProjectile fireDisease, int level) {
             base.OnSkillEnter(fireDisease, level);

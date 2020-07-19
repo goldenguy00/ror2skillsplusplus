@@ -23,7 +23,7 @@ namespace SkillsPlusPlus {
         void Awake () {
 
 #if DEBUG
-            Logger.LOG_LEVEL = Logger.LogLevel.Debug;
+            SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
 
             // disable client authing when connecting to a server to allow two game instances to run in parallel
             On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };

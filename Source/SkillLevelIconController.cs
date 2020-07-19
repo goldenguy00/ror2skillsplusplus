@@ -7,6 +7,8 @@ using RoR2;
 using RoR2.UI;
 using RoR2.UI.SkinControllers;
 using UnityEngine.Events;
+using R2API.Utils;
+using UnityEngine.UI;
 
 namespace SkillsPlusPlus {
 
@@ -17,8 +19,9 @@ namespace SkillsPlusPlus {
 
         private SkillIcon skillIcon;
         private GameObject CanBuyPanel;
-        private GameObject UpgradeLevelText;
-        private GameObject UpgradeLevelButton;
+        private GameObject LevelBackgroundPanel;
+        private GameObject LevelText;
+        private GameObject UpgradeButton;
 
         private HGTextMeshProUGUI levelTextMesh;
         private HGButton buyButton;
@@ -44,16 +47,45 @@ namespace SkillsPlusPlus {
 
             // create the upgrade level label
             {
-                UpgradeLevelText = new GameObject("LevelIndicator");
-                UpgradeLevelText.transform.parent = skillIcon.transform;
-                UpgradeLevelText.AddComponent<CanvasRenderer>();
-                RectTransform textTransform = UpgradeLevelText.AddComponent<RectTransform>();
+                LevelBackgroundPanel = new GameObject("Skills++ Level Background Panel");
+                LevelBackgroundPanel.transform.parent = skillIcon.transform;
+                LevelBackgroundPanel.transform.localPosition = Vector3.zero;
+                LevelBackgroundPanel.transform.localScale = Vector3.one;
 
-                this.levelTextMesh = UpgradeLevelText.AddComponent<HGTextMeshProUGUI>();
+                RectTransform backgroundTransform = LevelBackgroundPanel.AddComponent<RectTransform>();
+                backgroundTransform.offsetMin = Vector2.zero;
+                backgroundTransform.offsetMax = Vector2.zero;
+                backgroundTransform.anchorMin = new Vector2(0.5f, 0.25f);
+                backgroundTransform.anchorMax = new Vector2(0.5f, 0.25f);
+                backgroundTransform.ForceUpdateRectTransforms();
+
+                RawImage backgroundImage = LevelBackgroundPanel.AddComponent<RawImage>();
+                Texture2D texture = new Texture2D(1, 1);
+                texture.wrapMode = TextureWrapMode.Repeat;
+                texture.SetPixel(0, 0, Color.white);
+                texture.Apply();
+                backgroundImage.texture = texture;
+                backgroundImage.color = new Color(0, 0, 0, 0.7f);
+                backgroundImage.SetNativeSize();
+
+                ContentSizeFitter contentFitter = LevelBackgroundPanel.AddComponent<ContentSizeFitter>();
+                contentFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+                contentFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+                HorizontalLayoutGroup layoutGroup = LevelBackgroundPanel.AddComponent<HorizontalLayoutGroup>();
+                layoutGroup.padding = new RectOffset(4, 4, 0, 0);
+                layoutGroup.childAlignment = TextAnchor.MiddleCenter;
+
+                LevelText = new GameObject("LevelIndicator");
+                LevelText.transform.parent = LevelBackgroundPanel.transform;
+                LevelText.AddComponent<CanvasRenderer>();
+                RectTransform textTransform = LevelText.AddComponent<RectTransform>();
+
+                this.levelTextMesh = LevelText.AddComponent<HGTextMeshProUGUI>();
                 levelTextMesh.text = "";
-                levelTextMesh.fontSize = 24;
+                levelTextMesh.fontSize = 16;
                 levelTextMesh.color = Color.yellow;
-                levelTextMesh.alignment = TMPro.TextAlignmentOptions.BottomLeft;
+                levelTextMesh.alignment = TMPro.TextAlignmentOptions.Center;
                 levelTextMesh.enableWordWrapping = false;
 
 
@@ -61,32 +93,32 @@ namespace SkillsPlusPlus {
                 textTransform.localScale = Vector3.one; // fixes multiplayer bug where joining players have overscaled buttons
                 textTransform.localPosition = Vector2.zero;
                 textTransform.anchorMin = Vector2.zero;
-                textTransform.anchorMax = Vector2.zero;
-                textTransform.anchoredPosition = new Vector2(0, 0); // bottom right corner
+                textTransform.anchorMax = Vector2.one;
+                // textTransform.anchoredPosition = new Vector2(0.5f, 0); // bottom center corner
                 textTransform.sizeDelta = Vector2.zero;
-                textTransform.offsetMin = new Vector2(0, -4);
-                textTransform.offsetMax = new Vector2(0, -4);
+                textTransform.offsetMin = Vector2.zero;
+                textTransform.offsetMax = Vector2.zero;
                 textTransform.ForceUpdateRectTransforms();
             }
 
             // create the clickable upgrade button
             {
 
-                UpgradeLevelButton = new GameObject("BuySkillButton");
-                UpgradeLevelButton.transform.parent = skillIcon.transform;
-                UpgradeLevelButton.AddComponent<CanvasRenderer>();
-                RectTransform buttonTransform = UpgradeLevelButton.AddComponent<RectTransform>();
+                UpgradeButton = new GameObject("BuySkillButton");
+                UpgradeButton.transform.parent = skillIcon.transform;
+                UpgradeButton.AddComponent<CanvasRenderer>();
+                RectTransform buttonTransform = UpgradeButton.AddComponent<RectTransform>();
 
-                MPEventSystemLocator eventSystemLocation = UpgradeLevelButton.AddComponent<MPEventSystemLocator>();
+                MPEventSystemLocator eventSystemLocation = UpgradeButton.AddComponent<MPEventSystemLocator>();
 
-                HGTextMeshProUGUI buttonTextMesh = UpgradeLevelButton.AddComponent<HGTextMeshProUGUI>();
+                HGTextMeshProUGUI buttonTextMesh = UpgradeButton.AddComponent<HGTextMeshProUGUI>();
                 buttonTextMesh.text = "Buy";
                 buttonTextMesh.fontSize = 24;
                 buttonTextMesh.color = Color.yellow;
                 buttonTextMesh.alignment = TMPro.TextAlignmentOptions.Center;
                 buttonTextMesh.enableWordWrapping = false;
 
-                buyButton = UpgradeLevelButton.AddComponent<HGButton>();
+                buyButton = UpgradeButton.AddComponent<HGButton>();
                 buyButton.onClick.AddListener(() => {
                     this.OnUpgradeSkill.Invoke(this.skillName);
                 });
@@ -114,24 +146,21 @@ namespace SkillsPlusPlus {
             this.canUpgrade = canUpgrade;
             CanBuyPanel.SetActive(canUpgrade);
             CanBuyRenderer.SetColor(Color.yellow);
-            if ((showBuyButton && canUpgrade) != UpgradeLevelButton.activeInHierarchy) {
-                UpgradeLevelButton.SetActive(showBuyButton && canUpgrade);
+            if ((showBuyButton && canUpgrade) != UpgradeButton.activeInHierarchy) {
+                UpgradeButton.SetActive(showBuyButton && canUpgrade);
             }
         }
 
         public void ShowBuyButton(bool showButton) {
             this.showBuyButton = showButton;
-            if ((showBuyButton && canUpgrade) != UpgradeLevelButton.activeInHierarchy) {
-                UpgradeLevelButton.SetActive(showBuyButton && canUpgrade);
+            if ((showBuyButton && canUpgrade) != UpgradeButton.activeInHierarchy) {
+                UpgradeButton.SetActive(showBuyButton && canUpgrade);
             }
         }
 
         public void SetLevel(int level) {
-            string newText = "";
-            for(int i = 1; i < level; i++) {
-                newText += "+";
-            }
-            levelTextMesh.text = newText;
+            // only show the level if it is non-zero
+            levelTextMesh.text = level != 0 ? level.ToString() : null;
         }
 
     }

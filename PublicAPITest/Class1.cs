@@ -26,10 +26,6 @@ namespace PublicAPITest {
     [SkillLevelModifier("Test")]
     public class TestSkillModifier : BaseSkillModifier {
 
-        public override int MaxLevel {
-            get { return 4; }
-        }
-
         public override IList<Type> GetEntityStateTypes() {
             return new List<Type>();
         }

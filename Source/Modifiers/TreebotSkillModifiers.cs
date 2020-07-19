@@ -9,50 +9,20 @@ using EntityStates.Treebot.Weapon;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireSyringe")]
-    class TreebotSyringeSkillModifier : SimpleSkillModifier<FireSyringe> {
-
-        public override int MaxLevel {
-            get { return 1; }
-        }
-    }
+    class TreebotSyringeSkillModifier : SimpleSkillModifier<FireSyringe> { }
 
     [SkillLevelModifier("AimMortarRain")]
-    class TreebotMortarRainSkillModifier : SimpleSkillModifier<AimMortarRain> {
-
-        public override int MaxLevel {
-            get { return 1; }
-        }
-    }
+    class TreebotMortarRainSkillModifier : SimpleSkillModifier<AimMortarRain> { }
 
     [SkillLevelModifier("AimMortar2")]
-    class TreebotMortar2SkillModifier : SimpleSkillModifier<AimMortar2> {
-
-        public override int MaxLevel {
-            get { return 1; }
-        }
-    }
+    class TreebotMortar2SkillModifier : SimpleSkillModifier<AimMortar2> { }
 
     [SkillLevelModifier("SonicBoom")]
-    class TreebotSonicBoomSkillModifier : SimpleSkillModifier<ChargeSonicBoom> {
-
-        public override int MaxLevel {
-            get { return 1; }
-        }
-    }
+    class TreebotSonicBoomSkillModifier : SimpleSkillModifier<ChargeSonicBoom> { }
 
     [SkillLevelModifier("SonicBoom2")]
-    class TreebotPlantSonicBoomSkillModifier : SimpleSkillModifier<ChargePlantSonicBoom> {
-
-        public override int MaxLevel {
-            get { return 1; }
-        }
-    }
+    class TreebotPlantSonicBoomSkillModifier : SimpleSkillModifier<ChargePlantSonicBoom> { }
 
     [SkillLevelModifier("FireFlower2", "Chaotic Growth")]
-    class TreebotFlowerSkillModifier : SimpleSkillModifier<PrepFlower2> {
-
-        public override int MaxLevel {
-            get { return 1; }
-        }
-    }
+    class TreebotFlowerSkillModifier : SimpleSkillModifier<PrepFlower2> { }
 }
