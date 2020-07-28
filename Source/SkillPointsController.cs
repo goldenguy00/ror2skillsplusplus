@@ -230,13 +230,6 @@ namespace SkillsPlusPlus {
                 this.skillIconControllers = null;
             }
 
-            if (skillIconControllers != null) {
-                bool infoButtonDown = playerCharacterMasterController?.networkUser?.inputPlayer?.GetButton(RewiredConsts.Action.Info) == true;
-                foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
-                    skillLevelIconController.ShowBuyButton(infoButtonDown);
-                }
-            }
-
 #if DEBUG
             if (Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
                 //TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong)(500 * Time.deltaTime));
@@ -322,8 +315,8 @@ namespace SkillsPlusPlus {
                         // has skillpoints to spend
                         // meets required character level
                         // and the skill is less than its max level
-                        skillLevelIconController.SetCanUpgrade(unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill);
-                        skillLevelIconController.SetLevel(currentSkillLevel);
+                        skillLevelIconController.IsUpgradable = unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill;
+                        skillLevelIconController.Level = currentSkillLevel;
                     } else {
                         Logger.Debug("Could not refresh the icon controller for skill named {0}", skillName);
                     }

@@ -10,6 +10,8 @@ using UnityEngine.Events;
 using R2API.Utils;
 using UnityEngine.UI;
 
+using Rewired;
+
 namespace SkillsPlusPlus {
 
     delegate void UpgradeSkillEvent(string skillName);
@@ -34,15 +36,46 @@ namespace SkillsPlusPlus {
 
         public event UpgradeSkillEvent OnUpgradeSkill;
 
-        private bool canUpgrade;
-        private bool showBuyButton;
+        private bool _IsUpgradable;
+        private bool _IsButtonVisibile;
 
-        void Awake() {
+        public bool IsUpgradable {
+            get {
+                return _IsUpgradable;
+            }
+            set {
+                _IsUpgradable = value;
+                CanBuyPanel.SetActive(value);
+                RefreshButtonVisibility();
+            }
+        }
+
+        public bool IsButtonVisible {
+            get {
+                return _IsButtonVisibile;
+            }
+            set {
+                _IsButtonVisibile = value;
+                RefreshButtonVisibility();
+            }
+        }
+
+        public bool IsUpgradeInteractionEnabled {
+            get { return IsUpgradable && IsButtonVisible; }
+        }
+
+        public int Level {
+            set {
+                // only show the level if it is non-zero
+                levelTextMesh.text = value != 0 ? value.ToString() : null;
+            }
+        }
+
+    void Awake() {
             this.skillIcon = GetComponent<SkillIcon>();
             this.CanBuyPanel = Instantiate(skillIcon.isReadyPanelObject, skillIcon.transform);
             this.CanBuyPanel.name = "CanBuyPanel";
             CanBuyPanel.transform.SetSiblingIndex(1);
-            // tint the upgrade colour
             CanBuyRenderer = this.CanBuyPanel.GetComponent<CanvasRenderer>();
 
             // create the upgrade level label
@@ -138,30 +171,50 @@ namespace SkillsPlusPlus {
                 // skinController.skinData =
             }
 
-            //CanBuyRenderer.SetColor(Color.yellow);
-            SetCanUpgrade(false);
-        }
-
-        public void SetCanUpgrade(bool canUpgrade) {
-            this.canUpgrade = canUpgrade;
-            CanBuyPanel.SetActive(canUpgrade);
+            // tint the upgrade colour
             CanBuyRenderer.SetColor(Color.yellow);
-            if ((showBuyButton && canUpgrade) != UpgradeButton.activeInHierarchy) {
-                UpgradeButton.SetActive(showBuyButton && canUpgrade);
+            IsUpgradable = false;
+        }
+
+        private void RefreshButtonVisibility() {
+            if(IsUpgradeInteractionEnabled != UpgradeButton.activeInHierarchy) {
+                UpgradeButton.SetActive(IsUpgradeInteractionEnabled);
             }
         }
 
-        public void ShowBuyButton(bool showButton) {
-            this.showBuyButton = showButton;
-            if ((showBuyButton && canUpgrade) != UpgradeButton.activeInHierarchy) {
-                UpgradeButton.SetActive(showBuyButton && canUpgrade);
+        void Update() {
+
+            Player inputPlayer = skillIcon?.playerCharacterMasterController?.networkUser?.inputPlayer;
+            if(inputPlayer != null) {
+                this.IsButtonVisible = inputPlayer.GetButton(RewiredConsts.Action.Info);
+
+                if(skillIcon != null) {
+                    SkillSlot skillSlot = skillIcon.targetSkillSlot;
+                    int skillAction = 0;
+                    switch(skillSlot) {
+                    case SkillSlot.None:
+                        skillAction = 0;
+                        break;
+                    case SkillSlot.Primary:
+                        skillAction = RewiredConsts.Action.PrimarySkill;
+                        break;
+                    case SkillSlot.Secondary:
+                        skillAction = RewiredConsts.Action.SecondarySkill;
+                        break;
+                    case SkillSlot.Utility:
+                        skillAction = RewiredConsts.Action.UtilitySkill;
+                        break;
+                    case SkillSlot.Special:
+                        skillAction = RewiredConsts.Action.SpecialSkill;
+                        break;
+                    }
+                    if(IsUpgradeInteractionEnabled && skillAction != 0 && inputPlayer.GetButtonDown(skillAction)) {
+                        this.OnUpgradeSkill.Invoke(this.skillName);
+                    }
+                }
+
             }
-        }
 
-        public void SetLevel(int level) {
-            // only show the level if it is non-zero
-            levelTextMesh.text = level != 0 ? level.ToString() : null;
         }
-
     }
 }
