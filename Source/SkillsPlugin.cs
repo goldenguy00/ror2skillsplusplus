@@ -10,9 +10,9 @@ using SkillsPlusPlus.Modifiers;
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
-    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.0-rc1")]
+    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.0")]
     // [R2APISubmoduleDependency("AssetPlus")]
-    public sealed class SkillsPlusPlusPlugin : BaseUnityPlugin {
+    public sealed class SkillsPlugin : BaseUnityPlugin {
 
         private HUD hud;
         private PlayerCharacterMasterController playerCharacterMasterController;
