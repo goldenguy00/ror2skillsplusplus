@@ -1,26 +1,30 @@
+
+using System;
 using BepInEx;
-using RoR2;
-using RoR2.Skills;
-using RoR2.UI;
-using R2API.AssetPlus;
-using R2API.Utils;
 using UnityEngine;
+
+using RoR2;
+using RoR2.UI;
+using R2API.Utils;
 using SkillsPlusPlus.Modifiers;
 
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.0")]
-    // [R2APISubmoduleDependency("AssetPlus")]
+    [R2APISubmoduleDependency("LanguageAPI")]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
         private HUD hud;
         private PlayerCharacterMasterController playerCharacterMasterController;
 
+        private bool hasAlteredControls = false;
+
         //private SkillPointsController skillsController;
         //private SkillLevelIconController[] skillsHUDControllers;
 
-        void Awake () {
+        void Awake() {
+
 
 #if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
@@ -35,7 +39,7 @@ namespace SkillsPlusPlus {
 
             On.RoR2.CombatDirector.OnEnable += (orig, self) => {
                 orig(self);
-                self.creditMultiplier = 10;    
+                self.creditMultiplier = 10;
             };
 
 #endif
@@ -44,17 +48,20 @@ namespace SkillsPlusPlus {
             LoaderThrowPylonSkillModifier.PatchSkillName();
 
             SkillModifierManager.LoadSkillModifiers();
+            SkillInput.SetupCustomInput();
+
+
 
             On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {
                 orig(self);
                 self.master.onBodyStart += _ => {
 #if DEBUG
-                    if(self.master.GetBody().healthComponent.godMode == false){
+                    if(self.master.GetBody().healthComponent.godMode == false) {
                         self.master.GetBody().healthComponent.godMode = true;
                     }
 
 #endif
-                    if (self.hasEffectiveAuthority) {
+                    if(self.hasEffectiveAuthority) {
                         this.playerCharacterMasterController = self;
                         TryCreateSkillsController();
                     }
@@ -63,7 +70,7 @@ namespace SkillsPlusPlus {
 
             On.RoR2.UI.CharacterSelectController.Awake += (orig, self) => {
                 orig(self);
-                if (self.gameObject.GetComponent<SkillModifierTooltipController>() == null) {
+                if(self.gameObject.GetComponent<SkillModifierTooltipController>() == null) {
                     SkillModifierTooltipController skillModifierTooltipController = self.gameObject.AddComponent<SkillModifierTooltipController>();
                 }
             };
@@ -82,8 +89,7 @@ namespace SkillsPlusPlus {
                 GameObject teleporter = GameObject.Find("Teleporter1(Clone)");
                 Transform spawnLocation = playerCharacterMasterController.master.GetBody().transform;
                 if(teleporter != null && teleporter.TryGetComponent(out TeleporterInteraction teleporterInteraction)) {
-                    GameObject.Instantiate(teleporterInteraction.shopPortalSpawnCard.prefab, spawnLocation.position, spawnLocation.rotation, null);
-                                        
+                    GameObject.Instantiate(teleporterInteraction.shopPortalSpawnCard.prefab, spawnLocation.position, spawnLocation.rotation, null);                                       
                 }
             }
 #endif
@@ -107,7 +113,7 @@ namespace SkillsPlusPlus {
                 }
                 skillsController.SetSkillIconControllers(skillIconControllers);
             } else {
-                //skillsController.SetSkillIconControllers(null);
+                // skillsController.SetSkillIconControllers(null);
             }
         }
 

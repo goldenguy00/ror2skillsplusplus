@@ -46,22 +46,9 @@ namespace SkillsPlusPlus {
             set {
                 _IsUpgradable = value;
                 CanBuyPanel.SetActive(value);
+                CanBuyRenderer.SetColor(Color.yellow);
                 RefreshButtonVisibility();
             }
-        }
-
-        public bool IsButtonVisible {
-            get {
-                return _IsButtonVisibile;
-            }
-            set {
-                _IsButtonVisibile = value;
-                RefreshButtonVisibility();
-            }
-        }
-
-        public bool IsUpgradeInteractionEnabled {
-            get { return IsUpgradable && IsButtonVisible; }
         }
 
         public int Level {
@@ -145,7 +132,7 @@ namespace SkillsPlusPlus {
                 MPEventSystemLocator eventSystemLocation = UpgradeButton.AddComponent<MPEventSystemLocator>();
 
                 HGTextMeshProUGUI buttonTextMesh = UpgradeButton.AddComponent<HGTextMeshProUGUI>();
-                buttonTextMesh.text = "Buy";
+                buttonTextMesh.text = Language.GetString("SKILLS_SLOT_BUY_BTN");
                 buttonTextMesh.fontSize = 24;
                 buttonTextMesh.color = Color.yellow;
                 buttonTextMesh.alignment = TMPro.TextAlignmentOptions.Center;
@@ -172,46 +159,55 @@ namespace SkillsPlusPlus {
             }
 
             // tint the upgrade colour
-            CanBuyRenderer.SetColor(Color.yellow);
             IsUpgradable = false;
         }
 
         private void RefreshButtonVisibility() {
-            if(IsUpgradeInteractionEnabled != UpgradeButton.activeInHierarchy) {
-                UpgradeButton.SetActive(IsUpgradeInteractionEnabled);
-            }
         }
 
         void Update() {
 
             Player inputPlayer = skillIcon?.playerCharacterMasterController?.networkUser?.inputPlayer;
+            
             if(inputPlayer != null) {
-                this.IsButtonVisible = inputPlayer.GetButton(RewiredConsts.Action.Info);
 
-                if(skillIcon != null) {
-                    SkillSlot skillSlot = skillIcon.targetSkillSlot;
-                    int skillAction = 0;
-                    switch(skillSlot) {
-                    case SkillSlot.None:
-                        skillAction = 0;
-                        break;
-                    case SkillSlot.Primary:
-                        skillAction = RewiredConsts.Action.PrimarySkill;
-                        break;
-                    case SkillSlot.Secondary:
-                        skillAction = RewiredConsts.Action.SecondarySkill;
-                        break;
-                    case SkillSlot.Utility:
-                        skillAction = RewiredConsts.Action.UtilitySkill;
-                        break;
-                    case SkillSlot.Special:
-                        skillAction = RewiredConsts.Action.SpecialSkill;
-                        break;
+                // if it isn't a keyboard assume it is a controller
+                bool isController = inputPlayer.controllers.hasKeyboard == false;
+
+                if(isController) {
+                    if(skillIcon != null) {
+                        // bool isDpadUpHeld = inputPlayer.controllers.
+                        SkillSlot skillSlot = skillIcon.targetSkillSlot;
+                        int skillAction = 0;
+                        switch(skillSlot) {
+                        case SkillSlot.None:
+                            skillAction = 0;
+                            break;
+                        case SkillSlot.Primary:
+                            skillAction = RewiredConsts.Action.PrimarySkill;
+                            break;
+                        case SkillSlot.Secondary:
+                            skillAction = RewiredConsts.Action.SecondarySkill;
+                            break;
+                        case SkillSlot.Utility:
+                            skillAction = RewiredConsts.Action.UtilitySkill;
+                            break;
+                        case SkillSlot.Special:
+                            skillAction = RewiredConsts.Action.SpecialSkill;
+                            break;
+                        }
+                        if(false && skillAction != 0 && inputPlayer.GetButtonDown(skillAction)) {
+                            this.OnUpgradeSkill.Invoke(this.skillName);
+                        }
                     }
-                    if(IsUpgradeInteractionEnabled && skillAction != 0 && inputPlayer.GetButtonDown(skillAction)) {
-                        this.OnUpgradeSkill.Invoke(this.skillName);
+                } else {
+                    bool isButtonVisible = inputPlayer.GetButton(RewiredConsts.Action.Info);
+                    if((IsUpgradable && isButtonVisible) != UpgradeButton.activeInHierarchy) {
+                        UpgradeButton.SetActive(IsUpgradable && isButtonVisible);
                     }
                 }
+
+                
 
             }
 
