@@ -51,18 +51,21 @@ namespace SkillsPlusPlus {
 
             int newActionId = userData.GetFieldValue<int>("actionIdCounter");
             SkillsPlusPlus.Logger.Warn(newActionId);
-            userData.InsertAction(0, newActionId);
+            // when the action is created by this method the actual ID of the action will not be this value
+            // the newActionId captured prior will be the actual internal ID of the action
+            userData.InsertAction(0, BUY_SKILLS_ACTION_ID);
 
-            userData.ChangeActionCategory(newActionId, 2); // ensures that the category is aware of the new action
-            userData.ChangeActionCategory(newActionId, 0); // ensures that the category is aware of the new action
-
+            // thus we locate it by its actual ID and update the values and its description via reflection
             InputAction inputAction = userData.GetActionById(newActionId);
-            SkillsPlusPlus.Logger.Warn(inputAction);
             inputAction.SetPropertyValue("id", BUY_SKILLS_ACTION_ID);
             inputAction.SetPropertyValue("name", BUY_SKILLS_ACTION_NAME);
 
+            userData.ChangeActionCategory(BUY_SKILLS_ACTION_ID, 2); // ensures that the category is aware of the new action
+            userData.ChangeActionCategory(BUY_SKILLS_ACTION_ID, 0); // ensures that the category is aware of the new action
+
+
             ControllerMap_Editor joystickEditor = userData.GetJoystickMapById(0, out int joystickIndex);
-            ActionElementMap purchaseSkillActionElementMap = new ActionElementMap(newActionId, ControllerElementType.Button, 0);
+            ActionElementMap purchaseSkillActionElementMap = new ActionElementMap(BUY_SKILLS_ACTION_ID, ControllerElementType.Button, 0);
             joystickEditor.actionElementMaps.Add(purchaseSkillActionElementMap);
 
             SkillsPlusPlus.Logger.Warn("Delegating to original ReInput method");

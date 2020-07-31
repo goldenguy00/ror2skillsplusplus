@@ -37,7 +37,6 @@ namespace SkillsPlusPlus {
         public event UpgradeSkillEvent OnUpgradeSkill;
 
         private bool _IsUpgradable;
-        private bool _IsButtonVisibile;
 
         public bool IsUpgradable {
             get {
@@ -58,7 +57,7 @@ namespace SkillsPlusPlus {
             }
         }
 
-    void Awake() {
+        void Awake() {
             this.skillIcon = GetComponent<SkillIcon>();
             this.CanBuyPanel = Instantiate(skillIcon.isReadyPanelObject, skillIcon.transform);
             this.CanBuyPanel.name = "CanBuyPanel";
@@ -162,21 +161,17 @@ namespace SkillsPlusPlus {
             IsUpgradable = false;
         }
 
-        private void RefreshButtonVisibility() {
-        }
+        private void Update() {
 
-        void Update() {
-
-            Player inputPlayer = skillIcon?.playerCharacterMasterController?.networkUser?.inputPlayer;
+            LocalUser localUser = skillIcon?.playerCharacterMasterController?.networkUser?.localUser;
+            Player inputPlayer = localUser?.inputPlayer;
             
             if(inputPlayer != null) {
 
-                // if it isn't a keyboard assume it is a controller
-                bool isController = inputPlayer.controllers.hasKeyboard == false;
+                bool showBuyButtons = false;
 
-                if(isController) {
+                if(localUser.eventSystem.currentInputSource == MPEventSystem.InputSource.Gamepad) {
                     if(skillIcon != null) {
-                        // bool isDpadUpHeld = inputPlayer.controllers.
                         SkillSlot skillSlot = skillIcon.targetSkillSlot;
                         int skillAction = 0;
                         switch(skillSlot) {
@@ -196,18 +191,20 @@ namespace SkillsPlusPlus {
                             skillAction = RewiredConsts.Action.SpecialSkill;
                             break;
                         }
-                        if(false && skillAction != 0 && inputPlayer.GetButtonDown(skillAction)) {
+                        showBuyButtons = inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME);
+                        if(showBuyButtons && skillAction != 0 && inputPlayer.GetButtonDown(skillAction)) {
                             this.OnUpgradeSkill.Invoke(this.skillName);
                         }
                     }
-                } else {
-                    bool isButtonVisible = inputPlayer.GetButton(RewiredConsts.Action.Info);
-                    if((IsUpgradable && isButtonVisible) != UpgradeButton.activeInHierarchy) {
-                        UpgradeButton.SetActive(IsUpgradable && isButtonVisible);
+                    if(UpgradeButton.activeInHierarchy == true) {
+                        UpgradeButton.SetActive(false);
                     }
+                } else {
+                    showBuyButtons = inputPlayer.GetButton(RewiredConsts.Action.Info);                    
                 }
-
-                
+                if((IsUpgradable && showBuyButtons) != UpgradeButton.activeInHierarchy) {
+                    UpgradeButton.SetActive(IsUpgradable && showBuyButtons);
+                }
 
             }
 
