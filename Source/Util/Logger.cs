@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BepInEx.Logging;
+using System;
 using UnityEngine;
+
+using BepInEx.Configuration;
 
 namespace SkillsPlusPlus {
 
@@ -9,6 +12,9 @@ namespace SkillsPlusPlus {
     /// level can be configured if you need visibility of the Skills++ mod.
     /// </summary>
     public class Logger {
+
+        private static readonly string LOG_TAG = "Skills++";
+        private static readonly ManualLogSource manualLogSource = BepInEx.Logging.Logger.CreateLogSource(LOG_TAG);
 
         /// <summary>
         /// The different log levels availble for filtering
@@ -32,8 +38,6 @@ namespace SkillsPlusPlus {
             Debug = 3
         }
 
-        private static readonly string LOG_TAG = "Skills++";
-
         /// <summary>
         /// The current log level for the logger. Any changes are effective immediately
         /// <remark>
@@ -48,7 +52,7 @@ namespace SkillsPlusPlus {
                 if(message != null) {
                     formattedMessage = String.Format(message, formatArgs);
                 }
-                UnityEngine.Debug.unityLogger.Log(LOG_TAG, formattedMessage);
+                manualLogSource.LogInfo(formattedMessage);
             }
         }
 
@@ -57,7 +61,7 @@ namespace SkillsPlusPlus {
                 if (message == null) {
                     message = "null";
                 }
-                UnityEngine.Debug.unityLogger.Log(LOG_TAG, message);
+                manualLogSource.LogInfo(message);
             }
         }
 
@@ -67,7 +71,15 @@ namespace SkillsPlusPlus {
                 if(message != null) {
                     formattedMessage = String.Format(message, formatArgs);
                 }
-                UnityEngine.Debug.unityLogger.LogWarning(LOG_TAG, formattedMessage);
+                manualLogSource.LogWarning(formattedMessage);
+            }
+        }
+        internal static void Warn(object message) {
+            if(LOG_LEVEL >= LogLevel.Warning) {
+                if(message == null) {
+                    message = "null";
+                }
+                manualLogSource.LogWarning(message);
             }
         }
 
@@ -77,13 +89,13 @@ namespace SkillsPlusPlus {
                 if(message != null) {
                     formattedMessage = String.Format(message, formatArgs);
                 }
-                UnityEngine.Debug.unityLogger.LogError(LOG_TAG, formattedMessage);
+                manualLogSource.LogError(formattedMessage);
             }
         }
 
         internal static void Error(Exception exception) {
             if (LOG_LEVEL >= LogLevel.Error) {
-                UnityEngine.Debug.unityLogger.LogError(LOG_TAG, exception);
+                manualLogSource.LogError(exception);
             }
         }
 
