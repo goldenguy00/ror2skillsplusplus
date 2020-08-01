@@ -48,7 +48,7 @@ namespace SkillsPlusPlus {
         private int earnedSkillPoints = 0;
         private int unspentSkillPoints = 0;
 
-        private bool isDisabled = true;
+        private bool isSurvivorEnabled = true;
 
         void Awake() {
             // this.spentSkillPoints = new Dictionary<SkillSlot, int>();
@@ -79,14 +79,11 @@ namespace SkillsPlusPlus {
         }
 
         private void OnBodyStart(CharacterBody body) {
-            this.isDisabled = ConVars.ConVars.disabledSurvivors.value.Contains(body.GetDisplayName());
-
-            EnsureSkillModifiersAreInitialised(true);
-            
+            EnsureSkillModifiersAreInitialised(true);            
         }
 
         private int GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot) {
-            if(isDisabled) {
+            if(this.isSurvivorEnabled == false) {
                 return orig(self, slot);
             }
 
@@ -150,14 +147,14 @@ namespace SkillsPlusPlus {
         }
 
         private void OnEnterState(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
-            if(isDisabled == false && TryGetSkillModifierForState(self, out ISkillModifier skillModifier, out string skillName) && this.skillLevels.TryGetValue(skillName, out int level)) {
+            if(isSurvivorEnabled && TryGetSkillModifierForState(self, out ISkillModifier skillModifier, out string skillName) && this.skillLevels.TryGetValue(skillName, out int level)) {
                 skillModifier.OnSkillEnter(self, level);
             }
             orig(self);
         }
 
         private void OnExitState(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
-            if (isDisabled == false && self is BaseState baseState) {
+            if (isSurvivorEnabled && self is BaseState baseState) {
                 if (TryGetSkillModifierForState(baseState, out ISkillModifier skillModifier, out string skillName)) {
                     if(this.skillLevels.TryGetValue(skillName, out int level)) {
                         skillModifier.OnSkillExit(baseState, level);
@@ -169,12 +166,20 @@ namespace SkillsPlusPlus {
 
         private bool skillModifiersAreInitialised = false;
         private void EnsureSkillModifiersAreInitialised(bool force = false) {
-            if(isDisabled) {
-                return;
-            }
+
             if (skillModifiersAreInitialised && !force) {
                 return;
             }
+
+            if(body != null) {
+                this.isSurvivorEnabled = ConVars.ConVars.disabledSurvivors.value.Contains(body.GetDisplayName()) == false;
+                if(this.isSurvivorEnabled == false) {
+                    skillModifiersAreInitialised = true;
+                    Logger.Warn("Skills++ has been disable for this survivor. (survivorName = {0})", body.GetDisplayName());
+                    return;
+                }
+            }
+            
 
             var skillLocator = this.skillLocator;
             if (skillLocator == null) {
@@ -328,7 +333,7 @@ namespace SkillsPlusPlus {
                         // has skillpoints to spend
                         // meets required character level
                         // and the skill is less than its max level
-                        skillLevelIconController.IsUpgradable = unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill && isDisabled == false;
+                        skillLevelIconController.IsUpgradable = unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill && isSurvivorEnabled;
                         skillLevelIconController.Level = currentSkillLevel;
                     } else {
                         Logger.Debug("Could not refresh the icon controller for skill named {0}", skillName);
