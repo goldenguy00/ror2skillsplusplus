@@ -7,8 +7,9 @@ using UnityEngine;
 
 using SkillsPlusPlus.Modifiers;
 using System.Linq;
-using EntityStates.Engi.EngiWeapon;
+
 using SkillsPlusPlus.Util;
+using SkillsPlusPlus.ConVars;
 
 namespace SkillsPlusPlus {
 
@@ -47,6 +48,8 @@ namespace SkillsPlusPlus {
         private int earnedSkillPoints = 0;
         private int unspentSkillPoints = 0;
 
+        private bool isDisabled = true;
+
         void Awake() {
             // this.spentSkillPoints = new Dictionary<SkillSlot, int>();
             this.skillLevels = new Dictionary<string, int>();
@@ -76,10 +79,17 @@ namespace SkillsPlusPlus {
         }
 
         private void OnBodyStart(CharacterBody body) {
+            this.isDisabled = ConVars.ConVars.disabledSurvivors.value.Contains(body.GetDisplayName());
+
             EnsureSkillModifiersAreInitialised(true);
+            
         }
 
         private int GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot) {
+            if(isDisabled) {
+                return orig(self, slot);
+            }
+
             int bonusSlots = 0;
             if(self == this.playerCharacterMasterController.master) {
                 bonusSlots = EngiSkillModifier.GetDeployableSameSlotBonus(slot);
@@ -140,14 +150,14 @@ namespace SkillsPlusPlus {
         }
 
         private void OnEnterState(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
-            if(TryGetSkillModifierForState(self, out ISkillModifier skillModifier, out string skillName) && this.skillLevels.TryGetValue(skillName, out int level)) {
+            if(isDisabled == false && TryGetSkillModifierForState(self, out ISkillModifier skillModifier, out string skillName) && this.skillLevels.TryGetValue(skillName, out int level)) {
                 skillModifier.OnSkillEnter(self, level);
             }
             orig(self);
         }
 
         private void OnExitState(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
-            if (self is BaseState baseState) {
+            if (isDisabled == false && self is BaseState baseState) {
                 if (TryGetSkillModifierForState(baseState, out ISkillModifier skillModifier, out string skillName)) {
                     if(this.skillLevels.TryGetValue(skillName, out int level)) {
                         skillModifier.OnSkillExit(baseState, level);
@@ -158,7 +168,10 @@ namespace SkillsPlusPlus {
         }
 
         private bool skillModifiersAreInitialised = false;
-        private void EnsureSkillModifiersAreInitialised(bool force = false) {            
+        private void EnsureSkillModifiersAreInitialised(bool force = false) {
+            if(isDisabled) {
+                return;
+            }
             if (skillModifiersAreInitialised && !force) {
                 return;
             }
@@ -315,7 +328,7 @@ namespace SkillsPlusPlus {
                         // has skillpoints to spend
                         // meets required character level
                         // and the skill is less than its max level
-                        skillLevelIconController.IsUpgradable = unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill;
+                        skillLevelIconController.IsUpgradable = unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill && isDisabled == false;
                         skillLevelIconController.Level = currentSkillLevel;
                     } else {
                         Logger.Debug("Could not refresh the icon controller for skill named {0}", skillName);

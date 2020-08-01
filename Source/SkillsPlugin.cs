@@ -12,7 +12,7 @@ namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.0")]
-    [R2APISubmoduleDependency("LanguageAPI")]
+    [R2APISubmoduleDependency("LanguageAPI", nameof(CommandHelper))]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
         private HUD hud;
@@ -24,7 +24,6 @@ namespace SkillsPlusPlus {
         //private SkillLevelIconController[] skillsHUDControllers;
 
         void Awake() {
-
 
 #if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
@@ -43,6 +42,8 @@ namespace SkillsPlusPlus {
             };
 
 #endif
+
+            CommandHelper.AddToConsoleWhenReady();
 
             LoaderKnucklesSkillModifier.PatchSkillName();
             LoaderThrowPylonSkillModifier.PatchSkillName();
