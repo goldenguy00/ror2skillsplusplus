@@ -11,11 +11,6 @@ namespace SkillsPlusPlus.Modifiers {
         internal static NoopSkillModifier Instance = new NoopSkillModifier();
 
         /// <inheritdoc/>
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() { typeof(BaseState) };
-        }
-
-        /// <inheritdoc/>
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             // do nothing
         }

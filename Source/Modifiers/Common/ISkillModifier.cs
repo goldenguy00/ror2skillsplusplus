@@ -11,15 +11,15 @@ namespace SkillsPlusPlus.Modifiers {
     internal interface ISkillModifier {
 
         /// <summary>
-        /// Defines the list of <see cref="EntityState"/> types that this skill modifer wishes to alter.
+        /// The list of <see cref="EntityState"/> types that this skill modifer wishes to alter.
         /// </summary>
         /// <returns></returns>
-        IList<Type> GetEntityStateTypes();
+        Type[] EntityStateTypes { get; }
 
         /// <summary>
         /// The name of the associated skill.
         /// </summary>
-        string skillName { get; set; }
+        string skillName { get; }
 
         /// <summary>
         /// Called immediately before the character enters one of the listed entity state types

@@ -7,12 +7,13 @@ using RoR2.Skills;
 using UnityEngine;
 using SkillsPlusPlus.Modifiers;
 using System.Linq;
+using System.Collections.Specialized;
 
 namespace SkillsPlusPlus {
     public sealed class SkillModifierManager {
 
-        private static readonly Dictionary<string, ISkillModifier> skillModifiers = new Dictionary<string, ISkillModifier>();
-        private static readonly Dictionary<Type, ISet<ISkillModifier>> stateTypeToSkillModifierDictionary = new Dictionary<Type, ISet<ISkillModifier>>();
+        private static readonly Dictionary<string, BaseSkillModifier> skillModifiers = new Dictionary<string, BaseSkillModifier>();
+        private static readonly Dictionary<Type, ISet<BaseSkillModifier>> stateTypeToSkillModifierDictionary = new Dictionary<Type, ISet<BaseSkillModifier>>();
 
         /// <summary>
         /// Finds and loads all skill modifiers in the current assembly.
@@ -30,8 +31,13 @@ namespace SkillsPlusPlus {
                     continue;
                 }
                 try {
-                    ISkillModifier modifier = type.GetConstructor(new Type[0])?.Invoke(new object[0]) as ISkillModifier;
-                    if(modifier == null) {
+                    ConstructorInfo constructorInfo = type.GetConstructor(new Type[0]);
+                    if(constructorInfo == null) {
+                        Logger.Debug("Failed to find constructor info for {0}", type.FullName);
+                        Logger.Debug("Other constructors included");
+                        foreach(ConstructorInfo info in type.GetConstructors()) {
+                            Logger.Debug(info);
+                        }
                         continue;
                     }
                     foreach(SkillLevelModifierAttribute attribute in attributes) {
@@ -40,15 +46,20 @@ namespace SkillsPlusPlus {
                                 Logger.Warn("Replacing an existing skill modifier it not permitted. Skill name = {0}", registeredSkillName);
                                 continue;
                             } else {
-                                skillModifiers[registeredSkillName] = modifier;
-                                foreach(Type baseStateType in modifier.GetEntityStateTypes()) {
-                                    if(stateTypeToSkillModifierDictionary.TryGetValue(baseStateType, out ISet<ISkillModifier> skillModifiers) == false) {
-                                        skillModifiers = new HashSet<ISkillModifier>();
-                                        stateTypeToSkillModifierDictionary[baseStateType] = skillModifiers;
+                                object someSkillModifier = constructorInfo.Invoke(new object[0]);
+                                if(someSkillModifier is BaseSkillModifier skillModifier) {
+                                    skillModifier.skillName = registeredSkillName;
+                                    skillModifier.EntityStateTypes = attribute.baseStateTypes;
+                                    skillModifiers[registeredSkillName] = skillModifier;
+                                    foreach(Type baseStateType in attribute.baseStateTypes) {
+                                        if(stateTypeToSkillModifierDictionary.TryGetValue(baseStateType, out ISet<BaseSkillModifier> skillModifiers) == false) {
+                                            skillModifiers = new HashSet<BaseSkillModifier>();
+                                            stateTypeToSkillModifierDictionary[baseStateType] = skillModifiers;
+                                        }
+                                        skillModifiers.Add(skillModifier);
                                     }
-                                    skillModifiers.Add(modifier);
+                                    Logger.Debug("Loaded {0} for skill named \"{1}\"", type.Name, registeredSkillName);
                                 }
-                                Logger.Debug("Loaded {0} for skill named \"{1}\"", type.Name, registeredSkillName);
                             }
                         }
                     }
@@ -60,21 +71,21 @@ namespace SkillsPlusPlus {
             }
         }
 
-        internal static ISkillModifier GetSkillModifier(string skillName) {
+        internal static BaseSkillModifier GetSkillModifier(string skillName) {
             if(skillName != null && skillName.Length != 0) {
-                if(skillModifiers.TryGetValue(skillName, out ISkillModifier modifier)) {
+                if(skillModifiers.TryGetValue(skillName, out BaseSkillModifier modifier)) {
                     return modifier;
                 }
             }
             return NoopSkillModifier.Instance;
         }
 
-        internal static ICollection<ISkillModifier> GetSkillModifiersForEntityStateType(Type entityStateType) {
-            if (stateTypeToSkillModifierDictionary.TryGetValue(entityStateType, out ISet<ISkillModifier> modifiers)) {
+        internal static IEnumerable<BaseSkillModifier> GetSkillModifiersForEntityStateType(Type entityStateType) {
+            if (stateTypeToSkillModifierDictionary.TryGetValue(entityStateType, out ISet<BaseSkillModifier> modifiers)) {
                 return modifiers;
             }
             Logger.Debug("Could not find any ISkillModifiers for entity state {0}", entityStateType.FullName);
-            return new Collection<ISkillModifier>();
+            return Enumerable.Empty<BaseSkillModifier>();
         }
 
         //internal static ISkillModifier GetSkillName(Type entityStateType) {

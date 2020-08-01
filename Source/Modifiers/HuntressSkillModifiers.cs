@@ -11,7 +11,7 @@ using EntityStates;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("FireSeekingArrow")]
+    [SkillLevelModifier("FireSeekingArrow", typeof(FireSeekingArrow))]
     class HuntressSeekingArrowSkillModifier : SimpleSkillModifier<FireSeekingArrow> {
 
         public override void OnSkillEnter(FireSeekingArrow skillState, int level) {
@@ -25,7 +25,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("FireFlurrySeekingArrow")]
+    [SkillLevelModifier("FireFlurrySeekingArrow", typeof(FireFlurrySeekingArrow))]
     class HuntressFlurrySkillModifier : SimpleSkillModifier<FireFlurrySeekingArrow> {
 
         public override void OnSkillEnter(FireFlurrySeekingArrow skillState, int level) {
@@ -48,7 +48,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Glaive")]
+    [SkillLevelModifier("Glaive", typeof(ThrowGlaive))]
     class HuntressGlaiveSkillModifier : SimpleSkillModifier<ThrowGlaive> {
 
         static HuntressGlaiveSkillModifier() {
@@ -70,15 +70,8 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Blink")]
+    [SkillLevelModifier("Blink", typeof(BlinkState), typeof(MiniBlinkState))]
     class HuntressBlinkSkillModifier : BaseSkillModifier {
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() {
-                typeof(BlinkState),
-                typeof(MiniBlinkState)
-            };
-        }
 
         public override void OnSkillExit(BaseState skillState, int level) {
             base.OnSkillExit(skillState, level);
@@ -92,7 +85,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("ArrowRain", "Burning Rain")]
+    [SkillLevelModifier(new string[] { "ArrowRain", "Burning Rain" }, typeof(ArrowRain))]
     class HuntressArrowRainSkillModifier : SimpleSkillModifier<ArrowRain> {
 
         static HuntressArrowRainSkillModifier() {
@@ -110,14 +103,10 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("AimArrowSnipe", "Rabauld")]
+    [SkillLevelModifier(new string[] { "AimArrowSnipe", "Rabauld" }, typeof(FireArrowSnipe), typeof(AimArrowSnipe))]
     class HuntressSnipeSkillModifier : BaseSkillModifier {
 
         static readonly float stockImageInterspacing = 18.0f;
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() { typeof(FireArrowSnipe), typeof(AimArrowSnipe) };
-        }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             if (skillState is FireArrowSnipe snipeState) {

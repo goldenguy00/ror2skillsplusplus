@@ -108,7 +108,7 @@ namespace SkillsPlusPlus {
                 }
 
                 var stateType = state.GetType();
-                ICollection<ISkillModifier> skillModifiers = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
+                IEnumerable<ISkillModifier> skillModifiers = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
                 this.EnsureSkillModifiersAreInitialised();
                 foreach(ISkillModifier skillModifier in skillModifiers) {
                     var skillName = skillModifier?.skillName;
@@ -181,7 +181,7 @@ namespace SkillsPlusPlus {
                     continue;
                 }
                 SkillDef baseSkillDef = Instantiate(genericSkill.baseSkill);
-                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(baseSkillDef.skillName);
+                BaseSkillModifier modifier = SkillModifierManager.GetSkillModifier(baseSkillDef.skillName);
                 if(modifier != null) {
                     // modifier.SkillDef = baseSkillDef;
                     modifier.skillName = baseSkillDef.skillName;

@@ -6,7 +6,7 @@ using EntityStates.Croco;
 using UnityEngine;
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("CrocoSlash")]
+    [SkillLevelModifier("CrocoSlash", typeof(Slash))]
     class CrocoSlashSkillModifier : SimpleSkillModifier<Slash> {
 
         public override void OnSkillEnter(Slash slash, int level) {
@@ -26,7 +26,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("CrocoSpit")]
+    [SkillLevelModifier("CrocoSpit", typeof(FireSpit))]
     class CrocoSpitSkillModifier : SimpleSkillModifier<FireSpit> {
 
         public override void OnSkillEnter(FireSpit fireSpit, int level) {
@@ -45,7 +45,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("CrocoBite")]
+    [SkillLevelModifier("CrocoBite", typeof(Bite))]
     class CrocoBiteSkillModifier : SimpleSkillModifier<Bite> {
 
         public override void OnSkillEnter(Bite bite, int level) {
@@ -60,7 +60,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("CrocoLeap")]
+    [SkillLevelModifier("CrocoLeap", typeof(Leap))]
     class CrocoLeapSkillModifier : SimpleSkillModifier<Leap> {
 
         public override void OnSkillEnter(Leap leap, int level) {
@@ -84,7 +84,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("CrocoChainableLeap")]
+    [SkillLevelModifier("CrocoChainableLeap", typeof(ChainableLeap))]
     class CrocoChainableLeapSkillModifier : SimpleSkillModifier<ChainableLeap> {
 
         public override void OnSkillEnter(ChainableLeap skillState, int level) {
@@ -102,7 +102,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("CrocoDisease", "Plague")]
+    [SkillLevelModifier(new string[] { "CrocoDisease", "Plague" }, typeof(FireDiseaseProjectile))]
     class CrocoDiseaseSkillModifier : SimpleSkillModifier<FireDiseaseProjectile> {
 
         public override void OnSkillEnter(FireDiseaseProjectile fireDisease, int level) {

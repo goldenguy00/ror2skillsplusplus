@@ -16,7 +16,7 @@ using RoR2.UI;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("Knuckleboom")]
+    [SkillLevelModifier("Knuckleboom", typeof(SwingComboFist))]
     class LoaderKnucklesSkillModifier : SimpleSkillModifier<SwingComboFist> {
 
         public override void OnSkillEnter(SwingComboFist skillState, int level) {
@@ -41,7 +41,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireHook")]
+    [SkillLevelModifier("FireHook", typeof(FireHook))]
     class LoaderHookSkillModifier : SimpleSkillModifier<FireHook> {
 
         public override void OnSkillEnter(FireHook skillState, int level) {
@@ -70,7 +70,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireYankHook")]
+    [SkillLevelModifier("FireYankHook", typeof(FireYankHook))]
     class LoaderYankHookSkillModifier : SimpleSkillModifier<FireYankHook> {
 
         public override void OnSkillEnter(FireYankHook skillState, int level) {
@@ -89,15 +89,8 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("ChargeFist", "Megaton Punch")]
+    [SkillLevelModifier(new string[] { "ChargeFist", "Megaton Punch" }, typeof(ChargeFist), typeof(SwingChargedFist))]
     class LoaderChargeFistSkillModifier : BaseSkillModifier {
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() {
-                typeof(ChargeFist),
-                typeof(SwingChargedFist)
-            };
-        }
 
         public override void OnSkillEnter(BaseState baseState, int level) {
             base.OnSkillEnter(baseState, level);
@@ -121,15 +114,8 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("ChargeZapFist", "Thundercrash")]
+    [SkillLevelModifier(new string[] { "ChargeZapFist", "Thundercrash" }, typeof(ChargeZapFist), typeof(SwingZapFist))]
     class LoaderChargeZapFistSkillModifier : BaseSkillModifier {
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() {
-                typeof(ChargeZapFist),
-                typeof(SwingZapFist)
-            };
-        }
 
         public override void OnSkillEnter(BaseState baseState, int level) {
             base.OnSkillEnter(baseState, level);
@@ -152,7 +138,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     // duplicate skill name
-    [SkillLevelModifier("ThrowPylon")]
+    [SkillLevelModifier("ThrowPylon", typeof(ThrowPylon))]
     class LoaderThrowPylonSkillModifier : SimpleSkillModifier<ThrowPylon> {
 
         internal static void PatchSkillName() {

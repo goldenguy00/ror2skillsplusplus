@@ -14,11 +14,6 @@ namespace SkillsPlusPlus.Modifiers {
     public abstract class SimpleSkillModifier<SkillState> : BaseSkillModifier where SkillState : BaseState {
 
         /// <inheritdoc/>
-        public sealed override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() { typeof(SkillState) };
-        }
-
-        /// <inheritdoc/>
         public sealed override void OnSkillEnter(BaseState skillState, int level) {
             if (skillState is SkillState) {
                 this.OnSkillEnter(skillState as SkillState, level);

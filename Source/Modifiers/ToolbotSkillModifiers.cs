@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("FireNailgun")]
+    [SkillLevelModifier("FireNailgun", typeof(FireNailgun))]
     class ToolbotSkillModifier : SimpleSkillModifier<FireNailgun> {
 
         public override void OnSkillEnter(FireNailgun skillState, int level) {
@@ -31,7 +31,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("FireSpear")]
+    [SkillLevelModifier("FireSpear", typeof(FireSpear))]
     class ToolbotSpearSkillModifier : SimpleSkillModifier<FireSpear> {
 
         public override void OnSkillEnter(FireSpear fireSpear, int level) {
@@ -45,7 +45,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("FireGrenadeLauncher")]
+    [SkillLevelModifier("FireGrenadeLauncher", typeof(FireGrenadeLauncher))]
     class ToolbotGrenadeLauncherSkillModifier : SimpleSkillModifier<FireGrenadeLauncher> {
 
         private static readonly float stockImageInterspacing = 13.5f;
@@ -126,7 +126,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("FireBuzzsaw")]
+    [SkillLevelModifier("FireBuzzsaw", typeof(FireBuzzsaw))]
     class ToolbotBuzzsawSkillModifier : SimpleSkillModifier<FireBuzzsaw> {
 
         public override void OnSkillEnter(FireBuzzsaw fireBuzzsaw, int level) {
@@ -148,7 +148,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("StunDrone")]
+    [SkillLevelModifier("StunDrone", typeof(AimStunDrone))]
     class ToolbotStunDroneSkillModifier : SimpleSkillModifier<AimStunDrone> {
 
         public override void OnSkillEnter(AimStunDrone aimStunDrone, int level) {
@@ -170,7 +170,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("ToolbotDash", "Breach Mode")]
+    [SkillLevelModifier(new string[] { "ToolbotDash", "Breach Mode" }, typeof(ToolbotDash))]
     class ToolbotDashSkillModifier : SimpleSkillModifier<ToolbotDash> {
 
         public override void OnSkillEnter(ToolbotDash toolbotDash, int level) {
@@ -190,7 +190,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Swap")]
+    [SkillLevelModifier("Swap", typeof(ToolbotStanceSwap))]
     class ToolbotEquipmentSwapSkillModifier : SimpleSkillModifier<ToolbotStanceSwap> {
 
         public override void OnSkillEnter(ToolbotStanceSwap toolbotStanceSwap, int level) {

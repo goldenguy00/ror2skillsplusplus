@@ -9,12 +9,20 @@ namespace SkillsPlusPlus.Modifiers {
     public abstract class BaseSkillModifier : ISkillModifier {
 
         /// <inheritdoc/>
-        public string skillName { get; set; }
-
-        public BaseSkillModifier() { }
+        public Type[] EntityStateTypes { get; internal set; }
 
         /// <inheritdoc/>
-        public abstract IList<Type> GetEntityStateTypes();
+        public string skillName { get; internal set; }
+
+        public BaseSkillModifier() {
+            this.skillName = "";
+            this.EntityStateTypes = new Type[0];
+        }
+
+        public BaseSkillModifier(string skillName, Type[] entityStateTypes) {
+            this.skillName = skillName;
+            this.EntityStateTypes = entityStateTypes;
+        }
 
         /// <inheritdoc/>
         public virtual void OnSkillEnter(BaseState skillState, int level) { }

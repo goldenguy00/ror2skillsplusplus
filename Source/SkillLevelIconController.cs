@@ -46,7 +46,7 @@ namespace SkillsPlusPlus {
                 _IsUpgradable = value;
                 CanBuyPanel.SetActive(value);
                 CanBuyRenderer.SetColor(Color.yellow);
-                RefreshButtonVisibility();
+                // RefreshButtonVisibility();
             }
         }
 

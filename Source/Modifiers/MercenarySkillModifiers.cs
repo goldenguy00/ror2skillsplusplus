@@ -15,7 +15,7 @@ using SkillsPlusPlus.Util;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("GroundLight")]
+    [SkillLevelModifier("GroundLight", typeof(GroundLight))]
     class SwordSkillModifier : SimpleSkillModifier<GroundLight> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -30,16 +30,8 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Whirlwind")]
+    [SkillLevelModifier("Whirlwind", typeof(WhirlwindEntry), typeof(WhirlwindGround), typeof(WhirlwindAir))]
     class WhirlwindSkillModifier : BaseSkillModifier {
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() {
-                typeof(WhirlwindEntry),
-                typeof(WhirlwindGround),
-                typeof(WhirlwindAir)
-            };
-        }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -63,7 +55,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Uppercut")]
+    [SkillLevelModifier("Uppercut", typeof(Uppercut))]
     class UppercutSkillModifier : SimpleSkillModifier<Uppercut> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -74,7 +66,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Dash1")]
+    [SkillLevelModifier("Dash1", typeof(Assaulter))]
     class AssaultSkillModifier : SimpleSkillModifier<Assaulter> {
 
         public override void OnSkillEnter(Assaulter skillState, int level) {
@@ -106,16 +98,8 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     // both Mercenary special skills have the same skill name
-    [SkillLevelModifier("Evis", "Massacre", "Gale-Force")]
+    [SkillLevelModifier(new string[] { "Evis", "Massacre", "Gale-Force" }, typeof(Evis), typeof(EvisDash), typeof(ThrowEvisProjectile))]
     class EviscerateSkillModifier : BaseSkillModifier {
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() {
-                typeof(Evis),
-                typeof(EvisDash),
-                typeof(ThrowEvisProjectile)
-            };
-        }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);

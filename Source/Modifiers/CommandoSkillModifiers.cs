@@ -10,7 +10,7 @@ using EntityStates.Commando.CommandoWeapon;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("FirePistol")]
+    [SkillLevelModifier("FirePistol", typeof(FirePistol2))]
     class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
 
         public override void OnSkillEnter(FirePistol2 skillState, int level) {
@@ -28,7 +28,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireFMJ")]
+    [SkillLevelModifier("FireFMJ", typeof(FireFMJ))]
     class CommandoFMJSkillModifier : SimpleSkillModifier<FireFMJ> {
 
         public override void OnSkillEnter(FireFMJ skillState, int level) {
@@ -44,7 +44,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireShotgunBlast")]
+    [SkillLevelModifier("FireShotgunBlast", typeof(FireShotgunBlast))]
     class CommandoShotgunBlastSkillModifier : SimpleSkillModifier<FireShotgunBlast> {
 
         public override void OnSkillEnter(FireShotgunBlast skillState, int level) {
@@ -55,7 +55,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Roll")]
+    [SkillLevelModifier("Roll", typeof(DodgeState))]
     class CommandoRollSkillModifier : SimpleSkillModifier<DodgeState> {
 
         public override void OnSkillEnter(DodgeState skillState, int level) {
@@ -68,7 +68,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Slide")]
+    [SkillLevelModifier("Slide", typeof(SlideState))]
     class CommandoDiveSkillModifier : SimpleSkillModifier<SlideState> {
 
         public override void OnSkillEnter(SlideState skillState, int level) {
@@ -80,7 +80,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Barrage", "Death Blossom")]
+    [SkillLevelModifier(new string[] { "Barrage", "Death Blossom" }, typeof(FireBarrage))]
     class CommandoBarrageSkillModifier : SimpleSkillModifier<FireBarrage> {
 
         public override void OnSkillEnter(FireBarrage skillState, int level) {
@@ -100,7 +100,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("ThrowGrenade", "Carpet Bomb")]
+    [SkillLevelModifier(new string[] { "ThrowGrenade", "Carpet Bomb" }, typeof(ThrowGrenade))]
     class CommandoGrenadeSkillModifier : SimpleSkillModifier<ThrowGrenade> {
 
         public override void OnSkillEnter(ThrowGrenade skillState, int level) {

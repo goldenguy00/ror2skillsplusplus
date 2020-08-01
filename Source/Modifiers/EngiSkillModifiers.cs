@@ -23,7 +23,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public static Dictionary<DeployableSlot, int> deployableSlotCountBonus = new Dictionary<DeployableSlot, int>();
 
-        public static int GetDeployableSameSlotBonus(DeployableSlot slot) { 
+        public static int GetDeployableSameSlotBonus(DeployableSlot slot) {
             if(deployableSlotCountBonus.TryGetValue(slot, out int bonusCount)) {
                 return bonusCount;
             }
@@ -32,7 +32,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireGrenade")]
+    [SkillLevelModifier("FireGrenade", typeof(ChargeGrenades))]
     class EngiGrenadesSkillModifier : SimpleSkillModifier<ChargeGrenades> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -43,16 +43,8 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("PlaceMine")]
+    [SkillLevelModifier("PlaceMine", typeof(FireMines), typeof(MineArmingFull), typeof(MineArmingWeak))]
     class EngiMineSkillModifier : BaseSkillModifier {
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() { 
-                typeof(FireMines),
-                typeof(MineArmingFull),
-                typeof(MineArmingWeak),
-            };
-        }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -98,15 +90,8 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("PlaceSpiderMine")]
+    [SkillLevelModifier("PlaceSpiderMine", typeof(FireSpiderMine), typeof(EntityStates.Engi.SpiderMine.WaitForTarget))]
     class EngiSpiderMineSkillModifier : BaseSkillModifier {
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() {
-                typeof(FireSpiderMine),
-                typeof(EntityStates.Engi.SpiderMine.WaitForTarget)
-            };
-        }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -127,7 +112,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         private void OnFireSpiderMineEnter(FireSpiderMine fireSpiderMine, int level) {
             Logger.Debug("damageCoefficient: {0}", fireSpiderMine.damageCoefficient);
-            fireSpiderMine.damageCoefficient = MultScaling(6, 0.25f, level);           
+            fireSpiderMine.damageCoefficient = MultScaling(6, 0.25f, level);
         }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -138,7 +123,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("PlaceBubbleShield")]
+    [SkillLevelModifier("PlaceBubbleShield", typeof(FireBubbleShield))]
     class EngiBubbleShieldSkillModifier : SimpleSkillModifier<FireBubbleShield> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -155,12 +140,12 @@ namespace SkillsPlusPlus.Modifiers {
                 GameObject bubbleGameObject = childLocator.FindChild(Deployed.childLocatorString).gameObject;
                 if(bubbleGameObject) {
                     bubbleGameObject.transform.localScale = Vector3.one * bubbleSize;
-                }                
+                }
             }
         }
     }
 
-    [SkillLevelModifier("EngiHarpoons")]
+    [SkillLevelModifier("EngiHarpoons", typeof(Paint))]
     class EngiHarpoonsSkillModifier : SimpleSkillModifier<Paint> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -173,15 +158,8 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("PlaceTurret", "TR12-C Gauss Compact")]
+    [SkillLevelModifier(new string[] {"PlaceTurret", "TR12-C Gauss Compact"}, typeof(PlaceTurret), typeof(FireGauss))]
     class EngiTurretSkillModifier : BaseSkillModifier {
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() {
-                typeof(PlaceTurret),
-                typeof(FireGauss)
-            };
-        }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -213,15 +191,8 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("PlaceWalkerTurret", "TR58-C Carbonizer Mini")]
+    [SkillLevelModifier(new string[] { "PlaceWalkerTurret", "TR58-C Carbonizer Mini" }, typeof(PlaceWalkerTurret), typeof(FireBeam))]
     class EngiWalkerTurretSkillModifier : BaseSkillModifier {
-
-        public override IList<Type> GetEntityStateTypes() {
-            return new List<Type>() {
-                typeof(PlaceWalkerTurret),
-                typeof(FireBeam)
-            };
-        }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
