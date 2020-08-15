@@ -38,26 +38,29 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("NovaBomb", typeof(ChargeNovabomb))]
-    class MageNovaBombSkillModifier : BaseSkillModifier {
-
+    class BaseBombSkillModifier : BaseSkillModifier {
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            if(skillState is ChargeNovabomb chargeBomb) {
-                Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", chargeBomb.baseChargeDuration, chargeBomb.maxDamageCoefficient, chargeBomb.maxRadius);
-                chargeBomb.baseChargeDuration = MultScaling(chargeBomb.baseChargeDuration, 0.5f, level);
-                chargeBomb.minDamageCoefficient = MultScaling(chargeBomb.minDamageCoefficient, 0.25f, level);
-                chargeBomb.maxDamageCoefficient = MultScaling(chargeBomb.maxDamageCoefficient, 0.75f, level); // 50% to keep up with charge duration + 25% damage bonus
-                chargeBomb.maxRadius = MultScaling(chargeBomb.maxRadius, 0.5f, level);
-                chargeBomb.force = MultScaling(chargeBomb.force, 0.5f, level);
-                Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", chargeBomb.baseChargeDuration, chargeBomb.maxDamageCoefficient, chargeBomb.maxRadius);
+            if(skillState is BaseChargeBombState chargeBomb) {
+                // Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", chargeBomb.baseChargeDuration, chargeBomb.maxDamageCoefficient, chargeBomb.maxRadius);
+                chargeBomb.baseDuration = MultScaling(chargeBomb.baseDuration, 0.5f, level);
+                // chargeBomb.maxRadius = MultScaling(chargeBomb.maxRadius, 0.5f, level);
+                // Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", chargeBomb.baseChargeDuration, chargeBomb.maxDamageCoefficient, chargeBomb.maxRadius);
+            }
+            if(skillState is BaseThrowBombState throwBomb) {
+                throwBomb.minDamageCoefficient = MultScaling(throwBomb.minDamageCoefficient, 0.25f, level);
+                throwBomb.maxDamageCoefficient = MultScaling(throwBomb.maxDamageCoefficient, 0.75f, level); // 50% to keep up with charge duration + 25% damage bonus
+                throwBomb.force = MultScaling(throwBomb.force, 0.5f, level);
             }
         }
 
     }
 
-    [SkillLevelModifier("IceBomb", typeof(ChargeIcebomb))]
-    class MageIceBombSkillModifier : MageNovaBombSkillModifier { }
+    [SkillLevelModifier("NovaBomb", typeof(ChargeNovabomb), typeof(ThrowNovabomb))]
+    class MageNovaBombSkillModifier : BaseBombSkillModifier {}
+
+    [SkillLevelModifier("IceBomb", typeof(ChargeIcebomb), typeof(ThrowIcebomb))]
+    class MageIceBombSkillModifier : BaseBombSkillModifier {}
 
     [SkillLevelModifier("Wall", typeof(PrepWall))]
     class MageWallSkillModifier : SimpleSkillModifier<PrepWall> {

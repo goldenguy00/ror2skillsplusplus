@@ -55,16 +55,13 @@ namespace SkillsPlusPlus.Modifiers {
             // R2API.LanguageAPI.Add("HUNTRESS_SECONDARY_DESCRIPTION", "Throw a seeking glaive that bounces up to <style=cIsDamage>6 (+2)</style> times for <style=cIsDamage>250% damage</style>. Damage increases by <style=cIsDamage>10% (+2.5%)</style> per bounce.");
         }
 
-        private static readonly int origGlaiveBounceCount = 6;
-        private static readonly float origGlaiveBounceRange = 35f;
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("OnSkillLeveledUp(level: {0})", level);
             Logger.Debug("Glaive stats - max bounces: {0}, damage coefficient: {1}, glaiveBounceRange: {2}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce, ThrowGlaive.glaiveBounceRange);
-            ThrowGlaive.maxBounceCount = AdditiveScaling(origGlaiveBounceCount, 1, level);
+            ThrowGlaive.maxBounceCount = AdditiveScaling(6, 1, level);
             ThrowGlaive.damageCoefficient = MultScaling(2.5f, 0.1f, level);
-            ThrowGlaive.glaiveBounceRange = AdditiveScaling(origGlaiveBounceRange, 10, level);
+            ThrowGlaive.glaiveBounceRange = AdditiveScaling(35, 10, level);
             Logger.Debug("Glaive stats - max bounces: {0}, damage coefficient: {1}, glaiveBounceRange: {2}", ThrowGlaive.maxBounceCount, ThrowGlaive.damageCoefficientPerBounce, ThrowGlaive.glaiveBounceRange);
         }
 
@@ -110,13 +107,9 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             if (skillState is FireArrowSnipe snipeState) {
-                snipeState.damageCoefficient = MultScaling(9, 0.2f, level);
+                snipeState.damageCoefficient = MultScaling(snipeState.damageCoefficient, 0.2f, level);
                 Logger.Debug("damageCoefficient: {0}", snipeState.damageCoefficient);
             }
-        }
-
-        public override void OnSkillExit(BaseState skillState, int level) {
-            // do nothing
         }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {

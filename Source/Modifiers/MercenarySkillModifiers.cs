@@ -24,7 +24,7 @@ namespace SkillsPlusPlus.Modifiers {
             GroundLight.selfForceMagnitude = MultScaling(600, 0.25f, level);
             GroundLight.comboDamageCoefficient = MultScaling(1.3f, 0.2f, level);
             GroundLight.baseComboAttackDuration = MultScaling(0.6f, -0.15f, level);
-            GroundLight.finisherDamageCoefficient = MultScaling(3, 0.4f, level);
+            GroundLight.finisherDamageCoefficient = MultScaling(1.3f, 0.4f, level);
             GroundLight.baseFinisherAttackDuration = MultScaling(1, -0.15f, level);
         }
 

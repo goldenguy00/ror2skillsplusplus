@@ -19,9 +19,6 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            Logger.Debug("FirePistol2");
-            Logger.Debug(FirePistol2.baseDuration);
-            Logger.Debug(FirePistol2.recoilAmplitude);
             FirePistol2.baseDuration = MultScaling(0.2f, -0.20f, level);
             FirePistol2.recoilAmplitude = MultScaling(1.5f, -0.1f, level);
             FirePistol2.spreadBloomValue = MultScaling(0.3f, -0.1f, level);
@@ -37,7 +34,7 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("recoilAmplitude: {0},s damageCoefficient: {1}", skillState.recoilAmplitude, skillState.damageCoefficient);
             skillState.projectilePrefab.transform.localScale = new Vector3(2.90f, 2.19f, 3.86f) * AdditiveScaling(1, 0.5f, level);
             if (skillState.projectilePrefab.TryGetComponent<ProjectileSimple>(out ProjectileSimple projectileSimple)) {
-                projectileSimple.velocity = MultScaling(120f, 0.5f, level);
+                projectileSimple.velocity = MultScaling(600f, 0.5f, level);
             }
             skillState.recoilAmplitude = MultScaling(skillState.recoilAmplitude, 0.5f, level);
             skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.5f, level);
@@ -95,7 +92,7 @@ namespace SkillsPlusPlus.Modifiers {
             
             FireBarrage.baseBulletCount = (int)MultScaling(6, 0.5f, level);
             FireBarrage.totalDuration = MultScaling(1f, 0.25f, level);
-            FireBarrage.baseDurationBetweenShots = 1 / MultScaling(1 / 0.12f, 0.25f, level);
+            FireBarrage.baseDurationBetweenShots = MultScaling(0.12f, -0.25f, level);
             // FireBarrage.baseDurationBetweenShots = AdditiveScaling(0.12f, -0.01f, level);
         }
 
