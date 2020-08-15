@@ -353,7 +353,11 @@ namespace SkillsPlusPlus {
         }
 
         private static int SkillPointsAtLevel(int characterLevel) {
-            return (characterLevel - 1) / levelsPerPoint;
+#if DEBUG
+            return characterLevel - 1;
+#else
+            return (characterLevel / 5);
+#endif 
         }
     }
 }
