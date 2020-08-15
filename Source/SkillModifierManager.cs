@@ -81,10 +81,12 @@ namespace SkillsPlusPlus {
         }
 
         internal static IEnumerable<BaseSkillModifier> GetSkillModifiersForEntityStateType(Type entityStateType) {
-            if (stateTypeToSkillModifierDictionary.TryGetValue(entityStateType, out ISet<BaseSkillModifier> modifiers)) {
+            if(stateTypeToSkillModifierDictionary.TryGetValue(entityStateType, out ISet<BaseSkillModifier> modifiers)) {
                 return modifiers;
             }
-            Logger.Debug("Could not find any ISkillModifiers for entity state {0}", entityStateType.FullName);
+            if(entityStateType != typeof(GenericCharacterPod)) { 
+                Logger.Debug("Could not find any ISkillModifiers for entity state {0}", entityStateType.FullName);
+            }
             return Enumerable.Empty<BaseSkillModifier>();
         }
 

@@ -11,18 +11,13 @@ using System.Linq;
 using SkillsPlusPlus.Util;
 using SkillsPlusPlus.ConVars;
 
+using Rewired;
+
 namespace SkillsPlusPlus {
 
     [RequireComponent(typeof(PlayerCharacterMasterController))]
     sealed class SkillPointsController : MonoBehaviour {
 
-#if DEBUG
-        private static readonly int levelsPerPoint = 1;
-        private static readonly int skillLevelScaling = 2;
-#else
-        private static int levelsPerPoint = 3;
-        private static int skillLevelScaling = 1;
-#endif
         private PlayerCharacterMasterController playerCharacterMasterController;
         private CharacterBody body {
             get { return playerCharacterMasterController.master.GetBody(); }
@@ -61,6 +56,17 @@ namespace SkillsPlusPlus {
             On.EntityStates.BaseState.OnEnter += OnEnterState;
             On.EntityStates.EntityState.OnExit += OnExitState;
             On.RoR2.CharacterBody.RecalculateStats += this.OnRecalculateState;
+            On.EntityStates.GenericCharacterMain.CanExecuteSkill += this.GenericCharacterMain_CanExecuteSkill;
+        }
+
+        private bool GenericCharacterMain_CanExecuteSkill(On.EntityStates.GenericCharacterMain.orig_CanExecuteSkill orig, GenericCharacterMain self, GenericSkill skillSlot) {
+            if(this.isSurvivorEnabled == true && this.body != null && self.outer.commonComponents.characterBody == this.body) {
+                Player inputPlayer = this.playerCharacterMasterController?.networkUser?.localUser?.inputPlayer;
+                if(inputPlayer != null && inputPlayer.GetButtonDown(SkillInput.BUY_SKILLS_ACTION_ID)) {
+                    return false;
+                }
+            }
+            return orig(self, skillSlot);
         }
 
         void OnDestroy() {
@@ -329,11 +335,9 @@ namespace SkillsPlusPlus {
                         ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillName);
                         // Logger.Debug("RefreshIconControllers - slot: {0}, skillLevelIconController: {1}, modifier: {2}", slot, skillLevelIconController, modifier);
 
-                        int requiredLevelToBuySkill = (currentSkillLevel / skillLevelScaling);
                         // has skillpoints to spend
-                        // meets required character level
                         // and the skill is less than its max level
-                        skillLevelIconController.IsUpgradable = unspentSkillPoints > 0 && characterLevel >= requiredLevelToBuySkill && isSurvivorEnabled;
+                        skillLevelIconController.IsUpgradable = unspentSkillPoints > 0  && isSurvivorEnabled;
                         skillLevelIconController.Level = currentSkillLevel;
                     } else {
                         Logger.Debug("Could not refresh the icon controller for skill named {0}", skillName);

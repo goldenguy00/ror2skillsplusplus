@@ -6,10 +6,9 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
 
 - [Risk of Rain 2 - Skills++ Mod](#risk-of-rain-2---skills-mod)
   - [Table of Contents](#table-of-contents)
-  - [What's new in 0.0.11](#whats-new-in-0011)
-  - [Project goals](#project-goals)
+  - [What's new in 0.1.0](#whats-new-in-010)
   - [Usage](#usage)
-  - [Upgrade paths](#upgrade-paths)
+    - [Controllers](#controllers)
   - [Upgrade descriptions](#upgrade-descriptions)
     - [Commando](#commando)
     - [Huntress](#huntress)
@@ -24,28 +23,24 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
   - [FAQ](#faq)
   - [Special thanks](#special-thanks)
 
-## What's new in 0.1.0-rc1
+## What's new in 0.1.0
 
 Changes:
-- Prelease of public API for modded character support
 
-**Note: This is a pre-release that is not intended for play. It is intended for modders that are wanting to support Skills++ with their character creations.**
-
-## Project goals
-
-I often found some character abilities to be underwhelming as runs progressed and that one ability would become more powerful that others.
-This mod hopes to provide an additional sense of progression and giving your character a feeling of power throughout a run.
-
-The roadmap of the project is evolving as feedback is received. The current state is
-
-1. Implement all vanilla characters skill upgrades. Only REX remains.
-2. Support modded characters
-3. Proper multiplayer support
-4. Rebuild UX to fix UI bugs and support controllers.
+- Fixed mod to work with changes in the game's 1.0.0 release.
+- Added support for controllers to spend skill points. Button is rebindable in gamepad options.
+- **Added support for other modded characters to integrate with Skills++.**
+- Added console command to disable Skills++ for chosen survivors. This is for all of the [Sniper](https://thunderstore.io/package/Rein/Sniper/) players out there.
+- Removed limits on upgrading skills.
+- Reduced the rate of acquiring skill points to one per 5 levels.
+- Changed percentage/multiplication compound the scaling. As an adjustment some scalings have been pulled back to compensate.
+- Removed Blinding Assault cooldown reduction now the mechanism is core to Mercenary's loadout.
+- Changed UI to show the upgrades as a number rather than as multiple '+' symbols
+- Removed MUL-T's swap duration reduction scaling in favour of a new equipment cooldown buff.
 
 ## Usage
 
-While ingame your will earn points every third level gained that can be used to purchase upgrades to your characters skills. Your first skill point is earned upon reaching level 4, the next point is earned level 7, and so on.
+While ingame your will earn points every third level gained that can be used to purchase upgrades to your characters skills. Your first skill point is earned upon reaching level 5, and subsequently rewards every fifth level.
 To redeem points open the info screen (hold TAB by default) and click the skill you would like to buy.
 Upgrades do not carry over between runs so you will be starting from scratch every time.
 
@@ -58,10 +53,16 @@ Upgrades do not carry over between runs so you will be starting from scratch eve
 1. Clicking on any of the 'Buy' buttons will spend a single point and the skill will upgrade. The plus indicates the number of skillpoints invested in the skill.,
 ![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skillpoint_spent.png)
 
-1. Once a skill has been fully upgraded it will no longer light up yellow nor show a 'Buy' button in the info screen.
-![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skill_fully_upgraded.png)
+### Controllers
 
-Mutliplayer is supported however there may be cases when game state is not correctly synced between connected clients. This is a known issue and will be worked on once all the characters' upgrade sets are done.
+Using controllers is now support for purchasing upgrades for your skills.
+In order to begin using it you must bind your desired control to entering the buying mode.
+You can find the binding at the end of all the gamepad controls.
+![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skills_gamepad_settings.jpg)
+
+While ingame just press and the bound button and activate the skill you sish to upgrade.
+
+> ***NOTE:*** Mutliplayer is possible but not support. There may be cases when game state is not correctly synced between connected clients.
 
 > ***NOTE:*** This mod is still a work in progress. There is no guarantee that SkillsPlusPlus is going to work with other mods thats alter character abilities. If you have found a bug refer to [Report a bug](#report-a-bug).
 
@@ -179,7 +180,7 @@ The best way to reach me is directly through discord, you can find me on the [mo
 
 **Will Skills++ support modded characters?**
   
-Yes, in time. Internally the Skills++ has been built to support more upgrade logic paths for any skill. What is lacking is instructional guides and public API for modders to integrate with.
+Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/feature/public-api/Documentation/supporting-modded-characters.md) alongside the mod's source code.
 
 **Skills++ makes the game a cakewalk. Do you recommend any other mods to balance the game?**
 

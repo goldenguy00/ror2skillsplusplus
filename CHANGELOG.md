@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 0.1.0
+
+Changes:
+
+- Fixed mod to work with changes in the game's 1.0.0 release.
+- Added support for controllers to spend skill points. Button is rebindable in gamepad options.
+- **Added support for other modded characters to integrate with Skills++.**
+- Added console command to disable Skills++ for chosen survivors. This is for all of the [Sniper](https://thunderstore.io/package/Rein/Sniper/) players out there.
+- Removed limits on upgrading skills.
+- Reduced the rate of acquiring skill points to one per 5 levels.
+- Changed percentage/multiplication compound the scaling. As an adjustment some scalings have been pulled back to compensate.
+- Removed Blinding Assault cooldown reduction now the mechanism is core to Mercenary's loadout.
+- Changed UI to show the upgrades as a number rather than as multiple '+' symbols
+- Removed MUL-T's swap duration reduction scaling in favour of a new equipment cooldown buff.
+
 ## Version 0.1.0-rc1
 
 Changes:

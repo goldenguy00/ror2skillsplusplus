@@ -22,22 +22,15 @@ namespace SkillsPlusPlus {
         //private SkillLevelIconController[] skillsHUDControllers;
 
         void Awake() {
-
 #if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
 
             // disable client authing when connecting to a server to allow two game instances to run in parallel
             //On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
 
-            //On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
-            //    return true;
-            //};
-            // On.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect += orig => { };
-
-            //On.RoR2.CombatDirector.OnEnable += (orig, self) => {
-            //    orig(self);
-            //    self.creditMultiplier = 10;
-            //};
+            On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
+                return true;
+            };
 
 #endif
 
@@ -48,8 +41,6 @@ namespace SkillsPlusPlus {
 
             SkillModifierManager.LoadSkillModifiers();
             SkillInput.SetupCustomInput();
-
-
 
             On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {
                 orig(self);

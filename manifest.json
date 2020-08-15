@@ -1,8 +1,8 @@
 {
 	"name": "SkillsPlusPlus",
-	"version_number": "0.1.0-rc1",
+	"version_number": "0.1.0",
 	"website_url": "https://gitlab.com/cwmlolzlz/ror2skillsplusplus",
-	"description": "Loader update! Add progression to your runs with skill upgrades",
+	"description": "Add progression to your runs with skill upgrades",
 	"dependencies": [
 		"bbepis-BepInExPack-5.3.1",
 		"tristanmcpherson-R2API-2.4.29"

@@ -24,18 +24,19 @@ namespace SkillsPlusPlus.ConVars {
             }
             bool didFindSurvivor = false;
             foreach(SurvivorDef survivorDef in SurvivorCatalog.allSurvivorDefs) {
-                if(survivorName.Equals(survivorDef.displayNameToken, StringComparison.OrdinalIgnoreCase)) {
-                    if(disabledSurvivors.value.Contains(survivorDef.displayNameToken)) {
-                        Debug.LogFormat("{0} has already been disabled", survivorDef.displayNameToken);
+                string resolvedSurvivorName = Language.GetString(survivorDef.displayNameToken);
+                if(survivorName.Equals(resolvedSurvivorName, StringComparison.OrdinalIgnoreCase)) {
+                    if(disabledSurvivors.value.Contains(resolvedSurvivorName)) {
+                        Debug.LogFormat("{0} has already been disabled", resolvedSurvivorName);
                         return;
                     } else {
                         didFindSurvivor = true;
-                        disabledSurvivors.value.Add(survivorDef.displayNameToken);
+                        disabledSurvivors.value.Add(resolvedSurvivorName);
                     }
                 }
             }
             if(didFindSurvivor) {
-                Debug.Log(disabledSurvivors.GetString());
+                Debug.Log(String.Format("Disabled survirors: {0}", disabledSurvivors.GetString()));
             } else {
                 Debug.LogFormat("Could not find any survivors named {0}", survivorName);
             }
@@ -49,11 +50,12 @@ namespace SkillsPlusPlus.ConVars {
                 return;
             }
             foreach(SurvivorDef survivorDef in SurvivorCatalog.allSurvivorDefs) {
-                if(survivorName.Equals(survivorDef.displayNameToken, StringComparison.OrdinalIgnoreCase)) {
-                    disabledSurvivors.value.Remove(survivorDef.displayNameToken);
+                string resolvedSurvivorName = Language.GetString(survivorDef.displayNameToken);
+                if(survivorName.Equals(resolvedSurvivorName, StringComparison.OrdinalIgnoreCase)) {
+                    disabledSurvivors.value.Remove(resolvedSurvivorName);
                 }
             }
-            Debug.Log(disabledSurvivors.GetString());
+            Debug.Log(String.Format("Disabled survirors: {0}", disabledSurvivors.GetString()));
         }
     }
 
