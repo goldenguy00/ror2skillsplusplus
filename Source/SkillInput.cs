@@ -19,6 +19,8 @@ namespace SkillsPlusPlus {
 
         public const int BUY_SKILLS_ACTION_ID = 400;
         public const string BUY_SKILLS_ACTION_NAME = "BuySkills";
+        private const string UI_TOKEN = "Buy Skills"; //"SKILLS_GAMEPAD_BUY_BTN";
+        private const string UI_HOVER_TOKEN = "Holding this button during gameplay will allow the purchase of skills. Once held press the button for the skill you want to purchase."; // "SKILLS_GAMEPAD_BUY_BTN";
 
         internal static void SetupCustomInput() {
             On.Rewired.ReInput.KFIfLMJhIpfzcbhqEXHpaKpGsgeZ += SkillInput.ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ;
@@ -39,7 +41,7 @@ namespace SkillsPlusPlus {
                 try {
                     Type actionAxisPairType = Reflection.GetNestedTypeCached(typeof(InputCatalog), "ActionAxisPair");
                     var actionAxisPair = actionAxisPairType.GetConstructorCached(new Type[] { typeof(string), typeof(AxisRange) }).Invoke(new object[] { BUY_SKILLS_ACTION_NAME, AxisRange.Full });
-                    typeof(InputCatalog).GetFieldValue<System.Collections.IDictionary>("actionToToken").Add(actionAxisPair, "SKILLS_GAMEPAD_BUY_BTN");
+                    typeof(InputCatalog).GetFieldValue<System.Collections.IDictionary>("actionToToken").Add(actionAxisPair, UI_TOKEN);
                 } catch(Exception exception) {
                     Logger.Error(exception);
                     return;
@@ -88,7 +90,7 @@ namespace SkillsPlusPlus {
                 inputBindingControl.Awake();
 
                 HGButton button = buySkillsOptionGameObject.GetComponent<HGButton>();
-                button.hoverToken = "SKILLS_GAMEPAD_BUY_DESCRIPTION";
+                button.hoverToken = UI_HOVER_TOKEN;
 
             }
 

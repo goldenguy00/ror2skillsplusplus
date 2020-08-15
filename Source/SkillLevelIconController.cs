@@ -19,6 +19,8 @@ namespace SkillsPlusPlus {
     [RequireComponent(typeof(SkillIcon))]
     sealed class SkillLevelIconController : MonoBehaviour {
 
+        private static string BUY_TOKEN = "BUY"; // SKILLS_SLOT_BUY_BTN
+
         private SkillIcon skillIcon;
         private GameObject CanBuyPanel;
         private GameObject LevelBackgroundPanel;
@@ -131,8 +133,8 @@ namespace SkillsPlusPlus {
                 MPEventSystemLocator eventSystemLocation = UpgradeButton.AddComponent<MPEventSystemLocator>();
 
                 HGTextMeshProUGUI buttonTextMesh = UpgradeButton.AddComponent<HGTextMeshProUGUI>();
-                buttonTextMesh.text = Language.GetString("SKILLS_SLOT_BUY_BTN");
-                buttonTextMesh.fontSize = 24;
+                buttonTextMesh.text = Language.GetString(BUY_TOKEN);
+                buttonTextMesh.fontSize = 18;
                 buttonTextMesh.color = Color.yellow;
                 buttonTextMesh.alignment = TMPro.TextAlignmentOptions.Center;
                 buttonTextMesh.enableWordWrapping = false;
