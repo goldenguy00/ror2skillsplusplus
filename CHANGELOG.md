@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.1.0-rc1
+
+Changes:
+- Prelease of public API for modded character support
+
 ## Version 0.0.11
 
 Changes:

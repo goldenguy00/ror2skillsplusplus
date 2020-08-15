@@ -23,18 +23,12 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
   - [FAQ](#faq)
   - [Special thanks](#special-thanks)
 
-## What's new in 0.0.11
+## What's new in 0.1.0-rc1
 
 Changes:
+- Prelease of public API for modded character support
 
-- Added upgrades for Loader
-- Improved readme's mod usage section with images.
-- Added FAQ section to readme
-
-Bug fixes:
-
-- [#31](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/31) - Fixed Mercenary's eviscerate not applying upgrades
-- [#33](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/33) - Fixed Acrid's caustic leap ability having only one charge instead of two.
+**Note: This is a pre-release that is not intended for play. It is intended for modders that are wanting to support Skills++ with their character creations.**
 
 ## Project goals
 
