@@ -38,9 +38,12 @@ Changes:
 - Changed UI to show the upgrades as a number rather than as multiple '+' symbols
 - Removed MUL-T's swap duration reduction scaling in favour of a new equipment cooldown buff.
 
+[Full historical changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
+
 ## Usage
 
-While ingame your will earn points every third level gained that can be used to purchase upgrades to your characters skills. Your first skill point is earned upon reaching level 5, and subsequently rewards every fifth level.
+While ingame your will earn points every third level gained that can be used to purchase upgrades to your characters skills. 
+Your first skill point is earned upon reaching level 5, and subsequently rewards every fifth level.
 To redeem points open the info screen (hold TAB by default) and click the skill you would like to buy.
 Upgrades do not carry over between runs so you will be starting from scratch every time.
 
@@ -50,7 +53,7 @@ Upgrades do not carry over between runs so you will be starting from scratch eve
 1. Opening the info screen will present 'Buy' buttons over the top of skills that can be purchased.
 ![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/buy_options.png)
 
-1. Clicking on any of the 'Buy' buttons will spend a single point and the skill will upgrade. The plus indicates the number of skillpoints invested in the skill.,
+1. Clicking on any of the 'Buy' buttons will spend a single point and the skill will upgrade.
 ![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skillpoint_spent.png)
 
 ### Controllers
