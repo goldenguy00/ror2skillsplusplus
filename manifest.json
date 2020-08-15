@@ -4,7 +4,7 @@
 	"website_url": "https://gitlab.com/cwmlolzlz/ror2skillsplusplus",
 	"description": "Loader update! Add progression to your runs with skill upgrades",
 	"dependencies": [
-		"bbepis-BepInExPack-3.2.0",
-		"tristanmcpherson-R2API-2.4.10"
+		"bbepis-BepInExPack-5.3.1",
+		"tristanmcpherson-R2API-2.4.29"
 	]
 }

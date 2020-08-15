@@ -12,13 +12,11 @@ namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.0")]
-    [R2APISubmoduleDependency("LanguageAPI", nameof(CommandHelper))]
+    [R2APISubmoduleDependency(nameof(CommandHelper))]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
         private HUD hud;
         private PlayerCharacterMasterController playerCharacterMasterController;
-
-        private bool hasAlteredControls = false;
 
         //private SkillPointsController skillsController;
         //private SkillLevelIconController[] skillsHUDControllers;
@@ -29,17 +27,17 @@ namespace SkillsPlusPlus {
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
 
             // disable client authing when connecting to a server to allow two game instances to run in parallel
-            On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
+            //On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
 
-            On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
-                return true;
-            };
-            On.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect += orig => { };
+            //On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
+            //    return true;
+            //};
+            // On.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect += orig => { };
 
-            On.RoR2.CombatDirector.OnEnable += (orig, self) => {
-                orig(self);
-                self.creditMultiplier = 10;
-            };
+            //On.RoR2.CombatDirector.OnEnable += (orig, self) => {
+            //    orig(self);
+            //    self.creditMultiplier = 10;
+            //};
 
 #endif
 
