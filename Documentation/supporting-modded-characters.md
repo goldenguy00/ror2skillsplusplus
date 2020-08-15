@@ -25,12 +25,6 @@ Skills++ is built upon Risk of Rain 2's entity state system that describes the b
 The core concept for Skills++ is are the `SkillModifier` classes that are associated to skills.
 When it comes to implementing your character you will only need to work with the skills since the mod does not care about the character loaded.
 
-```mermaid
-graph TD
-    A[SimpleSkillModifier<T>] -->B[BaseSkillModifier]
-    B --> |implements| C[ISkillModifier]
-```
-
 ## Before you begin
 
 Skills++ deals directly with the internal entity states and logic of skills. 
@@ -67,12 +61,8 @@ If you are implementing a `SimpleSkillModifier<T>` then the type of the state pr
 Here is an example of modifying the Commando's primary attack to increase it's rate of fire every level.
 
 ```c#
-[SkillLevelModifier("FirePistol")]
+[SkillLevelModifier("FirePistol", typeof(FirePistol2))]
 class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
-
-    public override int MaxLevel {
-        get { return 4; }
-    }
 
     public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
         base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -87,11 +77,11 @@ Let's break this down piece by piece.
 ---
 
 ```c#
-[SkillLevelModifier("FirePistol")]
+[SkillLevelModifier("FirePistol", typeof(FirePistol2))]
 ```
 
-This marks that the `CommandoFirePistolSkillModifier` is for the skill named `FirePistol`.
-`FirePistol` is the internal name for Commando's double tap skill.
+This marks that the `CommandoFirePistolSkillModifier` is for the skill named `"FirePistol"` and declares that it wants to alter the `FirePistol2` state.
+Note that 'FirePistol' is the internal name for Commando's double tap skill rather than the user facing name 'Double Tap'.
 
 ---
 
@@ -102,17 +92,6 @@ class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
 Here the name of this new class is not important.
 `FirePistol2` is the game's internal class for handling the firing of the Commando's primary skill.
 It is used to specify the entity state this skill modifer concerns.
-
----
-
-```c#
-    public override int MaxLevel {
-        get { return 4; }
-    }
-```
-
-Despite the maximum level for this skill being four this skill can be levelled up three times.
-Within Skills++ a skill with no upgrades is considered to be at level one.
 
 ---
 
@@ -161,12 +140,8 @@ namespace MyCommandoSkillModifierMod {
 
     }
 
-    [SkillLevelModifier("FirePistol")]
+    [SkillLevelModifier("FirePistol", typeof(FirePistol2))]
     class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
-
-        public override int MaxLevel {
-            get { return 4; }
-        }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -219,18 +194,15 @@ In this situation the skill modifier needs to be implemented in such a way to re
 Up until now this guide has focused on using the `SimpleSkillModifier<T>` class.
 From here on the underlying `BaseSkillModifier` is the base class used for such a skill modifier.
 
-Consider Huntress's sniper ability.
-This one skill consists of two entity states `FireArrowSnipe` and `AimArrowSnipe`.
-`AimArrowSnipe` is the first part of the skill when the character rises in the air and can take aim.
-`FireArrowSnipe` is used every time the player fires.
-These two entity states work in conjuction to give the skill it's behaviour.
-
-The `BaseSkillModifier` has the method `GetEntityStateTypes()` that returns a list of types that the modifier implementation is wanting to alter.
-Taking the example above we would use the following code.
+Consider the Engineer's pressure mine skill.
+This single skill is described with three different states `FireMines`, `MineArmingFull`, and `MineArmingWeak`.
+By subclassing `BaseSkillModifier` it possible to write a single modifier that handles all three of these states.
+As a requirement the attribute on the class must declare these three states.
 
 ```c#
-public override IList<Type> GetEntityStateTypes() {
-    return new List<Type>() { typeof(FireArrowSnipe), typeof(AimArrowSnipe) };
+[SkillLevelModifier("PlaceMine", typeof(FireMines), typeof(MineArmingFull), typeof(MineArmingWeak))]
+class EngiMineSkillModifier : BaseSkillModifier {
+    // ...
 }
 ```
 
@@ -240,10 +212,12 @@ Instead, it will provide the skill state as just a `BaseState` and you will need
 
 ```c#
 public override void OnSkillEnter(BaseState skillState, int level) {
-    if (skillState is AimArrowSnipe aimState) {
-        // make changes to AimArrowSnipe instance
-    } else if (skillState is FireArrowSnipe snipeState) {
-        // make changes to FireArrowSnipe instance
+    if (skillState is FireMines fireMinesState) {
+        // make changes to FireMines instance
+    } else if (skillState is MineArmingWeak weakState) {
+        // make changes to MineArmingWeak instance
+    } else if (skillState is MineArmingFull armingFullState) {
+        // make changes to MineArmingFull instance
     }
 }
 ```
