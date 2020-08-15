@@ -18,7 +18,7 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(skillState, level);
             var huntressTracker = skillState.outer.GetComponent<HuntressTracker>();
             Logger.Debug("orbProcCoefficient: {0}, trackingDistance: {1}, trackingAngle: {3}, maxArrowCount: {2}", skillState.orbProcCoefficient, huntressTracker.maxTrackingDistance, skillState.maxArrowCount, huntressTracker.maxTrackingAngle);
-            huntressTracker.maxTrackingDistance = AdditiveScaling(60, 20, level); // 33%
+            huntressTracker.maxTrackingDistance = MultScaling(60, 0.2f, level);
             huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
             skillState.orbProcCoefficient = AdditiveScaling(1f, 0.2f, level);
             //skillState.orbProcCoefficient;
@@ -32,7 +32,7 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(skillState, level);
             var huntressTracker = skillState.outer.GetComponent<HuntressTracker>();
             Logger.Debug("orbProcCoefficient: {0}, trackingDistance: {1}, trackingAngle: {3}, maxArrowCount: {2}, baseArrowReloadDuration: {4}", skillState.orbProcCoefficient, huntressTracker.maxTrackingDistance, skillState.maxArrowCount, huntressTracker.maxTrackingAngle, skillState.baseArrowReloadDuration);
-            huntressTracker.maxTrackingDistance = AdditiveScaling(60, 10, level); // 16%
+            huntressTracker.maxTrackingDistance = MultScaling(60, 0.10f, level);
             huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
             skillState.maxArrowCount = AdditiveScaling(3, 1, level);
             // FireFlurrySeekingArrow.baseArrowReloadDuration = AdditiveScaling(6, 2, level);
@@ -92,8 +92,8 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("ArrowRain stats - arrowRainRadius: {0}, damageCoefficient: {1}, prefabScale {2}", ArrowRain.arrowRainRadius, ArrowRain.damageCoefficient, ArrowRain.projectilePrefab.transform.localScale);
-            ArrowRain.arrowRainRadius = AdditiveScaling(7.5f, 2.5f, level);
-            ArrowRain.damageCoefficient = MultScaling(2.2f, 0.25f, level);
+            ArrowRain.arrowRainRadius = MultScaling(7.5f, 0.25f, level);
+            ArrowRain.damageCoefficient = MultScaling(2.2f, 0.2f, level);
 
             ArrowRain.projectilePrefab.transform.localScale = Vector3.one * ArrowRain.arrowRainRadius * 2;
         }

@@ -20,11 +20,11 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            GroundLight.forceMagnitude = MultScaling(600, 0.25f, level);
-            GroundLight.selfForceMagnitude = MultScaling(600, 0.25f, level);
+            GroundLight.forceMagnitude = MultScaling(600, 0.20f, level);
+            GroundLight.selfForceMagnitude = MultScaling(600, 0.20f, level);
             GroundLight.comboDamageCoefficient = MultScaling(1.3f, 0.2f, level);
             GroundLight.baseComboAttackDuration = MultScaling(0.6f, -0.15f, level);
-            GroundLight.finisherDamageCoefficient = MultScaling(1.3f, 0.4f, level);
+            GroundLight.finisherDamageCoefficient = MultScaling(1.3f, 0.2f, level);
             GroundLight.baseFinisherAttackDuration = MultScaling(1, -0.15f, level);
         }
 
@@ -39,15 +39,15 @@ namespace SkillsPlusPlus.Modifiers {
                 WhirlwindEntry whirlwindEntry = (WhirlwindEntry)skillState;
             } else if(skillState is WhirlwindBase) {
                 WhirlwindBase whirlwindBase = (WhirlwindBase)skillState;
-                whirlwindBase.baseDamageCoefficient = MultScaling(whirlwindBase.baseDamageCoefficient, 0.4f, level);
-                whirlwindBase.selfForceMagnitude = MultScaling(whirlwindBase.selfForceMagnitude, 0.4f, level);
+                whirlwindBase.baseDamageCoefficient = MultScaling(whirlwindBase.baseDamageCoefficient, 0.25f, level);
+                whirlwindBase.selfForceMagnitude = MultScaling(whirlwindBase.selfForceMagnitude, 0.25f, level);
                 Transform modelTransform = whirlwindBase.outer?.commonComponents.modelLocator?.modelTransform;
                 if(modelTransform) {
                     // Merc's model has a WhirlwindGround and WhirlwindAir gameobjects that contain the hit boxes as children for the whirlwind attacks
                     // finding the parenting gameobjects turns out to be a good way to increase the size of the hitboxes.
                     Transform whirlwindHitboxTransform = modelTransform.Find(whirlwindBase.hitboxString);
                     if(whirlwindHitboxTransform) {
-                        whirlwindHitboxTransform.localScale = Vector3.one * MultScaling(1, 0.5f, level);
+                        whirlwindHitboxTransform.localScale = Vector3.one * MultScaling(1, 0.25f, level);
                     }
                 }
             }
@@ -60,7 +60,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            Uppercut.baseDamageCoefficient = MultScaling(5.5f, 0.4f, level);
+            Uppercut.baseDamageCoefficient = MultScaling(5.5f, 0.25f, level);
             skillDef.baseMaxStock = (int)AdditiveScaling(1, 0.5f, level);
         }
 
@@ -68,21 +68,6 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("Dash1", typeof(Assaulter))]
     class AssaultSkillModifier : SimpleSkillModifier<Assaulter> {
-
-        public override void OnSkillEnter(Assaulter skillState, int level) {
-            base.OnSkillEnter(skillState, level);
-
-            GenericSkill[] genericSkills = skillState.outer?.commonComponents.characterBody.skillLocator.FindAllGenericSkills();
-            float cooldownAmount = AdditiveScaling(0, 0.5f, level);
-            if(genericSkills != null && cooldownAmount > 0) {
-                foreach(GenericSkill skill in genericSkills) {
-                    if(skill.skillDef.skillName != this.skillName) {
-                        skill.RunRecharge(cooldownAmount);
-                    }
-                }
-                
-            }
-        }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -117,8 +102,8 @@ namespace SkillsPlusPlus.Modifiers {
         private void OnThrowEvisProjectileEnter(ThrowEvisProjectile throwEvisProjectile, int level) {
             if(throwEvisProjectile.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion)) {
                 if(projectileImpactExplosion.childrenProjectilePrefab.TryGetComponent(out ProjectileOverlapAttack projectileOverlapAttack)) {
-                    float fireFrequency = MultScaling(8f, 0.25f, level);
-                    projectileOverlapAttack.damageCoefficient = MultScaling(1, 0.25f, level);
+                    float fireFrequency = MultScaling(8f, 0.20f, level);
+                    projectileOverlapAttack.damageCoefficient = MultScaling(1, 0.20f, level);
                     projectileOverlapAttack.fireFrequency = fireFrequency;
                     projectileOverlapAttack.resetInterval = 1f / fireFrequency;
                 }
@@ -128,8 +113,8 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             if(skillDef.activationState.stateType == typeof(EvisDash)) {
-                Evis.maxRadius = MultScaling(16, 0.5f, level);
-                Evis.damageFrequency = MultScaling(7, 0.20f, level);
+                Evis.maxRadius = MultScaling(16, 0.3f, level);
+                Evis.damageFrequency = MultScaling(7, 0.15f, level);
                 Evis.procCoefficient = MultScaling(1, 0.1f, level);
             } else if (skillDef.activationState.stateType == typeof(ThrowEvisProjectile)){
 

@@ -21,7 +21,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(SwingComboFist skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.25f, level);
+            skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.20f, level);
             SwingComboFist.barrierPercentagePerHit = AdditiveScaling(0.05f, 0.01f, level);
         }
 
@@ -47,7 +47,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(FireHook skillState, int level) {
             base.OnSkillEnter(skillState, level);
             if(skillState.projectilePrefab.TryGetComponent(out ProjectileGrappleController grappleController)) {
-                grappleController.maxTravelDistance = MultScaling(80, 0.5f, level);
+                grappleController.maxTravelDistance = MultScaling(80, 0.30f, level);
             }
             CharacterBody body = skillState.outer.commonComponents.characterBody;
             GenericSkill utilitySkill = skillState.outer?.commonComponents.skillLocator?.utility;
@@ -64,7 +64,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             if(characterBody.crosshairPrefab.TryGetComponent(out LoaderHookCrosshairController hookCrosshairController)) {
-                hookCrosshairController.range = MultScaling(80, 0.5f, level);
+                hookCrosshairController.range = MultScaling(80, 0.30f, level);
             }
         }
 
@@ -76,15 +76,15 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(FireYankHook skillState, int level) {
             base.OnSkillEnter(skillState, level);
             if(skillState.projectilePrefab.TryGetComponent(out ProjectileGrappleController grappleController)) {
-                grappleController.maxTravelDistance = MultScaling(80, 0.20f, level);
+                grappleController.maxTravelDistance = MultScaling(80, 0.15f, level);
             }
         }
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             if(characterBody.crosshairPrefab.TryGetComponent(out LoaderHookCrosshairController hookCrosshairController)) {
-                hookCrosshairController.range = MultScaling(80, 0.20f, level);
+                hookCrosshairController.range = MultScaling(80, 0.15f, level);
             }
-            FireYankHook.damageCoefficient = MultScaling(3.2f, 0.3f, level);
+            FireYankHook.damageCoefficient = MultScaling(3.2f, 0.20f, level);
         }
 
     }
@@ -99,8 +99,8 @@ namespace SkillsPlusPlus.Modifiers {
                 chargeState.baseChargeDuration = MultScaling(chargeState.baseChargeDuration, 0.10f, level); // +10% max charge duration
             } else if(baseState is SwingChargedFist) {
                 SwingChargedFist swingState = (SwingChargedFist)baseState;
-                swingState.maxLungeSpeed = MultScaling(swingState.maxLungeSpeed, 0.10f, level); // +10% max launge speed
-                swingState.maxPunchForce = MultScaling(swingState.maxPunchForce, 0.10f, level); // +10% max launge speed
+                swingState.maxLungeSpeed = MultScaling(swingState.maxLungeSpeed, 0.15f, level); // +10% max lunge speed
+                swingState.maxPunchForce = MultScaling(swingState.maxPunchForce, 0.15f, level); // +10% max pucnh force
                 // swingState.maxDuration = MultScaling(swingState.maxDuration, 0.10f, level); // +10% max launge speed
             }
             
@@ -109,7 +109,6 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             BaseSwingChargedFist.velocityDamageCoefficient = MultScaling(0.3f, 0.20f, level);
-            FireYankHook.damageCoefficient = MultScaling(3.2f, 0.25f, level);
         }
 
     }
@@ -131,7 +130,7 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             SwingZapFist.selfKnockback = MultScaling(12000, 0.1f, level); // +10% knockback
             if(SwingZapFist.overchargeImpactEffectPrefab.TryGetComponent(out ProjectileProximityBeamController proximityBeamController)) {
-                proximityBeamController.attackRange = MultScaling(40, 0.25f, level);
+                proximityBeamController.attackRange = MultScaling(40, 0.20f, level);
             }
         }
 
@@ -165,9 +164,9 @@ namespace SkillsPlusPlus.Modifiers {
             ThrowPylon.damageCoefficient = MultScaling(1.0f, 0.2f, level);
             if(ThrowPylon.projectilePrefab.TryGetComponent(out ProjectileProximityBeamController proximityBeamController)) {
                 //proximityBeamController.bounces = (int)AdditiveScaling(1, 0.5f, level);
-                proximityBeamController.attackRange = MultScaling(15f, 0.3f, level);
+                proximityBeamController.attackRange = MultScaling(15f, 0.20f, level);
                 //proximityBeamController.attackFireCount = AdditiveScaling(6, 1, level);
-                proximityBeamController.attackInterval = MultScaling(1.0f, -0.30f, level);
+                proximityBeamController.attackInterval = MultScaling(1.0f, -0.20f, level);
             }
         }
 

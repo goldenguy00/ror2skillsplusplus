@@ -21,8 +21,8 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             NailgunFinalBurst.finalBurstBulletCount = AdditiveScaling(12, 4, level);
-            FireNailgun.damageCoefficient = MultScaling(0.7f, 0.25f, level);
-            NailgunFinalBurst.damageCoefficient = MultScaling(0.7f, 0.25f, level);
+            FireNailgun.damageCoefficient = MultScaling(0.7f, 0.20f, level);
+            NailgunFinalBurst.damageCoefficient = MultScaling(0.7f, 0.20f, level);
             NailgunFinalBurst.burstTimeCostCoefficient = MultScaling(1.2f, -0.15f, level);
         }
     }
@@ -32,8 +32,8 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(FireSpear fireSpear, int level) {
             base.OnSkillEnter(fireSpear, level);
-            fireSpear.baseDuration = MultScaling(fireSpear.baseDuration, -0.25f, level);
-            fireSpear.damageCoefficient = MultScaling(fireSpear.damageCoefficient, 0.25f, level);
+            fireSpear.baseDuration = MultScaling(fireSpear.baseDuration, -0.20f, level);
+            fireSpear.damageCoefficient = MultScaling(fireSpear.damageCoefficient, 0.20f, level);
         }
     }
 
@@ -44,9 +44,9 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(FireGrenadeLauncher skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.25f, level);
+            skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.20f, level);
             if(skillState.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion)) {
-                projectileImpactExplosion.blastRadius = MultScaling(7, 0.20f, level);
+                projectileImpactExplosion.blastRadius = MultScaling(7, 0.15f, level);
             }
         }
 
@@ -127,7 +127,7 @@ namespace SkillsPlusPlus.Modifiers {
             if(modelTransform) {
                 HitBoxGroup buzzsawHitBoxGroup = Array.Find(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == "Buzzsaw");
                 foreach(HitBox hitBox in buzzsawHitBoxGroup.hitBoxes) {
-                    hitBox.transform.localScale = new Vector3(21.04f, 21.04f, 12.04f) * MultScaling(1, 0.5f, level);
+                    hitBox.transform.localScale = new Vector3(21.04f, 21.04f, 12.04f) * MultScaling(1, 0.3f, level);
                 }
             }
         }
@@ -135,8 +135,8 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("baseFireFrequency: {0}", FireBuzzsaw.baseFireFrequency);
-            FireBuzzsaw.damageCoefficientPerSecond = MultScaling(10, 0.25f, level);
-            FireBuzzsaw.baseFireFrequency = MultScaling(10, 0.25f, level);
+            FireBuzzsaw.damageCoefficientPerSecond = MultScaling(10, 0.20f, level);
+            FireBuzzsaw.baseFireFrequency = MultScaling(10, 0.20f, level);
         }
     }
 
@@ -146,16 +146,16 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(AimStunDrone aimStunDrone, int level) {
             base.OnSkillEnter(aimStunDrone, level);
             Logger.Debug("damageCoefficient: {0}, baseMinimumDuration: {1}, maxDistance: {2}", aimStunDrone.damageCoefficient, aimStunDrone.baseMinimumDuration, aimStunDrone.maxDistance);
-            aimStunDrone.maxDistance = MultScaling(aimStunDrone.maxDistance, 0.5f, level);
+            aimStunDrone.maxDistance = MultScaling(aimStunDrone.maxDistance, 0.4f, level); // 2 * 20%
             if(aimStunDrone.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion)) {
-                projectileImpactExplosion.blastRadius = MultScaling(12f, 0.25f, level);
+                projectileImpactExplosion.blastRadius = MultScaling(12f, 0.20f, level);
                 projectileImpactExplosion.childrenCount = AdditiveScaling(5, 3, level);
                 if(projectileImpactExplosion.childrenProjectilePrefab.TryGetComponent(out ProjectileSimple projectileSimple)) {
-                    projectileSimple.velocity = MultScaling(10, 0.5f, level);
+                    projectileSimple.velocity = MultScaling(10, 0.4f, level); // 2 * 20%
                 }
                 if(projectileImpactExplosion.childrenProjectilePrefab.TryGetComponent(out ProjectileImpactExplosion clusterProjectileExplosion)) {
-                    clusterProjectileExplosion.blastRadius = MultScaling(6, 0.25f, level);
-                    clusterProjectileExplosion.blastDamageCoefficient = MultScaling(1, 0.25f, level);
+                    clusterProjectileExplosion.blastRadius = MultScaling(6, 0.20f, level);
+                    clusterProjectileExplosion.blastDamageCoefficient = MultScaling(1, 0.20f, level);
                 }
             }
         }
@@ -169,16 +169,16 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(toolbotDash, level);
             Logger.Debug("baseDuration: {0}, speedMultiplier: {2}, chargeDamageCoefficient: {5}, knockbackForce: {1}, knockbackDamageCoefficient: {3}, massThresholdForKnockback: {4}", toolbotDash.baseDuration, ToolbotDash.knockbackForce, toolbotDash.speedMultiplier, ToolbotDash.knockbackDamageCoefficient, ToolbotDash.massThresholdForKnockback, ToolbotDash.chargeDamageCoefficient);
             // baseDuration: 2, speedMultiplier: 2.2, knockbackForce: 8000, knockbackDamageCoefficient: 10, massThresholdForKnockback: 250
-            toolbotDash.baseDuration = MultScaling(toolbotDash.baseDuration, 0.25f, level);
-            toolbotDash.speedMultiplier = MultScaling(2.2f, 0.25f, level);
+            toolbotDash.baseDuration = MultScaling(toolbotDash.baseDuration, 0.10f, level);
+            toolbotDash.speedMultiplier = MultScaling(2.2f, 0.10f, level);
         }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            ToolbotDash.chargeDamageCoefficient = MultScaling(10, 0.50f, level);
-            ToolbotDash.knockbackDamageCoefficient = MultScaling(10, 0.50f, level);
-            ToolbotDash.massThresholdForKnockback = MultScaling(250, 0.5f, level);
-            ToolbotDash.knockbackForce = MultScaling(8000, 0.25f, level);
+            ToolbotDash.chargeDamageCoefficient = MultScaling(10, 0.30f, level);
+            ToolbotDash.knockbackDamageCoefficient = MultScaling(10, 0.30f, level);
+            ToolbotDash.massThresholdForKnockback = MultScaling(250, 0.3f, level);
+            ToolbotDash.knockbackForce = MultScaling(8000, 0.15f, level);
         }
     }
 
