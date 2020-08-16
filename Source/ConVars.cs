@@ -15,11 +15,11 @@ namespace SkillsPlusPlus.ConVars {
 
         internal static StringListConVar disabledSurvivors = new StringListConVar("spp_disabled_survivors", ConVarFlags.Archive, new List<string>(), "The list of survivors excluded from Skills++ behaviour in a string form");
 
-        [ConCommand(commandName = "spp_disable_survivor", flags = ConVarFlags.None, helpText = "Prints all of the survivors that are exlcuded from any Skills++ behaviour")]
+        [ConCommand(commandName = "spp_disable_survivor", flags = ConVarFlags.None, helpText = "spp_disable_survivor <survivor name>\n  Disables Skills++ for the named survivor.")]
         public static void CCDisableSurvivor(ConCommandArgs args) {
             string survivorName = args.TryGetArgString(0);
             if(survivorName == null) {
-                Debug.Log("Could not parse a survivor name");
+                Debug.Log("Could not parse a survivor name. Did you specify a survivor name?");
                 return;
             }
             bool didFindSurvivor = false;
@@ -36,17 +36,17 @@ namespace SkillsPlusPlus.ConVars {
                 }
             }
             if(didFindSurvivor) {
-                Debug.Log(String.Format("Disabled survirors: {0}", disabledSurvivors.GetString()));
+                Debug.Log(String.Format("Disabled survirors: '{0}'", disabledSurvivors.GetString()));
             } else {
-                Debug.LogFormat("Could not find any survivors named {0}", survivorName);
+                Debug.LogFormat("Could not find any survivor named '{0}'", survivorName);
             }
         }
 
-        [ConCommand(commandName = "spp_enable_survivor", flags = ConVarFlags.None, helpText = "Prints all of the survivors that are exlcuded from any Skills++ behaviour")]
+        [ConCommand(commandName = "spp_enable_survivor", flags = ConVarFlags.None, helpText = "spp_enable_survivor <survivor name>\n  Re-enables Skills++ for the named survivor.")]
         public static void CCEnableSurvivor(ConCommandArgs args) {
             string survivorName = args.TryGetArgString(0);
             if(survivorName == null) {
-                Debug.Log("Could not parse a survivor name");
+                Debug.Log("Could not parse a survivor name. Did you specify a survivor name?");
                 return;
             }
             foreach(SurvivorDef survivorDef in SurvivorCatalog.allSurvivorDefs) {
@@ -55,7 +55,7 @@ namespace SkillsPlusPlus.ConVars {
                     disabledSurvivors.value.Remove(resolvedSurvivorName);
                 }
             }
-            Debug.Log(String.Format("Disabled survirors: {0}", disabledSurvivors.GetString()));
+            Debug.Log(String.Format("Disabled survirors: '{0}'", disabledSurvivors.GetString()));
         }
     }
 

@@ -7,8 +7,10 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
 - [Risk of Rain 2 - Skills++ Mod](#risk-of-rain-2---skills-mod)
   - [Table of Contents](#table-of-contents)
   - [What's new in 0.1.0](#whats-new-in-010)
+  - [Installation](#installation)
   - [Usage](#usage)
     - [Controllers](#controllers)
+    - [Disabling survivors](#disabling-survivors)
   - [Upgrade descriptions](#upgrade-descriptions)
     - [Commando](#commando)
     - [Huntress](#huntress)
@@ -40,9 +42,15 @@ Changes:
 
 [Full historical changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
+## Installation
+
+Extract the mod's files to your `BepInEx/plugins` folder.
+
+The `MMHOOK_Rewired_Core.dll` and `MMHOOK_Rewired_CSharp.dll` are required for controller support to work.
+
 ## Usage
 
-While ingame your will earn points every third level gained that can be used to purchase upgrades to your characters skills. 
+While ingame your will earn points every third level gained that can be used to purchase upgrades to your characters skills.
 Your first skill point is earned upon reaching level 5, and subsequently rewards every fifth level.
 To redeem points open the info screen (hold TAB by default) and click the skill you would like to buy.
 Upgrades do not carry over between runs so you will be starting from scratch every time.
@@ -63,11 +71,28 @@ In order to begin using it you must bind your desired control to entering the bu
 You can find the binding at the end of all the gamepad controls.
 ![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skills_gamepad_settings.jpg)
 
-While ingame just press and the bound button and activate the skill you sish to upgrade.
+While ingame just press and the bound button and activate the skill you wish to upgrade.
 
 > ***NOTE:*** Mutliplayer is possible but not support. There may be cases when game state is not correctly synced between connected clients.
 
 > ***NOTE:*** This mod is still a work in progress. There is no guarantee that SkillsPlusPlus is going to work with other mods thats alter character abilities. If you have found a bug refer to [Report a bug](#report-a-bug).
+
+### Disabling survivors
+
+Console commands have been added to disable and reenable Skills++ for selected survivors.
+You can use this to exclude survivors that conflict with Skills++.
+
+The two commands are:
+
+- `spp_disable_survivor <survivor name>` Disables Skills++ for the named survivor
+- `spp_enable_survivor <survivor name>` Re-enables Skills++ for the named survivor
+
+Example usage:
+
+`spp_disable_survivor Artificer`
+
+By default all characters will be enabled for Skills++.
+The enable command is there to re-enable a survivor if the conflict no longer exists.
 
 ## Upgrade descriptions
 
