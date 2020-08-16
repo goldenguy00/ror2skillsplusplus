@@ -6,7 +6,7 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
 
 - [Risk of Rain 2 - Skills++ Mod](#risk-of-rain-2---skills-mod)
   - [Table of Contents](#table-of-contents)
-  - [What's new in 0.1.0](#whats-new-in-010)
+  - [What's new in 0.1.1](#whats-new-in-011)
   - [Installation](#installation)
   - [Usage](#usage)
     - [Controllers](#controllers)
@@ -25,22 +25,13 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
   - [FAQ](#faq)
   - [Special thanks](#special-thanks)
 
-## What's new in 0.1.0
+## What's new in 0.1.1
 
 Changes:
 
-- Fixed mod to work with changes in the game's 1.0.0 release.
-- Added support for controllers to spend skill points. Button is rebindable in gamepad options.
-- **Added support for other modded characters to integrate with Skills++.**
-- Added console command to disable Skills++ for chosen survivors. This is for all of the [Sniper](https://thunderstore.io/package/Rein/Sniper/) players out there.
-- Removed limits on upgrading skills.
-- Reduced the rate of acquiring skill points to one per 5 levels.
-- Changed percentage/multiplication compound the scaling. As an adjustment some scalings have been pulled back to compensate.
-- Removed Blinding Assault cooldown reduction now the mechanism is core to Mercenary's loadout.
-- Changed UI to show the upgrades as a number rather than as multiple '+' symbols
-- Removed MUL-T's swap duration reduction scaling in favour of a new equipment cooldown buff.
+- Added instructions for console command usage
 
-[Full historical changelog](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
+[Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
 ## Installation
 

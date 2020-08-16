@@ -11,7 +11,7 @@ using SkillsPlusPlus.Modifiers;
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
-    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.0")]
+    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.1")]
     [R2APISubmoduleDependency(nameof(CommandHelper))]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 

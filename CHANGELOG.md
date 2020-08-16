@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.1.1
+
+Changes:
+
+- Added instructions for console command usage
+
 ## Version 0.1.0
 
 Changes:

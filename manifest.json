@@ -1,6 +1,6 @@
 {
 	"name": "SkillsPlusPlus",
-	"version_number": "0.1.0",
+	"version_number": "0.1.1",
 	"website_url": "https://gitlab.com/cwmlolzlz/ror2skillsplusplus",
 	"description": "Add progression to your runs with skill upgrades",
 	"dependencies": [
