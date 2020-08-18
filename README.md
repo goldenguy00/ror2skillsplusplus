@@ -6,15 +6,16 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
 
 - [Risk of Rain 2 - Skills++ Mod](#risk-of-rain-2---skills-mod)
   - [Table of Contents](#table-of-contents)
-  - [What's new in 0.1.1](#whats-new-in-011)
+  - [What's new in 0.1.2](#whats-new-in-012)
   - [Installation](#installation)
   - [Usage](#usage)
     - [Controllers](#controllers)
     - [Disabling survivors](#disabling-survivors)
+  - [Modded characters](#modded-characters)
   - [Feedback and bug reports](#feedback-and-bug-reports)
   - [FAQ](#faq)
   - [Special thanks](#special-thanks)
-  - [Upgrade descriptions](#upgrade-descriptions)
+  - [Vanilla character upgrades](#vanilla-character-upgrades)
     - [Commando](#commando)
     - [Huntress](#huntress)
     - [MUL-T](#mul-t)
@@ -24,11 +25,11 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
     - [Loader](#loader)
     - [Acrid](#acrid)
 
-## What's new in 0.1.1
+## What's new in 0.1.2
 
 Changes:
 
-- Added instructions for console command usage
+- Removed need for Rewired MonoMod dlls
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -61,7 +62,7 @@ You can find the binding at the end of all the gamepad controls.
 
 While ingame just press and the bound button and activate the skill you wish to upgrade.
 
-> ***NOTE:*** Mutliplayer is possible but not support. There may be cases when game state is not correctly synced between connected clients.
+> ***NOTE:*** Multiplayer is not supported yet. Upgrades are not synced between clients and will cause desyn issues.
 
 > ***NOTE:*** This mod is still a work in progress. There is no guarantee that Skills++ is compatible with other mods. If you find any issue join the discord
 
@@ -81,6 +82,10 @@ Example usage:
 
 By default all characters will be enabled for Skills++.
 The enable command is there to re-enable a survivor if the conflict no longer exists.
+
+## Modded characters
+
+- Rob's [Aatrox](https://thunderstore.io/package/rob/Aatrox/). Go check it out and give it some love!
 
 ## Feedback and bug reports
 
@@ -104,8 +109,10 @@ A very special thanks to the following people. They have been amazing people pro
 - K'Not Devourer of Worlds
 - Maxi
 - TEA
+  
+---
 
-## Upgrade descriptions
+## Vanilla character upgrades
 
 ### Commando
 

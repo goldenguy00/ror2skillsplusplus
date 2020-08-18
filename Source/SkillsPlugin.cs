@@ -12,7 +12,7 @@ using RoR2.ConVar;
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
-    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.1")]
+    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.2")]
     [R2APISubmoduleDependency(nameof(CommandHelper))]
     [NetworkCompatibility(CompatibilityLevel.NoNeedForSync)]
     public sealed class SkillsPlugin : BaseUnityPlugin {

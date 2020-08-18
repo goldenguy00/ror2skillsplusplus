@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.1.2
+
+Changes:
+
+- Removed need for Rewired MonoMod dlls
+
 ## Version 0.1.1
 
 Changes:
