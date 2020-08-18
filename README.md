@@ -91,7 +91,7 @@ I welcome everyone who uses Skills++ to drop by and share your thoughts.
 
 **Will Skills++ support modded characters?**
   
-Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/feature/public-api/Documentation/supporting-modded-characters.md) alongside the mod's source code.
+Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/feature/master/Documentation/supporting-modded-characters.md) alongside the mod's source code.
 
 **Skills++ makes the game a cakewalk. Do you recommend any other mods to balance the game?**
 
