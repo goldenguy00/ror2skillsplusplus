@@ -31,6 +31,8 @@ namespace SkillsPlusPlus {
             if(userDataInit != null) {
                 new Hook(userDataInit, (Action<Action<UserData>, UserData>)SkillInput.ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ);
                 isControllerSupported = true;
+            } else {
+                Logger.Error("Unable to add extra action to controller bindings. Was not able to find the method \"KFIfLMJhIpfzcbhqEXHpaKpGsgeZ\" in Rewired.UserData");
             }
             SceneManager.activeSceneChanged += OnFirstSceneLoad;
 
@@ -86,6 +88,9 @@ namespace SkillsPlusPlus {
         }
 
         private static void SetupGamepadSettingsControllerAwake(SettingsPanelController settingsPanelController) {
+            if(SkillInput.isControllerSupported == false) {
+                return;
+            }
             if(settingsPanelController.name != "SettingsSubPanel, Controls (Gamepad)") {
                 return;
             }
@@ -103,8 +108,7 @@ namespace SkillsPlusPlus {
                 HGButton button = buySkillsOptionGameObject.GetComponent<HGButton>();
                 button.hoverToken = UI_HOVER_TOKEN;
                 button.interactable = SkillInput.isControllerSupported;
-                inputBindingControl.button.interactable = SkillInput.isControllerSupported;
-
+                inputBindingControl.button.enabled = SkillInput.isControllerSupported;
             }
 
         }
