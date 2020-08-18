@@ -7,6 +7,7 @@ using RoR2;
 using RoR2.UI;
 using R2API.Utils;
 using SkillsPlusPlus.Modifiers;
+using RoR2.ConVar;
 
 namespace SkillsPlusPlus {
     
@@ -22,16 +23,32 @@ namespace SkillsPlusPlus {
         //private SkillLevelIconController[] skillsHUDControllers;
 
         void Awake() {
+
 #if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
 
             // disable client authing when connecting to a server to allow two game instances to run in parallel
-            //On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
+            // On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
+
+            // BoolConVar convar = typeof(IntroCutsceneController).GetFieldValue<BoolConVar>("cvIntroSkip");
+            // convar.
+            // Console.instance.SubmitCmd(null, "set_scene title", false);
+            // RoR2.Console.instance.SubmitCmd(null, "set_scene title", false);
+            On.RoR2.Console.InitConVars += (orig, self) => {
+                orig(self);
+                RoR2.Console.instance.SubmitCmd(null, "splash_skip 1", false);
+                RoR2.Console.instance.SubmitCmd(null, "intro_skip 1", false);
+            };
+
+            // On.RoR2.UI.MainMenu.MainMenuController.Start += (orig, self) => {
+            //    orig(self);
+            //    // RoR2.Console.instance.SubmitCmd(null, "host 1", true);
+            //    RoR2.Console.instance.SubmitCmd(null, "connect 127.0.0.1:27015", true);                
+            // };
 
             On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
                 return true;
             };
-
 #endif
 
             CommandHelper.AddToConsoleWhenReady();

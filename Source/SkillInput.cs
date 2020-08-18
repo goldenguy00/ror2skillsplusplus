@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections;
+using System.Reflection;
+
+using MonoMod.RuntimeDetour;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,13 +19,19 @@ using R2API.Utils;
 namespace SkillsPlusPlus {
     static class SkillInput {
 
+        public static bool isControllerSupported = false;
+
         public const int BUY_SKILLS_ACTION_ID = 400;
         public const string BUY_SKILLS_ACTION_NAME = "BuySkills";
         private const string UI_TOKEN = "Buy Skills"; //"SKILLS_GAMEPAD_BUY_BTN";
         private const string UI_HOVER_TOKEN = "Holding this button during gameplay will allow the purchase of skills. Once held press the button for the skill you want to purchase."; // "SKILLS_GAMEPAD_BUY_BTN";
 
         internal static void SetupCustomInput() {
-            On.Rewired.ReInput.KFIfLMJhIpfzcbhqEXHpaKpGsgeZ += SkillInput.ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ;
+            var userDataInit = typeof(UserData).GetMethod("KFIfLMJhIpfzcbhqEXHpaKpGsgeZ", BindingFlags.NonPublic | BindingFlags.Instance);
+            if(userDataInit != null) {
+                new Hook(userDataInit, (Action<Action<UserData>, UserData>)SkillInput.ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ);
+                isControllerSupported = true;
+            }
             SceneManager.activeSceneChanged += OnFirstSceneLoad;
 
             On.RoR2.UI.SettingsPanelController.Start += (orig, self) => {
@@ -41,7 +49,10 @@ namespace SkillsPlusPlus {
                 try {
                     Type actionAxisPairType = Reflection.GetNestedTypeCached(typeof(InputCatalog), "ActionAxisPair");
                     var actionAxisPair = actionAxisPairType.GetConstructorCached(new Type[] { typeof(string), typeof(AxisRange) }).Invoke(new object[] { BUY_SKILLS_ACTION_NAME, AxisRange.Full });
-                    typeof(InputCatalog).GetFieldValue<System.Collections.IDictionary>("actionToToken").Add(actionAxisPair, UI_TOKEN);
+                    var actionToTokenField = typeof(InputCatalog).GetFieldValue<IDictionary>("actionToToken");
+                    if(actionToTokenField != null) {
+                        actionToTokenField.Add(actionAxisPair, UI_TOKEN);
+                    }
                 } catch(Exception exception) {
                     Logger.Error(exception);
                     return;
@@ -49,7 +60,7 @@ namespace SkillsPlusPlus {
             }
         }
 
-        private static void ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ(On.Rewired.ReInput.orig_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ orig, InputManager_Base inputManager, Func<ConfigVars, object> configVarsFunc, ConfigVars configVars, ControllerDataFiles controllerDataFiles, UserData userData) {
+        private static void ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ(Action<UserData> orig, UserData userData) {
 
             int newActionId = userData.GetFieldValue<int>("actionIdCounter");
             SkillsPlusPlus.Logger.Warn(newActionId);
@@ -71,7 +82,7 @@ namespace SkillsPlusPlus {
             joystickEditor.actionElementMaps.Add(purchaseSkillActionElementMap);
 
             SkillsPlusPlus.Logger.Warn("Delegating to original ReInput method");
-            orig(inputManager, configVarsFunc, configVars, controllerDataFiles, userData);
+            orig(userData);
         }
 
         private static void SetupGamepadSettingsControllerAwake(SettingsPanelController settingsPanelController) {
@@ -91,6 +102,8 @@ namespace SkillsPlusPlus {
 
                 HGButton button = buySkillsOptionGameObject.GetComponent<HGButton>();
                 button.hoverToken = UI_HOVER_TOKEN;
+                button.interactable = SkillInput.isControllerSupported;
+                inputBindingControl.button.interactable = SkillInput.isControllerSupported;
 
             }
 
