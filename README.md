@@ -11,6 +11,9 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
   - [Usage](#usage)
     - [Controllers](#controllers)
     - [Disabling survivors](#disabling-survivors)
+  - [Feedback and bug reports](#feedback-and-bug-reports)
+  - [FAQ](#faq)
+  - [Special thanks](#special-thanks)
   - [Upgrade descriptions](#upgrade-descriptions)
     - [Commando](#commando)
     - [Huntress](#huntress)
@@ -20,10 +23,6 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
     - [Mercenary](#mercenary)
     - [Loader](#loader)
     - [Acrid](#acrid)
-  - [Found a bug?](#found-a-bug)
-  - [Have a suggestion?](#have-a-suggestion)
-  - [FAQ](#faq)
-  - [Special thanks](#special-thanks)
 
 ## What's new in 0.1.1
 
@@ -36,8 +35,6 @@ Changes:
 ## Installation
 
 Extract the mod's files to your `BepInEx/plugins` folder.
-
-The `MMHOOK_Rewired_Core.dll` and `MMHOOK_Rewired_CSharp.dll` are required for controller support to work.
 
 ## Usage
 
@@ -66,7 +63,7 @@ While ingame just press and the bound button and activate the skill you wish to 
 
 > ***NOTE:*** Mutliplayer is possible but not support. There may be cases when game state is not correctly synced between connected clients.
 
-> ***NOTE:*** This mod is still a work in progress. There is no guarantee that SkillsPlusPlus is going to work with other mods thats alter character abilities. If you have found a bug refer to [Report a bug](#report-a-bug).
+> ***NOTE:*** This mod is still a work in progress. There is no guarantee that Skills++ is compatible with other mods. If you find any issue join the discord
 
 ### Disabling survivors
 
@@ -84,6 +81,29 @@ Example usage:
 
 By default all characters will be enabled for Skills++.
 The enable command is there to re-enable a survivor if the conflict no longer exists.
+
+## Feedback and bug reports
+
+The best way to give feedback or raise bugs is through [my modding discord](https://discord.gg/HbqdgMG).
+I welcome everyone who uses Skills++ to drop by and share your thoughts.
+
+## FAQ
+
+**Will Skills++ support modded characters?**
+  
+Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/feature/public-api/Documentation/supporting-modded-characters.md) alongside the mod's source code.
+
+**Skills++ makes the game a cakewalk. Do you recommend any other mods to balance the game?**
+
+I'd highly recommend harb's [Diluvian Difficulty](https://thunderstore.io/package/Harb/DiluvianDifficulty/) mod. It adds a new harder difficulty to the game that should level the playing fields a bit more.
+
+## Special thanks
+
+A very special thanks to the following people. They have been amazing people providing feedback and bug reports for the mod
+
+- K'Not Devourer of Worlds
+- Maxi
+- TEA
 
 ## Upgrade descriptions
 
@@ -179,36 +199,3 @@ The enable command is there to re-enable a survivor if the conflict no longer ex
 | Caustic Leap | ![Caustic Leap](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/9e/Caustic_Leap.png?version=e067644005e3fbe939dc6c0e74cb680c) | `+20%` blast damage, `+30%` acid pool damage, and `+20%` acid pool size per level |
 | Frenzied Leap | ![Frenzied Leap](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/96/Frenzied_Leap.png?version=05eb87da91cfb184824ae53eac148f4f) | `+25%` blast damage and `+15%` refunded time per level |
 | Epidemic | ![Epidemic](https://gamepedia.cursecdn.com/riskofrain2_gamepedia_en/9/9d/Epidemic.png?version=c285fc0546271c32d190c85ae8f5516b) | `+5` infection bounces, `+20%` infection range, and `+20%` on hit damage per level |
-
-## Found a bug?
-
-Bugs can be raised through the [project's GitLab issue tracker](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/new?issuable_template=bug_report).
-
-The issue template has a section for the actual behviour observed, what you expected, and a sequence of steps to reproduce the bug.
-Filling out the bug template as much as possible is incredily helpful if the bug is obscure or occurs seemingly randomly.
-Screenshots are welcome.
-Bug fixing can be difficult sometimes so the more information provided the easier it is to fix and release.
-
-## Have a suggestion?
-
-If you have a suggestion you can log it through [project's GitLab issue tracker](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/issues/new?issuable_template=skill_suggestion).
-
-The best way to reach me is directly through discord, you can find me on the [modding community discord](https://discord.gg/5MbXZvd). I cannot guarentee responding to any pings in the discord.
-
-## FAQ
-
-**Will Skills++ support modded characters?**
-  
-Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/feature/public-api/Documentation/supporting-modded-characters.md) alongside the mod's source code.
-
-**Skills++ makes the game a cakewalk. Do you recommend any other mods to balance the game?**
-
-I'd highly recommend harb's [Diluvian Difficulty](https://thunderstore.io/package/Harb/DiluvianDifficulty/) mod. It adds a new harder difficulty to the game that should level the playing fields a bit more.
-
-## Special thanks
-
-A very special thanks to the following people. They have been amazing people providing feedback and bug reports for the mod
-
-- K'Not Devourer of Worlds
-- Maxi
-- TEA
