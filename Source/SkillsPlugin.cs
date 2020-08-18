@@ -14,6 +14,7 @@ namespace SkillsPlusPlus {
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.1")]
     [R2APISubmoduleDependency(nameof(CommandHelper))]
+    [NetworkCompatibility(CompatibilityLevel.NoNeedForSync)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
         private HUD hud;
