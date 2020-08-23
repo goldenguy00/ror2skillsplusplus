@@ -61,6 +61,7 @@ namespace SkillsPlusPlus {
 
             SkillModifierManager.LoadSkillModifiers();
             SkillInput.SetupCustomInput();
+            SkillOptions.SetupGameplayOptions();
 
             On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {
                 orig(self);

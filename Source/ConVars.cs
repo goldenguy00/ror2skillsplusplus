@@ -14,6 +14,7 @@ namespace SkillsPlusPlus.ConVars {
     internal static class ConVars {
 
         internal static StringListConVar disabledSurvivors = new StringListConVar("spp_disabled_survivors", ConVarFlags.Archive, new List<string>(), "The list of survivors excluded from Skills++ behaviour in a string form");
+        internal static BoundedIntConVar levelsPerSkillPoint = new BoundedIntConVar("spp_levels_per_skillpoint", ConVarFlags.Archive , "5", 1, 99, "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run");
 
         [ConCommand(commandName = "spp_disable_survivor", flags = ConVarFlags.None, helpText = "spp_disable_survivor <survivor name>\n  Disables Skills++ for the named survivor.")]
         public static void CCDisableSurvivor(ConCommandArgs args) {
@@ -76,5 +77,22 @@ namespace SkillsPlusPlus.ConVars {
                 return item.Trim();
             }).ToList();
         }
+    }
+
+    internal class BoundedIntConVar : IntConVar {
+        internal int minValue { get; private set; }
+        internal int maxValue { get; private set; }
+
+        public BoundedIntConVar(string name, ConVarFlags flags, string defaultValue, int minValue, int maxValue, string helpText) : base(name, flags, defaultValue, helpText) {
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+        }
+        public override void SetString(string newValue) {
+            int value;
+            if(TextSerialization.TryParseInvariant(newValue, out value)) {
+                this.value = Mathf.Clamp(value, minValue, maxValue);
+            }
+        }
+
     }
 }

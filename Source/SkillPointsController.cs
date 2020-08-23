@@ -42,10 +42,12 @@ namespace SkillsPlusPlus {
 
         private int earnedSkillPoints = 0;
         private int unspentSkillPoints = 0;
+        private int levelsPerSkillPoint = 5;
 
         private bool isSurvivorEnabled = true;
 
         void Awake() {
+            this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
             // this.spentSkillPoints = new Dictionary<SkillSlot, int>();
             this.skillLevels = new Dictionary<string, int>();
 
@@ -337,7 +339,7 @@ namespace SkillsPlusPlus {
 
                         // has skillpoints to spend
                         // and the skill is less than its max level
-                        skillLevelIconController.IsUpgradable = unspentSkillPoints > 0  && isSurvivorEnabled;
+                        skillLevelIconController.IsUpgradable = unspentSkillPoints > 0 && isSurvivorEnabled;
                         skillLevelIconController.Level = currentSkillLevel;
                     } else {
                         Logger.Debug("Could not refresh the icon controller for skill named {0}", skillName);
@@ -352,15 +354,17 @@ namespace SkillsPlusPlus {
                     return skill.baseSkill.skillName;
                 }
             }
-            return skillName;
-        
+            return skillName;        
         }
 
-        private static int SkillPointsAtLevel(int characterLevel) {
+        private int SkillPointsAtLevel(int characterLevel) {
 #if DEBUG
             return characterLevel - 1;
 #else
-            return (characterLevel / 5);
+            if(levelsPerSkillPoint <= 1) {
+                return characterLevel - 1;
+            }
+            return (characterLevel / this.levelsPerSkillPoint);
 #endif 
         }
     }
