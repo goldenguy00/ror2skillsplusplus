@@ -5,15 +5,17 @@ using UnityEngine;
 
 using RoR2;
 using RoR2.UI;
+using R2API;
 using R2API.Utils;
 using SkillsPlusPlus.Modifiers;
 using RoR2.ConVar;
+using R2API.AssetPlus;
 
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
     [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.2")]
-    [R2APISubmoduleDependency(nameof(CommandHelper))]
+    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI))]
     [NetworkCompatibility(CompatibilityLevel.NoNeedForSync)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 

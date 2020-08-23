@@ -23,8 +23,8 @@ namespace SkillsPlusPlus {
 
         public const int BUY_SKILLS_ACTION_ID = 400;
         public const string BUY_SKILLS_ACTION_NAME = "BuySkills";
-        private const string UI_TOKEN = "Buy Skills"; //"SKILLS_GAMEPAD_BUY_BTN";
-        private const string UI_HOVER_TOKEN = "Holding this button during gameplay will allow the purchase of skills. Once held press the button for the skill you want to purchase."; // "SKILLS_GAMEPAD_BUY_BTN";
+        private const string UI_TOKEN = "SKILLS_GAMEPAD_BUY_BTN";
+        private const string UI_HOVER_TOKEN = "SKILLS_GAMEPAD_BUY_DESCRIPTION";
 
         internal static void SetupCustomInput() {
             var userDataInit = typeof(UserData).GetMethod("KFIfLMJhIpfzcbhqEXHpaKpGsgeZ", BindingFlags.NonPublic | BindingFlags.Instance);

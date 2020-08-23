@@ -3,6 +3,8 @@
 		"SKILLS_GAMEPAD_BUY_BTN": "Buy Skills",
 		"SKILLS_GAMEPAD_BUY_DESCRIPTION": "Holding this button during gameplay will allow the purchase of skills. Once held press the button for the skill you want to purchase.",
 
-		"SKILLS_SLOT_BUY_BTN": "Buy"
+		"SKILLS_SLOT_BUY_BTN": "Buy",
+
+		"LEVELS_PER_SKILLPOINT": "Levels per skill point"
 	}
 }
