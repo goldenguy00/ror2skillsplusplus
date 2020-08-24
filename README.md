@@ -1,36 +1,15 @@
 # Risk of Rain 2 - Skills++ Mod
 
-Skills++ adds skills upgrades that can be purchased as your character levels up throughout a run.
+[![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG)
+[![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-## Table of Contents
-
-- [Risk of Rain 2 - Skills++ Mod](#risk-of-rain-2---skills-mod)
-  - [Table of Contents](#table-of-contents)
-  - [What's new in 0.1.2](#whats-new-in-012)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Controllers](#controllers)
-    - [Disabling survivors](#disabling-survivors)
-  - [Modded characters](#modded-characters)
-  - [Feedback and bug reports](#feedback-and-bug-reports)
-  - [FAQ](#faq)
-  - [Special thanks](#special-thanks)
-  - [Vanilla character upgrades](#vanilla-character-upgrades)
-    - [Commando](#commando)
-    - [Huntress](#huntress)
-    - [MUL-T](#mul-t)
-    - [Engineer](#engineer)
-    - [Artificer](#artificer)
-    - [Mercenary](#mercenary)
-    - [REX](#rex)
-    - [Loader](#loader)
-    - [Acrid](#acrid)
-
-## What's new in 0.1.2
+## What's new in 0.1.3
 
 Changes:
 
-- Removed need for Rewired MonoMod dlls
+- Added REX upgrades
+- Added ingame setting to change the levels between skill points
+- Updated R2API dependancy to 2.5.7
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -96,7 +75,7 @@ The enable command is there to re-enable a survivor if the conflict no longer ex
 
 Go and check out all of these characters and give them some love!
 
-If you have your own modded character that supports Skills++ let me know and I will add it to the list. 
+If you have added Skills++ to your own modded character let me know and I will add it to the list.
 
 ## Feedback and bug reports
 
