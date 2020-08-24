@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 0.1.3
+
+Changes:
+
+- Added REX upgrades
+- Added ingame setting to change the levels between skill points
+- Updated R2API dependancy to 2.5.7
+
 ## Version 0.1.2
 
 Changes:
