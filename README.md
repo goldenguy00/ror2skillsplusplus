@@ -22,6 +22,7 @@ Skills++ adds skills upgrades that can be purchased as your character levels up 
     - [Engineer](#engineer)
     - [Artificer](#artificer)
     - [Mercenary](#mercenary)
+    - [REX](#rex)
     - [Loader](#loader)
     - [Acrid](#acrid)
 
