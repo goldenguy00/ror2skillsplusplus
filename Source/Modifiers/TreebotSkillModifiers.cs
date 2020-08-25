@@ -21,7 +21,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             FireSyringe.projectileCount = AdditiveScaling(3, 1, level);
-            FireSyringe.totalYawSpread = AdditiveScaling(5, 0.5f, level);
+            FireSyringe.totalYawSpread = AdditiveScaling(1, 0.3f, level);
             FireSyringe.damageCoefficient = MultScaling(0.8f, 0.1f, level);
         }
 
