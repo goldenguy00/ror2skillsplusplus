@@ -113,6 +113,8 @@ namespace SkillsPlusPlus {
                     belongsToCharacter = true;
                 } else if(this.playerCharacterMasterController.master != null && entityStateMachine.commonComponents.characterBody?.master?.minionOwnership?.ownerMaster == this.playerCharacterMasterController.master) {
                     belongsToCharacter = true;
+                } else if(this.body != null && state.outer.TryGetComponent(out GenericOwnership ownership) && ownership.ownerObject == this.body.gameObject) {
+                    belongsToCharacter = true;                    
                 }
 
                 if(belongsToCharacter == false) {
@@ -195,7 +197,7 @@ namespace SkillsPlusPlus {
                 return;
             }
             foreach(GenericSkill genericSkill in skillLocator.FindAllGenericSkills()) {
-                if(skillLevels.ContainsKey(genericSkill.skillDef.skillName) == false) {
+                if(skillLevels.ContainsKey(genericSkill.baseSkill.skillName) == false) {
                     Logger.Debug("Setting {0} to level 1", genericSkill.skillDef.skillName);
                     skillLevels[genericSkill.skillDef.skillName] = 0;
                 }
@@ -259,7 +261,10 @@ namespace SkillsPlusPlus {
 #if DEBUG
             if (Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
                 //TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong)(500 * Time.deltaTime));
-                TeamManager.instance.SetTeamLevel(this.PlayerTeamIndex, TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex) + 1);
+                //TeamManager.instance.SetTeamLevel(this.PlayerTeamIndex, TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex) + 1);
+                this.earnedSkillPoints++;
+                this.unspentSkillPoints++;
+                RefreshIconControllers();
             }
             if(Input.GetKeyDown(KeyCode.Keypad2) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.UtilitySkillMagazine);
@@ -275,6 +280,10 @@ namespace SkillsPlusPlus {
             }
             if(Input.GetKeyDown(KeyCode.Keypad6) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.Syringe, 5);
+            }
+            if(Input.GetKeyDown(KeyCode.Keypad7) && this.playerCharacterMasterController != null) {
+                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.LunarPrimaryReplacement);
+                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.LunarUtilityReplacement);
             }
 #endif
 
