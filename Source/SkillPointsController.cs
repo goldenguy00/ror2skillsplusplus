@@ -114,7 +114,7 @@ namespace SkillsPlusPlus {
                 } else if(this.playerCharacterMasterController.master != null && entityStateMachine.commonComponents.characterBody?.master?.minionOwnership?.ownerMaster == this.playerCharacterMasterController.master) {
                     belongsToCharacter = true;
                 } else if(this.body != null && state.outer.TryGetComponent(out GenericOwnership ownership) && ownership.ownerObject == this.body.gameObject) {
-                    belongsToCharacter = true;                    
+                    belongsToCharacter = true;
                 }
 
                 if(belongsToCharacter == false) {
@@ -134,7 +134,7 @@ namespace SkillsPlusPlus {
                         continue;
                     }
 
-                    var genericSkill = this.skillLocator.FindGenericSkill(skillName);
+                    var genericSkill = this.skillLocator.FindGenericSkill(skillName, true);
                     if(genericSkill == null) {
                         Logger.Debug("Could not find generic skill instance for skill named {0}", skillName);
                         continue;
@@ -357,12 +357,11 @@ namespace SkillsPlusPlus {
         }
 
         private string ResolveSkillNameToInternalName(string skillName) {
-            foreach(GenericSkill skill in this.skillLocator.FindAllGenericSkills()) {
-                if(skill.skillDef?.skillName == skillName) {
-                    return skill.baseSkill.skillName;
-                }
+            var genericSkill = this.skillLocator.FindGenericSkill(skillName);
+            if(genericSkill == null) {
+                return skillName;
             }
-            return skillName;        
+            return genericSkill.baseSkill.skillName;      
         }
 
         private int SkillPointsAtLevel(int characterLevel) {

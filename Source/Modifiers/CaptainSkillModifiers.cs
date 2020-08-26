@@ -20,7 +20,7 @@ using R2API.Utils;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("CaptainShotgun", typeof(FireCaptainShotgun))]
+    [SkillLevelModifier("CaptainShotgun", typeof(FireCaptainShotgun), typeof(ChargeCaptainShotgun))]
     class CaptainShotgunSkillModifier : SimpleSkillModifier<FireCaptainShotgun> {
 
         public override void OnSkillEnter(FireCaptainShotgun skillState, int level) {
@@ -73,24 +73,21 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            Logger.Debug("OnSkillEnter({0}, {1})", skillState, level);
-            if(skillState is EquipmentRestockMainState restock) {
-                restock.activationCost = MultScaling(restock.activationCost, -0.3f, level);
-            }
-            if(skillState is DeployState hacking) {
-                Logger.Debug(hacking);
-                var modelLocator = hacking.outer?.commonComponents.modelLocator;
-                Logger.Debug(modelLocator);
+            if(skillState is DeployState deploying) {
+                var modelLocator = deploying.outer?.commonComponents.modelLocator;
                 if(modelLocator != null) {
                     var indicatorTransform = modelLocator.modelTransform?.Find("Indicator");
                     Logger.Debug(indicatorTransform);
                     if(indicatorTransform != null) {
-                        indicatorTransform.localScale = Vector3.one * HackingMainState.baseRadius;
+                        indicatorTransform.localScale = Vector3.one * HackingMainState.baseRadius / 2;
                         if(indicatorTransform.TryGetComponent(out ObjectScaleCurve objectScaleCurve)) {
                             objectScaleCurve.baseScale = indicatorTransform.localScale;
                         }
                     }
                 }
+            }
+            if(skillState is EquipmentRestockMainState equipmentRestock) {
+                equipmentRestock.activationCost = 100 / AdditiveScaling(3, 1, level);
             }
         }
 
@@ -103,7 +100,6 @@ namespace SkillsPlusPlus.Modifiers {
 
             HackingMainState.baseRadius = MultScaling(10, 0.2f, level);
             HackingInProgressState.baseDuration = MultScaling(15, -0.2f, level);
-
         }
         
     }
