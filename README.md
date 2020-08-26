@@ -71,7 +71,7 @@ The enable command is there to re-enable a survivor if the conflict no longer ex
 
 Go and check out all of these characters and give them some love!
 
-If you have added Skills++ to your own modded character let me know and I will add it to the list.
+If you have added Skills++ to your own modded character let me know and I will add it here.
 
 [![Aatrox by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Aatrox-3.5.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Aatrox/)
 [![Twitch by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Twitch-2.1.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Twitch/)
@@ -118,8 +118,8 @@ A very special thanks to the following people. They have been amazing people pro
 [![REX](https://img.shields.io/static/v1?label=&message=REX&color=869E54)](#REX)
 [![Loader](https://img.shields.io/static/v1?label=&message=Loader&color=6770DE)](#Loader)
 [![Acrid](https://img.shields.io/static/v1?label=&message=Acrid&color=C9F24D)](#Acrid)
-[![Captain](https://img.shields.io/static/v1?label=&message=Captain&color=ED9612)](#Captain)
-[![Lunar Items](https://img.shields.io/static/v1?label=&message=Lunar%20Items&color=ED9612)](#Lunar-Items)
+[![Captain](https://img.shields.io/static/v1?label=&message=Captain&color=BEBA92)](#Captain)
+[![Lunar Items](https://img.shields.io/static/v1?label=&message=Lunar%20Items&color=307FFF)](#Lunar-Items)
 
 ### Commando
 

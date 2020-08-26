@@ -14,7 +14,7 @@ using R2API.AssetPlus;
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
-    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.3")]
+    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.4")]
     [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI))]
     [NetworkCompatibility(CompatibilityLevel.NoNeedForSync)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
