@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using EntityStates;
 using RoR2;
@@ -210,6 +210,8 @@ namespace SkillsPlusPlus {
                 }
                 SkillDef baseSkillDef = Instantiate(genericSkill.baseSkill);
                 BaseSkillModifier modifier = SkillModifierManager.GetSkillModifier(baseSkillDef.skillName);
+                genericSkill.onSkillChanged -= this.OnSkillChanged;
+                genericSkill.onSkillChanged += this.OnSkillChanged;
                 if(modifier != null) {
                     // modifier.SkillDef = baseSkillDef;
                     modifier.skillName = baseSkillDef.skillName;
@@ -230,6 +232,19 @@ namespace SkillsPlusPlus {
                     }
                 }
             }
+        }
+
+        private void OnSkillChanged(GenericSkill genericSkill) {
+            Logger.Debug("OnSkillChanged({0})", genericSkill);
+            var skillDef = genericSkill.skillDef;
+            var baseSkillDef = genericSkill.baseSkill;
+            if(baseSkillDef == null) {
+                return;
+            }
+            Logger.Debug("OnSkillChanged({0}:{1})", genericSkill, skillDef.skillName);
+            BaseSkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef.skillName);
+            // get the skill level by the base skill name but provide the active skill def
+            modifier.OnSkillLeveledUp(skillLevels[baseSkillDef.skillName], this.body, skillDef);
         }
 
         public void SetSkillIconControllers(SkillLevelIconController[] skillIconControllers) {
