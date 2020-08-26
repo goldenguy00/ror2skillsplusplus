@@ -84,13 +84,19 @@ I welcome everyone who uses Skills++ to drop by and share your thoughts.
 
 ## FAQ
 
+**When playing multiplayer my/friend's game doesn't work. What is going wrong?**
+
+Skills++ isn't properly networked and relies upon any existing networking in the game code to synchnoize the game state across all the connected clients. Additionally, some parts of the game are determined on the host.This leads to the case where the a connected player could have an upgrade skill but the host won't know to change the behaviour.
+
+For example, Huntress's glaive is coded to always bounce six times and the glaive projectile is determined by the host game. If a connected player upgrades and throws their glaive it will still only bounce six times because the host doesn't know the player upgraded their glaive.
+
 **Will Skills++ support modded characters?**
   
 Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/feature/master/Documentation/supporting-modded-characters.md) alongside the mod's source code.
 
 **Skills++ makes the game a cakewalk. Do you recommend any other mods to balance the game?**
 
-I'd highly recommend harb's [Diluvian Difficulty](https://thunderstore.io/package/Harb/DiluvianDifficulty/) mod. It adds a new harder difficulty to the game that should level the playing fields a bit more.
+I'd highly recommend harb's [Diluvian Difficulty](https://thunderstore.io/package/Harb/DiluvianDifficulty/) mod. It adds two extra difficulties to the game that should level the playing fields a bit more.
 
 ## Special thanks
 
@@ -219,3 +225,9 @@ A very special thanks to the following people. They have been amazing people pro
 | Beacon: Shocking | ![Beacon: Shocking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c4/Beacon_Shocking.png/revision/latest/scale-to-width-down/64?) | `+30%` shock range per level |
 | Beacon: Resupply | ![Beacon: Resupply](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/67/Beacon_Resupply.png/revision/latest/scale-to-width-down/64?) | `+1` resupply stock per level |
 | Beacon: Hacking | ![Beacon: Hacking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/38/Beacon_Hacking.png/revision/latest/scale-to-width-down/64?) | `+20%` hacking speed and `+20%` hacking range per level |
+
+### Lunar Items
+
+| Skill | | Description |
+|:-|-|------|
+| Visions of Heresy | ![Visions of Heresy]() | `+2` stock per level and `+20%` damage per level |
