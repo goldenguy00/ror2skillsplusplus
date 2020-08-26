@@ -207,3 +207,15 @@ A very special thanks to the following people. They have been amazing people pro
 | Caustic Leap | ![Caustic Leap](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9e/Caustic_Leap.png/revision/latest/scale-to-width-down/64?cb=20200130005158) | `+20%` blast damage, `+30%` acid pool damage, and `+20%` acid pool size per level |
 | Frenzied Leap | ![Frenzied Leap](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/96/Frenzied_Leap.png/revision/latest/scale-to-width-down/64?cb=20200130005159) | `+25%` blast damage and `+15%` refunded time per level |
 | Epidemic | ![Epidemic](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9d/Epidemic.png/revision/latest/scale-to-width-down/64?cb=20200130005159) | `+5` infection bounces, `+20%` infection range, and `+20%` on hit damage per level |
+
+### Captain
+
+| Skill | | Description |
+|:-|-|------|
+| Vulcan Shotgun | ![Vulcan Shotgun](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b9/Vulcan_Shotgun.png/revision/latest/scale-to-width-down/64?cb=20200811174716) | `+20%` shell count, `+10%` damage per level |
+| Power Tazer | ![Power Tazer](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b8/Power_Tazer.png/revision/latest/scale-to-width-down/64?cb=20200811174715) | `+40%` blast radius, `+20%` damage per level |
+| Orbital Probe | ![Orbital Probe](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/4e/Orbital_Probe.png/revision/latest/scale-to-width-down/64?cb=20200811174713) | `+20%` blast radius, `+20%` damage per level |
+| Beacon: Healing | ![Beacon: Healing](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/1e/Beacon_Healing.png/revision/latest/scale-to-width-down/64?cb=20200812024640) | `+20%` healing range,  |
+| Beacon: Shocking | ![Beacon: Shocking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c4/Beacon_Shocking.png/revision/latest/scale-to-width-down/64?cb=20200812024643) | `+30%` shock range per level |
+| Beacon: Resupply | ![Beacon: Resupply](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/67/Beacon_Resupply.png/revision/latest/scale-to-width-down/64?cb=20200812024641) | `+1` resupply stock per level |
+| Beacon: Hacking | ![Beacon: Hacking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/38/Beacon_Hacking.png/revision/latest/scale-to-width-down/64?cb=20200812024640) | `+20%` hacking speed, `+20%` hacking range per level |
