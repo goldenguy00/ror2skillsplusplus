@@ -15,13 +15,19 @@ namespace SkillsPlusPlus.Modifiers {
     class HuntressSeekingArrowSkillModifier : SimpleSkillModifier<FireSeekingArrow> {
 
         public override void OnSkillEnter(FireSeekingArrow skillState, int level) {
-            base.OnSkillEnter(skillState, level);
-            var huntressTracker = skillState.outer.GetComponent<HuntressTracker>();
-            Logger.Debug("orbProcCoefficient: {0}, trackingDistance: {1}, trackingAngle: {3}, maxArrowCount: {2}", skillState.orbProcCoefficient, huntressTracker.maxTrackingDistance, skillState.maxArrowCount, huntressTracker.maxTrackingAngle);
-            huntressTracker.maxTrackingDistance = MultScaling(60, 0.2f, level);
-            huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
+            base.OnSkillEnter(skillState, level);            
             skillState.orbProcCoefficient = AdditiveScaling(1f, 0.2f, level);
             //skillState.orbProcCoefficient;
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            if(characterBody.TryGetComponent(out HuntressTracker huntressTracker)) {
+                huntressTracker.maxTrackingDistance = MultScaling(60, 0.2f, level);
+                huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
+            } else {
+                Logger.Warn("Could not locate the HuntressTracker component on {0}", characterBody);
+            }
         }
     }
 
@@ -30,11 +36,9 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(FireFlurrySeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            var huntressTracker = skillState.outer.GetComponent<HuntressTracker>();
-            Logger.Debug("orbProcCoefficient: {0}, trackingDistance: {1}, trackingAngle: {3}, maxArrowCount: {2}, baseArrowReloadDuration: {4}", skillState.orbProcCoefficient, huntressTracker.maxTrackingDistance, skillState.maxArrowCount, huntressTracker.maxTrackingAngle, skillState.baseArrowReloadDuration);
-            huntressTracker.maxTrackingDistance = MultScaling(60, 0.10f, level);
-            huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
+            
             skillState.maxArrowCount = AdditiveScaling(3, 1, level);
+            skillState.baseArrowReloadDuration = 0.3f / skillState.maxArrowCount;
             // FireFlurrySeekingArrow.baseArrowReloadDuration = AdditiveScaling(6, 2, level);
         }
 
@@ -44,6 +48,12 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("critMaxArrowCount: {0}, critBaseArrowReloadDuration: {1}", FireFlurrySeekingArrow.critMaxArrowCount, FireFlurrySeekingArrow.critBaseArrowReloadDuration);
 
             FireFlurrySeekingArrow.critMaxArrowCount = AdditiveScaling(6, 2, level);
+            if(characterBody.TryGetComponent(out HuntressTracker huntressTracker)) {
+                huntressTracker.maxTrackingDistance = MultScaling(60, 0.10f, level);
+                huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
+            } else {
+                Logger.Warn("Could not locate the HuntressTracker component on {0}", characterBody);
+            }
         }
 
     }
