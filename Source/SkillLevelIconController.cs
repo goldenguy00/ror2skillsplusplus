@@ -33,7 +33,7 @@ namespace SkillsPlusPlus {
         private CanvasRenderer CanBuyRenderer;
 
         public string skillName {
-            get { return skillIcon?.targetSkill?.skillDef?.skillName; }
+            get { return skillIcon?.targetSkill?.baseSkill?.skillName; }
         }
 
         public event UpgradeSkillEvent OnUpgradeSkill;

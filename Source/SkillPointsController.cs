@@ -343,7 +343,6 @@ namespace SkillsPlusPlus {
                 foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
                     string skillName = ResolveSkillNameToInternalName(skillLevelIconController.skillName);
                     if(skillName != null && skillLevels.TryGetValue(skillName, out int currentSkillLevel)) {
-                        ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillName);
                         // Logger.Debug("RefreshIconControllers - slot: {0}, skillLevelIconController: {1}, modifier: {2}", slot, skillLevelIconController, modifier);
 
                         // has skillpoints to spend
