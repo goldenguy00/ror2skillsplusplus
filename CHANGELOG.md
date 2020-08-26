@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 0.1.4
+
+Changes:
+
+- Added Captain upgrades. All vanilla characters are now done!!!!
+- Added upgrades for Hungering Gaze. It was a stink one to pick up Visions of Heresy and lose upgrades. They now transfer onto the item.
+- Fixed REX's primary fire having too much spread. The base value has reduced back to normal.
+- Fixed Huntress's flurry to fire the arrows faster before the ability is cancels.
+- Added extra time to Huntress's ballista so the player has more time to take aim and fire all shots.
+
 ## Version 0.1.3
 
 Changes:

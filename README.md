@@ -3,13 +3,12 @@
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG)
 [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-## What's new in 0.1.3
-
-Changes:
-
-- Added REX upgrades
-- Added ingame setting to change the levels between skill points
-- Updated R2API dependancy to 2.5.7
+## What's new in 0.1.4
+- Added Captain upgrades. All vanilla characters are now done!!!!
+- Added upgrades for Hungering Gaze. It was a stink one to pick up Visions of Heresy and lose upgrades. They now transfer onto the item.
+- Fixed REX's primary fire having too much spread. The base value has reduced back to normal.
+- Fixed Huntress's flurry to fire the arrows faster before the ability is cancels.
+- Added extra time to Huntress's ballista so the player has more time to take aim and fire all shots.
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -70,12 +69,12 @@ The enable command is there to re-enable a survivor if the conflict no longer ex
 
 ## Modded characters
 
-- Rob's [Aatrox](https://thunderstore.io/package/rob/Aatrox/)
-- Rob's [Twitch](https://thunderstore.io/package/rob/Twitch/)
-
 Go and check out all of these characters and give them some love!
 
 If you have added Skills++ to your own modded character let me know and I will add it to the list.
+
+[![Aatrox by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Aatrox-3.5.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Aatrox/)
+[![Twitch by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Twitch-2.1.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Twitch/)
 
 ## Feedback and bug reports
 
@@ -109,6 +108,18 @@ A very special thanks to the following people. They have been amazing people pro
 ---
 
 ## Vanilla character upgrades
+
+[![Commando](https://img.shields.io/static/v1?label=&message=Commando&color=ED9612)](#Commando)
+[![Huntress](https://img.shields.io/static/v1?label=&message=Huntress&color=D53C3C)](#Huntress)
+[![MUL-T](https://img.shields.io/static/v1?label=&message=MUL-T&color=D3C450)](#MUL-T)
+[![Engineer](https://img.shields.io/static/v1?label=&message=Engineer&color=5FE286)](#Engineer)
+[![Artificer](https://img.shields.io/static/v1?label=&message=Artificer&color=F7C1FD)](#Artificer)
+[![Mercenary](https://img.shields.io/static/v1?label=&message=Mercenary&color=6CD1EA)](#Mercenary)
+[![REX](https://img.shields.io/static/v1?label=&message=REX&color=869E54)](#REX)
+[![Loader](https://img.shields.io/static/v1?label=&message=Loader&color=6770DE)](#Loader)
+[![Acrid](https://img.shields.io/static/v1?label=&message=Acrid&color=C9F24D)](#Acrid)
+[![Captain](https://img.shields.io/static/v1?label=&message=Captain&color=ED9612)](#Captain)
+[![Lunar Items](https://img.shields.io/static/v1?label=&message=Lunar%20Items&color=ED9612)](#Lunar-Items)
 
 ### Commando
 
@@ -230,4 +241,4 @@ A very special thanks to the following people. They have been amazing people pro
 
 | Skill | | Description |
 |:-|-|------|
-| Visions of Heresy | ![Visions of Heresy]() | `+2` stock per level and `+20%` damage per level |
+| Hungering Gaze | ![Visions of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3c/Hungering_Gaze.png/revision/latest/scale-to-width-down/64?) | `+2` stock per level and `+20%` damage per level |
