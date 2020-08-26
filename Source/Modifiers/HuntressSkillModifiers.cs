@@ -106,6 +106,9 @@ namespace SkillsPlusPlus.Modifiers {
         static readonly float stockImageInterspacing = 18.0f;
 
         public override void OnSkillEnter(BaseState skillState, int level) {
+            if(skillState is AimArrowSnipe aimState) {
+                aimState.maxDuration = AdditiveScaling(aimState.maxDuration, 0.5f, level);
+            }
             if (skillState is FireArrowSnipe snipeState) {
                 snipeState.damageCoefficient = MultScaling(snipeState.damageCoefficient, 0.2f, level);
                 Logger.Debug("damageCoefficient: {0}", snipeState.damageCoefficient);
