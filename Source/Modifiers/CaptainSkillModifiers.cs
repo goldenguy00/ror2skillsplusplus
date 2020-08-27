@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -70,16 +70,24 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier(new string[] { "CaptainPrepSupplyDrop", "CaptainSupplyDropDepleted" }, typeof(DeployState), typeof(HealZoneMainState), typeof(ShockZoneMainState), typeof(HackingMainState), typeof(HackingInProgressState), typeof(EquipmentRestockMainState))]
+    [SkillLevelModifier(new string[] { 
+        "CaptainPrepSupplyDrop", 
+        //"CaptainSkillUsedUp", 
+        //"CaptainSupplyDropDepleted", 
+        //"CaptainSupplyDropHealing", 
+        //"CaptainSupplyDropPlating",
+        //"CaptainSupplyDropEquipmentRestock",
+        //"CaptainSupplyDropHacking"
+    }, typeof(DeployState), typeof(HealZoneMainState), typeof(ShockZoneMainState), typeof(HackingMainState), typeof(HackingInProgressState), typeof(EquipmentRestockMainState))]
     class CaptainSupplyDropHealingSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
+
             if(skillState is DeployState deploying) {
                 var modelLocator = deploying.outer?.commonComponents.modelLocator;
                 if(modelLocator != null) {
                     var indicatorTransform = modelLocator.modelTransform?.Find("Indicator");
-                    Logger.Debug(indicatorTransform);
                     if(indicatorTransform != null) {
                         indicatorTransform.localScale = Vector3.one * HackingMainState.baseRadius / 2;
                         if(indicatorTransform.TryGetComponent(out ObjectScaleCurve objectScaleCurve)) {
@@ -88,6 +96,7 @@ namespace SkillsPlusPlus.Modifiers {
                     }
                 }
             }
+
             if(skillState is EquipmentRestockMainState equipmentRestock) {
                 equipmentRestock.activationCost = 100 / AdditiveScaling(3, 1, level);
             }
@@ -96,7 +105,8 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             if(HealZoneMainState.healZonePrefab.TryGetComponent(out HealingWard healingWard)) {
-                healingWard.radius = MultScaling(10, 0.2f, level);
+                var healRadius = MultScaling(10, 0.2f, level);
+                healingWard.radius = healRadius;
             }
             ShockZoneMainState.shockRadius = MultScaling(10, 0.3f, level);
 
