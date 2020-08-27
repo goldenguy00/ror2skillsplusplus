@@ -3,7 +3,10 @@
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG)
 [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
+> ***NOTE:*** Multiplayer is not supported yet. Upgrades are not synced between clients and will cause desyn issues.
+
 ## What's new in 0.1.4
+
 - Added Captain upgrades. All vanilla characters are now done!!!!
 - Added upgrades for Hungering Gaze. It was a stink one to pick up Visions of Heresy and lose upgrades. They now transfer onto the item.
 - Fixed REX's primary fire having too much spread. The base value has reduced back to normal.
@@ -45,10 +48,6 @@ You can find the binding at the end of all the gamepad controls.
 ![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skills_gamepad_settings.jpg)
 
 While ingame just press and the bound button and activate the skill you wish to upgrade.
-
-> ***NOTE:*** Multiplayer is not supported yet. Upgrades are not synced between clients and will cause desyn issues.
-
-> ***NOTE:*** This mod is still a work in progress. There is no guarantee that Skills++ is compatible with other mods. If you find any issue join the discord
 
 ### Disabling survivors
 
