@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -21,12 +21,14 @@ using R2API.Utils;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("CaptainShotgun", typeof(FireCaptainShotgun), typeof(ChargeCaptainShotgun))]
-    class CaptainShotgunSkillModifier : SimpleSkillModifier<FireCaptainShotgun> {
+    class CaptainShotgunSkillModifier : BaseSkillModifier {
 
-        public override void OnSkillEnter(FireCaptainShotgun skillState, int level) {
+        public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            skillState.bulletCount = (int)MultScaling(skillState.bulletCount, 0.2f, level);
-            skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.1f, level);
+            if(skillState is FireCaptainShotgun fireshotgun) {
+                fireshotgun.bulletCount = (int) MultScaling(fireshotgun.bulletCount, 0.2f, level);
+                fireshotgun.damageCoefficient = MultScaling(fireshotgun.damageCoefficient, 0.1f, level);
+            }
         }
     }
 
