@@ -311,24 +311,30 @@ namespace SkillsPlusPlus {
             if (unspentSkillPoints <= 0) {
                 return;
             }
-            Logger.Debug("OnBuySkill({0})", skillName);
 
             string resolvedSkillName = ResolveSkillNameToInternalName(skillName);
+            Logger.Debug("OnBuySkill({0}), resolvedName: {1}", skillName, resolvedSkillName);
 
             if (skillLevels.TryGetValue(resolvedSkillName, out int skillLevel)) {
-                GenericSkill genericSkill = skillLocator.FindGenericSkill(skillName);
-                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(skillName);
+                GenericSkill genericSkill = skillLocator.FindGenericSkill(resolvedSkillName, true);
+                ISkillModifier modifier = SkillModifierManager.GetSkillModifier(genericSkill.skillDef.skillName);
+                if(genericSkill == null) {
+                    Logger.Debug("Could not purchase skill. Could not find generic skill matching {0} or {1}", skillName, resolvedSkillName);
+                    return;
+                }
+                if(modifier == null || modifier is NoopSkillModifier) {
+                    Logger.Debug("Could not purchase skill. Could not find a skill modifiers matching {0}", skillName);
+                    return;
+                }
 
                 unspentSkillPoints--;
-
 
                 // increment and store the new skill level
                 skillLevels[resolvedSkillName] = ++skillLevel;
                 Logger.Debug("SkillSlot {2} ({0}) @ level {1}", skillName, skillLevel, resolvedSkillName);
 
                 // find an notify the modifer to update the skill's parameters
-                if (modifier != null)
-                {
+                if (modifier != null) {
                     modifier.OnSkillLeveledUp(skillLevel, this.body, genericSkill.skillDef);
                     genericSkill.RecalculateValues();
                 }
