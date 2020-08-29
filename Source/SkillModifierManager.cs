@@ -48,7 +48,7 @@ namespace SkillsPlusPlus {
                             } else {
                                 object someSkillModifier = constructorInfo.Invoke(new object[0]);
                                 if(someSkillModifier is BaseSkillModifier skillModifier) {
-                                    skillModifier.skillName = registeredSkillName;
+                                    // skillModifier.skillName = registeredSkillName;
                                     skillModifier.EntityStateTypes = attribute.baseStateTypes;
                                     skillModifiers[registeredSkillName] = skillModifier;
                                     foreach(Type baseStateType in attribute.baseStateTypes) {
@@ -77,7 +77,7 @@ namespace SkillsPlusPlus {
                     return modifier;
                 }
             }
-            return NoopSkillModifier.Instance;
+            return null;
         }
 
         internal static IEnumerable<BaseSkillModifier> GetSkillModifiersForEntityStateType(Type entityStateType) {

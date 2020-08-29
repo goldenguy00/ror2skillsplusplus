@@ -79,12 +79,12 @@ namespace SkillsPlusPlus {
                 };
             };
 
-            On.RoR2.UI.CharacterSelectController.Awake += (orig, self) => {
-                orig(self);
-                if(self.gameObject.GetComponent<SkillModifierTooltipController>() == null) {
-                    SkillModifierTooltipController skillModifierTooltipController = self.gameObject.AddComponent<SkillModifierTooltipController>();
-                }
-            };
+            //On.RoR2.UI.CharacterSelectController.Awake += (orig, self) => {
+            //    orig(self);
+            //    if(self.gameObject.GetComponent<SkillModifierTooltipController>() == null) {
+            //        SkillModifierTooltipController skillModifierTooltipController = self.gameObject.AddComponent<SkillModifierTooltipController>();
+            //    }
+            //};
 
             On.RoR2.UI.HUD.Awake += (orig, self) => {
                 orig(self);
