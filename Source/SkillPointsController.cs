@@ -166,8 +166,10 @@ namespace SkillsPlusPlus {
         }
 
         private void OnEnterState(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
-            if(isSurvivorEnabled && TryGetSkillModifierForState(self, out ISkillModifier skillModifier, out string skillName) && this.skillLevels.TryGetValue(skillName, out int level)) {
-                skillModifier.OnSkillEnter(self, level);
+            if(isSurvivorEnabled) {
+                if(TryGetSkillModifierForState(self, out BaseSkillModifier skillModifier, out int skillLevel)) {
+                    skillModifier.OnSkillEnter(self, skillLevel);
+                }
                 RefreshIconControllers();
             }
             orig(self);
@@ -175,10 +177,8 @@ namespace SkillsPlusPlus {
 
         private void OnExitState(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
             if(isSurvivorEnabled && self is BaseState baseState) {
-                if(TryGetSkillModifierForState(baseState, out ISkillModifier skillModifier, out string skillName)) {
-                    if(this.skillLevels.TryGetValue(skillName, out int level)) {
-                        skillModifier.OnSkillExit(baseState, level);
-                    }
+                if(TryGetSkillModifierForState(baseState, out BaseSkillModifier skillModifier, out int skillLevel)) {
+                    skillModifier.OnSkillExit(baseState, skillLevel);                    
                 }
                 RefreshIconControllers();
             }
@@ -187,7 +187,7 @@ namespace SkillsPlusPlus {
 
         #endregion
 
-        private bool TryGetSkillModifierForState(BaseState state, out ISkillModifier skillModifierOut, out string skillNameOut) {
+        private bool TryGetSkillModifierForState(BaseState state, out BaseSkillModifier skillModifierOut, out int skillLevelOut) {
             var entityStateMachine = state.outer;
             if(entityStateMachine != null && entityStateMachine.destroying == false) {
                 bool belongsToCharacter = false;
@@ -203,31 +203,35 @@ namespace SkillsPlusPlus {
 
                 if(belongsToCharacter == false) {
                     skillModifierOut = null;
-                    skillNameOut = null;
+                    skillLevelOut = SKILL_DISABLED;
                     return false;
                 }
 
                 var stateType = state.GetType();
-                IEnumerable<ISkillModifier> skillModifiers = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
-                foreach(ISkillModifier skillModifier in skillModifiers) {
-                    var skillName = skillModifier?.skillName;
-                    if(skillName == null) {
-                        Logger.Debug("Skill modifier {0} does not have a skill name", skillModifier);
-                        continue;
+                var skillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
+                if(skillModifier != null) {
+                    foreach(var skillName in skillModifier.skillNames) {
+                        var genericSkill = this.body.skillLocator?.FindGenericSkill(skillName);
+
+                        skillLevelOut = this.GetSkillLevelForGenericSkill(genericSkill);
+                        if(skillLevelOut != SKILL_DISABLED) {
+                            skillModifierOut = skillModifier;
+                            return true;
+                        }
                     }
-                    skillNameOut = skillName;
-                    skillModifierOut = skillModifier;
-                    return true;
                 }
             } else {
                 Logger.Debug("{0} does not have a running entity state machine", state);            
             }
-            skillNameOut = null;
+            skillLevelOut = SKILL_DISABLED;
             skillModifierOut = null;
             return false;
         }
 
         private int GetSkillLevelForGenericSkill(GenericSkill genericSkill) {
+            if(genericSkill == null) {
+                return SKILL_DISABLED;
+            }
             try {
                 var skillOverrides = genericSkill.GetFieldValue<GenericSkill.SkillOverride[]>("skillOverrides");
                 var skillOverridePriority = GenericSkill.SkillOverridePriority.Default;
@@ -348,7 +352,7 @@ namespace SkillsPlusPlus {
                 return;
             }
             int skillLevel = GetSkillLevelForGenericSkill(genericSkill);
-            ISkillModifier modifier = GetModifierForGenericSkill(genericSkill);
+            BaseSkillModifier modifier = GetModifierForGenericSkill(genericSkill);
             if(modifier == null) {
                 Logger.Debug("Could not purchase skill. Could not find a skill modifiers matching {0}", genericSkill.skillDef.skillName);
                 return;
