@@ -89,6 +89,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(FireSonicBoom skillState, int level) {
             base.OnSkillEnter(skillState, level);
             skillState.maxDistance = MultScaling(skillState.maxDistance, 0.30f, level);
+            skillState.idealDistanceToPlaceTargets = MultScaling(skillState.idealDistanceToPlaceTargets, 0.30f, level);
             skillState.fieldOfView = MultScaling(skillState.fieldOfView, 0.20f, level);
             skillState.slowDuration = MultScaling(skillState.slowDuration, 0.20f, level);            
         }
@@ -100,6 +101,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(FirePlantSonicBoom skillState, int level) {
             base.OnSkillEnter(skillState, level);
             skillState.maxDistance = MultScaling(skillState.maxDistance, 0.20f, level);
+            skillState.idealDistanceToPlaceTargets = MultScaling(skillState.idealDistanceToPlaceTargets, 0.20f, level);
             skillState.fieldOfView = MultScaling(skillState.fieldOfView, 0.20f, level);
         }
 
