@@ -149,7 +149,7 @@ A very special thanks to the following people. They have been amazing people pro
 | Skill | | Description |
 |:-|-|------|
 | Auto-Nailgun | ![Auto-Nailgun](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/ec/Auto-Nailgun.png/revision/latest/scale-to-width-down/64?) | `+20%` damage and `+4` bullets to final burst per level |
-| Rebar Puncher | ![Rebar Puncher](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/10/Rebar_Puncher.png/revision/latest/scale-to-width-down/64?) | `+20%` faster wind up and `+20%` damage per level |
+| Rebar Puncher | ![Rebar Puncher](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/10/Rebar_Puncher.png/revision/latest/scale-to-width-down/64?) | `+15%` rate of fire and `+10%` damage per level |
 | Scrap Launcher | ![Scrap Launcher](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e6/Scrap_Launcher.png/revision/latest/scale-to-width-down/64?) | `+1` stock, `+20%` damage, and `+15%` blast radius per level |
 | Power-Saw | ![Power-Saw](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8e/Power-Saw.png/revision/latest/scale-to-width-down/64?) | `+20%` rate of fire, `+20%` damage, and `+30%` blade hitbox size per level |
 | Blast Cannister | ![Blast Cannister](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f2/Blast_Canister.png/revision/latest/scale-to-width-down/64?) | `+3` child bombs, `+20%` spread radius, `+20%` child blast radius, and `+20%` damage per level |
