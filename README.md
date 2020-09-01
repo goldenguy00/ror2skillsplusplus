@@ -111,6 +111,8 @@ A very special thanks to the following people. They have been amazing people pro
 
 [![Commando](https://img.shields.io/static/v1?label=&message=Commando&color=ED9612)](#commando) [![Huntress](https://img.shields.io/static/v1?label=&message=Huntress&color=D53C3C)](#huntress) [![MUL-T](https://img.shields.io/static/v1?label=&message=MUL-T&color=D3C450)](#mul-t) [![Engineer](https://img.shields.io/static/v1?label=&message=Engineer&color=5FE286)](#engineer) [![Artificer](https://img.shields.io/static/v1?label=&message=Artificer&color=F7C1FD)](#artificer) [![Mercenary](https://img.shields.io/static/v1?label=&message=Mercenary&color=6CD1EA)](#mercenary) [![REX](https://img.shields.io/static/v1?label=&message=REX&color=869E54)](#rex) [![Loader](https://img.shields.io/static/v1?label=&message=Loader&color=6770DE)](#loader) [![Acrid](https://img.shields.io/static/v1?label=&message=Acrid&color=C9F24D)](#acrid) [![Captain](https://img.shields.io/static/v1?label=&message=Captain&color=BEBA92)](#captain) [![Lunar Items](https://img.shields.io/static/v1?label=&message=Lunar%20Items&color=307FFF)](#lunar-items)
 
+<!-- markdownlint-disable MD033-->
+
 ### Commando
 
 | Skill | | Description |
