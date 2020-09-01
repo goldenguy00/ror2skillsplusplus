@@ -1,3 +1,6 @@
+<!--!\[([\s\w:-]+)\]\((https://static\S+?\))-->
+<!--<img src="$2" alt="$1" width="64" height="64"/>-->
+
 # Risk of Rain 2 - Skills++ Mod
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
@@ -112,120 +115,120 @@ A very special thanks to the following people. They have been amazing people pro
 
 | Skill | | Description |
 |:-|-|------|
-| Double Tap | ![Double tap](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/7c/Double_Tap.png/revision/latest/scale-to-width-down/64?) | `+20%` rate of fire and `+15%` recoil reduction per level |
-| Phase Round | ![Phase Round](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/38/Phase_Round.png/revision/latest/scale-to-width-down/64?) | `+30%` damage and `+30%` projectile velocity per level |
-| Phase Blast | ![Phase Blast](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/49/Phase_Blast.png/revision/latest/scale-to-width-down/64?) | `+30%` bullets fires and `+20%` blast range per level |
-| Tactical Dive | ![Tactical Dive](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/25/Tactical_Dive.png/revision/latest/scale-to-width-down/64?) | Grants `+0.75 seconds` of invulnerability per level |
-| Tactical Slide | ![Tactical Slide](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e8/Tactical_Slide.png/revision/latest/scale-to-width-down/64?) | Grants `+0.75 seconds` of bonus attack speed per level |
-| Supressive Fire | ![Supressive fire](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/db/Suppressive_Fire.png/revision/latest/scale-to-width-down/64?) | `+30%` bullets fired per level |
-| Frag Grenade | ![Frag Grenade](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/6b/Frag_Grenade.png/revision/latest/scale-to-width-down/64?) | `+20%` explosion damage and `+20%` blast radius per level |
+| Double Tap | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/7c/Double_Tap.png" alt="Double tap" width="64" height="64" /> | `+20%` rate of fire and `+15%` recoil reduction per level |
+| Phase Round | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/38/Phase_Round.png" alt="Phase Round" width="64" height="64" /> | `+30%` damage and `+30%` projectile velocity per level |
+| Phase Blast | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/49/Phase_Blast.png" alt="Phase Blast" width="64" height="64" /> | `+30%` bullets fires and `+20%` blast range per level |
+| Tactical Dive | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/25/Tactical_Dive.png" alt="Tactical Dive" width="64" height="64" /> | Grants `+0.75 seconds` of invulnerability per level |
+| Tactical Slide | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e8/Tactical_Slide.png" alt="Tactical Slide" width="64" height="64" /> | Grants `+0.75 seconds` of bonus attack speed per level |
+| Supressive Fire | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/db/Suppressive_Fire.png" alt="Supressive fire" width="64" height="64" /> | `+30%` bullets fired per level |
+| Frag Grenade | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/6b/Frag_Grenade.png" alt="Frag Grenade" width="64" height="64" /> | `+20%` explosion damage and `+20%` blast radius per level |
 
 ### Huntress
 
 | Skill | | Description |
 |:-|-|------|
-| Strafe | ![Strafe](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/a/af/Strafe.png/revision/latest/scale-to-width-down/64?) | `+20%` range and `+20%` proc chance per level |
-| Flurry | ![Flurry](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/24/Flurry.png/revision/latest/scale-to-width-down/64?) | `+10%` range and `+1` arrow fired per level. *Crits fire twice as many arrows* |
-| Laser Glaive | ![Laser Glaive](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f6/Laser_Glaive.png/revision/latest/scale-to-width-down/64?) | `+1` bounce, `+10%` damage, and `+10 units` of bounce range per level |
-| Blink | ![Blink](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/16/Blink.png/revision/latest/scale-to-width-down/64?) | Grants `+1 second` per level or full crit time |
-| Phase Blink | ![Phase Blink](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/dd/Phase_Blink.png/revision/latest/scale-to-width-down/64?) | Grants `+0.5 seconds` per level or full crit time |
-| Arrow Rain | ![Arrow Rain](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/59/Arrow_Rain.png/revision/latest/scale-to-width-down/64?) | `+25%` area of effect and `+20%` damage per level |
-| Ballista | ![Ballista](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d5/Ballista.png/revision/latest/scale-to-width-down/64?) | `+1` bullet and `+20%` damage per level |
+| Strafe | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/a/af/Strafe.png" alt="Strafe" width="64" height="64" /> | `+20%` range and `+20%` proc chance per level |
+| Flurry | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/24/Flurry.png" alt="Flurry" width="64" height="64" /> | `+10%` range and `+1` arrow fired per level. *Crits fire twice as many arrows* |
+| Laser Glaive | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f6/Laser_Glaive.png" alt="Laser Glaive" width="64" height="64" /> | `+1` bounce, `+10%` damage, and `+10 units` of bounce range per level |
+| Blink | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/16/Blink.png" alt="Blink" width="64" height="64" /> | Grants `+1 second` per level or full crit time |
+| Phase Blink | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/dd/Phase_Blink.png" alt="Phase Blink" width="64" height="64" /> | Grants `+0.5 seconds` per level or full crit time |
+| Arrow Rain | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/59/Arrow_Rain.png" alt="Arrow Rain" width="64" height="64" /> | `+25%` area of effect and `+20%` damage per level |
+| Ballista | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d5/Ballista.png" alt="Ballista" width="64" height="64" /> | `+1` bullet and `+20%` damage per level |
 
 ### MUL-T
 
 | Skill | | Description |
 |:-|-|------|
-| Auto-Nailgun | ![Auto-Nailgun](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/ec/Auto-Nailgun.png/revision/latest/scale-to-width-down/64?) | `+20%` damage and `+4` bullets to final burst per level |
-| Rebar Puncher | ![Rebar Puncher](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/10/Rebar_Puncher.png/revision/latest/scale-to-width-down/64?) | `+15%` rate of fire and `+10%` damage per level |
-| Scrap Launcher | ![Scrap Launcher](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e6/Scrap_Launcher.png/revision/latest/scale-to-width-down/64?) | `+1` stock, `+20%` damage, and `+15%` blast radius per level |
-| Power-Saw | ![Power-Saw](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8e/Power-Saw.png/revision/latest/scale-to-width-down/64?) | `+20%` rate of fire, `+20%` damage, and `+30%` blade hitbox size per level |
-| Blast Cannister | ![Blast Cannister](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f2/Blast_Canister.png/revision/latest/scale-to-width-down/64?) | `+3` child bombs, `+20%` spread radius, `+20%` child blast radius, and `+20%` damage per level |
-| Transport Mode | ![Transport Mode](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/85/Transport_Mode.png/revision/latest/scale-to-width-down/64?) | `+10%` duration, `+10%` speed, and `+30%` damage per level |
-| Swap | ![Swap](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8d/Retool.png/revision/latest/scale-to-width-down/64?) | Upon activating gain `+1 second` of bonus attack speed and `+1 second` equipment cooldown per level |
+| Auto-Nailgun | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/ec/Auto-Nailgun.png" alt="Auto-Nailgun" width="64" height="64" /> | `+20%` damage and `+4` bullets to final burst per level |
+| Rebar Puncher | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/10/Rebar_Puncher.png" alt="Rebar Puncher" width="64" height="64" /> | `+15%` rate of fire and `+10%` damage per level |
+| Scrap Launcher | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e6/Scrap_Launcher.png" alt="Scrap Launcher" width="64" height="64" /> | `+1` stock, `+20%` damage, and `+15%` blast radius per level |
+| Power-Saw | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8e/Power-Saw.png" alt="Power-Saw" width="64" height="64" /> | `+20%` rate of fire, `+20%` damage, and `+30%` blade hitbox size per level |
+| Blast Cannister | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f2/Blast_Canister.png" alt="Blast Cannister" width="64" height="64" /> | `+3` child bombs, `+20%` spread radius, `+20%` child blast radius, and `+20%` damage per level |
+| Transport Mode | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/85/Transport_Mode.png" alt="Transport Mode" width="64" height="64" /> | `+10%` duration, `+10%` speed, and `+30%` damage per level |
+| Swap | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8d/Retool.png" alt="Swap" width="64" height="64" /> | Upon activating gain `+1 second` of bonus attack speed and `+1 second` equipment cooldown per level |
 
 ### Engineer
 
 | Skill | | Description |
 |:-|-|------|
-| Bouncing Grenades | ![Bouncing Grenades](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/0/08/Bouncing_Grenades.png/revision/latest/scale-to-width-down/64?) | `+1` and `+2` to the minimum and maximum grenades fired per level |
-| Pressure Mines | ![Pressure Mines](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9e/Pressure_Mines.png/revision/latest/scale-to-width-down/64?) | `-10%` arming time, `+20%` damage, `+20%` blast radius, and `+20%` trigger radius per level |
-| Spider Mines | ![Spider Mines](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/61/Spider_Mines.png/revision/latest/scale-to-width-down/64?) | `+30%` activation range and `+20%` damage per level |
-| Bubble Shield | ![Bubble Shield](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/da/Bubble_Shield.png/revision/latest/scale-to-width-down/64?) | `+15%` duration and `+15%` size per level |
-| Thermal Harpoons | ![Thermal Harpoons](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b7/Thermal_Harpoons.png/revision/latest/scale-to-width-down/64?) | `+1` harpoon ammo, `+20%` damage, and `+30%` targetting range per level |
-| TR12 Gauss Auto-Turret | ![TR12 Gauss Auto-Turret](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/60/TR12_Gauss_Auto-Turret.png/revision/latest/scale-to-width-down/64?) | `+25%` enemy detection range and `+10%` damage per level. `+1` deployable turret per two levels |
-| TR58 Carbonizer Turret | ![TR58 Carbonizer Turret](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/4f/TR58_Carbonizer_Turret.png/revision/latest/scale-to-width-down/64?) | `+15%` damage, `+25%` proc chance, and `+10%` rate of fire per level. `+1` deployable turret per two levels |
+| Bouncing Grenades | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/0/08/Bouncing_Grenades.png" alt="Bouncing Grenades" width="64" height="64" /> | `+1` and `+2` to the minimum and maximum grenades fired per level |
+| Pressure Mines | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9e/Pressure_Mines.png" alt="Pressure Mines" width="64" height="64" /> | `-10%` arming time, `+20%` damage, `+20%` blast radius, and `+20%` trigger radius per level |
+| Spider Mines | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/61/Spider_Mines.png" alt="Spider Mines" width="64" height="64" /> | `+30%` activation range and `+20%` damage per level |
+| Bubble Shield | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/da/Bubble_Shield.png" alt="Bubble Shield" width="64" height="64" /> | `+15%` duration and `+15%` size per level |
+| Thermal Harpoons | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b7/Thermal_Harpoons.png" alt="Thermal Harpoons" width="64" height="64" /> | `+1` harpoon ammo, `+20%` damage, and `+30%` targetting range per level |
+| TR12 Gauss Auto-Turret | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/60/TR12_Gauss_Auto-Turret.png" alt="TR12 Gauss Auto-Turret" width="64" height="64" /> | `+25%` enemy detection range and `+10%` damage per level. `+1` deployable turret per two levels |
+| TR58 Carbonizer Turret | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/4f/TR58_Carbonizer_Turret.png" alt="TR58 Carbonizer Turret" width="64" height="64" /> | `+15%` damage, `+25%` proc chance, and `+10%` rate of fire per level. `+1` deployable turret per two levels |
 
 ### Artificer
 
 | Skill | | Description |
 |:-|-|------|
-| Flame bolt | ![Flame bolt](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/5e/Flame_Bolt.png/revision/latest/scale-to-width-down/64?) | `+2` stock and `-10%` stock recharge time per level |
-| Plasma Bolt | ![Plasma bolt](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/57/Plasma_Bolt.png/revision/latest/scale-to-width-down/64?) | `+2` stock and `-10%` stock recharge time per level |
-| Charged Nano-Bomb | ![Charged nano-bomb](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c8/Charged_Nano-Bomb.png/revision/latest/scale-to-width-down/64?) | `+20%` damage and `+10%` max charge time per level |
-| Charged Nano-Spear | ![Charged nano-spear](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/92/Cast_Nano-Spear.png/revision/latest/scale-to-width-down/64?) | `+20%` damage and `+10%` max charge time per level |
-| Snapfreeze | ![Snapfreeze](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/ce/Snapfreeze.png/revision/latest/scale-to-width-down/64?) | `+30%` wall damage, `+15%` wall duration, and `+20%` wall length per level |
-| Flamethrower | ![Flamethrower](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/a/ad/Flamethrower.png/revision/latest/scale-to-width-down/64?) | `+20%` range, `+25%` flame radius, and `+20%` damage per level |
-| Ion Surge | ![Ion Surge](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d1/Ion_Surge.png/revision/latest/scale-to-width-down/64?) | `+25%` damage and `+30%` area of effect per level |
+| Flame bolt | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/5e/Flame_Bolt.png" alt="Flame bolt" width="64" height="64" /> | `+2` stock and `-10%` stock recharge time per level |
+| Plasma Bolt | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/57/Plasma_Bolt.png" alt="Plasma bolt" width="64" height="64" /> | `+2` stock and `-10%` stock recharge time per level |
+| Charged Nano-Bomb | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c8/Charged_Nano-Bomb.png" alt="Charged nano-bomb" width="64" height="64" /> | `+20%` damage and `+10%` max charge time per level |
+| Charged Nano-Spear | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/92/Cast_Nano-Spear.png" alt="Charged nano-spear" width="64" height="64" /> | `+20%` damage and `+10%` max charge time per level |
+| Snapfreeze | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/ce/Snapfreeze.png" alt="Snapfreeze" width="64" height="64" /> | `+30%` wall damage, `+15%` wall duration, and `+20%` wall length per level |
+| Flamethrower | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/a/ad/Flamethrower.png" alt="Flamethrower" width="64" height="64" /> | `+20%` range, `+25%` flame radius, and `+20%` damage per level |
+| Ion Surge | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d1/Ion_Surge.png" alt="Ion Surge" width="64" height="64" /> | `+25%` damage and `+30%` area of effect per level |
 
 ### Mercenary
 
 | Skill | | Description |
 |:-|-|------|
-| Laser Sword | ![Laser Sword](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e2/Laser_Sword.png/revision/latest/scale-to-width-down/64?) | `+20%` damage, and `+15%` attack speed per level |
-| Whirlwind | ![Whirlwind](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e0/Whirlwind.png/revision/latest/scale-to-width-down/64?) | `+25%` damage and `+25%` larger hitbox per level |
-| Rising Thunder | ![Rising Thunder](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d4/Rising_Thunder.png/revision/latest/scale-to-width-down/64?) | `+25%` damage per level. `+1` stock per two levels |
-| Blinding Assault | ![Blinding Assault](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/87/Blinding_Assault.png/revision/latest/scale-to-width-down/64?) | `+20%` damage, and `+0.5 seconds` extra delay before reset |
-| Eviscerate | ![Eviscerate](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9f/Eviscerate.png/revision/latest/scale-to-width-down/64?) | `+30%` chain range, `+15%` attack speed, and `+10%` proc chance per level |
-| Slicing Winds | ![Slicing Winds](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/bc/Slicing_Winds.png/revision/latest/scale-to-width-down/64?) | `+20%` attack speed and `+20%` damage per level |
+| Laser Sword | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e2/Laser_Sword.png" alt="Laser Sword" width="64" height="64" /> | `+20%` damage, and `+15%` attack speed per level |
+| Whirlwind | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e0/Whirlwind.png" alt="Whirlwind" width="64" height="64" /> | `+25%` damage and `+25%` larger hitbox per level |
+| Rising Thunder | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d4/Rising_Thunder.png" alt="Rising Thunder" width="64" height="64" /> | `+25%` damage per level. `+1` stock per two levels |
+| Blinding Assault | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/87/Blinding_Assault.png" alt="Blinding Assault" width="64" height="64" /> | `+20%` damage, and `+0.5 seconds` extra delay before reset |
+| Eviscerate | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9f/Eviscerate.png" alt="Eviscerate" width="64" height="64" /> | `+30%` chain range, `+15%` attack speed, and `+10%` proc chance per level |
+| Slicing Winds | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/bc/Slicing_Winds.png" alt="Slicing Winds" width="64" height="64" /> | `+20%` attack speed and `+20%` damage per level |
 
 ### REX
 
 | Skill | | Description |
 |:-|-|------|
-| Natural Toxins | ![Natural Toxins](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/57/DIRECTIVE_Inject.png/revision/latest/scale-to-width-down/64?) | `+1` syringe and `+10%` damage per level |
-| DIRECTIVE: Drill | ![DIRECTIVE: Drill](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/fc/DIRECTIVE_Drill.png/revision/latest/scale-to-width-down/64?) | `+10%` damage, `+10%` duration, and `+20%` radius per level |
-| Seed Barrage | ![Seed Barrage](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b0/Seed_Barrage.png/revision/latest/scale-to-width-down/64?) | `+20%` radius and `+20%` damage per level |
-| DIRECTIVE: Disperse | ![DIRECTIVE: Disperse](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/22/DIRECTIVE_Disperse.png/revision/latest/scale-to-width-down/64?) | `+30%` range, `+20%` angle, `+20%` debuff duration per level |
-| Bramble Volley | ![Bramble Volley](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/63/Bramble_Volley.png/revision/latest/scale-to-width-down/64?) | `+20%` range, `+20%` angle, `+20%` damage per level |
-| Tangling Growth | ![Tangling Growth](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9d/Tangling_Growth.png/revision/latest/scale-to-width-down/64?) | `+20%` damage, `+20%` radius, `+10%` healing rate per level |
+| Natural Toxins | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/57/DIRECTIVE_Inject.png" alt="Natural Toxins" width="64" height="64" /> | `+1` syringe and `+10%` damage per level |
+| DIRECTIVE: Drill | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/fc/DIRECTIVE_Drill.png" alt="DIRECTIVE: Drill" width="64" height="64" /> | `+10%` damage, `+10%` duration, and `+20%` radius per level |
+| Seed Barrage | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b0/Seed_Barrage.png" alt="Seed Barrage" width="64" height="64" /> | `+20%` radius and `+20%` damage per level |
+| DIRECTIVE: Disperse | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/22/DIRECTIVE_Disperse.png" alt="DIRECTIVE: Disperse" width="64" height="64" /> | `+30%` range, `+20%` angle, `+20%` debuff duration per level |
+| Bramble Volley | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/63/Bramble_Volley.png" alt="Bramble Volley" width="64" height="64" /> | `+20%` range, `+20%` angle, `+20%` damage per level |
+| Tangling Growth | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9d/Tangling_Growth.png" alt="Tangling Growth" width="64" height="64" /> | `+20%` damage, `+20%` radius, `+10%` healing rate per level |
 
 ### Loader
 
 | Skill | | Description |
 |:-|-|------|
-| Knuckleboom | ![Knuckleboom](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b2/Knuckleboom.png/revision/latest/scale-to-width-down/64?) | `+1%` barrier gained and `+20%` damage per level |
-| Grapple Fist | ![Grapple Fist](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/25/Grapple_Fist.png/revision/latest/scale-to-width-down/64?) | `+30%` hook range per level. |
-| Spiked Fist | ![Spiked Fist](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/62/Spiked_Fist.png/revision/latest/scale-to-width-down/64?) | `+15%` hook range and `+20%` damage per level |
-| Charged Gauntlet | ![Charged Gauntlet](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/79/Charged_Gauntlet.png/revision/latest/scale-to-width-down/64?) | `+10%` max charge, `+20%` base damage, and `+15%` velocity based damage per level |
-| Thunder Gauntlet | ![Thunder Gauntlet](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f3/Thunder_Gauntlet.png/revision/latest/scale-to-width-down/64?) | `+15%` damage and `+20%` cone range per level |
-| M551 Pylon | ![M551 Pylon](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/37/M551_Pylon.png/revision/latest/scale-to-width-down/64?) | `+20%` damage, `+20%` range, and `+20%` rate of fire per level |
+| Knuckleboom | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b2/Knuckleboom.png" alt="Knuckleboom" width="64" height="64" /> | `+1%` barrier gained and `+20%` damage per level |
+| Grapple Fist | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/25/Grapple_Fist.png" alt="Grapple Fist" width="64" height="64" /> | `+30%` hook range per level. |
+| Spiked Fist | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/62/Spiked_Fist.png" alt="Spiked Fist" width="64" height="64" /> | `+15%` hook range and `+20%` damage per level |
+| Charged Gauntlet | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/79/Charged_Gauntlet.png" alt="Charged Gauntlet" width="64" height="64" /> | `+10%` max charge, `+20%` base damage, and `+15%` velocity based damage per level |
+| Thunder Gauntlet | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f3/Thunder_Gauntlet.png" alt="Thunder Gauntlet" width="64" height="64" /> | `+15%` damage and `+20%` cone range per level |
+| M551 Pylon | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/37/M551_Pylon.png" alt="M551 Pylon" width="64" height="64" /> | `+20%` damage, `+20%` range, and `+20%` rate of fire per level |
 
 ### Acrid
 
 | Skill | | Description |
 |:-|-|------|
-| Vicious Wounds | ![Vicious Wounds](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/5a/Vicious_Wounds.png/revision/latest/scale-to-width-down/64?) | `+20%` normal damage, `+25%` combo finisher damage, and `+15%` attack speed per level |
-| Neurotoxin | ![Neurotoxin](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/2b/Neurotoxin.png/revision/latest/scale-to-width-down/64?) | `+20%` damage, `+30%` projectile speed, and `+30%` blast radius per level. `+1 stock` per two levels |
-| Ravenous Bite | ![Ravenous Bite](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8b/Ravenous_Bite.png/revision/latest/scale-to-width-down/64?) | `+20%` damage and `+1` stock per level |
-| Caustic Leap | ![Caustic Leap](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9e/Caustic_Leap.png/revision/latest/scale-to-width-down/64?) | `+20%` blast damage, `+30%` acid pool damage, and `+20%` acid pool size per level |
-| Frenzied Leap | ![Frenzied Leap](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/96/Frenzied_Leap.png/revision/latest/scale-to-width-down/64?) | `+25%` blast damage and `+15%` refunded time per level |
-| Epidemic | ![Epidemic](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9d/Epidemic.png/revision/latest/scale-to-width-down/64?) | `+5` infection bounces, `+20%` infection range, and `+20%` on hit damage per level |
+| Vicious Wounds | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/5a/Vicious_Wounds.png" alt="Vicious Wounds" width="64" height="64" /> | `+20%` normal damage, `+25%` combo finisher damage, and `+15%` attack speed per level |
+| Neurotoxin | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/2b/Neurotoxin.png" alt="Neurotoxin" width="64" height="64" /> | `+20%` damage, `+30%` projectile speed, and `+30%` blast radius per level. `+1 stock` per two levels |
+| Ravenous Bite | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8b/Ravenous_Bite.png" alt="Ravenous Bite" width="64" height="64" /> | `+20%` damage and `+1` stock per level |
+| Caustic Leap | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9e/Caustic_Leap.png" alt="Caustic Leap" width="64" height="64" /> | `+20%` blast damage, `+30%` acid pool damage, and `+20%` acid pool size per level |
+| Frenzied Leap | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/96/Frenzied_Leap.png" alt="Frenzied Leap" width="64" height="64" /> | `+25%` blast damage and `+15%` refunded time per level |
+| Epidemic | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9d/Epidemic.png" alt="Epidemic" width="64" height="64" /> | `+5` infection bounces, `+20%` infection range, and `+20%` on hit damage per level |
 
 ### Captain
 
 | Skill | | Description |
 |:-|-|------|
-| Vulcan Shotgun | ![Vulcan Shotgun](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b9/Vulcan_Shotgun.png/revision/latest/scale-to-width-down/64?) | `+20%` shell count and `+10%` damage per level |
-| Power Tazer | ![Power Tazer](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b8/Power_Tazer.png/revision/latest/scale-to-width-down/64?) | `+40%` blast radius and `+20%` damage per level |
-| Orbital Probe | ![Orbital Probe](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/4e/Orbital_Probe.png/revision/latest/scale-to-width-down/64?) | `+20%` blast radius and `+20%` damage per level |
-| Beacon: Healing | ![Beacon: Healing](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/1e/Beacon_Healing.png/revision/latest/scale-to-width-down/64?) | `+20%` healing range per level  |
-| Beacon: Shocking | ![Beacon: Shocking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c4/Beacon_Shocking.png/revision/latest/scale-to-width-down/64?) | `+30%` shock range per level |
-| Beacon: Resupply | ![Beacon: Resupply](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/67/Beacon_Resupply.png/revision/latest/scale-to-width-down/64?) | `+1` resupply stock per level |
-| Beacon: Hacking | ![Beacon: Hacking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/38/Beacon_Hacking.png/revision/latest/scale-to-width-down/64?) | `+20%` hacking speed and `+20%` hacking range per level |
+| Vulcan Shotgun | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b9/Vulcan_Shotgun.png" alt="Vulcan Shotgun" width="64" height="64" /> | `+20%` shell count and `+10%` damage per level |
+| Power Tazer | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b8/Power_Tazer.png" alt="Power Tazer" width="64" height="64" /> | `+40%` blast radius and `+20%` damage per level |
+| Orbital Probe | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/4e/Orbital_Probe.png" alt="Orbital Probe" width="64" height="64" /> | `+20%` blast radius and `+20%` damage per level |
+| Beacon: Healing | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/1e/Beacon_Healing.png" alt="Beacon: Healing" width="64" height="64" /> | `+20%` healing range per level  |
+| Beacon: Shocking | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c4/Beacon_Shocking.png" alt="Beacon: Shocking" width="64" height="64" /> | `+30%` shock range per level |
+| Beacon: Resupply | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/67/Beacon_Resupply.png" alt="Beacon: Resupply" width="64" height="64" /> | `+1` resupply stock per level |
+| Beacon: Hacking | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/38/Beacon_Hacking.png" alt="Beacon: Hacking" width="64" height="64" /> | `+20%` hacking speed and `+20%` hacking range per level |
 
 ### Lunar Items
 
 | Skill | | Description |
 |:-|-|------|
-| Hungering Gaze | ![Visions of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3c/Hungering_Gaze.png/revision/latest/scale-to-width-down/64?) | `+2` stock per level and `+20%` damage per level |
+| Hungering Gaze | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3c/Hungering_Gaze.png" alt="Visions of Heresy" width="64" height="64" /> | `+2` stock per level and `+20%` damage per level |
