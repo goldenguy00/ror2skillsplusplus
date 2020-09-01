@@ -7,13 +7,14 @@
 
 > ***NOTE:*** Multiplayer is not supported yet. Upgrades are not synced between clients and will cause desyn issues.
 
-## What's new in 0.1.4
+## What's new in 0.1.5
 
-- Added Captain upgrades. All vanilla characters are now done!!!!
-- Added upgrades for Hungering Gaze. It was a stink one to pick up Visions of Heresy and lose upgrades. They now transfer onto the item.
-- Fixed REX's primary fire having too much spread. The base value has reduced back to normal.
-- Fixed Huntress's flurry to fire the arrows faster before the ability is cancels.
-- Added extra time to Huntress's ballista so the player has more time to take aim and fire all shots.
+- Refactored internal code to make in more stable for future development
+- Fixed mercenary's primary attack not upgrading
+- Fixed REX's `DIRECTIVE: Disperse` and `Bramble Volley` skills pulling enemies instead of pushing them away when the skill is levelled up
+- Fixed upgrading MUL-T's `Rebar Puncher` not affecting the rate of fire.
+- Fixed support for [rob's Aatrox](https://thunderstore.io/package/rob/Aatrox/)
+- Fixed Hungering Gaze having insanely high scaling.
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -91,7 +92,7 @@ For example, Huntress's glaive is coded to always bounce six times and the glaiv
 
 **Will Skills++ support modded characters?**
   
-Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/feature/master/Documentation/supporting-modded-characters.md) alongside the mod's source code.
+Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/Documentation/supporting-modded-characters.md) alongside the mod's source code.
 
 **Skills++ makes the game a cakewalk. Do you recommend any other mods to balance the game?**
 
@@ -188,7 +189,7 @@ A very special thanks to the following people. They have been amazing people pro
 
 | Skill | | Description |
 |:-|-|------|
-| Natural Toxins | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/57/DIRECTIVE_Inject.png" alt="Natural Toxins" width="64" height="64" /> | `+1` syringe and `+10%` damage per level |
+| DIRECTIVE: Inject | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/57/DIRECTIVE_Inject.png" alt="DIRECTIVE: Inject" width="64" height="64" /> | `+1` syringe and `+10%` damage per level |
 | DIRECTIVE: Drill | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/fc/DIRECTIVE_Drill.png" alt="DIRECTIVE: Drill" width="64" height="64" /> | `+10%` damage, `+10%` duration, and `+20%` radius per level |
 | Seed Barrage | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b0/Seed_Barrage.png" alt="Seed Barrage" width="64" height="64" /> | `+20%` radius and `+20%` damage per level |
 | DIRECTIVE: Disperse | <img src="https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/22/DIRECTIVE_Disperse.png" alt="DIRECTIVE: Disperse" width="64" height="64" /> | `+30%` range, `+20%` angle, `+20%` debuff duration per level |
