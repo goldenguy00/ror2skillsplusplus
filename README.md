@@ -72,8 +72,7 @@ Go and check out all of these characters and give them some love!
 
 If you have added Skills++ to your own modded character let me know and I will add it here.
 
-[![Aatrox by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Aatrox-3.5.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Aatrox/)
-[![Twitch by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Twitch-2.1.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Twitch/)
+[![Aatrox by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Aatrox-3.5.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Aatrox/) [![Twitch by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Twitch-2.1.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Twitch/)
 
 ## Feedback and bug reports
 
