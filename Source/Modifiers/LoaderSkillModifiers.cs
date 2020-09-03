@@ -38,7 +38,6 @@ namespace SkillsPlusPlus.Modifiers {
                 }
             }
         }
-
     }
 
     [SkillLevelModifier("FireHook", typeof(FireHook))]
@@ -128,7 +127,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            SwingZapFist.selfKnockback = MultScaling(12000, 0.1f, level); // +10% knockback
+            SwingZapFist.selfKnockback = MultScaling(7000, 0.015f, level); // +10% knockback
             if(SwingZapFist.overchargeImpactEffectPrefab.TryGetComponent(out ProjectileProximityBeamController proximityBeamController)) {
                 proximityBeamController.attackRange = MultScaling(40, 0.20f, level);
             }
