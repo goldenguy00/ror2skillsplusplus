@@ -52,6 +52,15 @@ namespace SkillsPlusPlus {
             On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
                 return true;
             };
+
+            bool didAttemptToConnect = false;
+            On.RoR2.UI.MainMenu.MainMenuController.Start += (orig, self) => {
+                if(didAttemptToConnect == false) {
+                    didAttemptToConnect = true;
+                    RoR2.Console.instance.SubmitCmd(null, "connect 192.168.1.102:27015", true);
+                }
+                orig(self);
+            };
 #endif
 
             CommandHelper.AddToConsoleWhenReady();
