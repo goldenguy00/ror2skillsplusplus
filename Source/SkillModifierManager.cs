@@ -12,8 +12,8 @@ using System.Collections.Specialized;
 namespace SkillsPlusPlus {
     public sealed class SkillModifierManager {
 
-        private static readonly Dictionary<string, BaseSkillModifier> skillModifiers = new Dictionary<string, BaseSkillModifier>();
-        private static readonly Dictionary<Type, ISet<BaseSkillModifier>> stateTypeToSkillModifierDictionary = new Dictionary<Type, ISet<BaseSkillModifier>>();
+        private static readonly Dictionary<string, BaseSkillModifier> skillNameToModifierMap = new Dictionary<string, BaseSkillModifier>();
+        private static readonly Dictionary<Type, BaseSkillModifier> typeToModifierMap = new Dictionary<Type, BaseSkillModifier>();
 
         /// <summary>
         /// Finds and loads all skill modifiers in the current assembly.
@@ -41,25 +41,26 @@ namespace SkillsPlusPlus {
                         continue;
                     }
                     foreach(SkillLevelModifierAttribute attribute in attributes) {
-                        foreach(string registeredSkillName in attribute.skillNames) {
-                            if(skillModifiers.ContainsKey(registeredSkillName)) {
-                                Logger.Warn("Replacing an existing skill modifier it not permitted. Skill name = {0}", registeredSkillName);
-                                continue;
-                            } else {
-                                object someSkillModifier = constructorInfo.Invoke(new object[0]);
-                                if(someSkillModifier is BaseSkillModifier skillModifier) {
-                                    skillModifier.skillName = registeredSkillName;
-                                    skillModifier.EntityStateTypes = attribute.baseStateTypes;
-                                    skillModifiers[registeredSkillName] = skillModifier;
-                                    foreach(Type baseStateType in attribute.baseStateTypes) {
-                                        if(stateTypeToSkillModifierDictionary.TryGetValue(baseStateType, out ISet<BaseSkillModifier> skillModifiers) == false) {
-                                            skillModifiers = new HashSet<BaseSkillModifier>();
-                                            stateTypeToSkillModifierDictionary[baseStateType] = skillModifiers;
-                                        }
-                                        skillModifiers.Add(skillModifier);
-                                    }
-                                    Logger.Debug("Loaded {0} for skill named \"{1}\"", type.Name, registeredSkillName);
+                        object someSkillModifier = constructorInfo.Invoke(new object[0]);
+                        
+                        if(someSkillModifier is BaseSkillModifier skillModifier) {
+                            skillModifier.skillNames = attribute.skillNames;
+                            skillModifier.EntityStateTypes = attribute.baseStateTypes;
+                            foreach(string skillName in attribute.skillNames) {
+                                if(skillNameToModifierMap.TryGetValue(skillName, out BaseSkillModifier existingModifier)) {
+                                    Logger.Warn("Skill modifier conflict!!!");
+                                    Logger.Warn("Cannot add {0} since {1} already exists for skill named {2}", someSkillModifier.GetType().FullName, existingModifier.GetType().FullName, skillName);
+                                    continue;
                                 }
+                                skillNameToModifierMap[skillName] = skillModifier;
+                            }
+                            foreach(Type stateType in attribute.baseStateTypes) {
+                                if(typeToModifierMap.TryGetValue(stateType, out BaseSkillModifier existingModifier)) {
+                                    Logger.Warn("Skill modifier conflict!!!");
+                                    Logger.Warn("Cannot add {0} since {1} already exists for the entity state {2}", existingModifier.GetType().FullName, stateType.FullName);
+                                    continue;
+                                }
+                                typeToModifierMap[stateType] = skillModifier;
                             }
                         }
                     }
@@ -72,30 +73,27 @@ namespace SkillsPlusPlus {
         }
 
         internal static BaseSkillModifier GetSkillModifier(string skillName) {
-            if(skillName != null && skillName.Length != 0) {
-                if(skillModifiers.TryGetValue(skillName, out BaseSkillModifier modifier)) {
-                    return modifier;
-                }
+            if(skillName == null) {
+                return null;
             }
-            return NoopSkillModifier.Instance;
+            if(skillNameToModifierMap.TryGetValue(skillName, out BaseSkillModifier modifier)) {
+                return modifier;
+            }            
+            return null;
         }
 
-        internal static IEnumerable<BaseSkillModifier> GetSkillModifiersForEntityStateType(Type entityStateType) {
-            if(stateTypeToSkillModifierDictionary.TryGetValue(entityStateType, out ISet<BaseSkillModifier> modifiers)) {
+        internal static BaseSkillModifier GetSkillModifiersForEntityStateType(Type entityStateType) {
+            if(entityStateType == null) {
+                return null;
+            }
+            if(typeToModifierMap.TryGetValue(entityStateType, out BaseSkillModifier modifiers)) {
                 return modifiers;
             }
             if(entityStateType != typeof(GenericCharacterPod)) { 
                 Logger.Debug("Could not find any ISkillModifiers for entity state {0}", entityStateType.FullName);
             }
-            return Enumerable.Empty<BaseSkillModifier>();
+            return null;
         }
-
-        //internal static ISkillModifier GetSkillName(Type entityStateType) {
-        //    if (stateTypeToSkillModifierDictionary.TryGetValue(entityStateType, out ISkillModifier modifier)) {
-        //        return modifier;
-        //    }
-        //    return NoopSkillModifier.Instance;
-        //}
 
     }
 }

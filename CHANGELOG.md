@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.1.5
+
+- Refactored internal code to make in more stable for future development
+- Fixed mercenary's primary attack not upgrading
+- Fixed REX's `DIRECTIVE: Disperse` and `Bramble Volley` skills pulling enemies instead of pushing them away when the skill is levelled up
+- Fixed upgrading MUL-T's `Rebar Puncher` not affecting the rate of fire.
+- Fixed support for [rob's Aatrox](https://thunderstore.io/package/rob/Aatrox/)
+- Fixed Hungering Gaze having insanely high scaling.
+
 ## Version 0.1.4
 
 Changes:

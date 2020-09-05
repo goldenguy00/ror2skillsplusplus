@@ -6,6 +6,7 @@ using RoR2.Skills;
 
 using EntityStates;
 using EntityStates.Merc;
+using EntityStates.Merc.Weapon;
 using EntityStates.Commando.CommandoWeapon;
 using R2API.Utils;
 using UnityEngine;
@@ -16,7 +17,7 @@ using SkillsPlusPlus.Util;
 namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("GroundLight", typeof(GroundLight))]
-    class SwordSkillModifier : SimpleSkillModifier<GroundLight> {
+    class GroundLightSkillModifier : SimpleSkillModifier<GroundLight> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -26,6 +27,28 @@ namespace SkillsPlusPlus.Modifiers {
             GroundLight.baseComboAttackDuration = MultScaling(0.6f, -0.15f, level);
             GroundLight.finisherDamageCoefficient = MultScaling(1.3f, 0.2f, level);
             GroundLight.baseFinisherAttackDuration = MultScaling(1, -0.15f, level);
+        }
+
+    }
+
+    [SkillLevelModifier("GroundLight2", typeof(GroundLight2))]
+    class GroundLight2SkillModifier : SimpleSkillModifier<GroundLight2> {
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+
+            // all swings in the combo fall under the same coefficients as of RoR2 1.0
+            GroundLight2.baseDurationBeforeInterruptable = MultScaling(0.45f, -0.15f, level);
+            GroundLight2.comboFinisherBaseDurationBeforeInterruptable = MultScaling(0.85f, -0.15f, level);
+            GroundLight2.comboFinisherBaseDuration = MultScaling(1, -0.15f, level);
+            GroundLight2.comboFinisherDamageCoefficient = MultScaling(1.3f, 0.2f, level);
+        }
+
+        public override void OnSkillEnter(GroundLight2 skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+            Logger.Debug("damageCoefficient: {0}, baseDuration: {1}", skillState.damageCoefficient, skillState.baseDuration);
+            skillState.baseDuration = MultScaling(0.6f, -.15f, level);
+            skillState.damageCoefficient = MultScaling(1.3f, 0.2f, level);
         }
 
     }

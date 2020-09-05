@@ -27,13 +27,22 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("FireSpear", typeof(FireSpear))]
-    class ToolbotSpearSkillModifier : SimpleSkillModifier<FireSpear> {
+    [SkillLevelModifier("FireSpear", typeof(FireSpear), typeof(CooldownSpear))]
+    class ToolbotSpearSkillModifier : BaseSkillModifier {
 
-        public override void OnSkillEnter(FireSpear fireSpear, int level) {
-            base.OnSkillEnter(fireSpear, level);
-            fireSpear.baseDuration = MultScaling(fireSpear.baseDuration, -0.20f, level);
-            fireSpear.damageCoefficient = MultScaling(fireSpear.damageCoefficient, 0.20f, level);
+        public override void OnSkillEnter(BaseState skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+            Logger.Debug("skillState: {0}", skillState);
+            if(skillState is FireSpear fireSpear) {
+                Logger.Debug("baseDuration: {0}", fireSpear.baseDuration);
+                fireSpear.baseDuration = MultScaling(fireSpear.baseDuration, -0.15f, level);
+                fireSpear.damageCoefficient = MultScaling(fireSpear.damageCoefficient, 0.10f, level);
+            }
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            CooldownSpear.baseDuration = MultScaling(0.7f, -0.15f, level);
         }
     }
 

@@ -14,7 +14,7 @@ using R2API.AssetPlus;
 namespace SkillsPlusPlus {
     
     [BepInDependency ("com.bepis.r2api")]
-    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.4")]
+    [BepInPlugin ("com.cwmlolzlz.skills", "Skills", "0.1.5")]
     [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI))]
     [NetworkCompatibility(CompatibilityLevel.NoNeedForSync)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
@@ -88,12 +88,12 @@ namespace SkillsPlusPlus {
                 };
             };
 
-            On.RoR2.UI.CharacterSelectController.Awake += (orig, self) => {
-                orig(self);
-                if(self.gameObject.GetComponent<SkillModifierTooltipController>() == null) {
-                    SkillModifierTooltipController skillModifierTooltipController = self.gameObject.AddComponent<SkillModifierTooltipController>();
-                }
-            };
+            //On.RoR2.UI.CharacterSelectController.Awake += (orig, self) => {
+            //    orig(self);
+            //    if(self.gameObject.GetComponent<SkillModifierTooltipController>() == null) {
+            //        SkillModifierTooltipController skillModifierTooltipController = self.gameObject.AddComponent<SkillModifierTooltipController>();
+            //    }
+            //};
 
             On.RoR2.UI.HUD.Awake += (orig, self) => {
                 orig(self);

@@ -6,34 +6,57 @@ using System.Collections.Generic;
 using UnityEngine.Assertions;
 
 namespace SkillsPlusPlus.Modifiers {
-    public abstract class BaseSkillModifier : ISkillModifier {
+    public abstract class BaseSkillModifier {
 
         /// <inheritdoc/>
-        public Type[] EntityStateTypes { get; internal set; }
+        internal Type[] EntityStateTypes { get; set; }
 
-        /// <inheritdoc/>
-        public string skillName { get; internal set; }
+
+        /// <summary>
+        /// The list of skillnames associated with this modifier.
+        /// </summary>
+        internal string[] skillNames { get; set; }
 
         public BaseSkillModifier() {
-            this.skillName = "";
+            this.skillNames = new string[0];
             this.EntityStateTypes = new Type[0];
         }
 
-        public BaseSkillModifier(string skillName, Type[] entityStateTypes) {
-            this.skillName = skillName;
+        public BaseSkillModifier(string[] skillNames, Type[] entityStateTypes) {
+            this.skillNames = skillNames;
             this.EntityStateTypes = entityStateTypes;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Called immediately before the character enters one of the listed entity state types
+        /// </summary>
+        /// <param name="skillState">The entity state instance</param>
+        /// <param name="level">The current level of the associated skill</param>
         public virtual void OnSkillEnter(BaseState skillState, int level) { }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Called when the character exits one of the listed entity state types
+        /// </summary>
+        /// <param name="skillState">The entity state instance</param>
+        /// <param name="level">The current level of the associated skill</param>
         public virtual void OnSkillExit(BaseState skillState, int level) { }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Called when the player spends a skill point one of the listed entity state types
+        /// </summary>
+        /// <param name="level">The new level of the skill</param>
+        /// <param name="characterBody">The player's character body</param>
+        /// <param name="skillDef">The associated skill definition</param>
         public virtual void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) { }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Provides a string token to replace the associated skill's descriptions.
+        /// 
+        /// Use null if you do not wish to change the skill's existing description.
+        /// </summary>
+        /// <remarks>This API is still a work in progress and may be deprecated in later releases</remarks>
+        /// 
+        /// <returns>The token resources for to replace the associated skills description.</returns>
         public virtual string GetOverrideSkillDescriptionToken() {
             return null;
         }

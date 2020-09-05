@@ -17,7 +17,7 @@ namespace SkillsPlusPlus.Modifiers {
             public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
                 base.OnSkillLeveledUp(level, characterBody, skillDef);
                 skillDef.baseMaxStock = AdditiveScaling(12, 2, level);
-                FireLunarNeedle.damageCoefficient = MultScaling(1.2f, 0.2f, level);
+                FireLunarNeedle.damageCoefficient = MultScaling(0.05f, 0.2f, level);
             }
 
         }

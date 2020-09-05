@@ -14,7 +14,7 @@ using Rewired;
 
 namespace SkillsPlusPlus {
 
-    delegate void UpgradeSkillEvent(string skillName);
+    delegate void UpgradeSkillEvent(SkillLevelIconController iconController);
 
     [RequireComponent(typeof(SkillIcon))]
     sealed class SkillLevelIconController : MonoBehaviour {
@@ -32,8 +32,8 @@ namespace SkillsPlusPlus {
 
         private CanvasRenderer CanBuyRenderer;
 
-        public string skillName {
-            get { return skillIcon?.targetSkill?.skillDef?.skillName; }
+        public GenericSkill genericSkill {
+            get { return skillIcon?.targetSkill; }
         }
 
         public event UpgradeSkillEvent OnUpgradeSkill;
@@ -46,8 +46,12 @@ namespace SkillsPlusPlus {
             }
             set {
                 _IsUpgradable = value;
-                CanBuyPanel.SetActive(value);
-                CanBuyRenderer.SetColor(Color.yellow);
+                if(CanBuyPanel != null) {
+                    CanBuyPanel.SetActive(value);
+                }
+                if(CanBuyRenderer != null) {
+                    CanBuyRenderer.SetColor(Color.yellow);
+                }
                 // RefreshButtonVisibility();
             }
         }
@@ -55,7 +59,9 @@ namespace SkillsPlusPlus {
         public int Level {
             set {
                 // only show the level if it is non-zero
-                levelTextMesh.text = value != 0 ? value.ToString() : null;
+                if(levelTextMesh != null) {
+                    levelTextMesh.text = value > 0 ? value.ToString() : null;
+                }
             }
         }
 
@@ -141,7 +147,7 @@ namespace SkillsPlusPlus {
 
                 buyButton = UpgradeButton.AddComponent<HGButton>();
                 buyButton.onClick.AddListener(() => {
-                    this.OnUpgradeSkill.Invoke(this.skillName);
+                    this.OnUpgradeSkill.Invoke(this);
                 });
 
                 buttonTransform.ForceUpdateRectTransforms();
@@ -195,7 +201,7 @@ namespace SkillsPlusPlus {
                         }
                         showBuyButtons = inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME);
                         if(showBuyButtons && skillAction != 0 && inputPlayer.GetButtonDown(skillAction)) {
-                            this.OnUpgradeSkill.Invoke(this.skillName);
+                            this.OnUpgradeSkill.Invoke(this);
                         }
                     }
                     if(UpgradeButton.activeInHierarchy == true) {
