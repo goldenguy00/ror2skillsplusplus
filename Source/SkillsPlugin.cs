@@ -1,16 +1,10 @@
-
-using System;
 using BepInEx;
 using UnityEngine;
 
-using RoR2;
-using RoR2.UI;
 using R2API;
 using R2API.Utils;
 using SkillsPlusPlus.Modifiers;
-using RoR2.ConVar;
-using R2API.AssetPlus;
-using System.Linq;
+using RoR2.UI;
 
 namespace SkillsPlusPlus {
     
@@ -21,7 +15,6 @@ namespace SkillsPlusPlus {
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
         private SkillPointsController localSkillPointsController;
-        private HUD hud;
 
         //private SkillPointsController skillsController;
         //private SkillLevelIconController[] skillsHUDControllers;
@@ -62,44 +55,19 @@ namespace SkillsPlusPlus {
             SkillModifierManager.LoadSkillModifiers();
             SkillInput.SetupCustomInput();
             SkillOptions.SetupGameplayOptions();
-            
-            On.RoR2.PlayerCharacterMasterController.Awake += (orig, self) => {
-                orig(self);
-                SkillPointsController skillsController = self.gameObject.EnsureComponent<SkillPointsController>();
-                if(self.hasEffectiveAuthority) {
-                    this.localSkillPointsController = skillsController;
-                    TryCreateSkillsController();
-                }
-            };
 
-            //On.RoR2.UI.CharacterSelectController.Awake += (orig, self) => {
-            //    orig(self);
-            //    if(self.gameObject.GetComponent<SkillModifierTooltipController>() == null) {
-            //        SkillModifierTooltipController skillModifierTooltipController = self.gameObject.AddComponent<SkillModifierTooltipController>();
-            //    }
-            //};
+            GameObject playerMasterPrefab = Resources.Load<GameObject>("prefabs/charactermasters/CommandoMaster");
+            playerMasterPrefab.EnsureComponent<SkillPointsController>();
 
-            // On.RoR2.UI.S
-
-            On.RoR2.UI.HUD.Awake += (orig, self) => {
-                orig(self);
-                this.hud = self;
-                TryCreateSkillsController();
-            };
+            On.RoR2.UI.HUD.Awake += this.HUD_Awake;
 
         }
 
-        private void TryCreateSkillsController() {
-            SkillsPlusPlus.Logger.Warn("TryCreateSkillsController {0} {1} {2}", this.hud, this.localSkillPointsController, hud?.skillIcons);
-            if (hud && hud.skillIcons != null && this.localSkillPointsController != null) {
-                SkillLevelIconController[] skillIconControllers = hud.skillIcons.Select(icon => {
-                    return icon.EnsureComponent<SkillLevelIconController>();
-                }).ToArray();
-                this.localSkillPointsController.SetSkillIconControllers(skillIconControllers);
-            } else {
-                // skillsController.SetSkillIconControllers(null);
-            }
+        private void HUD_Awake(On.RoR2.UI.HUD.orig_Awake orig, RoR2.UI.HUD self) {
+            orig(self);
+            self.GetComponentsInChildren<SkillIcon>(true).ForEachTry(skillIcon => {
+                skillIcon.EnsureComponent<SkillLevelIconController>();
+            });
         }
-
     }
 }

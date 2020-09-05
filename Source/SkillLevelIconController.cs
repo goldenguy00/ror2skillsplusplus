@@ -14,8 +14,6 @@ using Rewired;
 
 namespace SkillsPlusPlus {
 
-    delegate void UpgradeSkillEvent(SkillLevelIconController iconController);
-
     [RequireComponent(typeof(SkillIcon))]
     sealed class SkillLevelIconController : MonoBehaviour {
 
@@ -30,47 +28,23 @@ namespace SkillsPlusPlus {
         private HGTextMeshProUGUI levelTextMesh;
         private HGButton buyButton;
 
-        private CanvasRenderer CanBuyRenderer;
+        private CanvasRenderer CanBuyBorderRenderer;
 
+        public SkillPointsController skillPointsController {
+            get {
+                return skillIcon?.playerCharacterMasterController?.GetComponent<SkillPointsController>();
+            }
+        }
         public GenericSkill genericSkill {
             get { return skillIcon?.targetSkill; }
-        }
-
-        public event UpgradeSkillEvent OnUpgradeSkill;
-
-        private bool _IsUpgradable;
-
-        public bool IsUpgradable {
-            get {
-                return _IsUpgradable;
-            }
-            set {
-                _IsUpgradable = value;
-                if(CanBuyPanel != null) {
-                    CanBuyPanel.SetActive(value);
-                }
-                if(CanBuyRenderer != null) {
-                    CanBuyRenderer.SetColor(Color.yellow);
-                }
-                // RefreshButtonVisibility();
-            }
-        }
-
-        public int Level {
-            set {
-                // only show the level if it is non-zero
-                if(levelTextMesh != null) {
-                    levelTextMesh.text = value > 0 ? value.ToString() : null;
-                }
-            }
         }
 
         void Awake() {
             this.skillIcon = GetComponent<SkillIcon>();
             this.CanBuyPanel = Instantiate(skillIcon.isReadyPanelObject, skillIcon.transform);
-            this.CanBuyPanel.name = "CanBuyPanel";
+            this.CanBuyPanel.name = "CanBuyBorderPanel";
             CanBuyPanel.transform.SetSiblingIndex(1);
-            CanBuyRenderer = this.CanBuyPanel.GetComponent<CanvasRenderer>();
+            CanBuyBorderRenderer = this.CanBuyPanel.GetComponent<CanvasRenderer>();
 
             // create the upgrade level label
             {
@@ -115,7 +89,6 @@ namespace SkillsPlusPlus {
                 levelTextMesh.alignment = TMPro.TextAlignmentOptions.Center;
                 levelTextMesh.enableWordWrapping = false;
 
-
                 textTransform.ForceUpdateRectTransforms();
                 textTransform.localScale = Vector3.one; // fixes multiplayer bug where joining players have overscaled buttons
                 textTransform.localPosition = Vector2.zero;
@@ -130,7 +103,6 @@ namespace SkillsPlusPlus {
 
             // create the clickable upgrade button
             {
-
                 UpgradeButton = new GameObject("BuySkillButton");
                 UpgradeButton.transform.parent = skillIcon.transform;
                 UpgradeButton.AddComponent<CanvasRenderer>();
@@ -146,9 +118,7 @@ namespace SkillsPlusPlus {
                 buttonTextMesh.enableWordWrapping = false;
 
                 buyButton = UpgradeButton.AddComponent<HGButton>();
-                buyButton.onClick.AddListener(() => {
-                    this.OnUpgradeSkill.Invoke(this);
-                });
+                buyButton.onClick.AddListener(this.OnBuySkill);
 
                 buttonTransform.ForceUpdateRectTransforms();
                 buttonTransform.localScale = Vector3.one; // fixes multiplayer bug where joining players have overscaled buttons
@@ -164,58 +134,64 @@ namespace SkillsPlusPlus {
                 // ButtonSkinController skinController = UpgradeLevelButton.AddComponent<ButtonSkinController>();
                 // skinController.skinData =
             }
-
-            // tint the upgrade colour
-            IsUpgradable = false;
         }
 
         private void Update() {
 
-            LocalUser localUser = skillIcon?.playerCharacterMasterController?.networkUser?.localUser;
-            Player inputPlayer = localUser?.inputPlayer;
-            
-            if(inputPlayer != null) {
+            var skillPointsController = this.skillPointsController;
+            if(skillPointsController) {
+                var skillLevel = skillPointsController.GetSkillLevelForGenericSkill(this.genericSkill);
+                var canBuySkill = skillPointsController.CanUpgradeGenericSkill(this.genericSkill);
+                if(levelTextMesh != null) {
+                    levelTextMesh.text = skillLevel > 0 ? skillLevel.ToString() : null;
+                }
+                CanBuyBorderRenderer.gameObject.SetActive(canBuySkill);
+                CanBuyBorderRenderer.SetColor(Color.yellow);
 
-                bool showBuyButtons = false;
+                var masterController = skillIcon?.playerCharacterMasterController;
+                if(masterController) {
 
-                if(localUser.eventSystem.currentInputSource == MPEventSystem.InputSource.Gamepad) {
-                    if(skillIcon != null) {
-                        SkillSlot skillSlot = skillIcon.targetSkillSlot;
-                        int skillAction = 0;
-                        switch(skillSlot) {
-                        case SkillSlot.None:
-                            skillAction = 0;
-                            break;
-                        case SkillSlot.Primary:
-                            skillAction = RewiredConsts.Action.PrimarySkill;
-                            break;
-                        case SkillSlot.Secondary:
-                            skillAction = RewiredConsts.Action.SecondarySkill;
-                            break;
-                        case SkillSlot.Utility:
-                            skillAction = RewiredConsts.Action.UtilitySkill;
-                            break;
-                        case SkillSlot.Special:
-                            skillAction = RewiredConsts.Action.SpecialSkill;
-                            break;
-                        }
-                        showBuyButtons = inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME);
-                        if(showBuyButtons && skillAction != 0 && inputPlayer.GetButtonDown(skillAction)) {
-                            this.OnUpgradeSkill.Invoke(this);
+                    LocalUser localUser = masterController?.networkUser?.localUser;
+                    Player inputPlayer = localUser?.inputPlayer;
+
+                    if(inputPlayer != null) {
+
+                        if(localUser.eventSystem.currentInputSource == MPEventSystem.InputSource.Gamepad) {
+                            if(skillIcon != null) {
+                                SkillSlot skillSlot = skillIcon.targetSkillSlot;
+                                int skillAction = 0;
+                                switch(skillSlot) {
+                                case SkillSlot.None:
+                                    skillAction = 0;
+                                    break;
+                                case SkillSlot.Primary:
+                                    skillAction = RewiredConsts.Action.PrimarySkill;
+                                    break;
+                                case SkillSlot.Secondary:
+                                    skillAction = RewiredConsts.Action.SecondarySkill;
+                                    break;
+                                case SkillSlot.Utility:
+                                    skillAction = RewiredConsts.Action.UtilitySkill;
+                                    break;
+                                case SkillSlot.Special:
+                                    skillAction = RewiredConsts.Action.SpecialSkill;
+                                    break;
+                                }
+                                UpgradeButton.SetActive(inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME));
+                                if(skillAction != 0 && inputPlayer.GetButtonDown(skillAction)) {
+                                    this.OnBuySkill();
+                                }
+                            }
+                        } else {
+                            UpgradeButton.SetActive(canBuySkill && inputPlayer.GetButton(RewiredConsts.Action.Info));
                         }
                     }
-                    if(UpgradeButton.activeInHierarchy == true) {
-                        UpgradeButton.SetActive(false);
-                    }
-                } else {
-                    showBuyButtons = inputPlayer.GetButton(RewiredConsts.Action.Info);                    
                 }
-                if((IsUpgradable && showBuyButtons) != UpgradeButton.activeInHierarchy) {
-                    UpgradeButton.SetActive(IsUpgradable && showBuyButtons);
-                }
-
             }
+        }
 
+        private void OnBuySkill() {
+            this.skillPointsController?.OnBuySkill(this.genericSkill);
         }
     }
 }

@@ -37,8 +37,6 @@ namespace SkillsPlusPlus {
             }
         }
 
-        private SkillLevelIconController[] skillIconControllers;
-
         //  private Dictionary<SkillSlot, int> spentSkillPoints;
         private Dictionary<string, int> skillLevels;
 
@@ -175,7 +173,6 @@ namespace SkillsPlusPlus {
                 if(TryGetSkillModifierForState(self, out BaseSkillModifier skillModifier, out int skillLevel)) {
                     skillModifier.OnSkillEnter(self, skillLevel);
                 }
-                RefreshIconControllers();
             }
             orig(self);
         }
@@ -185,7 +182,6 @@ namespace SkillsPlusPlus {
                 if(TryGetSkillModifierForState(baseState, out BaseSkillModifier skillModifier, out int skillLevel)) {
                     skillModifier.OnSkillExit(baseState, skillLevel);                    
                 }
-                RefreshIconControllers();
             }
             orig(self);
         }
@@ -233,7 +229,7 @@ namespace SkillsPlusPlus {
             return false;
         }
 
-        private int GetSkillLevelForGenericSkill(GenericSkill genericSkill) {
+        public int GetSkillLevelForGenericSkill(GenericSkill genericSkill) {
             if(genericSkill == null) {
                 return SKILL_DISABLED;
             }
@@ -275,8 +271,21 @@ namespace SkillsPlusPlus {
             }
         }
 
-        private BaseSkillModifier GetModifierForGenericSkill(GenericSkill genericSkill) {
+        public BaseSkillModifier GetModifierForGenericSkill(GenericSkill genericSkill) {
             return SkillModifierManager.GetSkillModifier(genericSkill.skillDef.skillName);
+        }
+
+        public bool CanUpgradeGenericSkill(GenericSkill genericSkill) {
+            if(genericSkill == null) {
+                return false;
+            }
+            if(GetSkillLevelForGenericSkill(genericSkill) == SKILL_DISABLED) {
+                return false;
+            }
+            if(GetModifierForGenericSkill(genericSkill) == null) {
+                return false;
+            }
+            return unspentSkillPoints > 0;
         }
 
         private void OnSkillChanged(GenericSkill genericSkill) {
@@ -290,40 +299,17 @@ namespace SkillsPlusPlus {
                     modifier.OnSkillLeveledUp(skillLevel, this.body, skillDef);
                 }
             }
-            RefreshIconControllers();
-        }
-
-        public void SetSkillIconControllers(SkillLevelIconController[] skillIconControllers) {
-            if (this.skillIconControllers != null) {
-                foreach (SkillLevelIconController skillIconController in this.skillIconControllers) {
-                    skillIconController.OnUpgradeSkill -= this.OnBuySkill;
-                }
-            }
-            this.skillIconControllers = skillIconControllers;
-            if (skillIconControllers != null) {
-                foreach (SkillLevelIconController skillIconController in skillIconControllers) {
-                    skillIconController.OnUpgradeSkill += this.OnBuySkill;
-                }
-            }
-            RefreshIconControllers();
         }
 
         void Update() {
-
-            if(this.body == null && this.skillIconControllers != null) {
-                // #14
-                // if the body is null then we must unset the skillIconControllers.
-                // it it likely that the character has just left the scene and the hud is still present
-                this.skillIconControllers = null;
-            }
 
 #if DEBUG
             if (Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
                 //TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong)(500 * Time.deltaTime));
                 //TeamManager.instance.SetTeamLevel(this.PlayerTeamIndex, TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex) + 1);
+                Logger.Debug("Giving points");
                 this.earnedSkillPoints++;
                 this.unspentSkillPoints++;
-                RefreshIconControllers();
             }
             if(Input.GetKeyDown(KeyCode.Keypad1) && playerCharacterMasterController != null && body != null) {
                 GameObject teleporter = GameObject.Find("Teleporter1(Clone)");
@@ -355,15 +341,13 @@ namespace SkillsPlusPlus {
 
         }
 
-        private void OnBuySkill(SkillLevelIconController iconController) {
-            var genericSkill = iconController?.genericSkill;
+        public void OnBuySkill(GenericSkill genericSkill) {
             if(genericSkill == null) {
                 return;
             }
             if (unspentSkillPoints <= 0) {
                 return;
             }
-            int skillLevel = GetSkillLevelForGenericSkill(genericSkill);
             BaseSkillModifier modifier = GetModifierForGenericSkill(genericSkill);
             if(modifier == null) {
                 Logger.Debug("Could not purchase skill. Could not find a skill modifiers matching {0}", genericSkill.skillDef.skillName);
@@ -372,15 +356,14 @@ namespace SkillsPlusPlus {
 
             unspentSkillPoints--;
 
+            int skillLevel = GetSkillLevelForGenericSkill(genericSkill);
             // increment and store the new skill level
             SetSkillLevelForGenericSkill(genericSkill, ++skillLevel);
             Logger.Debug("SkillSlot {0} @ level {1}", genericSkill.baseSkill.skillName, skillLevel);
 
             // find an notify the modifer to update the skill's parameters
             modifier.OnSkillLeveledUp(skillLevel, this.body, genericSkill.skillDef);
-            genericSkill.RecalculateValues();
-            
-            RefreshIconControllers();            
+            genericSkill.RecalculateValues();     
         }
 
         public void OnLevelChanged() {
@@ -394,18 +377,6 @@ namespace SkillsPlusPlus {
 
             earnedSkillPoints += newSkillPoints;
             unspentSkillPoints += newSkillPoints;
-
-            RefreshIconControllers();
-        }
-
-        private void RefreshIconControllers() {
-            if(skillIconControllers != null && this.PlayerTeamIndex != TeamIndex.None) {
-                foreach (SkillLevelIconController skillLevelIconController in skillIconControllers) {
-                    int skillLevel = GetSkillLevelForGenericSkill(skillLevelIconController.genericSkill);
-                    skillLevelIconController.IsUpgradable = skillLevel != SKILL_DISABLED && unspentSkillPoints > 0 && isSurvivorEnabled;
-                    skillLevelIconController.Level = skillLevel;
-                }
-            }
         }
 
         private int SkillPointsAtLevel(int characterLevel) {
