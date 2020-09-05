@@ -96,6 +96,11 @@ namespace SkillsPlusPlus {
         private bool isInitialised = false;
         private void OnBodyStart(CharacterBody body) {
             Logger.Debug("OnBodyStart({0})", body);
+#if DEBUG
+            if(body.healthComponent.godMode == false) {
+                body.healthComponent.godMode = true;
+            }
+#endif
 
             if(isInitialised) {
                 return;
@@ -299,8 +304,8 @@ namespace SkillsPlusPlus {
                 foreach (SkillLevelIconController skillIconController in skillIconControllers) {
                     skillIconController.OnUpgradeSkill += this.OnBuySkill;
                 }
-                RefreshIconControllers();
             }
+            RefreshIconControllers();
         }
 
         void Update() {
@@ -319,6 +324,13 @@ namespace SkillsPlusPlus {
                 this.earnedSkillPoints++;
                 this.unspentSkillPoints++;
                 RefreshIconControllers();
+            }
+            if(Input.GetKeyDown(KeyCode.Keypad1) && playerCharacterMasterController != null && body != null) {
+                GameObject teleporter = GameObject.Find("Teleporter1(Clone)");
+                Transform spawnLocation = body.transform;
+                if(teleporter != null && teleporter.TryGetComponent(out TeleporterInteraction teleporterInteraction)) {
+                    GameObject.Instantiate(teleporterInteraction.shopPortalSpawnCard.prefab, spawnLocation.position, spawnLocation.rotation, null);
+                }
             }
             if(Input.GetKeyDown(KeyCode.Keypad2) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.UtilitySkillMagazine);
