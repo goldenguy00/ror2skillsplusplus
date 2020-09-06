@@ -17,6 +17,7 @@
     <PackageProjectUrl>https://thunderstore.io/package/CWMlolzlz/SkillsPlusPlus/</PackageProjectUrl>
     <RepositoryUrl>https://gitlab.com/cwmlolzlz/ror2skillsplusplus</RepositoryUrl>
     <PackageId>Skills++</PackageId>
+    <Configurations>Debug;Release;Mulitplayer</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
@@ -24,6 +25,9 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mulitplayer|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
