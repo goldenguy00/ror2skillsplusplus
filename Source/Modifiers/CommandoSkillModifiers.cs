@@ -33,10 +33,10 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("recoilAmplitude: {0},s damageCoefficient: {1}", skillState.recoilAmplitude, skillState.damageCoefficient);
             skillState.projectilePrefab.transform.localScale = new Vector3(2.90f, 2.19f, 3.86f) * AdditiveScaling(1, 0.5f, level);
-            if (skillState.projectilePrefab.TryGetComponent<ProjectileSimple>(out ProjectileSimple projectileSimple)) {
-                projectileSimple.velocity = MultScaling(600f, 0.3f, level);
+            if (skillState.projectilePrefab.TryGetComponent(out ProjectileSimple projectileSimple)) {
+                projectileSimple.velocity = MultScaling(120f, 0.3f, level);
             }
-            skillState.recoilAmplitude = MultScaling(skillState.recoilAmplitude, 0.5f, level);
+            skillState.recoilAmplitude = MultScaling(skillState.recoilAmplitude, 0.1f, level);
             skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.3f, level);
         }
 
