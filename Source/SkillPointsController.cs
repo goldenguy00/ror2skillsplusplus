@@ -1,26 +1,30 @@
 using System;
 using System.Collections.Generic;
-using EntityStates;
+using UnityEngine;
+using UnityEngine.Networking;
+using Rewired;
 
+using EntityStates;
 using RoR2;
 using RoR2.Skills;
 using R2API.Utils;
 
-using UnityEngine;
-using Rewired;
-
 using SkillsPlusPlus.Modifiers;
 using SkillsPlusPlus.Util;
-using SkillsPlusPlus.ConVars;
 
 namespace SkillsPlusPlus {
 
     [RequireComponent(typeof(PlayerCharacterMasterController))]
-    sealed class SkillPointsController : MonoBehaviour {
+    [RequireComponent(typeof(NetworkIdentity))]
+    sealed class SkillPointsController : NetworkBehaviour {
+
+        private const int kCmdBuySkill = 6040780;
 
         private const int SKILL_DISABLED = -1;
 
         private PlayerCharacterMasterController playerCharacterMasterController;
+        private NetworkIdentity networkIdentity;
+
         private CharacterBody body {
             get { return playerCharacterMasterController.master.GetBody(); }
         }
@@ -30,7 +34,7 @@ namespace SkillsPlusPlus {
 
         private TeamIndex PlayerTeamIndex {
             get {
-                if (playerCharacterMasterController.master.hasBody) {
+                if(playerCharacterMasterController.master.hasBody) {
                     return playerCharacterMasterController.master.GetBody().teamComponent.teamIndex;
                 }
                 return TeamIndex.None;
@@ -40,18 +44,23 @@ namespace SkillsPlusPlus {
         //  private Dictionary<SkillSlot, int> spentSkillPoints;
         private Dictionary<string, int> skillLevels;
 
+        [SyncVar]
         private int earnedSkillPoints = 0;
+
+        [SyncVar]
         private int unspentSkillPoints = 0;
+
+        [SyncVar]
         private int levelsPerSkillPoint = 5;
 
         private bool isSurvivorEnabled = true;
 
         void Awake() {
-            this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
             // this.spentSkillPoints = new Dictionary<SkillSlot, int>();
             this.skillLevels = new Dictionary<string, int>();
 
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
+            this.networkIdentity = this.GetComponent<NetworkIdentity>();
 
             this.playerCharacterMasterController.master.onBodyStart += OnBodyStart;
             if(this.playerCharacterMasterController.master.hasBody) {
@@ -64,6 +73,13 @@ namespace SkillsPlusPlus {
             On.EntityStates.GenericCharacterMain.CanExecuteSkill += this.GenericCharacterMain_CanExecuteSkill;
         }
 
+        void OnStart() {
+            if(this.hasAuthority) {
+                this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
+            }
+
+        }
+
         void OnDestroy() {
             this.playerCharacterMasterController.master.onBodyStart -= OnBodyStart;
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit -= GetDeployableSameSlotLimit;
@@ -72,6 +88,10 @@ namespace SkillsPlusPlus {
             On.RoR2.CharacterBody.RecalculateStats -= this.OnRecalculateState;
 
         }
+
+        #region network hooks
+        // override On
+        #endregion
 
         #region Hooks
 
@@ -86,7 +106,7 @@ namespace SkillsPlusPlus {
         }
         private void OnRecalculateState(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self) {
             orig(self);
-            if (self == this.body) {
+            if(self == this.body) {
                 this.OnLevelChanged();
             }
         }
@@ -180,7 +200,7 @@ namespace SkillsPlusPlus {
         private void OnExitState(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
             if(isSurvivorEnabled && self is BaseState baseState) {
                 if(TryGetSkillModifierForState(baseState, out BaseSkillModifier skillModifier, out int skillLevel)) {
-                    skillModifier.OnSkillExit(baseState, skillLevel);                    
+                    skillModifier.OnSkillExit(baseState, skillLevel);
                 }
             }
             orig(self);
@@ -222,7 +242,7 @@ namespace SkillsPlusPlus {
                     }
                 }
             } else {
-                Logger.Debug("{0} does not have a running entity state machine", state);            
+                Logger.Debug("{0} does not have a running entity state machine", state);
             }
             skillLevelOut = SKILL_DISABLED;
             skillModifierOut = null;
@@ -304,7 +324,7 @@ namespace SkillsPlusPlus {
         void Update() {
 
 #if DEBUG
-            if (Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
+            if(Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
                 //TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong)(500 * Time.deltaTime));
                 //TeamManager.instance.SetTeamLevel(this.PlayerTeamIndex, TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex) + 1);
                 Logger.Debug("Giving points");
@@ -342,10 +362,33 @@ namespace SkillsPlusPlus {
         }
 
         public void OnBuySkill(GenericSkill genericSkill) {
+            if(this.isServer) {
+                this.PerformBuySkill(genericSkill);
+            } else {
+                var skillName = genericSkill?.baseSkill?.skillName;
+                if(skillName != null) {
+                    CmdBuySkill(skillName);
+                }
+            }
+        }
+
+        [Command]
+        private void CmdBuySkill(string skillName) {
+            GenericSkill genericSkill = this.skillLocator.FindGenericSkill(skillName, true);
+            this.PerformBuySkill(genericSkill);
+        }
+
+        [Server]
+        private void PerformBuySkill(GenericSkill genericSkill) {
+            if(!NetworkServer.active) {
+                Logger.Warn("[Server] funtion 'void OnBuySkill(GenericSkill genericSkill)' called on client");
+                return;
+            }
             if(genericSkill == null) {
                 return;
             }
-            if (unspentSkillPoints <= 0) {
+            Logger.Debug("Buying skill on this instance");
+            if(unspentSkillPoints <= 0) {
                 return;
             }
             BaseSkillModifier modifier = GetModifierForGenericSkill(genericSkill);
@@ -363,20 +406,23 @@ namespace SkillsPlusPlus {
 
             // find an notify the modifer to update the skill's parameters
             modifier.OnSkillLeveledUp(skillLevel, this.body, genericSkill.skillDef);
-            genericSkill.RecalculateValues();     
+            genericSkill.RecalculateValues();
+
         }
 
         public void OnLevelChanged() {
-            int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
-            // Logger.Debug("OnLevelChanged({0}) for team {1}", characterLevel, PlayerTeamIndex);
-            if (this.PlayerTeamIndex == TeamIndex.None) {
-                return;
+            if(this.hasAuthority) {
+                int characterLevel = (int)TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
+                // Logger.Debug("OnLevelChanged({0}) for team {1}", characterLevel, PlayerTeamIndex);
+                if(this.PlayerTeamIndex == TeamIndex.None) {
+                    return;
+                }
+
+                int newSkillPoints = Math.Max(0, SkillPointsAtLevel(characterLevel) - earnedSkillPoints);
+
+                earnedSkillPoints += newSkillPoints;
+                unspentSkillPoints += newSkillPoints;
             }
-
-            int newSkillPoints = Math.Max(0, SkillPointsAtLevel(characterLevel) - earnedSkillPoints);
-
-            earnedSkillPoints += newSkillPoints;
-            unspentSkillPoints += newSkillPoints;
         }
 
         private int SkillPointsAtLevel(int characterLevel) {

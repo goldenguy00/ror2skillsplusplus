@@ -5,6 +5,7 @@ using R2API;
 using R2API.Utils;
 using SkillsPlusPlus.Modifiers;
 using RoR2.UI;
+using UnityEngine.Networking;
 
 namespace SkillsPlusPlus {
     
@@ -23,6 +24,7 @@ namespace SkillsPlusPlus {
 
 #if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
+            UnityEngine.Networking.LogFilter.currentLogLevel = LogFilter.Info;
 
             // disable client authing when connecting to a server to allow two game instances to run in parallel
             // On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
