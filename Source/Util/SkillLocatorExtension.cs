@@ -9,7 +9,7 @@ using RoR2.Skills;
 namespace SkillsPlusPlus.Util {
     static class SkillLocatorExtension {
 
-        public static GenericSkill FindGenericSkill(this SkillLocator skillLocator, string skillName, bool allowMatchBaseSkill = false) {
+        public static GenericSkill FindGenericSkillBySkillDef(this SkillLocator skillLocator, string skillName, bool allowMatchBaseSkill = false) {
             GenericSkill[] genericSkills = skillLocator.FindAllGenericSkills();
             return Array.Find(genericSkills, genericSkill => {
                 return (allowMatchBaseSkill && genericSkill.baseSkill.skillName == skillName) || genericSkill.skillDef.skillName == skillName;

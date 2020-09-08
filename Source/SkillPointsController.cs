@@ -1,18 +1,17 @@
 using System;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using UnityEngine;
-using UnityEngine.Networking;
-using Rewired;
-
 using EntityStates;
-using RoR2;
-using RoR2.Skills;
 using R2API.Utils;
-
+using Rewired;
+using RoR2;
+using RoR2.Projectile;
+using RoR2.Skills;
 using SkillsPlusPlus.Modifiers;
 using SkillsPlusPlus.Util;
-using System.Runtime.CompilerServices;
-using System.Linq;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace SkillsPlusPlus {
 
@@ -20,7 +19,7 @@ namespace SkillsPlusPlus {
     [RequireComponent(typeof(NetworkIdentity))]
     sealed class SkillPointsController : NetworkBehaviour {
 
-        private const int SKILL_DISABLED = -1;
+        // private const int SKILL_DISABLED = -1;
 
         private PlayerCharacterMasterController playerCharacterMasterController;
         private NetworkIdentity networkIdentity;
@@ -34,7 +33,7 @@ namespace SkillsPlusPlus {
 
         private TeamIndex PlayerTeamIndex {
             get {
-                if(playerCharacterMasterController.master.hasBody) {
+                if (playerCharacterMasterController.master.hasBody) {
                     return playerCharacterMasterController.master.GetBody().teamComponent.teamIndex;
                 }
                 return TeamIndex.None;
@@ -64,14 +63,10 @@ namespace SkillsPlusPlus {
             // this.spentSkillPoints = new Dictionary<SkillSlot, int>();
             this.skillUpgrades.Callback += (operation, index) => {
                 Logger.Debug("skillUpgrades did change");
-                foreach(var skillUpgrade in this.skillUpgrades) {
+                foreach (var skillUpgrade in this.skillUpgrades) {
                     Logger.Debug("{0}:{1}", skillUpgrade.skillName, skillUpgrade.skillLevel);
-                    var genericSkill = this.skillLocator?.FindGenericSkill(skillUpgrade.skillName, false);
-                    var modifier = this.GetModifierForGenericSkill(genericSkill);
-                    if(modifier != null) {
-                        continue;
-                    }
-                    modifier.OnSkillLeveledUp(skillUpgrade.skillLevel, this.body, genericSkill.skillDef);
+                    var genericSkill = this.skillLocator?.FindGenericSkillBySkillDef(skillUpgrade.skillName, true);
+                    OnSkillChanged(genericSkill);
                 }
             };
 
@@ -79,7 +74,7 @@ namespace SkillsPlusPlus {
             this.networkIdentity = this.GetComponent<NetworkIdentity>();
 
             this.playerCharacterMasterController.master.onBodyStart += OnBodyStart;
-            if(this.playerCharacterMasterController.master.hasBody) {
+            if (this.playerCharacterMasterController.master.hasBody) {
                 this.OnBodyStart(this.playerCharacterMasterController.master.GetBody());
             }
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += GetDeployableSameSlotLimit;
@@ -91,7 +86,7 @@ namespace SkillsPlusPlus {
 
         [Server]
         void Start() {
-            this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;            
+            this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
         }
 
         void OnDestroy() {
@@ -105,9 +100,9 @@ namespace SkillsPlusPlus {
         #region Hooks
 
         private bool GenericCharacterMain_CanExecuteSkill(On.EntityStates.GenericCharacterMain.orig_CanExecuteSkill orig, GenericCharacterMain self, GenericSkill skillSlot) {
-            if(this.isSurvivorEnabled == true && this.body != null && self.outer.commonComponents.characterBody == this.body) {
+            if (this.isSurvivorEnabled == true && this.body != null && self.outer.commonComponents.characterBody == this.body) {
                 Player inputPlayer = this.playerCharacterMasterController?.networkUser?.localUser?.inputPlayer;
-                if(inputPlayer != null && inputPlayer.GetButtonDown(SkillInput.BUY_SKILLS_ACTION_ID)) {
+                if (inputPlayer != null && inputPlayer.GetButtonDown(SkillInput.BUY_SKILLS_ACTION_ID)) {
                     return false;
                 }
             }
@@ -115,7 +110,7 @@ namespace SkillsPlusPlus {
         }
         private void OnRecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self) {
             orig(self);
-            if(self == this.body && this.isServer) {
+            if (self == this.body && this.isServer) {
                 this.OnLevelChanged();
             }
         }
@@ -123,50 +118,46 @@ namespace SkillsPlusPlus {
         //private bool isInitialised = false;
         [Server]
         private void OnBodyStart(CharacterBody body) {
+            if (body == null) {
+                return;
+            }
             Logger.Debug("OnBodyStart({0})", body);
-#if DEBUG
-            if(body.healthComponent.godMode == false) {
+            #if DEBUG
+            if (body.healthComponent.godMode == false) {
                 body.healthComponent.godMode = true;
             }
-#endif
+            #endif
 
-            //if(isInitialised) {
-            //    return;
-            //}
-
-            if(body != null) {
-                this.isSurvivorEnabled = ConVars.ConVars.disabledSurvivors.value.Contains(body.GetDisplayName()) == false;
-                if(this.isSurvivorEnabled == false) {
-                    // isInitialised = true;
-                    Logger.Warn("Skills++ has been disable for this survivor. (survivorName = {0})", body.GetDisplayName());
-                    return;
-                }
+            this.isSurvivorEnabled = ConVars.ConVars.disabledSurvivors.value.Contains(body.GetDisplayName()) == false;
+            if (this.isSurvivorEnabled == false) {
+                // isInitialised = true;
+                Logger.Warn("Skills++ has been disable for this survivor. (survivorName = {0})", body.GetDisplayName());
+                return;
             }
 
             var skillLocator = body.skillLocator;
-            if(skillLocator == null) {
+            if (skillLocator == null) {
                 Logger.Debug("Unable to initialise skill modifiers since there is no skill locator to use");
                 return;
             }
 
             // isInitialised = true;
-            foreach(GenericSkill genericSkill in skillLocator.FindAllGenericSkills()) {
-                if(genericSkill == null) {
+            foreach (GenericSkill genericSkill in skillLocator.FindAllGenericSkills()) {
+                if (genericSkill == null) {
                     continue;
                 }
-                BaseSkillModifier modifier = GetModifierForGenericSkill(genericSkill);
-                if(modifier == null) {
+                if (SkillModifierManager.HasSkillModifier(genericSkill.baseSkill) == false) {
+                    Logger.Debug("SkillModifier for {0} does not exist", genericSkill.baseSkill);
                     continue;
                 }
 
                 SetSkillLevelForGenericSkill(genericSkill, 0);
-                int skillLevel = GetSkillLevelForGenericSkill(genericSkill);
 
                 //SkillDef baseSkillDef = Instantiate(genericSkill.baseSkill);
                 genericSkill.onSkillChanged -= this.OnSkillChanged;
                 genericSkill.onSkillChanged += this.OnSkillChanged;
 
-                modifier.OnSkillLeveledUp(skillLevel, this.body, genericSkill.baseSkill);
+                OnSkillChanged(genericSkill);
                 //genericSkill.SetBaseSkill(baseSkillDef);
 
                 // #22
@@ -187,20 +178,20 @@ namespace SkillsPlusPlus {
         }
 
         private int GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot) {
-            if(this.isSurvivorEnabled == false) {
+            if (this.isSurvivorEnabled == false) {
                 return orig(self, slot);
             }
 
             int bonusSlots = 0;
-            if(self == this.playerCharacterMasterController.master) {
+            if (self == this.playerCharacterMasterController.master) {
                 bonusSlots = EngiSkillModifier.GetDeployableSameSlotBonus(slot);
             }
             return orig(self, slot) + bonusSlots;
         }
 
         private void OnEnterState(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
-            if(isSurvivorEnabled) {
-                if(TryGetSkillModifierForState(self, out BaseSkillModifier skillModifier, out int skillLevel)) {
+            if (isSurvivorEnabled) {
+                if (GetSkillInfoAndModifierForState(self, out int skillLevel, out SkillDef skillDef, out BaseSkillModifier skillModifier)) {
                     skillModifier.OnSkillEnter(self, skillLevel);
                 }
             }
@@ -208,101 +199,107 @@ namespace SkillsPlusPlus {
         }
 
         private void OnExitState(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
-            if(isSurvivorEnabled && self is BaseState baseState) {
-                if(TryGetSkillModifierForState(baseState, out BaseSkillModifier skillModifier, out int skillLevel)) {
+            if (isSurvivorEnabled && self is BaseState baseState) {
+                if (GetSkillInfoAndModifierForState(baseState, out int skillLevel, out SkillDef skillDef, out BaseSkillModifier skillModifier)) {
                     skillModifier.OnSkillExit(baseState, skillLevel);
                 }
             }
             orig(self);
         }
 
-        #endregion
-
-        private bool TryGetSkillModifierForState(BaseState state, out BaseSkillModifier skillModifierOut, out int skillLevelOut) {
-            var entityStateMachine = state.outer;
-            if(entityStateMachine != null && entityStateMachine.destroying == false) {
-                bool belongsToCharacter = false;
-                if(this.body != null && entityStateMachine.commonComponents.characterBody == this.body) {
-                    belongsToCharacter = true;
-                } else if(entityStateMachine.commonComponents.projectileController != null && entityStateMachine.commonComponents.projectileController.owner == this.body.gameObject) {
-                    belongsToCharacter = true;
-                } else if(this.playerCharacterMasterController.master != null && entityStateMachine.commonComponents.characterBody?.master?.minionOwnership?.ownerMaster == this.playerCharacterMasterController.master) {
-                    belongsToCharacter = true;
-                } else if(this.body != null && state.outer.TryGetComponent(out GenericOwnership ownership) && ownership.ownerObject == this.body.gameObject) {
-                    belongsToCharacter = true;
-                }
-
-                if(belongsToCharacter == false) {
-                    skillModifierOut = null;
-                    skillLevelOut = SKILL_DISABLED;
-                    return false;
-                }
-
-                var stateType = state.GetType();
-                var skillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
-                if(skillModifier != null) {
-                    foreach(var skillName in skillModifier.skillNames) {
-                        var genericSkill = this.body.skillLocator?.FindGenericSkill(skillName);
-
-                        skillLevelOut = this.GetSkillLevelForGenericSkill(genericSkill);
-                        if(skillLevelOut != SKILL_DISABLED) {
-                            skillModifierOut = skillModifier;
-                            return true;
-                        }
+        private bool GetSkillInfoAndModifierForState(BaseState state, out int skillLevel, out SkillDef skillDef, out BaseSkillModifier skillModifier) {
+            skillLevel = 0;
+            skillDef = null;
+            skillModifier = null;
+            if (state == null) {
+                return false;
+            }
+            var owningCharacterBody = FindOwningCharacterBody(state);
+            if (owningCharacterBody != this.body) {
+                return false;
+            }
+            var stateType = state.GetType();
+            var tempSkillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(stateType);
+            if (tempSkillModifier != null) {
+                foreach (var skillName in tempSkillModifier.skillNames) {
+                    var genericSkill = owningCharacterBody.skillLocator?.FindGenericSkillBySkillDef(skillName, true);
+                    if (GetSkillInfoForGenericSkill(genericSkill, out skillLevel, out skillDef)) {
+                        skillModifier = tempSkillModifier;
+                        return true;
                     }
                 }
-            } else {
-                Logger.Debug("{0} does not have a running entity state machine", state);
             }
-            skillLevelOut = SKILL_DISABLED;
-            skillModifierOut = null;
             return false;
         }
 
-        public int GetSkillLevelForGenericSkill(GenericSkill genericSkill) {
-            if(genericSkill == null) {
-                return SKILL_DISABLED;
+        #endregion
+
+        private CharacterBody FindOwningCharacterBody(BaseState state) {
+            if (state.outer) {
+                if (state.outer.TryGetComponent(out CharacterBody characterBody)) {
+                    return characterBody;
+                } else if (state.outer.TryGetComponent(out ProjectileController projectileController)) {
+                    return projectileController.owner.GetComponent<CharacterBody>();
+                } else if (state.outer.TryGetComponent(out MinionOwnership minionOwnership)) {
+                    return minionOwnership.ownerMaster.GetBody();
+                } else if (state.outer.TryGetComponent(out GenericOwnership genericOwnership)) {
+                    return genericOwnership.ownerObject.GetComponent<CharacterBody>();
+                } else if (state.outer.TryGetComponent(out Deployable deployable)) {
+                    return deployable.ownerMaster.GetBody();
+                }
+            }
+            return null;
+        }
+
+        public bool GetSkillInfoForGenericSkill(GenericSkill genericSkill, out int skillLevel, out SkillDef skillDef) {
+            skillLevel = 0;
+            skillDef = null;
+            if (genericSkill == null) {
+                return false;
             }
             try {
                 var skillOverrides = genericSkill.GetFieldValue<GenericSkill.SkillOverride[]>("skillOverrides");
                 var skillOverridePriority = GenericSkill.SkillOverridePriority.Default;
                 var skillIndex = -1;
-                for(int i = 0; i < skillOverrides.Length; i++) {
+                for (int i = 0; i < skillOverrides.Length; i++) {
                     GenericSkill.SkillOverridePriority priority = skillOverrides[i].priority;
-                    if(skillOverridePriority <= priority) {
+                    if (skillOverridePriority <= priority) {
                         skillIndex = i;
                         skillOverridePriority = priority;
                     }
                 }
-                if(skillOverridePriority >= GenericSkill.SkillOverridePriority.Contextual) {
-                    return SKILL_DISABLED;
+                // the currently active skill in the generic skill is only temporary
+                // so there is no upgrade context for it
+                if (skillOverridePriority >= GenericSkill.SkillOverridePriority.Contextual) {
+                    return false;
+                } else if (skillIndex != -1) {
+                    skillDef = skillOverrides[skillIndex].skillDef;
+                } else {
+                    skillDef = genericSkill.baseSkill;
                 }
-                //if(skillIndex == -1) {
-                //    skillName = genericSkill?.baseSkill?.skillName;
-                //}
             } catch {
-                // skillName = genericSkill?.baseSkill?.skillName;
+                skillDef = genericSkill.baseSkill;
             }
             var baseSkillName = genericSkill?.baseSkill?.skillName;
-            if(baseSkillName == null) {
-                return SKILL_DISABLED;
-            }
-            foreach(var skillUpgrade in this.skillUpgrades) {
-                if(skillUpgrade.skillName == baseSkillName) {
-                    return skillUpgrade.skillLevel;
+            if (baseSkillName != null) {
+                foreach (var skillUpgrade in this.skillUpgrades) {
+                    if (skillUpgrade.skillName == baseSkillName) {
+                        skillLevel = skillUpgrade.skillLevel;
+                        return true;
+                    }
                 }
             }
-            return SKILL_DISABLED;
+            return false;
         }
 
         private void SetSkillLevelForGenericSkill(GenericSkill genericSkill, int newLevel) {
             var baseSkillName = genericSkill?.baseSkill?.skillName;
-            if(baseSkillName != null) {
-                for(int i = 0; i < this.skillUpgrades.Count; i++) {
-                    if(this.skillUpgrades[i].skillName == baseSkillName) {
+            if (baseSkillName != null) {
+                for (int i = 0; i < this.skillUpgrades.Count; i++) {
+                    if (this.skillUpgrades[i].skillName == baseSkillName) {
                         this.skillUpgrades[i] = new SkillUpgrade() {
-                            skillName = baseSkillName,
-                            skillLevel = newLevel
+                        skillName = baseSkillName,
+                        skillLevel = newLevel
                         };
                         Logger.Debug("Updating {0} to level {1}", baseSkillName, newLevel);
                         return;
@@ -310,85 +307,76 @@ namespace SkillsPlusPlus {
                 }
                 this.skillUpgrades.Add(new SkillUpgrade() {
                     skillName = baseSkillName,
-                    skillLevel = newLevel
+                        skillLevel = newLevel
                 });
                 Logger.Debug("Setting {0} to level {1}", baseSkillName, newLevel);
             }
         }
 
-        public BaseSkillModifier GetModifierForGenericSkill(GenericSkill genericSkill) {
-            return SkillModifierManager.GetSkillModifier(genericSkill.skillDef.skillName);
-        }
-
         public bool CanUpgradeGenericSkill(GenericSkill genericSkill) {
-            if(genericSkill == null) {
+            if (genericSkill == null) {
                 return false;
             }
-            if(GetSkillLevelForGenericSkill(genericSkill) == SKILL_DISABLED) {
+            if (unspentSkillPoints <= 0) {
                 return false;
             }
-            if(GetModifierForGenericSkill(genericSkill) == null) {
-                return false;
-            }
-            return unspentSkillPoints > 0;
+            return GetSkillInfoForGenericSkill(genericSkill, out int skillLevel, out SkillDef skillDef) && SkillModifierManager.HasSkillModifier(skillDef);
         }
 
         private void OnSkillChanged(GenericSkill genericSkill) {
-            var skillDef = genericSkill.skillDef;
-            var baseSkillDef = genericSkill.baseSkill;
-            if(baseSkillDef != null) {
-                int skillLevel = GetSkillLevelForGenericSkill(genericSkill);
-                BaseSkillModifier modifier = GetModifierForGenericSkill(genericSkill);
-                if(modifier != null && skillLevel != SKILL_DISABLED) {
+            if (GetSkillInfoForGenericSkill(genericSkill, out int skillLevel, out SkillDef skillDef)) {
+                BaseSkillModifier modifier = SkillModifierManager.GetSkillModifier(skillDef);
+                if (modifier != null) {
                     // get the skill level by the base skill name but provide the active skill def
                     modifier.OnSkillLeveledUp(skillLevel, this.body, skillDef);
+                    genericSkill.RecalculateValues();
                 }
             }
         }
 
         void Update() {
-#if DEBUG
-            if(Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
+            #if DEBUG
+            if (Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
                 //TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong)(500 * Time.deltaTime));
                 //TeamManager.instance.SetTeamLevel(this.PlayerTeamIndex, TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex) + 1);
                 Logger.Debug("Giving points");
                 CmdGiveSkillPoint();
             }
-            if(Input.GetKeyDown(KeyCode.Keypad1) && playerCharacterMasterController != null && body != null) {
+            if (Input.GetKeyDown(KeyCode.Keypad1) && playerCharacterMasterController != null && body != null) {
                 GameObject teleporter = GameObject.Find("Teleporter1(Clone)");
                 Transform spawnLocation = body.transform;
-                if(teleporter != null && teleporter.TryGetComponent(out TeleporterInteraction teleporterInteraction)) {
+                if (teleporter != null && teleporter.TryGetComponent(out TeleporterInteraction teleporterInteraction)) {
                     GameObject.Instantiate(teleporterInteraction.shopPortalSpawnCard.prefab, spawnLocation.position, spawnLocation.rotation, null);
                 }
             }
-            if(Input.GetKeyDown(KeyCode.Keypad2) && this.playerCharacterMasterController != null) {
+            if (Input.GetKeyDown(KeyCode.Keypad2) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.UtilitySkillMagazine);
             }
-            if(Input.GetKeyDown(KeyCode.Keypad3) && this.playerCharacterMasterController != null) {
+            if (Input.GetKeyDown(KeyCode.Keypad3) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.ExtraLife);
             }
-            if(Input.GetKeyDown(KeyCode.Keypad4) && this.playerCharacterMasterController != null) {
+            if (Input.GetKeyDown(KeyCode.Keypad4) && this.playerCharacterMasterController != null) {
                 this.body.skillLocator.ResetSkills();
             }
-            if(Input.GetKeyDown(KeyCode.Keypad5) && this.playerCharacterMasterController != null) {
+            if (Input.GetKeyDown(KeyCode.Keypad5) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItemString("CIScepter");
             }
-            if(Input.GetKeyDown(KeyCode.Keypad6) && this.playerCharacterMasterController != null) {
+            if (Input.GetKeyDown(KeyCode.Keypad6) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.Syringe, 5);
             }
-            if(Input.GetKeyDown(KeyCode.Keypad7) && this.playerCharacterMasterController != null) {
+            if (Input.GetKeyDown(KeyCode.Keypad7) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.LunarPrimaryReplacement);
                 this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.LunarUtilityReplacement);
             }
-#endif
+            #endif
         }
 
         public void OnBuySkill(GenericSkill genericSkill) {
-            if(this.isServer) {
+            if (this.isServer) {
                 this.PerformBuySkill(genericSkill);
             } else {
                 var skillName = genericSkill?.baseSkill?.skillName;
-                if(skillName != null) {
+                if (skillName != null) {
                     CmdBuySkill(skillName);
                 }
             }
@@ -396,51 +384,42 @@ namespace SkillsPlusPlus {
 
         [Command]
         private void CmdBuySkill(string skillName) {
-            GenericSkill genericSkill = this.skillLocator.FindGenericSkill(skillName, true);
+            GenericSkill genericSkill = this.skillLocator.FindGenericSkillBySkillDef(skillName, true);
             this.PerformBuySkill(genericSkill);
         }
 
         [Server]
         private void PerformBuySkill(GenericSkill genericSkill) {
-            if(genericSkill == null) {
+            if (genericSkill == null) {
                 return;
             }
-            if(unspentSkillPoints <= 0) {
+            if (unspentSkillPoints <= 0) {
                 Logger.Debug("Insufficient skill points to buy skill");
                 return;
             }
-            BaseSkillModifier modifier = GetModifierForGenericSkill(genericSkill);
-            if(modifier == null) {
-                Logger.Debug("Could not purchase skill. Could not find a skill modifiers matching {0}", genericSkill.skillDef.skillName);
+            if (GetSkillInfoForGenericSkill(genericSkill, out int skillLevel, out SkillDef skillDef) && SkillModifierManager.HasSkillModifier(skillDef)) {
+                unspentSkillPoints--;
+                // increment and store the new skill level
+                SetSkillLevelForGenericSkill(genericSkill, ++skillLevel);
+
+                OnSkillChanged(genericSkill);
                 return;
             }
-            Logger.Debug("Buying skill on this instance");
 
-            unspentSkillPoints--;
-
-            int skillLevel = GetSkillLevelForGenericSkill(genericSkill);
-            // increment and store the new skill level
-            SetSkillLevelForGenericSkill(genericSkill, ++skillLevel);
-            Logger.Debug("SkillSlot {0} @ level {1}", genericSkill.baseSkill.skillName, skillLevel);
-
-            // find an notify the modifer to update the skill's parameters
-            modifier.OnSkillLeveledUp(skillLevel, this.body, genericSkill.skillDef);
-            genericSkill.RecalculateValues();
-            return;
         }
 
         [Server]
         public void OnLevelChanged() {
-            int characterLevel = (int)TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
+            int characterLevel = (int) TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex);
             // Logger.Debug("OnLevelChanged({0}) for team {1}", characterLevel, PlayerTeamIndex);
-            if(this.PlayerTeamIndex == TeamIndex.None) {
+            if (this.PlayerTeamIndex == TeamIndex.None) {
                 return;
             }
 
             int newSkillPoints = Math.Max(0, SkillPointsAtLevel(characterLevel) - earnedSkillPoints);
 
             earnedSkillPoints += newSkillPoints;
-            unspentSkillPoints += newSkillPoints;            
+            unspentSkillPoints += newSkillPoints;
         }
 
         [Command]
@@ -450,14 +429,14 @@ namespace SkillsPlusPlus {
         }
 
         private int SkillPointsAtLevel(int characterLevel) {
-#if DEBUG
+            #if DEBUG
             return characterLevel - 1;
-#else
-            if(levelsPerSkillPoint <= 1) {
+            #else
+            if (levelsPerSkillPoint <= 1) {
                 return characterLevel - 1;
             }
             return (characterLevel / this.levelsPerSkillPoint);
-#endif 
+            #endif
         }
     }
 }

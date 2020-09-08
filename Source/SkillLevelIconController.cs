@@ -140,7 +140,7 @@ namespace SkillsPlusPlus {
 
             var skillPointsController = this.skillPointsController;
             if(skillPointsController) {
-                var skillLevel = skillPointsController.GetSkillLevelForGenericSkill(this.genericSkill);
+                skillPointsController.GetSkillInfoForGenericSkill(this.genericSkill, out int skillLevel, out _);
                 var canBuySkill = skillPointsController.CanUpgradeGenericSkill(this.genericSkill);
                 if(levelTextMesh != null) {
                     levelTextMesh.text = skillLevel > 0 ? skillLevel.ToString() : null;

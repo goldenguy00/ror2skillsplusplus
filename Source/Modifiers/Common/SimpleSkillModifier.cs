@@ -16,6 +16,7 @@ namespace SkillsPlusPlus.Modifiers {
         /// <inheritdoc/>
         public sealed override void OnSkillEnter(BaseState skillState, int level) {
             if (skillState is SkillState) {
+                Logger.Debug("OnSkillEnter({0}, {1})", skillState, level);
                 this.OnSkillEnter(skillState as SkillState, level);
             } else {
                 Logger.Warn("Unable to cast {0} to {1}", skillState, typeof(SkillState).FullName);
@@ -25,6 +26,7 @@ namespace SkillsPlusPlus.Modifiers {
         /// <inheritdoc/>
         public sealed override void OnSkillExit(BaseState skillState, int level) {
             if (skillState is SkillState) {
+                Logger.Debug("OnSkillExit({0}, {1})", skillState, level);
                 this.OnSkillExit(skillState as SkillState, level);
             } else {
                 Logger.Warn("Unable to cast {0} to {1}", skillState, typeof(SkillState).FullName);
@@ -33,6 +35,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         /// <inheritdoc/>
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            Logger.Debug("OnSkillLeveledUp({0}, {1}, {2})", level, characterBody, skillDef);
             // no-op
         }
 

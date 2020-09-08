@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Reflection;
 using EntityStates;
 using Mono.Collections.Generic;
 using RoR2.Skills;
-using UnityEngine;
 using SkillsPlusPlus.Modifiers;
-using System.Linq;
-using System.Collections.Specialized;
+using UnityEngine;
 
 namespace SkillsPlusPlus {
     public sealed class SkillModifierManager {
@@ -22,40 +22,40 @@ namespace SkillsPlusPlus {
         /// </summary>
         public static void LoadSkillModifiers() {
             Assembly assembly = Assembly.GetCallingAssembly();
-            if(assembly == null) {
+            if (assembly == null) {
                 return;
             }
-            foreach(Type type in assembly.GetTypes()) {
+            foreach (Type type in assembly.GetTypes()) {
                 var attributes = type.GetCustomAttributes<SkillLevelModifierAttribute>();
-                if(attributes == null || attributes.Count() == 0) {
+                if (attributes == null || attributes.Count() == 0) {
                     continue;
                 }
                 try {
                     ConstructorInfo constructorInfo = type.GetConstructor(new Type[0]);
-                    if(constructorInfo == null) {
+                    if (constructorInfo == null) {
                         Logger.Debug("Failed to find constructor info for {0}", type.FullName);
                         Logger.Debug("Other constructors included");
-                        foreach(ConstructorInfo info in type.GetConstructors()) {
+                        foreach (ConstructorInfo info in type.GetConstructors()) {
                             Logger.Debug(info);
                         }
                         continue;
                     }
-                    foreach(SkillLevelModifierAttribute attribute in attributes) {
+                    foreach (SkillLevelModifierAttribute attribute in attributes) {
                         object someSkillModifier = constructorInfo.Invoke(new object[0]);
-                        
-                        if(someSkillModifier is BaseSkillModifier skillModifier) {
+
+                        if (someSkillModifier is BaseSkillModifier skillModifier) {
                             skillModifier.skillNames = attribute.skillNames;
                             skillModifier.EntityStateTypes = attribute.baseStateTypes;
-                            foreach(string skillName in attribute.skillNames) {
-                                if(skillNameToModifierMap.TryGetValue(skillName, out BaseSkillModifier existingModifier)) {
+                            foreach (string skillName in attribute.skillNames) {
+                                if (skillNameToModifierMap.TryGetValue(skillName, out BaseSkillModifier existingModifier)) {
                                     Logger.Warn("Skill modifier conflict!!!");
                                     Logger.Warn("Cannot add {0} since {1} already exists for skill named {2}", someSkillModifier.GetType().FullName, existingModifier.GetType().FullName, skillName);
                                     continue;
                                 }
                                 skillNameToModifierMap[skillName] = skillModifier;
                             }
-                            foreach(Type stateType in attribute.baseStateTypes) {
-                                if(typeToModifierMap.TryGetValue(stateType, out BaseSkillModifier existingModifier)) {
+                            foreach (Type stateType in attribute.baseStateTypes) {
+                                if (typeToModifierMap.TryGetValue(stateType, out BaseSkillModifier existingModifier)) {
                                     Logger.Warn("Skill modifier conflict!!!");
                                     Logger.Warn("Cannot add {0} since {1} already exists for the entity state {2}", existingModifier.GetType().FullName, stateType.FullName);
                                     continue;
@@ -64,34 +64,47 @@ namespace SkillsPlusPlus {
                             }
                         }
                     }
-                } catch(Exception error) {
+                } catch (Exception error) {
                     Logger.Error(error);
                     continue;
                 }
-                
+
             }
         }
 
-        internal static BaseSkillModifier GetSkillModifier(string skillName) {
-            if(skillName == null) {
+        internal static BaseSkillModifier GetSkillModifier(SkillDef skillDef) {
+            var skillName = skillDef.skillName;
+            if (skillName == null) {
                 return null;
             }
-            if(skillNameToModifierMap.TryGetValue(skillName, out BaseSkillModifier modifier)) {
+            if (skillNameToModifierMap.TryGetValue(skillName, out BaseSkillModifier modifier)) {
                 return modifier;
-            }            
+            }
             return null;
         }
 
+        internal static bool HasSkillModifier(SkillDef skillDef) {
+            var skillName = skillDef.skillName;
+            if (skillName == null) {
+                return false;
+            }
+            return skillNameToModifierMap.ContainsKey(skillName);
+        }
+
+        // internal static BaseSkillModifier GetSkillModifier(string skillName) {
+
+        // }
+
         internal static BaseSkillModifier GetSkillModifiersForEntityStateType(Type entityStateType) {
-            if(entityStateType == null) {
+            if (entityStateType == null) {
                 return null;
             }
-            if(typeToModifierMap.TryGetValue(entityStateType, out BaseSkillModifier modifiers)) {
+            if (typeToModifierMap.TryGetValue(entityStateType, out BaseSkillModifier modifiers)) {
                 return modifiers;
             }
-            if(entityStateType != typeof(GenericCharacterPod)) { 
-                Logger.Debug("Could not find any ISkillModifiers for entity state {0}", entityStateType.FullName);
-            }
+            // if (entityStateType != typeof(GenericCharacterPod)) {
+            //     Logger.Debug("Could not find any ISkillModifiers for entity state {0}", entityStateType.FullName);
+            // }
             return null;
         }
 

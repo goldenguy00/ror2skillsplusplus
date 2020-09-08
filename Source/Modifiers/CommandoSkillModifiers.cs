@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
-using RoR2.Skills;
-using UnityEngine;
-using RoR2;
-using RoR2.Projectile;
 using EntityStates.Commando;
 using EntityStates.Commando.CommandoWeapon;
+using RoR2;
+using RoR2.Projectile;
+using RoR2.Skills;
+using UnityEngine;
 
 namespace SkillsPlusPlus.Modifiers {
 
@@ -48,7 +49,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(FireShotgunBlast skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("procCoefficient: {0}, damageCoefficient: {1}, maxDistance: {2}", skillState.procCoefficient, skillState.damageCoefficient, skillState.maxDistance);
-            skillState.bulletCount = (int)MultScaling(skillState.bulletCount, 0.3f, level);
+            skillState.bulletCount = (int) MultScaling(skillState.bulletCount, 0.3f, level);
             skillState.maxDistance = MultScaling(skillState.maxDistance, 0.20f, level);
         }
     }
@@ -85,7 +86,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             Logger.Debug("Barrage - baseBulletCount: {0}, baseDurationBetweenShots: {1}, totalDuration: {2}, bulletRadius: {3}", FireBarrage.baseBulletCount, FireBarrage.baseDurationBetweenShots, FireBarrage.totalDuration, FireBarrage.bulletRadius);
-            
+
             FireBarrage.baseBulletCount = (int) MultScaling(6, 0.3f, level);
             FireBarrage.baseDurationBetweenShots = MultScaling(0.12f, -0.20f, level);
             FireBarrage.totalDuration = FireBarrage.baseBulletCount * FireBarrage.baseDurationBetweenShots + 0.3f;
@@ -100,7 +101,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(ThrowGrenade skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("force: {0}, damageCoefficient: {1}", skillState.force, skillState.damageCoefficient);
-            skillState.force = MultScaling(skillState.force, 0.5f, level);
+            skillState.force = MultScaling(skillState.force, 0.2f, level);
             skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.2f, level);
             if (skillState.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion)) {
                 projectileImpactExplosion.blastRadius = MultScaling(11, 0.20f, level);
