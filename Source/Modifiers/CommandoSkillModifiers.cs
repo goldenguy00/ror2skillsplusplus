@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using RoR2.Skills;
@@ -32,7 +32,7 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(FireFMJ skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("recoilAmplitude: {0},s damageCoefficient: {1}", skillState.recoilAmplitude, skillState.damageCoefficient);
-            skillState.projectilePrefab.transform.localScale = new Vector3(2.90f, 2.19f, 3.86f) * AdditiveScaling(1, 0.5f, level);
+            skillState.projectilePrefab.transform.localScale = new Vector3(2.90f, 2.19f, 3.86f) * AdditiveScaling(1, 0.2f, level);
             if (skillState.projectilePrefab.TryGetComponent(out ProjectileSimple projectileSimple)) {
                 projectileSimple.velocity = MultScaling(120f, 0.3f, level);
             }
@@ -58,9 +58,9 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(DodgeState skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            Logger.Debug("duration: {0}", skillState.duration);
-            float duration = skillState.duration * AdditiveScaling(0, 0.75f, level);
+            float duration = AdditiveScaling(0, 0.75f, level);
             if (duration > 0) {
+                Logger.Debug("adding buff for {0} seconds", duration);
                 skillState.outer.commonComponents.characterBody.AddTimedBuff(BuffIndex.Immune, duration);
             }
         }
@@ -71,8 +71,9 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(SlideState skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            float duration = SlideState.slideDuration * AdditiveScaling(0f, 0.75f, level);
+            float duration = AdditiveScaling(0f, 0.75f, level);
             if (duration > 0) {
+                Logger.Debug("adding buff for {0} seconds", duration);
                 skillState.outer.commonComponents.characterBody.AddTimedBuff(BuffIndex.Energized, duration);
             }
         }
