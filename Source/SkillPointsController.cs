@@ -20,8 +20,6 @@ namespace SkillsPlusPlus {
     [RequireComponent(typeof(NetworkIdentity))]
     sealed class SkillPointsController : NetworkBehaviour {
 
-        private const int kCmdBuySkill = 6040780;
-
         private const int SKILL_DISABLED = -1;
 
         private PlayerCharacterMasterController playerCharacterMasterController;
@@ -64,7 +62,18 @@ namespace SkillsPlusPlus {
 
         void Awake() {
             // this.spentSkillPoints = new Dictionary<SkillSlot, int>();
-            this.skillUpgrades.Clear();
+            this.skillUpgrades.Callback += (operation, index) => {
+                Logger.Debug("skillUpgrades did change");
+                foreach(var skillUpgrade in this.skillUpgrades) {
+                    Logger.Debug("{0}:{1}", skillUpgrade.skillName, skillUpgrade.skillLevel);
+                    var genericSkill = this.skillLocator?.FindGenericSkill(skillUpgrade.skillName, false);
+                    var modifier = this.GetModifierForGenericSkill(genericSkill);
+                    if(modifier != null) {
+                        continue;
+                    }
+                    modifier.OnSkillLeveledUp(skillUpgrade.skillLevel, this.body, genericSkill.skillDef);
+                }
+            };
 
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
             this.networkIdentity = this.GetComponent<NetworkIdentity>();
@@ -81,7 +90,7 @@ namespace SkillsPlusPlus {
         }
 
         [Server]
-        void OnStart() {
+        void Start() {
             this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;            
         }
 
@@ -111,7 +120,8 @@ namespace SkillsPlusPlus {
             }
         }
 
-        private bool isInitialised = false;
+        //private bool isInitialised = false;
+        [Server]
         private void OnBodyStart(CharacterBody body) {
             Logger.Debug("OnBodyStart({0})", body);
 #if DEBUG
@@ -120,14 +130,14 @@ namespace SkillsPlusPlus {
             }
 #endif
 
-            if(isInitialised) {
-                return;
-            }
+            //if(isInitialised) {
+            //    return;
+            //}
 
             if(body != null) {
                 this.isSurvivorEnabled = ConVars.ConVars.disabledSurvivors.value.Contains(body.GetDisplayName()) == false;
                 if(this.isSurvivorEnabled == false) {
-                    isInitialised = true;
+                    // isInitialised = true;
                     Logger.Warn("Skills++ has been disable for this survivor. (survivorName = {0})", body.GetDisplayName());
                     return;
                 }
@@ -139,7 +149,7 @@ namespace SkillsPlusPlus {
                 return;
             }
 
-            isInitialised = true;
+            // isInitialised = true;
             foreach(GenericSkill genericSkill in skillLocator.FindAllGenericSkills()) {
                 if(genericSkill == null) {
                     continue;
@@ -152,26 +162,26 @@ namespace SkillsPlusPlus {
                 SetSkillLevelForGenericSkill(genericSkill, 0);
                 int skillLevel = GetSkillLevelForGenericSkill(genericSkill);
 
-                SkillDef baseSkillDef = Instantiate(genericSkill.baseSkill);
+                //SkillDef baseSkillDef = Instantiate(genericSkill.baseSkill);
                 genericSkill.onSkillChanged -= this.OnSkillChanged;
                 genericSkill.onSkillChanged += this.OnSkillChanged;
 
-                modifier.OnSkillLeveledUp(skillLevel, this.body, baseSkillDef);
-                genericSkill.SetBaseSkill(baseSkillDef);
+                modifier.OnSkillLeveledUp(skillLevel, this.body, genericSkill.baseSkill);
+                //genericSkill.SetBaseSkill(baseSkillDef);
 
                 // #22
                 // This mod is instantiating a clone of the generic skills current skill definition
                 // This caused a bug for Acrid where its passive would not trigger due to the cloned skill def not being 
                 // equal to other preset SkillDefs.
                 // Here we access Acrid's damage controller and assign the skill definitions to uphold the equality 
-                if(body.TryGetComponent(out CrocoDamageTypeController crocoDamageTypeController)) {
-                    if(genericSkill.skillDef.skillName == crocoDamageTypeController.poisonSkillDef.skillName) {
-                        crocoDamageTypeController.poisonSkillDef = baseSkillDef;
-                    }
-                    if(genericSkill.skillDef.skillName == crocoDamageTypeController.blightSkillDef.skillName) {
-                        crocoDamageTypeController.blightSkillDef = baseSkillDef;
-                    }
-                }
+                //if(body.TryGetComponent(out CrocoDamageTypeController crocoDamageTypeController)) {
+                //    if(genericSkill.skillDef.skillName == crocoDamageTypeController.poisonSkillDef.skillName) {
+                //        crocoDamageTypeController.poisonSkillDef = baseSkillDef;
+                //    }
+                //    if(genericSkill.skillDef.skillName == crocoDamageTypeController.blightSkillDef.skillName) {
+                //        crocoDamageTypeController.blightSkillDef = baseSkillDef;
+                //    }
+                //}
             }
 
         }
