@@ -36,7 +36,6 @@
     <Compile Remove="Tests\**" />
     <EmbeddedResource Remove="Images\**" />
     <EmbeddedResource Remove="libs\**" />
-    <EmbeddedResource Remove="PublicAPITest\**" />
     <EmbeddedResource Remove="Tests\**" />
     <None Remove="Images\**" />
     <None Remove="libs\**" />
