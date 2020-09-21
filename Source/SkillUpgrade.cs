@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
@@ -18,7 +19,7 @@ namespace SkillsPlusPlus {
     [RequireComponent(typeof(CharacterBody))]
     class SkillUpgrade : NetworkBehaviour {
 
-        [SyncVar(hook = "RefreshUpgrades")]
+        [SyncVar(hook = "OnSkillLevelChanged")]
         public int skillLevel;
 
         public SkillPointsController skillPointsController;
@@ -29,6 +30,7 @@ namespace SkillsPlusPlus {
         CharacterBody characterBody;
 
         void Awake() {
+
             Logger.Debug("Awake()");
             this.characterBody = this.GetComponent<CharacterBody>();
             this.targetGenericSkill.onSkillChanged += OnSkillChanged;
@@ -64,7 +66,11 @@ namespace SkillsPlusPlus {
             RefreshUpgrades();
         }
 
-        private void RefreshUpgrades() {
+        void OnSkillLevelChanged(int newSkillLevel) {
+            RefreshUpgrades();
+        }
+
+        void RefreshUpgrades() {
             var activeSkillDef = GetActiveSkillDef(targetGenericSkill);
             if (activeSkillDef == null) {
                 return;
