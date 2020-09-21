@@ -88,7 +88,11 @@ namespace SkillsPlusPlus {
             if (skillName == null) {
                 return false;
             }
-            return skillNameToModifierMap.ContainsKey(skillName);
+            return HasSkillModifier(skillName);
+        }
+
+        internal static bool HasSkillModifier(string baseSkillName) {
+            return skillNameToModifierMap.ContainsKey(baseSkillName);
         }
 
         // internal static BaseSkillModifier GetSkillModifier(string skillName) {

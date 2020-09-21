@@ -1,8 +1,12 @@
+using System.Collections.Specialized;
+using System.Linq;
 using BepInEx;
 using R2API;
 using R2API.Utils;
+using RoR2;
 using RoR2.UI;
 using SkillsPlusPlus.Modifiers;
+using SkillsPlusPlus.Util;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -10,7 +14,7 @@ namespace SkillsPlusPlus {
 
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.1.6")]
-    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI))]
+    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(SurvivorAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
@@ -38,10 +42,7 @@ Raise bugs here https://discord.gg/wU94CjJ
 
             #if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
-            UnityEngine.Networking.LogFilter.currentLogLevel = LogFilter.Info;
-
-            // disable client authing when connecting to a server to allow two game instances to run in parallel
-            // On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
+            UnityEngine.Networking.LogFilter.currentLogLevel = LogFilter.Debug;
 
             On.RoR2.Console.InitConVars += (orig, self) => {
                 orig(self);
@@ -54,6 +55,9 @@ Raise bugs here https://discord.gg/wU94CjJ
             };
 
             bool didAttemptToConnect = false;
+
+            // disable client authing when connecting to a server to allow two game instances to run in parallel
+            On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
             On.RoR2.UI.MainMenu.MainMenuController.Start += (orig, self) => {
                 if (didAttemptToConnect == false) {
                     didAttemptToConnect = true;
@@ -76,6 +80,51 @@ Raise bugs here https://discord.gg/wU94CjJ
             playerMasterPrefab.EnsureComponent<SkillPointsController>();
 
             On.RoR2.UI.HUD.Awake += this.HUD_Awake;
+
+            On.RoR2.SurvivorCatalog.Init += HookVanillaCharacters;
+            SkillsPlusPlus.Logger.Debug("Awake() SurvivorCatalog.allSurvivorDef: {0}", SurvivorCatalog.allSurvivorDefs);
+            SurvivorAPI.SurvivorDefinitions.CollectionChanged += OnSurvivorDefinitionsChanged;
+        }
+
+        private void HookVanillaCharacters(On.RoR2.SurvivorCatalog.orig_Init orig) {
+            orig();
+            foreach (var survivorDef in SurvivorCatalog.allSurvivorDefs) {
+                PrepareSurvivor(survivorDef);
+            }
+        }
+
+        private void OnSurvivorDefinitionsChanged(object sender, NotifyCollectionChangedEventArgs args) {
+            foreach (var item in args.NewItems) {
+                if (item is SurvivorDef survivorDef) {
+                    PrepareSurvivor(survivorDef);
+                }
+            }
+        }
+
+        private void PrepareSurvivor(SurvivorDef survivorDef) {
+            SkillsPlusPlus.Logger.Debug("PrepareSurvivor({0})", survivorDef);
+            if (survivorDef == null) {
+                return;
+            }
+            var skillUpgrades = survivorDef.bodyPrefab.GetComponents<SkillUpgrade>();
+            skillUpgrades.ForEachTry(Destroy);
+
+            if (survivorDef.bodyPrefab.TryGetComponent(out SkillLocator skillLocator)) {
+                foreach (GenericSkill genericSkill in skillLocator.FindAllGenericSkills()) {
+                    if (genericSkill == null) {
+                        continue;
+                    }
+                    // if (SkillModifierManager.HasSkillModifier(genericSkill.baseSkill) == false) {
+                    //     SkillsPlusPlus.Logger.Debug("SkillModifier for {0} does not exist", genericSkill.baseSkill);
+                    //     continue;
+                    // }
+
+                    var skillUpgrade = survivorDef.bodyPrefab.AddComponent<SkillUpgrade>();
+                    SkillsPlusPlus.Logger.Debug("Added skill upgrade");
+
+                    skillUpgrade.targetGenericSkill = genericSkill;
+                }
+            }
         }
 
         private void HUD_Awake(On.RoR2.UI.HUD.orig_Awake orig, RoR2.UI.HUD self) {
