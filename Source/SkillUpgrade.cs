@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
@@ -30,30 +31,20 @@ namespace SkillsPlusPlus {
         CharacterBody characterBody;
 
         void Awake() {
-
-            Logger.Debug("Awake()");
             this.characterBody = this.GetComponent<CharacterBody>();
-            this.targetGenericSkill.onSkillChanged += OnSkillChanged;
             this.targetBaseSkillName = targetGenericSkill.baseSkill.skillName;
-            if (this.characterBody.masterObject) {
-                Logger.Warn("Character has a master");
-                if (this.characterBody.master.GetBody() == this.characterBody) {
-                    Logger.Warn("And it already matches this current character body reference");
-                } else {
-                    Logger.Warn("And it doesn't match this current character body reference!!!!!!!!!!");
-                }
-            } else {
-                Logger.Warn("Character has no master");
-            }
-            // On.EntityStates.BaseState.OnEnter += OnBaseStateEnter;
-            // On.EntityStates.EntityState.OnExit += OnBaseStateExit;
         }
 
-        void Update() {
-            this.skillPointsController = characterBody.masterObject?.GetComponent<SkillPointsController>();
+        void OnEnable() {
+            this.targetGenericSkill.onSkillChanged += OnSkillChanged;
+            On.EntityStates.BaseState.OnEnter += this.OnBaseStateEnter;
+            On.EntityStates.EntityState.OnExit += this.OnBaseStateExit;
+            RefreshUpgrades();
         }
 
-        void OnDestroy() {
+        void OnDisable() {
+            On.EntityStates.BaseState.OnEnter -= this.OnBaseStateEnter;
+            On.EntityStates.EntityState.OnExit -= this.OnBaseStateExit;
             if (targetGenericSkill) {
                 targetGenericSkill.onSkillChanged -= this.OnSkillChanged;
             }
@@ -66,7 +57,10 @@ namespace SkillsPlusPlus {
             RefreshUpgrades();
         }
 
+        [Client]
         void OnSkillLevelChanged(int newSkillLevel) {
+            Logger.Debug("OnSkillLevelChanged({0})", newSkillLevel);
+            this.skillLevel = newSkillLevel;
             RefreshUpgrades();
         }
 
@@ -75,19 +69,33 @@ namespace SkillsPlusPlus {
             if (activeSkillDef == null) {
                 return;
             }
-            var modifier = SkillModifierManager.GetSkillModifiersForEntityStateType(activeSkillDef.activationState.stateType);
+            var modifier = SkillModifierManager.GetSkillModifier(activeSkillDef);
             if (modifier != null) {
                 // TODO: rename OnSkillLeveledUp to OnSkillChanged
                 modifier.OnSkillLeveledUp(this.skillLevel, this.characterBody, activeSkillDef);
+                if (targetGenericSkill) {
+                    targetGenericSkill.RecalculateValues();
+                }
             }
         }
 
-        [Server]
         public void OnBuySkill() {
-            if (skillPointsController && this.CanUpgradeSkill()) {
-                skillPointsController.DeductSkillPoints(1);
-                this.skillLevel += 1;
-                RefreshUpgrades();
+            CmdOnBuySkill(this.targetBaseSkillName);
+        }
+
+        [Command]
+        [Server]
+        private void CmdOnBuySkill(string targetSkillName) {
+            var allSkillUpgrades = this.GetComponents<SkillUpgrade>();
+            foreach (var skillUpgrade in allSkillUpgrades) {
+                if (skillUpgrade.targetBaseSkillName == targetSkillName) {
+                    if (skillPointsController && skillUpgrade.CanUpgradeSkill()) {
+                        skillPointsController.DeductSkillPoints(1);
+                        skillUpgrade.skillLevel += 1;
+                        Logger.Debug("CmdOnBuySkill({0}): skillLevel: {1}", skillUpgrade.targetBaseSkillName, skillUpgrade.skillLevel);
+                        skillUpgrade.RefreshUpgrades();
+                    }
+                }
             }
         }
 
@@ -102,6 +110,9 @@ namespace SkillsPlusPlus {
         }
 
         private CharacterBody FindOwningCharacterBody(EntityState state) {
+            if (state == null) {
+                return null;
+            }
             if (state.outer) {
                 if (state.outer.TryGetComponent(out CharacterBody characterBody)) {
                     return characterBody;
@@ -150,7 +161,8 @@ namespace SkillsPlusPlus {
         private void OnBaseStateEnter(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
             if (FindOwningCharacterBody(self)?.gameObject == this.gameObject && self is BaseState baseState) {
                 var skillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(baseState.GetType());
-                if (skillModifier != null) {
+                var activeSkillDef = GetActiveSkillDef(this.targetGenericSkill);
+                if (skillModifier != null && activeSkillDef != null && skillModifier.skillNames.Contains(activeSkillDef.skillName)) {
                     skillModifier.OnSkillEnter(skillState: baseState, this.skillLevel);
                     orig(self);
                     return;
@@ -161,16 +173,16 @@ namespace SkillsPlusPlus {
         }
 
         private void OnBaseStateExit(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
-            if (FindOwningCharacterBody(self)?.gameObject == this.gameObject && self is BaseState baseState) {
+            if (self is BaseState baseState && FindOwningCharacterBody(self)?.gameObject == this.gameObject) {
                 var skillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(baseState.GetType());
-                if (skillModifier != null) {
+                var activeSkillDef = GetActiveSkillDef(this.targetGenericSkill);
+                if (skillModifier != null && activeSkillDef != null && skillModifier.skillNames.Contains(activeSkillDef.skillName)) {
                     skillModifier.OnSkillExit(skillState: baseState, this.skillLevel);
                     orig(self);
                     return;
                 }
-            } else {
-                orig(self);
             }
+            orig(self);
         }
 
     }
