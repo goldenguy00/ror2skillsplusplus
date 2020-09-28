@@ -130,15 +130,15 @@ namespace SkillsPlusPlus {
             }
         }
 
-        private void Update() {
+        void Update() {
             if (skillIcon) {
                 var skillUpgrades = skillIcon.targetSkill.characterBody.GetComponents<SkillUpgrade>();
-                foreach (var skillUpdate in skillUpgrades) {
-                    if (genericSkill.baseSkill.skillName == skillUpdate.targetGenericSkill?.baseSkill.skillName)
-                        this.skillUpgrade = skillUpdate;
+                foreach (var skillUpgrade in skillUpgrades) {
+                    if (genericSkill.baseSkill.skillName == skillUpgrade.targetGenericSkill?.baseSkill.skillName) {
+                        this.skillUpgrade = skillUpgrade;
+                    }
                 }
             }
-        
 
             if (skillUpgrade) {
                 var canBuySkill = skillUpgrade.CanUpgradeSkill();
@@ -177,8 +177,8 @@ namespace SkillsPlusPlus {
                                         skillAction = RewiredConsts.Action.SpecialSkill;
                                         break;
                                 }
-                                UpgradeButton.SetActive(inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME));
-                                if (skillAction != 0 && inputPlayer.GetButtonDown(skillAction)) {
+                                UpgradeButton.SetActive(canBuySkill && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME));
+                                if (skillAction != 0 && inputPlayer.GetButtonDown(skillAction) && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME)) {
                                     this.OnBuySkill();
                                 }
                             }
