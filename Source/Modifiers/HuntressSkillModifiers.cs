@@ -1,13 +1,13 @@
+using System;
+using System.Collections.Generic;
+using EntityStates;
 using EntityStates.Huntress;
 using EntityStates.Huntress.HuntressWeapon;
 using EntityStates.Huntress.Weapon;
-using UnityEngine;
 using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
-using System.Collections.Generic;
-using System;
-using EntityStates;
+using UnityEngine;
 
 namespace SkillsPlusPlus.Modifiers {
 
@@ -15,14 +15,14 @@ namespace SkillsPlusPlus.Modifiers {
     class HuntressSeekingArrowSkillModifier : SimpleSkillModifier<FireSeekingArrow> {
 
         public override void OnSkillEnter(FireSeekingArrow skillState, int level) {
-            base.OnSkillEnter(skillState, level);            
+            base.OnSkillEnter(skillState, level);
             skillState.orbProcCoefficient = AdditiveScaling(1f, 0.2f, level);
             //skillState.orbProcCoefficient;
         }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            if(characterBody.TryGetComponent(out HuntressTracker huntressTracker)) {
+            if (characterBody.TryGetComponent(out HuntressTracker huntressTracker)) {
                 huntressTracker.maxTrackingDistance = MultScaling(60, 0.2f, level);
                 huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
             } else {
@@ -36,7 +36,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(FireFlurrySeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            
+
             skillState.maxArrowCount = AdditiveScaling(3, 1, level);
             skillState.baseArrowReloadDuration = 0.3f / skillState.maxArrowCount;
             // FireFlurrySeekingArrow.baseArrowReloadDuration = AdditiveScaling(6, 2, level);
@@ -48,7 +48,7 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("critMaxArrowCount: {0}, critBaseArrowReloadDuration: {1}", FireFlurrySeekingArrow.critMaxArrowCount, FireFlurrySeekingArrow.critBaseArrowReloadDuration);
 
             FireFlurrySeekingArrow.critMaxArrowCount = AdditiveScaling(6, 2, level);
-            if(characterBody.TryGetComponent(out HuntressTracker huntressTracker)) {
+            if (characterBody.TryGetComponent(out HuntressTracker huntressTracker)) {
                 huntressTracker.maxTrackingDistance = MultScaling(60, 0.10f, level);
                 huntressTracker.maxTrackingAngle = AdditiveScaling(30, 5, level); // 16%
             } else {
@@ -110,13 +110,13 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier(new string[] { "AimArrowSnipe", "Rabauld" }, typeof(FireArrowSnipe), typeof(AimArrowSnipe))]
+    [SkillLevelModifier(new string[] { "AimArrowSnipe", "Rabauld" }, typeof(BeginArrowSnipe), typeof(FireArrowSnipe), typeof(AimArrowSnipe))]
     class HuntressSnipeSkillModifier : BaseSkillModifier {
 
         static readonly float stockImageInterspacing = 18.0f;
 
         public override void OnSkillEnter(BaseState skillState, int level) {
-            if(skillState is AimArrowSnipe aimState) {
+            if (skillState is AimArrowSnipe aimState) {
                 aimState.maxDuration = AdditiveScaling(aimState.maxDuration, 0.5f, level);
             }
             if (skillState is FireArrowSnipe snipeState) {
@@ -132,7 +132,6 @@ namespace SkillsPlusPlus.Modifiers {
             if (AimArrowSnipe.crosshairOverridePrefab.TryGetComponent(out CrosshairController crosshairController)) {
                 GameObject stockCountHolderGameObject = crosshairController.gameObject.transform.Find("StockCountHolder").gameObject;
                 RectTransform stockCountHolderRectTransform = stockCountHolderGameObject.GetComponent<RectTransform>();
-
 
                 List<GameObject> stockGameObjects = new List<GameObject>();
                 GameObject stockPrefab = null;
