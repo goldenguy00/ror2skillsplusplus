@@ -60,12 +60,13 @@ namespace SkillsPlusPlus {
         void Awake() {
 
             this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
+            Logger.Debug("levelsPerSkillPoint: {0}", this.levelsPerSkillPoint);
 
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
             this.playerCharacterMasterController.master.onBodyStart += OnBodyStart;
-            // On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += GetDeployableSameSlotLimit;
+            On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += GetDeployableSameSlotLimit;
             // On.RoR2.CharacterBody.RecalculateStats += this.OnRecalculateStats;
-            // On.EntityStates.GenericCharacterMain.CanExecuteSkill += this.GenericCharacterMain_CanExecuteSkill;
+            On.EntityStates.GenericCharacterMain.CanExecuteSkill += this.GenericCharacterMain_CanExecuteSkill;
         }
 
         [Server]
@@ -76,9 +77,21 @@ namespace SkillsPlusPlus {
             transferrableSkillUpgrades[targetBaseSkillName] = skillLevel;
         }
 
-        [Server]
         void OnBodyStart(CharacterBody body) {
             // attempt to transfer and apply skill levels
+            var skillUpgrades = body.GetComponents<SkillUpgrade>();
+            foreach (var skillUpgrade in skillUpgrades) {
+                skillUpgrade.skillPointsController = this;
+            }
+            TransferSkillUpgrades(body);
+
+            #if DEBUG
+            body.healthComponent.godMode = true;
+            #endif
+        }
+
+        [Server]
+        private void TransferSkillUpgrades(CharacterBody body) {
             var skillUpgrades = body.GetComponents<SkillUpgrade>();
             foreach (var skillUpgrade in skillUpgrades) {
                 if (skillUpgrade.targetBaseSkillName != null && transferrableSkillUpgrades.ContainsKey(skillUpgrade.targetBaseSkillName)) {
@@ -90,8 +103,6 @@ namespace SkillsPlusPlus {
             foreach (var remainingSkillUpgrades in transferrableSkillUpgrades) {
                 this.unspentSkillPoints += remainingSkillUpgrades.Value;
             }
-
-            transferrableSkillUpgrades.Clear();
         }
 
         #region Hooks
@@ -125,14 +136,14 @@ namespace SkillsPlusPlus {
             if (Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None) {
                 //TeamManager.instance.GiveTeamExperience(body.teamComponent.teamIndex, (ulong)(500 * Time.deltaTime));
                 //TeamManager.instance.SetTeamLevel(this.PlayerTeamIndex, TeamManager.instance.GetTeamLevel(this.PlayerTeamIndex) + 1);
-                Logger.Debug("Giving points");
                 CmdGiveSkillPoint();
             }
             if (Input.GetKeyDown(KeyCode.Keypad1) && playerCharacterMasterController != null && body != null) {
                 GameObject teleporter = GameObject.Find("Teleporter1(Clone)");
                 Transform spawnLocation = body.transform;
                 if (teleporter != null && teleporter.TryGetComponent(out TeleporterInteraction teleporterInteraction)) {
-                    GameObject.Instantiate(teleporterInteraction.shopPortalSpawnCard.prefab, spawnLocation.position, spawnLocation.rotation, null);
+                    var portalGameObject = GameObject.Instantiate(teleporterInteraction.shopPortalSpawnCard.prefab, spawnLocation.position, spawnLocation.rotation, null);
+                    NetworkServer.Spawn(portalGameObject);
                 }
             }
             if (Input.GetKeyDown(KeyCode.Keypad2) && this.playerCharacterMasterController != null) {
@@ -176,7 +187,9 @@ namespace SkillsPlusPlus {
         }
 
         [Command]
+        [Server]
         private void CmdGiveSkillPoint() {
+            Logger.Debug("Giving points");
             this.earnedSkillPoints++;
             this.unspentSkillPoints++;
         }
