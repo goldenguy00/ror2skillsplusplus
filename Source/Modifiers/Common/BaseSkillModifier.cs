@@ -1,8 +1,8 @@
-﻿using EntityStates;
+﻿using System;
+using System.Collections.Generic;
+using EntityStates;
 using RoR2;
 using RoR2.Skills;
-using System;
-using System.Collections.Generic;
 using UnityEngine.Assertions;
 
 namespace SkillsPlusPlus.Modifiers {
@@ -10,7 +10,6 @@ namespace SkillsPlusPlus.Modifiers {
 
         /// <inheritdoc/>
         internal Type[] EntityStateTypes { get; set; }
-
 
         /// <summary>
         /// The list of skillnames associated with this modifier.
@@ -32,14 +31,18 @@ namespace SkillsPlusPlus.Modifiers {
         /// </summary>
         /// <param name="skillState">The entity state instance</param>
         /// <param name="level">The current level of the associated skill</param>
-        public virtual void OnSkillEnter(BaseState skillState, int level) { }
+        public virtual void OnSkillEnter(BaseState skillState, int level) {
+            Logger.Debug("{0}.OnSkillEnter({1}, {2})", this.GetType().Name, skillState, level);
+        }
 
         /// <summary>
         /// Called when the character exits one of the listed entity state types
         /// </summary>
         /// <param name="skillState">The entity state instance</param>
         /// <param name="level">The current level of the associated skill</param>
-        public virtual void OnSkillExit(BaseState skillState, int level) { }
+        public virtual void OnSkillExit(BaseState skillState, int level) {
+            Logger.Debug("{0}.OnSkillExit({1}, {2})", this.GetType().Name, skillState, level);
+        }
 
         /// <summary>
         /// Called when the player spends a skill point one of the listed entity state types
@@ -47,7 +50,9 @@ namespace SkillsPlusPlus.Modifiers {
         /// <param name="level">The new level of the skill</param>
         /// <param name="characterBody">The player's character body</param>
         /// <param name="skillDef">The associated skill definition</param>
-        public virtual void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) { }
+        public virtual void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            Logger.Debug("{0}.OnSkillLeveledUp({1}, {2}, {3})", this.GetType().Name, level, characterBody, skillDef);
+        }
 
         /// <summary>
         /// Provides a string token to replace the associated skill's descriptions.
@@ -108,11 +113,11 @@ namespace SkillsPlusPlus.Modifiers {
         /// <param name="level">The current level to scale up to</param>
         /// <returns></returns>
         public static float MultScaling(float baseValue, float multiplier, int level) {
-            if(multiplier <= -1) {
+            if (multiplier <= -1) {
                 Logger.Error("Multipliers less than -1 are not allowed as it causes sporadic behaviour with the scaling.");
                 return baseValue;
             }
-            return (float)((Math.Pow(multiplier + 1, level) - 1) * baseValue) + baseValue;
+            return (float) ((Math.Pow(multiplier + 1, level) - 1) * baseValue) + baseValue;
         }
 
         // public static int MultScaling(int baseValue, float multiplier, int level) {
