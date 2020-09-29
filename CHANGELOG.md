@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.2.0
+
+- Added mutliplayer support
+
 ## Version 0.1.5
 
 - Refactored internal code to make in more stable for future development

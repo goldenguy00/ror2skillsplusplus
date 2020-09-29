@@ -2,16 +2,9 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-> ***NOTE:*** Multiplayer is not supported yet. Upgrades are not synced between clients and will cause desyn issues.
+## What's new in 0.2.0
 
-## What's new in 0.1.5
-
-- Refactored internal code to make in more stable for future development
-- Fixed mercenary's primary attack not upgrading
-- Fixed REX's `DIRECTIVE: Disperse` and `Bramble Volley` skills pulling enemies instead of pushing them away when the skill is levelled up
-- Fixed upgrading MUL-T's `Rebar Puncher` not affecting the rate of fire.
-- Fixed support for [rob's Aatrox](https://thunderstore.io/package/rob/Aatrox/)
-- Fixed Hungering Gaze having insanely high scaling.
+It's finally here! Skills++ now works with multiplayer and upgrades sync between clients!
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -40,6 +33,14 @@ Upgrades do not carry over between runs so you will be starting from scratch eve
 1. Clicking on any of the 'Buy' buttons will spend a single point and the skill will upgrade.
 ![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skillpoint_spent.png)
 
+## Modded characters
+
+Go and check out all of these characters and give them some love!
+
+If you have added Skills++ to your own modded character let me know and I will add it here.
+
+[![Aatrox by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Aatrox-3.5.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Aatrox/) [![Twitch by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Twitch-2.1.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Twitch/)
+
 ### Controllers
 
 Using controllers is now support for purchasing upgrades for your skills.
@@ -66,14 +67,6 @@ Example usage:
 By default all characters will be enabled for Skills++.
 The enable command is there to re-enable a survivor if the conflict no longer exists.
 
-## Modded characters
-
-Go and check out all of these characters and give them some love!
-
-If you have added Skills++ to your own modded character let me know and I will add it here.
-
-[![Aatrox by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Aatrox-3.5.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Aatrox/) [![Twitch by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Twitch-2.1.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Twitch/)
-
 ## Feedback and bug reports
 
 The best way to give feedback or raise bugs is through [my modding discord](https://discord.gg/HbqdgMG).
@@ -83,9 +76,8 @@ I welcome everyone who uses Skills++ to drop by and share your thoughts.
 
 **When playing multiplayer my/friend's game doesn't work. What is going wrong?**
 
-Skills++ isn't properly networked and relies upon any existing networking in the game code to synchnoize the game state across all the connected clients. Additionally, some parts of the game are determined on the host.This leads to the case where the a connected player could have an upgrade skill but the host won't know to change the behaviour.
-
-For example, Huntress's glaive is coded to always bounce six times and the glaive projectile is determined by the host game. If a connected player upgrades and throws their glaive it will still only bounce six times because the host doesn't know the player upgraded their glaive.
+Skills++ does have multiplayer support but there may still be gaps in the logic.
+The best action to resolve this is to raise it in the [modding discord](https://discord.gg/HbqdgMG) with as much info as possible
 
 **Will Skills++ support modded characters?**
   
