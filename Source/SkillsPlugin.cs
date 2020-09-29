@@ -20,19 +20,19 @@ namespace SkillsPlusPlus {
 
         void Awake() {
 
-            SkillsPlusPlus.Logger.Warn(@"
-  _____  _     _  _  _                       ____         _         
- / ____|| |   (_)| || |        _      _     |  _ \       | |        
-| (___  | | __ _ | || | ___  _| |_  _| |_   | |_) |  ___ | |_  __ _ 
- \___ \ | |/ /| || || |/ __||_   _||_   _|  |  _ <  / _ \| __|/ _` |
- ____) ||   < | || || |\__ \  |_|    |_|    | |_) ||  __/| |_| (_| |
-|_____/ |_|\_\|_||_||_||___/                |____/  \___| \__|\__,_|
+//             SkillsPlusPlus.Logger.Warn(@"
+//   _____  _     _  _  _                       ____         _         
+//  / ____|| |   (_)| || |        _      _     |  _ \       | |        
+// | (___  | | __ _ | || | ___  _| |_  _| |_   | |_) |  ___ | |_  __ _ 
+//  \___ \ | |/ /| || || |/ __||_   _||_   _|  |  _ <  / _ \| __|/ _` |
+//  ____) ||   < | || || |\__ \  |_|    |_|    | |_) ||  __/| |_| (_| |
+// |_____/ |_|\_\|_||_||_||___/                |____/  \___| \__|\__,_|
 
-Note: You are running the Skills++ {0} beta.
-This is a pre-release and is to guarenteed to be stable, bug free, or crash free.
+// Note: You are running the Skills++ {0} beta.
+// This is a pre-release and is to guarenteed to be stable, bug free, or crash free.
 
-Raise bugs here https://discord.gg/wU94CjJ
-            ", this.Info.Metadata.Version.ToString());
+// Raise bugs here https://discord.gg/wU94CjJ
+//             ", this.Info.Metadata.Version.ToString());
 
             #if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
