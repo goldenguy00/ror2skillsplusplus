@@ -18,12 +18,6 @@ namespace SkillsPlusPlus {
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
-        private SkillPointsController localSkillPointsController;
-        private GameObject modLabel;
-
-        //private SkillPointsController skillsController;
-        //private SkillLevelIconController[] skillsHUDControllers;
-
         void Awake() {
 
             SkillsPlusPlus.Logger.Warn(@"
@@ -53,6 +47,11 @@ Raise bugs here https://discord.gg/wU94CjJ
             On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
                 return true;
             };
+
+            // On.RoR2.Console.RunCmd += (orig, self, sender, cmd, userArgs) => {
+            //     SkillsPlusPlus.Logger.Warn(cmd);
+            //     orig(self, sender, cmd, userArgs);
+            // };
 
             bool didAttemptToConnect = false;
 
