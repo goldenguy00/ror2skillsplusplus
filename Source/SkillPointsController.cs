@@ -41,6 +41,9 @@ namespace SkillsPlusPlus {
         }
 
         [SyncVar]
+        public bool isSurvivorEnabled;
+
+        [SyncVar]
         private int earnedSkillPoints = 0;
 
         [SyncVar]
@@ -53,8 +56,6 @@ namespace SkillsPlusPlus {
             get { return unspentSkillPoints > 0; }
         }
 
-        private bool isSurvivorEnabled = true;
-
         private Dictionary<string, int> transferrableSkillUpgrades = new Dictionary<string, int>();
 
         void Awake() {
@@ -63,10 +64,12 @@ namespace SkillsPlusPlus {
             Logger.Debug("levelsPerSkillPoint: {0}", this.levelsPerSkillPoint);
 
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
-            this.playerCharacterMasterController.master.onBodyStart += OnBodyStart;
-            On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += GetDeployableSameSlotLimit;
-            // On.RoR2.CharacterBody.RecalculateStats += this.OnRecalculateStats;
+            this.playerCharacterMasterController.master.onBodyStart += this.OnBodyStart;
+            On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += this.GetDeployableSameSlotLimit;
             On.EntityStates.GenericCharacterMain.CanExecuteSkill += this.GenericCharacterMain_CanExecuteSkill;
+            if (NetworkServer.active) {
+                On.RoR2.CharacterBody.RecalculateStats += this.OnRecalculateStats;
+            }
         }
 
         [Server]
@@ -78,6 +81,7 @@ namespace SkillsPlusPlus {
         }
 
         void OnBodyStart(CharacterBody body) {
+            this.isSurvivorEnabled = ConVars.ConVars.disabledSurvivors.value.Contains(body.GetDisplayName());
             // attempt to transfer and apply skill levels
             var skillUpgrades = body.GetComponents<SkillUpgrade>();
             foreach (var skillUpgrade in skillUpgrades) {
@@ -94,6 +98,7 @@ namespace SkillsPlusPlus {
         private void TransferSkillUpgrades(CharacterBody body) {
             var skillUpgrades = body.GetComponents<SkillUpgrade>();
             foreach (var skillUpgrade in skillUpgrades) {
+                if (!isSurvivorEnabled) break;
                 if (skillUpgrade.targetBaseSkillName != null && transferrableSkillUpgrades.ContainsKey(skillUpgrade.targetBaseSkillName)) {
                     skillUpgrade.skillLevel = transferrableSkillUpgrades[skillUpgrade.targetBaseSkillName];
                     transferrableSkillUpgrades.Remove(skillUpgrade.targetBaseSkillName);
@@ -108,7 +113,7 @@ namespace SkillsPlusPlus {
         #region Hooks
 
         private bool GenericCharacterMain_CanExecuteSkill(On.EntityStates.GenericCharacterMain.orig_CanExecuteSkill orig, GenericCharacterMain self, GenericSkill skillSlot) {
-            if (this.isSurvivorEnabled == true && this.body != null && self.outer.commonComponents.characterBody == this.body) {
+            if (this.isSurvivorEnabled && this.body != null && self.outer.commonComponents.characterBody == this.body) {
                 Player inputPlayer = this.playerCharacterMasterController?.networkUser?.localUser?.inputPlayer;
                 if (inputPlayer != null && inputPlayer.GetButtonDown(SkillInput.BUY_SKILLS_ACTION_ID)) {
                     return false;
@@ -118,15 +123,18 @@ namespace SkillsPlusPlus {
         }
 
         private int GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot) {
-            if (this.isSurvivorEnabled == false) {
-                return orig(self, slot);
-            }
-
             int bonusSlots = 0;
-            if (self == this.playerCharacterMasterController.master) {
+            if (this.isSurvivorEnabled && self == this.playerCharacterMasterController.master) {
                 bonusSlots = EngiSkillModifier.GetDeployableSameSlotBonus(slot);
             }
             return orig(self, slot) + bonusSlots;
+        }
+
+        private void OnRecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self) {
+            orig(self);
+            if (self == this.body) {
+                this.OnLevelChanged();
+            }
         }
 
         #endregion        

@@ -1,13 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HarmonyLib;
 using R2API.Utils;
-
 using RoR2;
 using RoR2.ConVar;
-
 using UnityEngine;
 
 namespace SkillsPlusPlus.ConVars {
@@ -38,6 +36,7 @@ namespace SkillsPlusPlus.ConVars {
             }
             if (didFindSurvivor) {
                 Debug.Log(String.Format("Disabled survirors: '{0}'", disabledSurvivors.GetString()));
+                disabledSurvivors.AttemptSetString(disabledSurvivors.GetString());
             } else {
                 Debug.LogFormat("Could not find any survivor named '{0}'", survivorName);
             }
@@ -64,18 +63,23 @@ namespace SkillsPlusPlus.ConVars {
 
         public List<string> value { get; protected set; }
 
-        public StringListConVar(string name, ConVarFlags flags, List<string> defaultValue, string helpText): base(name, flags, "", helpText) {
+        public StringListConVar(string name, ConVarFlags flags, List<string> defaultValue, string helpText) : base(name, flags, "[]", helpText) {
             this.value = defaultValue;
         }
 
         public override string GetString() {
-            return value.Join();
+            return "[" + value.Join() + "]";
         }
 
         public override void SetString(string newValue) {
+            Logger.Debug("newValue: " + newValue + ";");
+            newValue = newValue.Trim('[', ']');
             this.value = newValue.Split(',').Select((item) => {
                 return item.Trim();
             }).ToList();
+            foreach (var suvirvorName in this.value) {
+                Logger.Debug("newValue result: " + suvirvorName + ";");
+            }
         }
     }
 

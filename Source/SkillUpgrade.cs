@@ -30,6 +30,10 @@ namespace SkillsPlusPlus {
 
         CharacterBody characterBody;
 
+        private bool isSurvivorEnabled {
+            get { return skillPointsController?.isSurvivorEnabled == true; }
+        }
+
         void Awake() {
             this.characterBody = this.GetComponent<CharacterBody>();
             this.targetBaseSkillName = targetGenericSkill.baseSkill.skillName;
@@ -65,6 +69,7 @@ namespace SkillsPlusPlus {
         }
 
         void RefreshUpgrades() {
+            if (!isSurvivorEnabled) return;
             var activeSkillDef = GetActiveSkillDef(targetGenericSkill);
             if (activeSkillDef == null) {
                 return;
@@ -86,6 +91,7 @@ namespace SkillsPlusPlus {
         [Command]
         [Server]
         private void CmdOnBuySkill(string targetSkillName) {
+            if (!isSurvivorEnabled) return;
             var allSkillUpgrades = this.GetComponents<SkillUpgrade>();
             foreach (var skillUpgrade in allSkillUpgrades) {
                 if (skillUpgrade.targetBaseSkillName == targetSkillName) {
@@ -100,12 +106,9 @@ namespace SkillsPlusPlus {
         }
 
         public bool CanUpgradeSkill() {
-            if (targetGenericSkill == null) {
-                return false;
-            }
-            if (skillPointsController && !skillPointsController.hasUnspentPoints) {
-                return false;
-            }
+            if (!isSurvivorEnabled) return false;
+            if (targetGenericSkill == null) return false;
+            if (skillPointsController && !skillPointsController.hasUnspentPoints) return false;
             return SkillModifierManager.HasSkillModifier(this.targetBaseSkillName);
         }
 
@@ -159,7 +162,7 @@ namespace SkillsPlusPlus {
         }
 
         private void OnBaseStateEnter(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
-            if (FindOwningCharacterBody(self)?.gameObject == this.gameObject && self is BaseState baseState) {
+            if (isSurvivorEnabled && FindOwningCharacterBody(self)?.gameObject == this.gameObject && self is BaseState baseState) {
                 var skillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(baseState.GetType());
                 var activeSkillDef = GetActiveSkillDef(this.targetGenericSkill);
                 if (skillModifier != null && activeSkillDef != null && skillModifier.skillNames.Contains(activeSkillDef.skillName)) {
@@ -173,7 +176,7 @@ namespace SkillsPlusPlus {
         }
 
         private void OnBaseStateExit(On.EntityStates.EntityState.orig_OnExit orig, EntityState self) {
-            if (self is BaseState baseState && FindOwningCharacterBody(self)?.gameObject == this.gameObject) {
+            if (isSurvivorEnabled && self is BaseState baseState && FindOwningCharacterBody(self)?.gameObject == this.gameObject) {
                 var skillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(baseState.GetType());
                 var activeSkillDef = GetActiveSkillDef(this.targetGenericSkill);
                 if (skillModifier != null && activeSkillDef != null && skillModifier.skillNames.Contains(activeSkillDef.skillName)) {
