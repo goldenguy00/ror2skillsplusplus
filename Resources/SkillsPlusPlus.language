@@ -5,6 +5,7 @@
 
 		"SKILLS_SLOT_BUY_BTN": "Buy",
 
-		"LEVELS_PER_SKILLPOINT": "Levels per skill point"
+		"LEVELS_PER_SKILLPOINT": "Levels per skill point",
+		"LEVELS_PER_SKILLPOINT_DESCRIPTION": "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run\n\nIn multiplayer runs the host's setting is used"
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,20 +14,20 @@ namespace SkillsPlusPlus.ConVars {
     internal static class ConVars {
 
         internal static StringListConVar disabledSurvivors = new StringListConVar("spp_disabled_survivors", ConVarFlags.Archive, new List<string>(), "The list of survivors excluded from Skills++ behaviour in a string form");
-        internal static BoundedIntConVar levelsPerSkillPoint = new BoundedIntConVar("spp_levels_per_skillpoint", ConVarFlags.Archive , "5", 1, 99, "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run");
+        internal static BoundedIntConVar levelsPerSkillPoint = new BoundedIntConVar("spp_levels_per_skillpoint", ConVarFlags.Archive, "5", 1, 99, Language.GetString("LEVELS_PER_SKILLPOINT_DESCRIPTION"));
 
         [ConCommand(commandName = "spp_disable_survivor", flags = ConVarFlags.None, helpText = "spp_disable_survivor <survivor name>\n  Disables Skills++ for the named survivor.")]
         public static void CCDisableSurvivor(ConCommandArgs args) {
             string survivorName = args.TryGetArgString(0);
-            if(survivorName == null) {
+            if (survivorName == null) {
                 Debug.Log("Could not parse a survivor name. Did you specify a survivor name?");
                 return;
             }
             bool didFindSurvivor = false;
-            foreach(SurvivorDef survivorDef in SurvivorCatalog.allSurvivorDefs) {
+            foreach (SurvivorDef survivorDef in SurvivorCatalog.allSurvivorDefs) {
                 string resolvedSurvivorName = Language.GetString(survivorDef.displayNameToken);
-                if(survivorName.Equals(resolvedSurvivorName, StringComparison.OrdinalIgnoreCase)) {
-                    if(disabledSurvivors.value.Contains(resolvedSurvivorName)) {
+                if (survivorName.Equals(resolvedSurvivorName, StringComparison.OrdinalIgnoreCase)) {
+                    if (disabledSurvivors.value.Contains(resolvedSurvivorName)) {
                         Debug.LogFormat("{0} has already been disabled", resolvedSurvivorName);
                         return;
                     } else {
@@ -36,7 +36,7 @@ namespace SkillsPlusPlus.ConVars {
                     }
                 }
             }
-            if(didFindSurvivor) {
+            if (didFindSurvivor) {
                 Debug.Log(String.Format("Disabled survirors: '{0}'", disabledSurvivors.GetString()));
             } else {
                 Debug.LogFormat("Could not find any survivor named '{0}'", survivorName);
@@ -46,13 +46,13 @@ namespace SkillsPlusPlus.ConVars {
         [ConCommand(commandName = "spp_enable_survivor", flags = ConVarFlags.None, helpText = "spp_enable_survivor <survivor name>\n  Re-enables Skills++ for the named survivor.")]
         public static void CCEnableSurvivor(ConCommandArgs args) {
             string survivorName = args.TryGetArgString(0);
-            if(survivorName == null) {
+            if (survivorName == null) {
                 Debug.Log("Could not parse a survivor name. Did you specify a survivor name?");
                 return;
             }
-            foreach(SurvivorDef survivorDef in SurvivorCatalog.allSurvivorDefs) {
+            foreach (SurvivorDef survivorDef in SurvivorCatalog.allSurvivorDefs) {
                 string resolvedSurvivorName = Language.GetString(survivorDef.displayNameToken);
-                if(survivorName.Equals(resolvedSurvivorName, StringComparison.OrdinalIgnoreCase)) {
+                if (survivorName.Equals(resolvedSurvivorName, StringComparison.OrdinalIgnoreCase)) {
                     disabledSurvivors.value.Remove(resolvedSurvivorName);
                 }
             }
@@ -60,7 +60,7 @@ namespace SkillsPlusPlus.ConVars {
         }
     }
 
-    internal class StringListConVar: BaseConVar {
+    internal class StringListConVar : BaseConVar {
 
         public List<string> value { get; protected set; }
 
@@ -89,7 +89,7 @@ namespace SkillsPlusPlus.ConVars {
         }
         public override void SetString(string newValue) {
             int value;
-            if(TextSerialization.TryParseInvariant(newValue, out value)) {
+            if (TextSerialization.TryParseInvariant(newValue, out value)) {
                 this.value = Mathf.Clamp(value, minValue, maxValue);
             }
         }
