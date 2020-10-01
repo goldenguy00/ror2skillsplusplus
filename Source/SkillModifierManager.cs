@@ -73,7 +73,13 @@ namespace SkillsPlusPlus {
         }
 
         internal static BaseSkillModifier GetSkillModifier(SkillDef skillDef) {
-            var skillName = skillDef.skillName;
+            if (skillDef == null) {
+                return null;
+            }
+            return GetSkillModifierByName(skillDef.skillName);
+        }
+
+        internal static BaseSkillModifier GetSkillModifierByName(string skillName) {
             if (skillName == null) {
                 return null;
             }
