@@ -16,6 +16,8 @@ namespace SkillsPlusPlus.Modifiers {
         /// </summary>
         internal string[] skillNames { get; set; }
 
+        public virtual string skillUpgradeDescriptionToken { get { return null; } }
+
         public BaseSkillModifier() {
             this.skillNames = new string[0];
             this.EntityStateTypes = new Type[0];

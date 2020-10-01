@@ -14,6 +14,10 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireSeekingArrow", typeof(FireSeekingArrow))]
     class HuntressSeekingArrowSkillModifier : SimpleSkillModifier<FireSeekingArrow> {
 
+        public override string skillUpgradeDescriptionToken {
+            get { return "HUNTRESS_FIRESEEKINGARROW_DESCRIPTION"; }
+        }
+
         public override void OnSkillEnter(FireSeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);
             skillState.orbProcCoefficient = AdditiveScaling(1f, 0.2f, level);
@@ -33,6 +37,10 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("FireFlurrySeekingArrow", typeof(FireFlurrySeekingArrow))]
     class HuntressFlurrySkillModifier : SimpleSkillModifier<FireFlurrySeekingArrow> {
+
+        public override string skillUpgradeDescriptionToken {
+            get { return "HUNTRESS_FIRESEEKINGARROW_DESCRIPTION"; }
+        }
 
         public override void OnSkillEnter(FireFlurrySeekingArrow skillState, int level) {
             base.OnSkillEnter(skillState, level);

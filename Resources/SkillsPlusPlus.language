@@ -6,6 +6,14 @@
 		"SKILLS_SLOT_BUY_BTN": "Buy",
 
 		"LEVELS_PER_SKILLPOINT": "Levels per skill point",
-		"LEVELS_PER_SKILLPOINT_DESCRIPTION": "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run\n\nIn multiplayer runs the host's setting is used"
+		"LEVELS_PER_SKILLPOINT_DESCRIPTION": "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run\n\nIn multiplayer runs the host's setting is used",
+
+		"HUNTRESS_FIRESEEKINGARROW_DESCRIPTION": "<style=cIsUtility>+20%</style> range and <style=cIsUtility>+20%</style> proc chance per level",
+		"HUNTRESS_FIREFLURRYSEEKINGARROW_DESCRIPTION": "<style=cIsUtility>+10%</style> range and <style=cIsUtility>+1</style> arrow fired per level. <b>Crits fire twice as many arrows</b>",
+		"HUNTRESS_GLAIVE_DESCRIPTION": "<style=cIsUtility>+1</style> bounce, <style=cIsDamage>+10%</style> damage, and <style=cIsUtility>+10 units</style> of bounce range per level",
+		"HUNTRESS_BLINK_DESCRIPTION": "Grants <style=cIsUtility>+1 second</style> per level or full crit time",
+		"HUNTRESS_ARROWRAIN_DESCRIPTION": "Grants <style=cIsUtility>+0.5 seconds</style> per level or full crit time",
+		"HUNTRESS_AIMARROWSNIPE_DESCRIPTION": "<style=cIsUtility>+25%</style> area of effect and <style=cIsDamage>+20%</style> damage per level",
+		"": "<style=cStack>+1</style> bullet and <style=cStack>+20%</style> damage per level"
 	}
 }
