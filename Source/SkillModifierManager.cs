@@ -90,14 +90,16 @@ namespace SkillsPlusPlus {
         }
 
         internal static bool HasSkillModifier(SkillDef skillDef) {
-            var skillName = skillDef.skillName;
-            if (skillName == null) {
+            if (skillDef == null) {
                 return false;
             }
-            return HasSkillModifier(skillName);
+            return HasSkillModifier(skillDef.skillName);
         }
 
         internal static bool HasSkillModifier(string baseSkillName) {
+            if (baseSkillName == null) {
+                return false;
+            }
             return skillNameToModifierMap.ContainsKey(baseSkillName);
         }
 

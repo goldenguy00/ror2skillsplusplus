@@ -67,6 +67,7 @@ namespace SkillsPlusPlus {
                 }
                 orig(self);
             };
+
             #endif
 
             CommandHelper.AddToConsoleWhenReady();
@@ -86,7 +87,7 @@ namespace SkillsPlusPlus {
                 orig(self, provider);
                 if (provider.TryGetComponent(out SkillsPlusPlusTooltipProvider tooltipProvider)) {
                     var tooltipController = self.EnsureComponent<SkillsPlusPlusTooltipController>();
-                    tooltipController.skillName = tooltipProvider.skillName;
+                    tooltipController.skillUpgradeToken = tooltipProvider.skillUpgradeToken;
                 }
             };
             On.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot += (orig, owner, bodyIndex, skillSlotIndex, genericSkill) => {
@@ -96,7 +97,12 @@ namespace SkillsPlusPlus {
                     SkillsPlusPlus.Logger.Debug("Ensuring SkillsPlusPlusTooltipProvider({0})", i);
                     var button = buttons[i];
                     var provider = button.gameObject.EnsureComponent<SkillsPlusPlusTooltipProvider>();
-                    provider.skillName = genericSkill.skillFamily.variants[i].skillDef.skillName;
+
+                    var skillDef = genericSkill?.skillFamily?.variants[i].skillDef;
+                    if (skillDef != null && SkillModifierManager.HasSkillModifier(skillDef)) {
+                        // string token = modifier?.skillUpgradeDescriptionToken;
+                        provider.skillUpgradeToken = (skillDef.skillName + "_UPGRADE_DESCRIPTION").ToUpper();
+                    }
                 }
                 return row;
             };

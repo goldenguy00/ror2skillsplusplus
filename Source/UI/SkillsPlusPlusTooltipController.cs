@@ -12,11 +12,10 @@ namespace SkillsPlusPlus.UI {
 
         TooltipController tooltipController;
 
-        public string skillName;
+        public string skillUpgradeToken;
 
         void Awake() {
             this.tooltipController = GetComponent<TooltipController>();
-
         }
 
         void Start() {
@@ -24,17 +23,10 @@ namespace SkillsPlusPlus.UI {
             GameObject bodyRectGameObject = this.tooltipController.bodyLabel.transform.parent.gameObject;
             GameObject skillUpgradeRect = Instantiate(bodyRectGameObject, panelTransform);
             skillUpgradeRect.transform.SetSiblingIndex(Math.Max(0, panelTransform.childCount - 2));
-
-            var modifier = SkillModifierManager.GetSkillModifierByName(skillName);
-            string token = modifier?.skillUpgradeDescriptionToken;
-            skillUpgradeRect.SetActive(token != null);
-
-            if (token != null) {
-                #if DEBUG 
-                var description = "[" + modifier.GetType().Name + "]" + Language.GetString(token);
-                #else
-                var description = Language.GetString(token);
-                #endif
+            
+            skillUpgradeRect.SetActive(skillUpgradeToken != null);
+            if (skillUpgradeToken != null) {
+                var description = Language.GetString(skillUpgradeToken);
                 var label = skillUpgradeRect.GetComponentInChildren<TMPro.TextMeshProUGUI>();
                 label.text = description;
             }
