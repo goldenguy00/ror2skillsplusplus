@@ -85,9 +85,9 @@ namespace SkillsPlusPlus {
             Resources.Load<GameObject>("Prefabs/UI/Tooltip").EnsureComponent<SkillsPlusPlusTooltipController>();
             On.RoR2.UI.TooltipController.SetTooltipProvider += (orig, self, provider) => {
                 orig(self, provider);
-                if (provider.TryGetComponent(out SkillsPlusPlusTooltipProvider tooltipProvider)) {
+                if (provider.TryGetComponent(out SkillUpgradeTooltipProvider tooltipProvider)) {
                     var tooltipController = self.EnsureComponent<SkillsPlusPlusTooltipController>();
-                    tooltipController.skillUpgradeToken = tooltipProvider.skillUpgradeToken;
+                    tooltipController.skillUpgradeToken = tooltipProvider.GetToken();
                 }
             };
             On.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot += (orig, owner, bodyIndex, skillSlotIndex, genericSkill) => {
@@ -96,12 +96,10 @@ namespace SkillsPlusPlus {
                 for (int i = 0; i < buttons.Count; i++) {
                     SkillsPlusPlus.Logger.Debug("Ensuring SkillsPlusPlusTooltipProvider({0})", i);
                     var button = buttons[i];
-                    var provider = button.gameObject.EnsureComponent<SkillsPlusPlusTooltipProvider>();
-
                     var skillDef = genericSkill?.skillFamily?.variants[i].skillDef;
-                    if (skillDef != null && SkillModifierManager.HasSkillModifier(skillDef)) {
-                        // string token = modifier?.skillUpgradeDescriptionToken;
-                        provider.skillUpgradeToken = (skillDef.skillName + "_UPGRADE_DESCRIPTION").ToUpper();
+                    if (skillDef != null) {
+                        var provider = button.gameObject.EnsureComponent<SkillUpgradeTooltipProvider>();
+                        provider.skillName = skillDef.skillName;
                     }
                 }
                 return row;
@@ -159,6 +157,7 @@ namespace SkillsPlusPlus {
         private void HUD_Awake(On.RoR2.UI.HUD.orig_Awake orig, RoR2.UI.HUD self) {
             orig(self);
             self.GetComponentsInChildren<SkillIcon>(true).ForEachTry(skillIcon => {
+                skillIcon.EnsureComponent<SkillUpgradeTooltipProvider>();
                 skillIcon.EnsureComponent<SkillLevelIconController>();
             });
         }

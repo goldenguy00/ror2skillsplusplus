@@ -12,7 +12,6 @@ using UnityEngine.UI;
 
 namespace SkillsPlusPlus {
 
-    [RequireComponent(typeof(SkillIcon))]
     sealed class SkillLevelIconController : MonoBehaviour {
 
         private static string BUY_TOKEN = "SKILLS_SLOT_BUY_BTN";
@@ -35,6 +34,7 @@ namespace SkillsPlusPlus {
 
         void Awake() {
             this.skillIcon = GetComponent<SkillIcon>();
+
             this.CanBuyPanel = Instantiate(skillIcon.isReadyPanelObject, skillIcon.transform);
             this.CanBuyPanel.name = "CanBuyBorderPanel";
             CanBuyPanel.transform.SetSiblingIndex(1);

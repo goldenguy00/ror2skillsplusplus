@@ -23,12 +23,13 @@ namespace SkillsPlusPlus.UI {
             GameObject bodyRectGameObject = this.tooltipController.bodyLabel.transform.parent.gameObject;
             GameObject skillUpgradeRect = Instantiate(bodyRectGameObject, panelTransform);
             skillUpgradeRect.transform.SetSiblingIndex(Math.Max(0, panelTransform.childCount - 2));
-            
-            skillUpgradeRect.SetActive(skillUpgradeToken != null);
-            if (skillUpgradeToken != null) {
+
+            skillUpgradeRect.SetActive(skillUpgradeToken != null && Language.IsTokenInvalid(skillUpgradeToken) == false);
+            if (skillUpgradeToken != null && Language.IsTokenInvalid(skillUpgradeToken) == false) {
+
                 var description = Language.GetString(skillUpgradeToken);
                 var label = skillUpgradeRect.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                label.text = description;
+                label.text = Language.GetStringFormatted("TOOLTIP_UPGRADE_DESCRIPTION", description);
             }
         }
 
