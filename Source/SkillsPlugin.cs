@@ -57,13 +57,13 @@ namespace SkillsPlusPlus {
 
             // disable client authing when connecting to a server to allow two game instances to run in parallel
             On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
-            On.RoR2.UI.MainMenu.MainMenuController.Start += (orig, self) => {
-                if (didAttemptToConnect == false) {
-                    didAttemptToConnect = true;
-                    RoR2.Console.instance.SubmitCmd(null, "connect 192.168.1.102:27015", true);
-                }
-                orig(self);
-            };
+            // On.RoR2.UI.MainMenu.MainMenuController.Start += (orig, self) => {
+            //     if (didAttemptToConnect == false) {
+            //         didAttemptToConnect = true;
+            //         RoR2.Console.instance.SubmitCmd(null, "connect 192.168.1.102:27015", true);
+            //     }
+            //     orig(self);
+            // };
             #endif
 
             CommandHelper.AddToConsoleWhenReady();
