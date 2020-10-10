@@ -6,6 +6,86 @@
 		"SKILLS_SLOT_BUY_BTN": "Buy",
 
 		"LEVELS_PER_SKILLPOINT": "Levels per skill point",
-		"LEVELS_PER_SKILLPOINT_DESCRIPTION": "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run\n\nIn multiplayer runs the host's setting is used"
+		"LEVELS_PER_SKILLPOINT_DESCRIPTION": "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run\n\nIn multiplayer runs the host's setting is used",
+
+		"TOOLTIP_UPGRADE_DESCRIPTION": "<style=cStack>[ Upgrade ]</style>\n{0}",
+
+		"FIREPISTOL_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> rate of fire and <style=cIsUtility>+15%</style> recoil reduction",
+		"FIREFMJ_UPGRADE_DESCRIPTION": "<style=cIsDamage>+30%</style> damage and <style=cIsUtility>+30%</style> projectile velocity",
+		"FIRESHOTGUNBLAST_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> bullets and <style=cIsUtility>+20%</style> range",
+		"ROLL_UPGRADE_DESCRIPTION": "Grants <style=cIsUtility>+0.75</style> seconds of invulnerability",
+		"SLIDE_UPGRADE_DESCRIPTION": "Grants <style=cIsUtility>+0.75</style> seconds of bonus attack speed",
+		"BARRAGE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> bullets",
+		"THROWGRENADE_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage and <style=cIsUtility>+20%</style> blast size",
+
+		"FIRESEEKINGARROW_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> range and <style=cIsUtility>+20%</style> proc chance",
+		"FIREFLURRYSEEKINGARROW_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> range and <style=cIsUtility>+1</style> arrow fired",
+		"GLAIVE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> bounce, <style=cIsDamage>+10%</style> damage, and <style=cIsUtility>+10</style> units of bounce range",
+		"BLINK_UPGRADE_DESCRIPTION": "Grants <style=cIsUtility>+1</style> second of crit time",
+		"ARROWRAIN_UPGRADE_DESCRIPTION": "Grants <style=cIsUtility>+0.5</style> seconds of crit time",
+		"ARROWRAIN_UPGRADE_DESCRIPTION": "<style=cIsUtility>+25%</style> size and <style=cIsDamage>+20%</style> damage",
+		"AIMARROWSNIPE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> bullet and <style=cIsDamage>+20%</style> damage",
+
+		"FIRENAILGUN_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage and <style=cIsUtility>+4</style> bullets for final burst",
+		"FIRESPEAR_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> rate of fire and <style=cIsDamage>+10%</style> damage",
+		"FIREGRENADELAUNCHER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> stock, <style=cIsDamage>+20%</style> damage, and <style=cIsUtility>+15%</style> blast size",
+		"FIREBUZZSAW_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> rate of fire, <style=cIsDamage>+20%</style> damage, and <style=cIsUtility>+30%</style> hitbox size",
+		"STUNDRONE_UPGRADE_DESCRIPTION": "<style=cIsDamage>+3</style> child bombs, <style=cIsUtility>+20%</style> spread radius, <style=cIsUtility>+20%</style> blast radius, and <style=cIsDamage>+20%</style> damage",
+		"TOOLBOTDASH_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> duration, <style=cIsUtility>+10%</style> speed, and <style=cIsDamage>+30%</style> damage",
+		"SWAP_UPGRADE_DESCRIPTION": "Grants <style=cIsUtility>+1</style> second of bonus attack speed and <style=cIsUtility>+1</style> second equipment cooldown",
+
+		"FIREGRENADE_UPGRADE_DESCRIPTION": "<style=cIsDamage>+1</style> and <style=cIsDamage>+2</style> to the minimum and maximum grenades fired",
+		"PLACEMINE_UPGRADE_DESCRIPTION": "<style=cIsUtility>-10%</style> arming time, <style=cIsDamage>+20%</style> damage, <style=cIsUtility>+20%</style> blast size, and <style=cIsUtility>+20%</style> trigger range",
+		"PLACESPIDERMINE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> trigger range and <style=cIsDamage>+20%</style> damage",
+		"PLACEBUBBLESHIELD_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> duration and <style=cIsUtility>+15%</style> size",
+		"ENGIHARPOONS_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> ammo, <style=cIsDamage>+20%</style> damage, and <style=cIsUtility>+30%</style> range",
+		"PLACETURRET_UPGRADE_DESCRIPTION": "<style=cIsUtility>+25%</style> range and <style=cIsDamage>+10%</style> damage. <style=cIsUtility>+1</style> turret every two levels",
+		"PLACEWALKERTURRET_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> damage, <style=cIsUtility>+25%</style> proc chance, and <style=cIsUtility>+10%</style> rate of fire. <style=cIsUtility>+1</style> turret every two levels",
+
+		"FIREFIREBOLT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2</style> stock and <style=cIsUtility>-10%</style> stock recharge time",
+		"FIRELIGHTNINGBOLT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2</style> stock and <style=cIsUtility>-10%</style> stock recharge time",
+		"NOVABOMB_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage and <style=cIsUtility>+10%</style> max charge time",
+		"ICEBOMB_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage and <style=cIsUtility>+10%</style> max charge time",
+		"WALL_UPGRADE_DESCRIPTION": "<style=cIsDamage>+30%</style> wall damage, <style=cIsUtility>+15%</style> wall duration, and <style=cIsUtility>+20%</style> wall length",
+		"FLAMETHROWER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> range, <style=cIsUtility>+25%</style> flame radius, and <style=cIsDamage>+20%</style> damage",
+		"FLYUP_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> damage and <style=cIsUtility>+30%</style> area of effect",
+
+		"GROUNDLIGHT2_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, and <style=cIsUtility>+15%</style> attack speed",
+		"WHIRLWIND_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> damage and <style=cIsUtility>+25%</style> larger hitbox",
+		"UPPERCUT_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> damage per level. <style=cIsUtility>+1</style> stock",
+		"DASH1_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, and <style=cIsUtility>+0.5</style> seconds extra delay before reset",
+		"EVIS_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> chain range, <style=cIsUtility>+15%</style> attack speed, and <style=cIsUtility>+10%</style> proc chance",
+		"MASSACRE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> attack speed and <style=cIsUtility>+20%</style> damage",
+
+		"FIRESYRINGE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> syringe and <style=cIsDamage>+10%</style> damage",
+		"AIMMORTARRAIN_UPGRADE_DESCRIPTION": "<style=cIsDamage>+10%</style> damage, <style=cIsUtility>+10%</style> duration, and <style=cIsUtility>+20%</style> radius",
+		"AIMMORTAR2_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> radius and <style=cIsDamage>+20%</style> damage",
+		"SONICBOOM_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> range, <style=cIsUtility>+20%</style> angle, <style=cIsUtility>+20%</style> debuff duration",
+		"SONICBOOM2_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> range, <style=cIsUtility>+20%</style> angle, <style=cIsDamage>+20%</style> damage",
+		"FIREFLOWER2_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, <style=cIsUtility>+20%</style> radius, <style=cIsUtility>+10%</style> healing rate",
+
+		"KNUCKLEBOOM_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1%</style> barrier gained and <style=cIsDamage>+20%</style> damage",
+		"FIREHOOK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> hook range",
+		"FIREYANKHOOK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> hook range and <style=cIsDamage>+20%</style> damage",
+		"CHARGEFIST_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> max charge, <style=cIsDamage>+20%</style> base damage, and <style=cIsDamage>+15%</style> velocity based damage",
+		"CHARGEZAPFIST_UPGRADE_DESCRIPTION": "<style=cIsDamage>+15%</style> damage and <style=cIsUtility>+20%</style> cone range",
+		"THROWPYLON_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, <style=cIsUtility>+20%</style> range, and <style=cIsUtility>+20%</style> rate of fire",
+
+		"CROCOSLASH_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> normal damage, <style=cIsDamage>+25%</style> combo finisher damage, and <style=cIsUtility>+15%</style> attack speed",
+		"CROCOSPIT_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, <style=cIsUtility>+30%</style> projectile speed, and <style=cIsUtility>+30%</style> blast radius per level. <style=cIsUtility>+1</style> stock",
+		"CROCOBITE_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage and <style=cIsUtility>+1</style> stock",
+		"CROCOLEAP_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> blast damage, <style=cIsDamage>+30%</style> acid pool damage, and <style=cIsUtility>+20%</style> acid pool size",
+		"CROCOCHAINABLELEAP_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> blast damage and <style=cIsUtility>+15%</style> refunded time",
+		"CROCODISEASE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+5</style> infection bounces, <style=cIsUtility>+20%</style> infection range, and <style=cIsDamage>+20%</style> on hit damage",
+
+		"CAPTAINSHOTGUN_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> shell count and <style=cIsDamage>+10%</style> damage",
+		"CAPTAINTAZER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+40%</style> blast radius and <style=cIsDamage>+20%</style> damage",
+		"CAPTAINPREPAIRSTRIKE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> blast radius and <style=cIsDamage>+20%</style> damage",
+		"CAPTAINSUPPLYDROPHEALING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> healing range",
+		"CAPTAINSUPPLYDROPPLATING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> shock range",
+		"CAPTAINSUPPLYDROPEQUIPMENTRESTOCK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> resupply stock",
+		"CAPTAINSUPPLYDROPHACKING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> hacking speed and <style=cIsUtility>+20%</style> hacking range",
+
+		"LUNARPRIMARYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2</style> stock per level and <style=cIsDamage>+20%</style> damage"
 	}
 }

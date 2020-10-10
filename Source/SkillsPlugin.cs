@@ -1,11 +1,14 @@
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using BepInEx;
 using R2API;
 using R2API.Utils;
 using RoR2;
+using RoR2.Skills;
 using RoR2.UI;
 using SkillsPlusPlus.Modifiers;
+using SkillsPlusPlus.UI;
 using SkillsPlusPlus.Util;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -20,19 +23,19 @@ namespace SkillsPlusPlus {
 
         void Awake() {
 
-//             SkillsPlusPlus.Logger.Warn(@"
-//   _____  _     _  _  _                       ____         _         
-//  / ____|| |   (_)| || |        _      _     |  _ \       | |        
-// | (___  | | __ _ | || | ___  _| |_  _| |_   | |_) |  ___ | |_  __ _ 
-//  \___ \ | |/ /| || || |/ __||_   _||_   _|  |  _ <  / _ \| __|/ _` |
-//  ____) ||   < | || || |\__ \  |_|    |_|    | |_) ||  __/| |_| (_| |
-// |_____/ |_|\_\|_||_||_||___/                |____/  \___| \__|\__,_|
+            //             SkillsPlusPlus.Logger.Warn(@"
+            //   _____  _     _  _  _                       ____         _         
+            //  / ____|| |   (_)| || |        _      _     |  _ \       | |        
+            // | (___  | | __ _ | || | ___  _| |_  _| |_   | |_) |  ___ | |_  __ _ 
+            //  \___ \ | |/ /| || || |/ __||_   _||_   _|  |  _ <  / _ \| __|/ _` |
+            //  ____) ||   < | || || |\__ \  |_|    |_|    | |_) ||  __/| |_| (_| |
+            // |_____/ |_|\_\|_||_||_||___/                |____/  \___| \__|\__,_|
 
-// Note: You are running the Skills++ {0} beta.
-// This is a pre-release and is to guarenteed to be stable, bug free, or crash free.
+            // Note: You are running the Skills++ {0} beta.
+            // This is a pre-release and is to guarenteed to be stable, bug free, or crash free.
 
-// Raise bugs here https://discord.gg/wU94CjJ
-//             ", this.Info.Metadata.Version.ToString());
+            // Raise bugs here https://discord.gg/wU94CjJ
+            //             ", this.Info.Metadata.Version.ToString());
 
             #if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
@@ -77,6 +80,30 @@ namespace SkillsPlusPlus {
 
             GameObject playerMasterPrefab = Resources.Load<GameObject>("prefabs/charactermasters/CommandoMaster");
             playerMasterPrefab.EnsureComponent<SkillPointsController>();
+
+            Resources.Load<GameObject>("Prefabs/UI/Tooltip").EnsureComponent<SkillsPlusPlusTooltipController>();
+            On.RoR2.UI.TooltipController.SetTooltipProvider += (orig, self, provider) => {
+                orig(self, provider);
+                if (provider.TryGetComponent(out SkillUpgradeTooltipProvider tooltipProvider)) {
+                    var tooltipController = self.EnsureComponent<SkillsPlusPlusTooltipController>();
+                    tooltipController.skillUpgradeToken = tooltipProvider.GetToken();
+                }
+            };
+            On.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot += (orig, owner, bodyIndex, skillSlotIndex, genericSkill) => {
+                object row = orig(owner, bodyIndex, skillSlotIndex, genericSkill);
+                var buttons = row.GetFieldValue<List<MPButton>>("buttons");
+                for (int i = 0; i < buttons.Count; i++) {
+                    SkillsPlusPlus.Logger.Debug("Ensuring SkillsPlusPlusTooltipProvider({0})", i);
+                    var button = buttons[i];
+                    var skillDef = genericSkill?.skillFamily?.variants[i].skillDef;
+                    if (skillDef != null) {
+                        var provider = button.gameObject.EnsureComponent<SkillUpgradeTooltipProvider>();
+                        provider.skillName = skillDef.skillName;
+                    }
+                }
+                return row;
+            };
+            // LoadoutPanelController.loadoutButtonPrefab.EnsureComponent<SkillsPlusPlusTooltipProvider>();
 
             On.RoR2.UI.HUD.Awake += this.HUD_Awake;
 
@@ -129,6 +156,7 @@ namespace SkillsPlusPlus {
         private void HUD_Awake(On.RoR2.UI.HUD.orig_Awake orig, RoR2.UI.HUD self) {
             orig(self);
             self.GetComponentsInChildren<SkillIcon>(true).ForEachTry(skillIcon => {
+                skillIcon.EnsureComponent<SkillUpgradeTooltipProvider>();
                 skillIcon.EnsureComponent<SkillLevelIconController>();
             });
         }

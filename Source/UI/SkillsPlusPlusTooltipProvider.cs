@@ -1,0 +1,36 @@
+using RoR2.UI;
+using UnityEngine;
+
+namespace SkillsPlusPlus.UI {
+
+    class SkillUpgradeTooltipProvider : MonoBehaviour {
+
+        public string skillName;
+        public SkillIcon skillIcon;
+
+        void Awake() {
+            this.skillIcon = GetComponent<SkillIcon>();
+        }
+
+        internal static string SkillNameToToken(string skillName) {
+            if (skillName == null) {
+                return null;
+            }
+            return (skillName + "_UPGRADE_DESCRIPTION").ToUpper();
+        }
+
+        internal string GetToken() {
+            if (skillName != null) {
+                return SkillNameToToken(skillName);
+            }
+            if (skillIcon) {
+                var skillName = skillIcon.targetSkill?.skillDef?.skillName;
+                if (skillName != null) {
+                    return SkillNameToToken(skillName);
+                }
+            }
+            return null;
+        }
+
+    }
+}

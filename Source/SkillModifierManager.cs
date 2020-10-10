@@ -73,7 +73,13 @@ namespace SkillsPlusPlus {
         }
 
         internal static BaseSkillModifier GetSkillModifier(SkillDef skillDef) {
-            var skillName = skillDef.skillName;
+            if (skillDef == null) {
+                return null;
+            }
+            return GetSkillModifierByName(skillDef.skillName);
+        }
+
+        internal static BaseSkillModifier GetSkillModifierByName(string skillName) {
             if (skillName == null) {
                 return null;
             }
@@ -84,14 +90,16 @@ namespace SkillsPlusPlus {
         }
 
         internal static bool HasSkillModifier(SkillDef skillDef) {
-            var skillName = skillDef.skillName;
-            if (skillName == null) {
+            if (skillDef == null) {
                 return false;
             }
-            return HasSkillModifier(skillName);
+            return HasSkillModifier(skillDef.skillName);
         }
 
         internal static bool HasSkillModifier(string baseSkillName) {
+            if (baseSkillName == null) {
+                return false;
+            }
             return skillNameToModifierMap.ContainsKey(baseSkillName);
         }
 
