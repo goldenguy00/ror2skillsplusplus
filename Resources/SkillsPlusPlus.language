@@ -86,6 +86,7 @@
 		"CAPTAINSUPPLYDROPEQUIPMENTRESTOCK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> resupply stock",
 		"CAPTAINSUPPLYDROPHACKING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> hacking speed and <style=cIsUtility>+20%</style> hacking range",
 
-		"LUNARPRIMARYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2</style> stock per level and <style=cIsDamage>+20%</style> damage"
+		"LUNARPRIMARYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2</style> stock per level and <style=cIsDamage>+20%</style> damage",
+		"LUNARUTILITYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> speed bonus and <style=cIsHealing>+20%</style> heal ticks"
 	}
 }
