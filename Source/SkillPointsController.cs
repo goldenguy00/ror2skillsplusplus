@@ -82,10 +82,11 @@ namespace SkillsPlusPlus {
 
         void OnBodyStart(CharacterBody body) {
             this.isSurvivorEnabled = !ConVars.ConVars.disabledSurvivors.value.Contains(body.GetDisplayName());
+            Logger.Debug("OnBodyStart({0})", body);
             // attempt to transfer and apply skill levels
             var skillUpgrades = body.GetComponents<SkillUpgrade>();
             foreach (var skillUpgrade in skillUpgrades) {
-                skillUpgrade.skillPointsController = this;
+                skillUpgrade.SetSkillPointsController(this);
             }
             TransferSkillUpgrades(body);
 

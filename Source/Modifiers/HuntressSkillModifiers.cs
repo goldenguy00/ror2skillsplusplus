@@ -117,6 +117,7 @@ namespace SkillsPlusPlus.Modifiers {
                 static readonly float stockImageInterspacing = 18.0f;
 
                 public override void OnSkillEnter(BaseState skillState, int level) {
+                    base.OnSkillEnter(skillState, level);
                     if (skillState is AimArrowSnipe aimState) {
                         aimState.maxDuration = AdditiveScaling(aimState.maxDuration, 0.5f, level);
                     }

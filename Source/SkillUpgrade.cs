@@ -23,7 +23,7 @@ namespace SkillsPlusPlus {
         [SyncVar(hook = "OnSkillLevelChanged")]
         public int skillLevel;
 
-        public SkillPointsController skillPointsController;
+        public SkillPointsController skillPointsController { get; private set; }
         public GenericSkill targetGenericSkill;
 
         public string targetBaseSkillName;
@@ -37,16 +37,19 @@ namespace SkillsPlusPlus {
         void Awake() {
             this.characterBody = this.GetComponent<CharacterBody>();
             this.targetBaseSkillName = targetGenericSkill.baseSkill.skillName;
+            Logger.Debug("Awake() targetBaseSkillName: {0}", targetBaseSkillName);
         }
 
         void OnEnable() {
-            this.targetGenericSkill.onSkillChanged += OnSkillChanged;
+            Logger.Debug("OnEnable() targetBaseSkillName: {0}", targetBaseSkillName);
+            this.targetGenericSkill.onSkillChanged += this.OnSkillChanged;
             On.EntityStates.BaseState.OnEnter += this.OnBaseStateEnter;
             On.EntityStates.EntityState.OnExit += this.OnBaseStateExit;
             RefreshUpgrades();
         }
 
         void OnDisable() {
+            Logger.Debug("OnDisable() targetBaseSkillName: {0}", targetBaseSkillName);
             On.EntityStates.BaseState.OnEnter -= this.OnBaseStateEnter;
             On.EntityStates.EntityState.OnExit -= this.OnBaseStateExit;
             if (targetGenericSkill) {
@@ -57,7 +60,22 @@ namespace SkillsPlusPlus {
             }
         }
 
+        #region Getters and setters
+
+        public void SetSkillPointsController(SkillPointsController skillPointsController) {
+            if (this.skillPointsController) {
+                Logger.Warn("Setting the skill points controller a second time is irregular behaviour. It should be added just once when the character body enables");
+            }
+            this.skillPointsController = skillPointsController;
+            RefreshUpgrades();
+        }
+
+        #endregion
+
+        #region Events
+
         void OnSkillChanged(GenericSkill genericSkill) {
+            Logger.Debug("OnSkillChanged({0})", genericSkill.skillName);
             RefreshUpgrades();
         }
 
@@ -68,12 +86,19 @@ namespace SkillsPlusPlus {
             RefreshUpgrades();
         }
 
+        #endregion
+
         void RefreshUpgrades() {
-            if (!isSurvivorEnabled) return;
+            if (!isSurvivorEnabled) {
+                Logger.Warn("Couldn't refresh upgrades because the survivor is disabled. targetBaseSkillName: {0}", targetBaseSkillName);
+                return;
+            };
             var activeSkillDef = GetActiveSkillDef(targetGenericSkill);
             if (activeSkillDef == null) {
+                Logger.Warn("Couldn't refresh upgrades because there is no active skill. targetBaseSkillName: {0}", targetBaseSkillName);
                 return;
             }
+            Logger.Warn("RefreshUpgrades(). activeSkillDef: {0}", activeSkillDef.skillName);
             var modifier = SkillModifierManager.GetSkillModifier(activeSkillDef);
             if (modifier != null) {
                 // TODO: rename OnSkillLeveledUp to OnSkillChanged
