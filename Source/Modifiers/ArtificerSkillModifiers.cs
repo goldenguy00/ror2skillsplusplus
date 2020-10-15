@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using RoR2.Skills;
-using EntityStates.Mage;
-using EntityStates.Mage.Weapon;
-using UnityEngine;
-using RoR2;
-using RoR2.Projectile;
 using EntityStates;
 using EntityStates.LemurianBruiserMonster;
+using EntityStates.Mage;
+using EntityStates.Mage.Weapon;
+using RoR2;
+using RoR2.Projectile;
+using RoR2.Skills;
+using UnityEngine;
 
 namespace SkillsPlusPlus.Modifiers {
 
@@ -38,29 +38,44 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    class BaseBombSkillModifier : BaseSkillModifier {
+    [SkillLevelModifier("NovaBomb", typeof(ChargeNovabomb), typeof(ThrowNovabomb))]
+    class MageNovaBombSkillModifier : BaseSkillModifier {
+
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
-            if(skillState is BaseChargeBombState chargeBomb) {
-                // Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", chargeBomb.baseChargeDuration, chargeBomb.maxDamageCoefficient, chargeBomb.maxRadius);
+            if (skillState is ChargeNovabomb chargeBomb) {
                 chargeBomb.baseDuration = MultScaling(chargeBomb.baseDuration, 0.1f, level);
-                // chargeBomb.maxRadius = MultScaling(chargeBomb.maxRadius, 0.5f, level);
-                // Logger.Debug("baseChargeDuration: {0}, maxDamageCoefficient: {1}, maxRadius: {2}", chargeBomb.baseChargeDuration, chargeBomb.maxDamageCoefficient, chargeBomb.maxRadius);
             }
-            if(skillState is BaseThrowBombState throwBomb) {
+            if (skillState is ThrowNovabomb throwBomb) {
+                if (throwBomb.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion)) {
+                    projectileImpactExplosion.blastRadius = MultScaling(14, 0.1f, level);
+                    if (projectileImpactExplosion.impactEffect && projectileImpactExplosion.impactEffect.TryGetComponent(out EffectComponent effectComponent)) {
+                        effectComponent.applyScale = true;
+                    }
+                    throwBomb.minDamageCoefficient = MultScaling(throwBomb.minDamageCoefficient, 0.2f, level); 
+                    throwBomb.maxDamageCoefficient = MultScaling(throwBomb.maxDamageCoefficient, 0.25f, level); // 30% to keep up with charge duration + 20% damage bonus
+                    throwBomb.force = MultScaling(throwBomb.force, 0.2f, level);
+                }
+            }
+        }
+    }
+
+    [SkillLevelModifier("IceBomb", typeof(ChargeIcebomb), typeof(ThrowIcebomb))]
+    class MageIceBombSkillModifier : BaseSkillModifier {
+
+        public override void OnSkillEnter(BaseState skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+            if (skillState is ChargeIcebomb chargeBomb) {
+                // chargeBomb.baseDuration = MultScaling(chargeBomb.baseDuration, 0.1f, level);
+            }
+            if (skillState is ThrowIcebomb throwBomb) {
                 throwBomb.minDamageCoefficient = MultScaling(throwBomb.minDamageCoefficient, 0.20f, level);
-                throwBomb.maxDamageCoefficient = MultScaling(throwBomb.maxDamageCoefficient, 0.30f, level); // 30% to keep up with charge duration + 20% damage bonus
-                throwBomb.force = MultScaling(throwBomb.force, 0.3f, level);
+                throwBomb.maxDamageCoefficient = MultScaling(throwBomb.maxDamageCoefficient, 0.20f, level); // 30% to keep up with charge duration + 20% damage bonus
+                throwBomb.force = MultScaling(throwBomb.force, 0.2f, level);
             }
         }
 
     }
-
-    [SkillLevelModifier("NovaBomb", typeof(ChargeNovabomb), typeof(ThrowNovabomb))]
-    class MageNovaBombSkillModifier : BaseBombSkillModifier {}
-
-    [SkillLevelModifier("IceBomb", typeof(ChargeIcebomb), typeof(ThrowIcebomb))]
-    class MageIceBombSkillModifier : BaseBombSkillModifier {}
 
     [SkillLevelModifier("Wall", typeof(PrepWall))]
     class MageWallSkillModifier : SimpleSkillModifier<PrepWall> {
@@ -70,16 +85,16 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
             PrepWall.damageCoefficient = AdditiveScaling(1, 0.3f, level);
 
-            if(PrepWall.projectilePrefab.TryGetComponent(out ProjectileCharacterController projectileCharacterController)) {
+            if (PrepWall.projectilePrefab.TryGetComponent(out ProjectileCharacterController projectileCharacterController)) {
                 projectileCharacterController.lifetime = MultScaling(0.3f, 0.15f, level);
                 Logger.Debug("projectileCharacterController.lifetime: {0}", projectileCharacterController.lifetime);
             }
-            
+
             float newXScale = MultScaling(23.69f, 0.20f, level);
             PrepWall.areaIndicatorPrefab.transform.localScale = new Vector3(newXScale, PrepWall.areaIndicatorPrefab.transform.localScale.y, PrepWall.areaIndicatorPrefab.transform.localScale.z);
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
         }
-    
+
     }
 
     [SkillLevelModifier(new string[] { "Flamethrower", "Dragon's Breath" }, typeof(Flamethrower))]
@@ -110,7 +125,6 @@ namespace SkillsPlusPlus.Modifiers {
         }
 
     }
-
 
     [SkillLevelModifier(new string[] { "FlyUp", "Antimatter Surge" }, typeof(FlyUpState))]
     class MageFlyUpSkillModifier : SimpleSkillModifier<FlyUpState> {
