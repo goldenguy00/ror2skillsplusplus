@@ -64,12 +64,23 @@ namespace SkillsPlusPlus {
             Logger.Debug("levelsPerSkillPoint: {0}", this.levelsPerSkillPoint);
 
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
+
+        }
+
+        void OnEnable() {
             this.playerCharacterMasterController.master.onBodyStart += this.OnBodyStart;
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += this.GetDeployableSameSlotLimit;
             On.EntityStates.GenericCharacterMain.CanExecuteSkill += this.GenericCharacterMain_CanExecuteSkill;
             if (NetworkServer.active) {
                 On.RoR2.CharacterBody.RecalculateStats += this.OnRecalculateStats;
             }
+        }
+
+        void OnDisable() {
+            this.playerCharacterMasterController.master.onBodyStart -= this.OnBodyStart;
+            On.RoR2.CharacterMaster.GetDeployableSameSlotLimit -= this.GetDeployableSameSlotLimit;
+            On.EntityStates.GenericCharacterMain.CanExecuteSkill-= this.GenericCharacterMain_CanExecuteSkill;
+            On.RoR2.CharacterBody.RecalculateStats -= this.OnRecalculateStats;            
         }
 
         [Server]
