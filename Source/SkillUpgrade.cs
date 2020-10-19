@@ -98,7 +98,7 @@ namespace SkillsPlusPlus {
                 Logger.Debug("Couldn't refresh upgrades because there is no active skill. targetBaseSkillName: {0}", targetBaseSkillName);
                 return;
             }
-            Logger.Warn("RefreshUpgrades(). activeSkillDef: {0}", activeSkillDef.skillName);
+            Logger.Debug("RefreshUpgrades() activeSkillDef: {0}", activeSkillDef.skillName);
             var modifier = SkillModifierManager.GetSkillModifier(activeSkillDef);
             if (modifier != null) {
                 // TODO: rename OnSkillLeveledUp to OnSkillChanged
