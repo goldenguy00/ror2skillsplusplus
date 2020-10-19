@@ -104,4 +104,5 @@ A very special thanks to the following people. They have been amazing people pro
 Looking for skill upgrade descriptions?
 
 They are now available ingame when you hover on a skill's icon.
+
 ![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skill_upgrade_tooltip.png)
