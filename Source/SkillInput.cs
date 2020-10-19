@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Reflection;
-
 using MonoMod.RuntimeDetour;
-
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
-using RoR2;
-using RoR2.UI;
-
+using R2API.Utils;
 using Rewired;
 using Rewired.Data;
 using Rewired.Data.Mapping;
-
-using R2API.Utils;
+using RoR2;
+using RoR2.UI;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SkillsPlusPlus {
     static class SkillInput {
@@ -28,8 +23,8 @@ namespace SkillsPlusPlus {
 
         internal static void SetupCustomInput() {
             var userDataInit = typeof(UserData).GetMethod("KFIfLMJhIpfzcbhqEXHpaKpGsgeZ", BindingFlags.NonPublic | BindingFlags.Instance);
-            if(userDataInit != null) {
-                new Hook(userDataInit, (Action<Action<UserData>, UserData>)SkillInput.ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ);
+            if (userDataInit != null) {
+                new Hook(userDataInit, (Action<Action<UserData>, UserData>) SkillInput.ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ);
                 isControllerSupported = true;
             } else {
                 Logger.Error("Unable to add extra action to controller bindings. Was not able to find the method \"KFIfLMJhIpfzcbhqEXHpaKpGsgeZ\" in Rewired.UserData");
@@ -52,10 +47,10 @@ namespace SkillsPlusPlus {
                     Type actionAxisPairType = Reflection.GetNestedTypeCached(typeof(InputCatalog), "ActionAxisPair");
                     var actionAxisPair = actionAxisPairType.GetConstructorCached(new Type[] { typeof(string), typeof(AxisRange) }).Invoke(new object[] { BUY_SKILLS_ACTION_NAME, AxisRange.Full });
                     var actionToTokenField = typeof(InputCatalog).GetFieldValue<IDictionary>("actionToToken");
-                    if(actionToTokenField != null) {
+                    if (actionToTokenField != null) {
                         actionToTokenField.Add(actionAxisPair, UI_TOKEN);
                     }
-                } catch(Exception exception) {
+                } catch (Exception exception) {
                     Logger.Error(exception);
                     return;
                 }
@@ -65,7 +60,7 @@ namespace SkillsPlusPlus {
         private static void ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ(Action<UserData> orig, UserData userData) {
 
             int newActionId = userData.GetFieldValue<int>("actionIdCounter");
-            SkillsPlusPlus.Logger.Warn(newActionId);
+            SkillsPlusPlus.Logger.Debug(newActionId);
             // when the action is created by this method the actual ID of the action will not be this value
             // the newActionId captured prior will be the actual internal ID of the action
             userData.InsertAction(0, BUY_SKILLS_ACTION_ID);
@@ -78,26 +73,25 @@ namespace SkillsPlusPlus {
             userData.ChangeActionCategory(BUY_SKILLS_ACTION_ID, 2); // ensures that the category is aware of the new action
             userData.ChangeActionCategory(BUY_SKILLS_ACTION_ID, 0); // ensures that the category is aware of the new action
 
-
             ControllerMap_Editor joystickEditor = userData.GetJoystickMapById(0, out int joystickIndex);
             ActionElementMap purchaseSkillActionElementMap = new ActionElementMap(BUY_SKILLS_ACTION_ID, ControllerElementType.Button, 0);
             joystickEditor.actionElementMaps.Add(purchaseSkillActionElementMap);
 
-            SkillsPlusPlus.Logger.Warn("Delegating to original ReInput method");
+            SkillsPlusPlus.Logger.Debug("Delegating to original ReInput method");
             orig(userData);
         }
 
         private static void SetupGamepadSettingsControllerAwake(SettingsPanelController settingsPanelController) {
-            if(SkillInput.isControllerSupported == false) {
+            if (SkillInput.isControllerSupported == false) {
                 return;
             }
-            if(settingsPanelController.name != "SettingsSubPanel, Controls (Gamepad)") {
+            if (settingsPanelController.name != "SettingsSubPanel, Controls (Gamepad)") {
                 return;
             }
-            if(InputCatalog.GetActionNameToken(BUY_SKILLS_ACTION_NAME) == null) {
+            if (InputCatalog.GetActionNameToken(BUY_SKILLS_ACTION_NAME) == null) {
                 return;
             }
-            if(settingsPanelController.TryGetComponentInChildren(out InputBindingControl existingInputBindingController)) {
+            if (settingsPanelController.TryGetComponentInChildren(out InputBindingControl existingInputBindingController)) {
                 GameObject buySkillsOptionGameObject = GameObject.Instantiate(existingInputBindingController.gameObject, existingInputBindingController.gameObject.transform.parent);
                 buySkillsOptionGameObject.name = "SettingsEntryButton, Binding (Skills++)";
                 InputBindingControl inputBindingControl = buySkillsOptionGameObject.GetComponent<InputBindingControl>();

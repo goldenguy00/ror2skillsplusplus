@@ -90,12 +90,12 @@ namespace SkillsPlusPlus {
 
         void RefreshUpgrades() {
             if (!isSurvivorEnabled) {
-                Logger.Warn("Couldn't refresh upgrades because the survivor is disabled. targetBaseSkillName: {0}", targetBaseSkillName);
+                Logger.Debug("Couldn't refresh upgrades because the survivor is disabled. targetBaseSkillName: {0}", targetBaseSkillName);
                 return;
             };
             var activeSkillDef = GetActiveSkillDef(targetGenericSkill);
             if (activeSkillDef == null) {
-                Logger.Warn("Couldn't refresh upgrades because there is no active skill. targetBaseSkillName: {0}", targetBaseSkillName);
+                Logger.Debug("Couldn't refresh upgrades because there is no active skill. targetBaseSkillName: {0}", targetBaseSkillName);
                 return;
             }
             Logger.Warn("RefreshUpgrades(). activeSkillDef: {0}", activeSkillDef.skillName);
