@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 0.2.1
+
+- Added skill upgrade for Strides of Heresy item
+- Added ingame skill upgrade descriptions as tooltips on skills
+- Added defensive checks to prevent NPE when the player's character is unloaded
+- Changed Artificer's Nano Bomb to have the blast size of the bomb increased with levels invested.
+- Removed Artificer's Nano Spear scaling of charge time
+
 ## Version 0.2.0
 
 - Added mutliplayer support
