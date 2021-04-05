@@ -2,13 +2,11 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-## What's new in 0.2.1
+## What's new in 0.2.2
 
-- Added skill upgrade for Strides of Heresy item
-- Added ingame skill upgrade descriptions as tooltips on skills
-- Added defensive checks to prevent NPE when the player's character is unloaded
-- Changed Artificer's Nano Bomb to have the blast size of the bomb increased with levels invested.
-- Removed Artificer's Nano Spear scaling of charge time
+- Updated to work with the RoR2 anniversary update
+- Updated R2API and BepInEx depenancies
+- Readded [upgrade descriptions](#upgrade-descriptions) to README
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -101,7 +99,7 @@ A very special thanks to the following people. They have been amazing people pro
   
 ---
 
-## Vanilla character upgrades
+## Upgrade descriptions
 
 Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 

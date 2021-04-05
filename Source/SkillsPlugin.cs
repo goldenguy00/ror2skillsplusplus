@@ -16,7 +16,7 @@ using UnityEngine.Networking;
 namespace SkillsPlusPlus {
 
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.2.1")]
+    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.2.2")]
     [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(SurvivorAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {

@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.2.2
+
+- Updated to work with the RoR2 anniversary update
+- Updated R2API and BepInEx depenancies
+- Readded [upgrade descriptions](#upgrade-descriptions) to README
+
 ## Version 0.2.1
 
 - Added skill upgrade for Strides of Heresy item
