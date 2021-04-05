@@ -133,9 +133,11 @@ namespace SkillsPlusPlus {
         void Update() {
             if (skillIcon) {
                 var skillUpgrades = skillIcon.targetSkill?.characterBody?.GetComponents<SkillUpgrade>();
-                foreach (var skillUpgrade in skillUpgrades) {
-                    if (genericSkill.baseSkill.skillName == skillUpgrade.targetGenericSkill?.baseSkill.skillName) {
-                        this.skillUpgrade = skillUpgrade;
+                if(skillUpgrades != null) {
+                    foreach(var skillUpgrade in skillUpgrades) {
+                        if(genericSkill.baseSkill.skillName == skillUpgrade.targetGenericSkill?.baseSkill.skillName) {
+                            this.skillUpgrade = skillUpgrade;
+                        }
                     }
                 }
             }
