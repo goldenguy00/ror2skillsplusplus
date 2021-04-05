@@ -62,7 +62,8 @@ namespace SkillsPlusPlus.Modifiers {
             float duration = AdditiveScaling(0, 0.75f, level);
             if (duration > 0) {
                 Logger.Debug("adding buff for {0} seconds", duration);
-                skillState.outer.commonComponents.characterBody.AddTimedBuff(BuffIndex.Immune, duration);
+                var immuneBuffIndex = BuffCatalog.FindBuffIndex("Immune");
+                skillState.outer.commonComponents.characterBody.AddTimedBuff(immuneBuffIndex, duration);
             }
         }
     }
@@ -75,7 +76,8 @@ namespace SkillsPlusPlus.Modifiers {
             float duration = AdditiveScaling(0f, 0.75f, level);
             if (duration > 0) {
                 Logger.Debug("adding buff for {0} seconds", duration);
-                skillState.outer.commonComponents.characterBody.AddTimedBuff(BuffIndex.Energized, duration);
+                var energizedBuffIndex = BuffCatalog.FindBuffIndex("Energized");
+                skillState.outer.commonComponents.characterBody.AddTimedBuff(energizedBuffIndex, duration);
             }
         }
     }

@@ -204,7 +204,8 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillExit(skillState, level);
             float duration = AdditiveScaling(0, 1, level);
             if(duration > 0) {
-                skillState.outer.commonComponents.characterBody.AddTimedBuff(BuffIndex.Energized, AdditiveScaling(0, 1, level));
+                var energizedBuffIndex = BuffCatalog.FindBuffIndex("Energized");
+                skillState.outer.commonComponents.characterBody.AddTimedBuff(energizedBuffIndex, AdditiveScaling(0, 1, level));
             }
             skillState.outer.commonComponents.characterBody.inventory.DeductActiveEquipmentCooldown(level);
         }

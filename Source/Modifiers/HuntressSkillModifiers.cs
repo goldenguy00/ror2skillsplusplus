@@ -86,7 +86,8 @@ namespace SkillsPlusPlus.Modifiers {
                 duration /= 2f;
             }
             if(duration > 0) {
-                skillState.outer.commonComponents.characterBody?.AddTimedBuff(BuffIndex.FullCrit, duration);
+                var fullCritBuffIndex = BuffCatalog.FindBuffIndex("FullCrit");
+                skillState.outer.commonComponents.characterBody?.AddTimedBuff(fullCritBuffIndex, duration);
             }
         }
     }

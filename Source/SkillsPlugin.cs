@@ -37,7 +37,7 @@ namespace SkillsPlusPlus {
             // Raise bugs here https://discord.gg/wU94CjJ
             //             ", this.Info.Metadata.Version.ToString());
 
-            #if DEBUG
+#if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
             UnityEngine.Networking.LogFilter.currentLogLevel = LogFilter.Debug;
 
@@ -67,7 +67,7 @@ namespace SkillsPlusPlus {
             //     }
             //     orig(self);
             // };
-            #endif
+#endif
 
             CommandHelper.AddToConsoleWhenReady();
 
