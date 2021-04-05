@@ -167,10 +167,10 @@ namespace SkillsPlusPlus {
                 }
             }
             if (Input.GetKeyDown(KeyCode.Keypad2) && this.playerCharacterMasterController != null) {
-                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.UtilitySkillMagazine);
+                this.playerCharacterMasterController.master?.inventory.GiveItemString("UtilitySkillMagazine");
             }
             if (Input.GetKeyDown(KeyCode.Keypad3) && this.playerCharacterMasterController != null) {
-                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.ExtraLife);
+                this.playerCharacterMasterController.master?.inventory.GiveItemString("ExtraLife");
             }
             if (Input.GetKeyDown(KeyCode.Keypad4) && this.playerCharacterMasterController != null) {
                 this.body.skillLocator.ResetSkills();
@@ -179,11 +179,11 @@ namespace SkillsPlusPlus {
                 this.playerCharacterMasterController.master?.inventory.GiveItemString("CIScepter");
             }
             if (Input.GetKeyDown(KeyCode.Keypad6) && this.playerCharacterMasterController != null) {
-                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.Syringe, 5);
+                this.playerCharacterMasterController.master?.inventory.GiveItemString("Syringe", 5);
             }
             if (Input.GetKeyDown(KeyCode.Keypad7) && this.playerCharacterMasterController != null) {
-                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.LunarPrimaryReplacement);
-                this.playerCharacterMasterController.master?.inventory.GiveItem(ItemIndex.LunarUtilityReplacement);
+                this.playerCharacterMasterController.master?.inventory.GiveItemString("LunarPrimaryReplacement");
+                this.playerCharacterMasterController.master?.inventory.GiveItemString("LunarUtilityReplacement");
             }
             #endif
         }
