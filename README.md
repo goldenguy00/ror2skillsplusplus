@@ -232,4 +232,4 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Skill | | Description |
 |:-|-|------|
 | Hungering Gaze | ![Visions of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3c/Hungering_Gaze.png) | `+2` stock per level and `+20%` damage per level |
-| Strides Of Heresy | ![Strides Of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c8/Shadowfade.png) | `+2` stock per level and `+20%` damage per level |
+| Strides Of Heresy | ![Strides Of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c8/Shadowfade.png) | `+10%` speed bonus and `+15%` healing ticks |
