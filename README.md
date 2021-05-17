@@ -107,7 +107,7 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 
 **Jump to character**
 
-[![Commando](https://img.shields.io/static/v1?label=&message=Commando&color=ED9612)](#commando) [![Huntress](https://img.shields.io/static/v1?label=&message=Huntress&color=D53C3C)](#huntress) [![MUL-T](https://img.shields.io/static/v1?label=&message=MUL-T&color=D3C450)](#mul-t) [![Engineer](https://img.shields.io/static/v1?label=&message=Engineer&color=5FE286)](#engineer) [![Artificer](https://img.shields.io/static/v1?label=&message=Artificer&color=F7C1FD)](#artificer) [![Mercenary](https://img.shields.io/static/v1?label=&message=Mercenary&color=6CD1EA)](#mercenary) [![REX](https://img.shields.io/static/v1?label=&message=REX&color=869E54)](#rex) [![Loader](https://img.shields.io/static/v1?label=&message=Loader&color=6770DE)](#loader) [![Acrid](https://img.shields.io/static/v1?label=&message=Acrid&color=C9F24D)](#acrid) [![Captain](https://img.shields.io/static/v1?label=&message=Captain&color=BEBA92)](#captain) [![Lunar Items](https://img.shields.io/static/v1?label=&message=Lunar%20Items&color=307FFF)](#lunar-items)
+[![Commando](https://img.shields.io/static/v1?label=&message=Commando&color=ED9612)](#commando) [![Huntress](https://img.shields.io/static/v1?label=&message=Huntress&color=D53C3C)](#huntress) [![Bandit](https://img.shields.io/static/v1?label=&message=Bandit&color=C374C5)](#bandit) [![MUL-T](https://img.shields.io/static/v1?label=&message=MUL-T&color=D3C450)](#mul-t) [![Engineer](https://img.shields.io/static/v1?label=&message=Engineer&color=5FE286)](#engineer) [![Artificer](https://img.shields.io/static/v1?label=&message=Artificer&color=F7C1FD)](#artificer) [![Mercenary](https://img.shields.io/static/v1?label=&message=Mercenary&color=6CD1EA)](#mercenary) [![REX](https://img.shields.io/static/v1?label=&message=REX&color=869E54)](#rex) [![Loader](https://img.shields.io/static/v1?label=&message=Loader&color=6770DE)](#loader) [![Acrid](https://img.shields.io/static/v1?label=&message=Acrid&color=C9F24D)](#acrid) [![Captain](https://img.shields.io/static/v1?label=&message=Captain&color=BEBA92)](#captain) [![Lunar Items](https://img.shields.io/static/v1?label=&message=Lunar%20Items&color=307FFF)](#lunar-items)
 
 ### Commando
 
@@ -121,18 +121,6 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Supressive Fire | ![Supressive fire](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/db/Suppressive_Fire.png) | `+30%` bullets fired per level |
 | Frag Grenade | ![Frag Grenade](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/6b/Frag_Grenade.png) | `+20%` explosion damage and `+20%` blast radius per level |
 
-### Bandit
-
-| Skill | | Description |
-|:-|-|------|
-| Burst | ![Burst](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/47/Burst.png) | `+1` bullet and `+5%` damage per level |
-| Blast | ![Blast](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e7/Blast.png) | `+20%` damage, `+10%` proc chance, and `+20%` stability per level |
-| Serrated Dagger | ![Serrated Dagger](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/bb/Serrated_Dagger.png) | `+20%` hitbox size and `+20%` damage per level |
-| Serrated Shiv | ![Serrated Shiv](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/80/Serrated_Shiv.png) | `+1` projectile per two levels. `+10%` damage per level |
-| Smoke Bomb | ![Smoke Bomb](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/eb/Smoke_Bomb.png) | `+1` movement speed while invisible. `+15%` hitbox size and `+20%` damage per level |
-| Lights Out | ![Lights Out](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/7c/Lights_Out.png) | `+10%` to `+30%` damage per level, based on remaining enemy health |
-| Desperado | ![Desperado](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/57/Desperado.png) | `+1%` Execute threshold |
-
 ### Huntress
 
 | Skill | | Description |
@@ -144,6 +132,18 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Phase Blink | ![Phase Blink](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/dd/Phase_Blink.png) | Grants `+0.5 seconds` per level or full crit time |
 | Arrow Rain | ![Arrow Rain](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/59/Arrow_Rain.png) | `+25%` area of effect and `+20%` damage per level |
 | Ballista | ![Ballista](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d5/Ballista.png) | `+1` bullet and `+20%` damage per level |
+
+### Bandit
+
+| Skill | | Description |
+|:-|-|------|
+| Burst | ![Burst](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/47/Burst.png) | `+1` bullet and `+5%` damage per level |
+| Blast | ![Blast](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e7/Blast.png) | `+20%` damage, `+10%` proc chance, and `+20%` stability per level |
+| Serrated Dagger | ![Serrated Dagger](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/bb/Serrated_Dagger.png) | `+20%` hitbox size and `+20%` damage per level |
+| Serrated Shiv | ![Serrated Shiv](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/80/Serrated_Shiv.png) | `+1` projectile per two levels. `+10%` damage per level |
+| Smoke Bomb | ![Smoke Bomb](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/eb/Smoke_Bomb.png) | `+1` movement speed while invisible. `+15%` hitbox size and `+20%` damage per level |
+| Lights Out | ![Lights Out](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/7c/Lights_Out.png) | `+10%` to `+30%` damage per level, based on remaining enemy health |
+| Desperado | ![Desperado](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/57/Desperado.png) | `+1%` Execute threshold |
 
 ### MUL-T
 
