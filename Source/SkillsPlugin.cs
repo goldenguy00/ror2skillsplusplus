@@ -51,12 +51,6 @@ namespace SkillsPlusPlus {
                 return true;
             };
 
-            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillSkullRevolverModifier.HealthComponent_TakeDamage);
-            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillResetRevolverModifier.HealthComponent_TakeDamage);
-            On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(BanditSkillThrowSmokebombModifier.CharacterBody_RecalculateStats);
-
-            BanditSkillThrowSmokebombModifier.RegisterBanditSpeedBuff();
-
             // On.RoR2.Console.RunCmd += (orig, self, sender, cmd, userArgs) => {
             //     SkillsPlusPlus.Logger.Warn(cmd);
             //     orig(self, sender, cmd, userArgs);
@@ -79,6 +73,12 @@ namespace SkillsPlusPlus {
 
             LoaderKnucklesSkillModifier.PatchSkillName();
             LoaderThrowPylonSkillModifier.PatchSkillName();
+
+            BanditSkillThrowSmokebombModifier.RegisterBanditSpeedBuff();
+
+            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillSkullRevolverModifier.HealthComponent_TakeDamage);
+            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillResetRevolverModifier.HealthComponent_TakeDamage);
+            On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(BanditSkillThrowSmokebombModifier.CharacterBody_RecalculateStats);
 
             SkillModifierManager.LoadSkillModifiers();
             SkillInput.SetupCustomInput();
