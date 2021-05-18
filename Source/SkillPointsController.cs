@@ -18,7 +18,7 @@ namespace SkillsPlusPlus {
 
     [RequireComponent(typeof(PlayerCharacterMasterController))]
     [RequireComponent(typeof(NetworkIdentity))]
-    sealed class SkillPointsController : NetworkBehaviour {
+    public sealed class SkillPointsController : NetworkBehaviour {
 
         // private const int SKILL_DISABLED = -1;
 

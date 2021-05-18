@@ -18,7 +18,7 @@ using UnityEngine.Networking;
 namespace SkillsPlusPlus {
 
     [RequireComponent(typeof(CharacterBody))]
-    class SkillUpgrade : NetworkBehaviour {
+    public class SkillUpgrade : NetworkBehaviour {
 
         [SyncVar(hook = "OnSkillLevelChanged")]
         public int skillLevel;
