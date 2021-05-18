@@ -152,9 +152,9 @@ namespace SkillsPlusPlus {
                     // }
 
                     var skillUpgrade = survivorDef.bodyPrefab.AddComponent<SkillUpgrade>();
-                    SkillsPlusPlus.Logger.Debug("Added skill upgrade");
 
                     skillUpgrade.targetGenericSkill = genericSkill;
+                    SkillsPlusPlus.Logger.Debug("+ {0}", genericSkill.skillName);
                 }
             }
         }
