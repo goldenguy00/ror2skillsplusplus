@@ -17,7 +17,7 @@ namespace SkillsPlusPlus {
 
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.2.2")]
-    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(SurvivorAPI))]
+    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(SurvivorAPI), nameof(BuffAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
@@ -50,6 +50,12 @@ namespace SkillsPlusPlus {
             On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
                 return true;
             };
+
+            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillSkullRevolverModifier.HealthComponent_TakeDamage);
+            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillResetRevolverModifier.HealthComponent_TakeDamage);
+            On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(BanditSkillThrowSmokebombModifier.CharacterBody_RecalculateStats);
+
+            BanditSkillThrowSmokebombModifier.RegisterBanditSpeedBuff();
 
             // On.RoR2.Console.RunCmd += (orig, self, sender, cmd, userArgs) => {
             //     SkillsPlusPlus.Logger.Warn(cmd);
