@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using BepInEx;
 using R2API;
 using R2API.Utils;
 using RoR2;
-using RoR2.Skills;
 using RoR2.UI;
+
 using SkillsPlusPlus.Modifiers;
 using SkillsPlusPlus.UI;
 using SkillsPlusPlus.Util;
@@ -15,7 +14,7 @@ using UnityEngine.Networking;
 
 namespace SkillsPlusPlus {
 
-    [BepInDependency("com.bepis.r2api")]
+    [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.2.2")]
     [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(SurvivorAPI), nameof(BuffAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
