@@ -1,5 +1,11 @@
 # Changelog
 
+## What's new in 0.2.3
+
+- Bandit support. Full credit to Volvary, [Risk of Rain 2 modding discord](https://discord.gg/5MbXZvd) and send them some love.
+- Updated R2API dependancy to 3.0.30
+- Improved mod support for third party skill upgrades
+
 ## Version 0.2.2
 
 - Updated to work with the RoR2 anniversary update
