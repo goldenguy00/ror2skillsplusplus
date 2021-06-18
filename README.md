@@ -2,11 +2,11 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-## What's new in 0.2.2
+## What's new in 0.2.3
 
-- Updated to work with the RoR2 anniversary update
-- Updated R2API and BepInEx depenancies
-- Readded [upgrade descriptions](#upgrade-descriptions) to README
+- Bandit support. Full credit to Volvary, [Risk of Rain 2 modding discord](https://discord.gg/5MbXZvd) and send them some love.
+- Updated R2API dependancy to 3.0.30
+- Improved mod support for third party skill upgrades
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -134,6 +134,8 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Ballista | ![Ballista](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d5/Ballista.png) | `+1` bullet and `+20%` damage per level |
 
 ### Bandit
+
+Credit to Volvary. Find them on the [Risk of Rain 2 modding discord](https://discord.gg/5MbXZvd)
 
 | Skill | | Description |
 |:-|-|------|
