@@ -40,6 +40,71 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
+    [SkillLevelModifier("ThunderSlam", typeof(GroundSlam), typeof(PreGroundSlam))]
+    class LoaderThunderSlamSkillModifier : BaseSkillModifier {
+
+        static float baseUpwardVelocity = 0f;
+        static float baseVerticalAcceleration = 0f;
+        static float baseBlastRadius = 0f;
+        static float maxVerticalCap = 0f;
+        static Vector3 initialPosition;
+
+        public override void OnSkillEnter(BaseState skillState, int level) {
+
+            if(skillState is GroundSlam)
+            {
+                initialPosition = skillState.outer.commonComponents.characterBody.transform.position;
+
+                GroundSlam.blastDamageCoefficient = MultScaling(20f, 0.5f, level);
+            }
+
+            base.OnSkillEnter(skillState, level);
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
+        {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            if(Mathf.Abs(baseUpwardVelocity) < 0.01f)
+            {
+                baseUpwardVelocity = PreGroundSlam.upwardVelocity;
+                baseVerticalAcceleration = GroundSlam.verticalAcceleration;
+                baseBlastRadius = GroundSlam.blastRadius;
+
+                FindSkillUpgrade(characterBody, "ThrowPylon");
+            }
+
+            PreGroundSlam.upwardVelocity = AdditiveScaling(baseUpwardVelocity, baseUpwardVelocity * 0.25f, level);
+            GroundSlam.verticalAcceleration = AdditiveScaling(baseVerticalAcceleration, baseVerticalAcceleration * 0.25f, level);
+            maxVerticalCap = AdditiveScaling(0f, 10f, level);
+        }
+
+        public static void GroundSlamFixedUpdate(On.EntityStates.Loader.GroundSlam.orig_FixedUpdate orig, EntityStates.Loader.GroundSlam self)
+        {
+            if (self.detonateNextFrame && registeredSkill && registeredSkill.skillLevel > 0)
+            {
+                float distanceTravelled = Vector3.Distance(self.outer.commonComponents.characterBody.transform.position, initialPosition);
+                float distanceRatio = Mathf.Clamp(distanceTravelled / maxVerticalCap, 0f, 1f);
+
+                GroundSlam.blastRadius = baseBlastRadius * (1 + Mathf.Lerp(0.1f, 1f, distanceRatio) * registeredSkill.skillLevel);
+            }
+            orig(self);
+        }
+
+        internal static void PatchSkillName() {
+            var loaderBody = Resources.Load<GameObject>("prefabs/characterbodies/LoaderBody");
+            if(loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
+                foreach(SkillFamily.Variant variant in skillLocator.special.skillFamily.variants) {
+                    SkillDef skillDef = variant.skillDef;
+                    if(skillDef != null) {
+                        if(skillDef.skillNameToken == "LOADER_SPECIAL_ALT_NAME") {
+                            skillDef.skillName = "ThunderSlam";
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     [SkillLevelModifier("FireHook", typeof(FireHook))]
     class LoaderHookSkillModifier : SimpleSkillModifier<FireHook> {
 

@@ -105,6 +105,52 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
+    [SkillLevelModifier("Dash2", typeof(FocusedAssaultDash))]
+    class Assault2SkillModifier : SimpleSkillModifier<FocusedAssaultDash> {
+
+        Transform assaultHitbox;
+        Vector3 originalHitboxScale;
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+
+            if (!assaultHitbox)
+            {
+                HitBoxGroup[] hitboxGroups = characterBody.modelLocator.modelTransform.GetComponents<HitBoxGroup>();
+
+                foreach (HitBoxGroup group in hitboxGroups)
+                {
+                    if (group != null && group.groupName == "Assaulter")
+                    {
+                        assaultHitbox = group.hitBoxes[0].transform;
+
+                        if (originalHitboxScale == Vector3.zero)
+                        {
+                            originalHitboxScale = assaultHitbox.localScale;
+                        }
+                    }
+                }
+            }
+            if (!assaultHitbox)
+            {
+                Debug.LogWarning("didn't get Merc's AssaulterHitbox. probably got changed?. aborting");
+                return;
+            }
+            else
+            {
+                assaultHitbox.localScale = new Vector3(MultScaling(originalHitboxScale.x, 0.2f, level), MultScaling(originalHitboxScale.y, 0.2f, level), MultScaling(originalHitboxScale.z, 0.2f, level));
+            }
+
+
+        }
+        public override void OnSkillEnter(FocusedAssaultDash skillState, int level)
+        {
+            base.OnSkillEnter(skillState, level);
+
+            skillState.delayedProcCoefficient = AdditiveScaling(1, 0.15f, level);
+        }
+    }
+
     // both Mercenary special skills have the same skill name
     [SkillLevelModifier(new string[] { "Evis", "Massacre", "Gale-Force" }, typeof(Evis), typeof(EvisDash), typeof(ThrowEvisProjectile))]
     class EviscerateSkillModifier : BaseSkillModifier {

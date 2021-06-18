@@ -54,6 +54,7 @@
 		"WHIRLWIND_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> damage and <style=cIsUtility>+25%</style> larger hitbox",
 		"UPPERCUT_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> damage per level. <style=cIsUtility>+1</style> stock",
 		"DASH1_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, and <style=cIsUtility>+0.5</style> seconds extra delay before reset",
+		"DASH2_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> larger hitbox and <style=cIsUtility>+15%</style> proc chance",
 		"EVIS_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> chain range, <style=cIsUtility>+15%</style> attack speed, and <style=cIsUtility>+10%</style> proc chance",
 		"MASSACRE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> attack speed and <style=cIsUtility>+20%</style> damage",
 
@@ -63,6 +64,7 @@
 		"SONICBOOM_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> range, <style=cIsUtility>+20%</style> angle, <style=cIsUtility>+20%</style> debuff duration",
 		"SONICBOOM2_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> range, <style=cIsUtility>+20%</style> angle, <style=cIsDamage>+20%</style> damage",
 		"FIREFLOWER2_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, <style=cIsUtility>+20%</style> radius, <style=cIsUtility>+10%</style> healing rate",
+		"FIRESEED_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, <style=cIsUtility>+10%</style> radius, <style=cIsUtility>+1%</style> life steal",
 
 		"KNUCKLEBOOM_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1%</style> barrier gained and <style=cIsDamage>+20%</style> damage",
 		"FIREHOOK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> hook range",
@@ -70,6 +72,7 @@
 		"CHARGEFIST_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> max charge, <style=cIsDamage>+20%</style> base damage, and <style=cIsDamage>+15%</style> velocity based damage",
 		"CHARGEZAPFIST_UPGRADE_DESCRIPTION": "<style=cIsDamage>+15%</style> damage and <style=cIsUtility>+20%</style> cone range",
 		"THROWPYLON_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, <style=cIsUtility>+20%</style> range, and <style=cIsUtility>+20%</style> rate of fire",
+		"THUNDERSLAM_UPGRADE_DESCRIPTION": "<style=cIsDamage>+5%</style> damage, <style=cIsUtility>+10%</style> to <style=cIsUtility>+100%</style> range based on travel distance, <style=cIsUtility>+25%</style> leap height",
 
 		"CROCOSLASH_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> normal damage, <style=cIsDamage>+25%</style> combo finisher damage, and <style=cIsUtility>+15%</style> attack speed",
 		"CROCOSPIT_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, <style=cIsUtility>+30%</style> projectile speed, and <style=cIsUtility>+30%</style> blast radius per level. <style=cIsUtility>+1</style> stock",
@@ -81,11 +84,12 @@
 		"CAPTAINSHOTGUN_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> shell count and <style=cIsDamage>+10%</style> damage",
 		"CAPTAINTAZER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+40%</style> blast radius and <style=cIsDamage>+20%</style> damage",
 		"CAPTAINPREPAIRSTRIKE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> blast radius and <style=cIsDamage>+20%</style> damage",
+		"CAPTAINDIABLOSTRIKE_UPGRADE_DESCRIPTION": "<style=cIsUtility>-2</style> second drop time, <style=cIsUtility>-2</style> second cooldown and <style=cIsUtility>+4%</style> friendly fire prevention",
 		"CAPTAINSUPPLYDROPHEALING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> healing range",
 		"CAPTAINSUPPLYDROPPLATING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> shock range",
 		"CAPTAINSUPPLYDROPEQUIPMENTRESTOCK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> resupply stock",
 		"CAPTAINSUPPLYDROPHACKING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> hacking speed and <style=cIsUtility>+20%</style> hacking range",
-		
+
 		"BANDIT2DESPERADO_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1%</style> Execute threshold",
 		"BANDIT2RIFLE_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, <style=cIsUtility>+10%</style> proc chance, <style=cIsUtility>+20%</style> stability",
 		"BANDIT2SERRATEDSHIVS_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> shiv every two levels, <style=cIsDamage>+10%</style> damage",

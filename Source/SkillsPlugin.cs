@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using BepInEx;
 using R2API;
 using R2API.Utils;
+using RoR2;
 using RoR2.UI;
 
 using SkillsPlusPlus.Modifiers;
@@ -70,13 +71,30 @@ namespace SkillsPlusPlus {
             CommandHelper.AddToConsoleWhenReady();
 
             LoaderKnucklesSkillModifier.PatchSkillName();
+            LoaderThunderSlamSkillModifier.PatchSkillName();
             LoaderThrowPylonSkillModifier.PatchSkillName();
+
+            CaptainDiabloStrikeSkillModifier.PatchSkillName();
+
+            LunarModifiers.PatchSkillName();
 
             BanditSkillThrowSmokebombModifier.RegisterBanditSpeedBuff();
 
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillSkullRevolverModifier.HealthComponent_TakeDamage);
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillResetRevolverModifier.HealthComponent_TakeDamage);
             On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(BanditSkillThrowSmokebombModifier.CharacterBody_RecalculateStats);
+
+            On.EntityStates.AimThrowableBase.ModifyProjectile += CaptainDiabloStrikeSkillModifier.AimThrowableBase_ModifyProjectile;
+            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(CaptainDiabloStrikeSkillModifier.HealthComponent_TakeDamage);
+
+            On.EntityStates.Loader.GroundSlam.FixedUpdate += new On.EntityStates.Loader.GroundSlam.hook_FixedUpdate(LoaderThunderSlamSkillModifier.GroundSlamFixedUpdate);
+
+            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(TreebotHarvestSkillModifier.HealthComponent_TakeDamage);
+
+            On.EntityStates.Merc.Assaulter.OnEnter += (orig, self) => {
+                Chat.AddMessage("OnEnter");
+                orig(self);
+            };
 
             SkillModifierManager.LoadSkillModifiers();
             SkillInput.SetupCustomInput();

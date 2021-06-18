@@ -55,6 +55,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(CallAirstrikeBase skillState, int level) {
             base.OnSkillEnter(skillState, level);
+
             var radius = MultScaling(8, 0.2f, level);
             if(skillState.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion)) {
                 projectileImpactExplosion.blastRadius = radius;
@@ -67,7 +68,131 @@ namespace SkillsPlusPlus.Modifiers {
                 }
             }
         }
+    }
 
+    [SkillLevelModifier(new string[] { "CaptainDiabloStrike" }, typeof(CallAirstrikeAlt), typeof(SetupAirstrikeAlt))]
+    class CaptainDiabloStrikeSkillModifier : SimpleSkillModifier<CallAirstrikeAlt> {
+
+        static int diabloStrikeProjectileCatalogIndex = -1337;
+        static float fuseDuration;
+
+        internal static void PatchSkillName()
+        {
+            var captainBody = Resources.Load<GameObject>("prefabs/characterbodies/CaptainBody");
+            if (captainBody.TryGetComponent(out SkillLocator skillLocator))
+            {
+                foreach (SkillFamily.Variant variant in skillLocator.utility.skillFamily.variants)
+                {
+                    SkillDef skillDef = variant.skillDef;
+                    if (skillDef != null)
+                    {
+                        if (skillDef.skillNameToken == "CAPTAIN_UTILITY_ALT1_NAME")
+                        {
+                            skillDef.skillName = "CaptainDiabloStrike";
+                        }
+                    }
+                }
+            }
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
+        {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            skillDef.baseRechargeInterval = Mathf.Clamp(40f - (level * 2f), 1f, 40f);
+
+            fuseDuration = Mathf.Clamp(20f - (level), 0f, 20f);
+
+            //Attempt to get the skill if it's still invalid.
+            FindSkillUpgrade(characterBody, "CaptainPrepAirstrike");
+        }
+
+        public override void OnSkillEnter(CallAirstrikeAlt skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+
+            Chat.AddMessage("Diablo");
+
+            //Try and update the speed of the Indicator
+            if (skillState.projectilePrefab.TryGetComponent(out ProjectileController projectileController) && registeredSkill != null)
+            {
+
+                var CenterTransform = projectileController.ghostPrefab.transform.Find("AreaIndicatorCenter");
+                if (CenterTransform != null)
+                {
+                    for(int i = 0; i < CenterTransform.childCount; i++)
+                    {
+                        var child = CenterTransform.GetChild(i);
+                        if(child != null && child.gameObject != null)
+                        {
+                            //Update the Ring Animation
+                            if(child.TryGetComponent(out ObjectScaleCurve scaleCurve))
+                            {
+                                scaleCurve.timeMax = fuseDuration;
+                            }
+                            else
+                            {
+                                //Dodge Rings and update the Lasers
+                                var vertical = child.Find("LaserVerticalOffset");
+                                if (vertical)
+                                {
+                                    var laser = vertical.Find("Laser");
+                                    if (laser)
+                                    {
+                                        if (laser != null && laser.gameObject.TryGetComponent(out ObjectTransformCurve laserCurve))
+                                        {
+                                            laserCurve.timeMax = fuseDuration;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        public static void AimThrowableBase_ModifyProjectile(On.EntityStates.AimThrowableBase.orig_ModifyProjectile orig, EntityStates.AimThrowableBase self, ref RoR2.Projectile.FireProjectileInfo fireProjectileInfo)
+        {
+            orig(self, ref fireProjectileInfo);
+
+            if (self is CallAirstrikeAlt && registeredSkill != null)
+            {
+                fireProjectileInfo.useFuseOverride = true;
+                fireProjectileInfo.fuseOverride = fuseDuration;
+            }
+        }
+
+        public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)
+        {
+            if (registeredSkill != null)
+            {
+                if (di != null && self != null)
+                {
+                    if (diabloStrikeProjectileCatalogIndex == -1337)
+                    {
+                        diabloStrikeProjectileCatalogIndex = ProjectileCatalog.FindProjectileIndex("CaptainAirstrikeAltProjectile");
+                    }
+
+                    if(di.inflictor && di.inflictor.TryGetComponent(out ProjectileController controller) && controller.catalogIndex == diabloStrikeProjectileCatalogIndex)
+                    {
+                        if (di.attacker && di.attacker.TryGetComponent(out CharacterBody attackerBody))
+                        {
+                            if (self?.body?.teamComponent?.teamIndex == attackerBody?.teamComponent?.teamIndex && registeredSkill.skillLevel > 0)
+                            {
+                                var friendlyFireProtection = (25 / ((float)registeredSkill.skillLevel + 25));
+                                if (self.combinedHealthFraction > friendlyFireProtection)
+                                {
+                                    di.damage = (self.combinedHealth - (registeredSkill.skillLevel * 0.04f * self.fullCombinedHealth)) * 2;    //Friendly fire deals half damage
+                                    di.damageType |= DamageType.BypassArmor;
+                                    di.damageType &= ~DamageType.AOE;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            orig.Invoke(self, di);
+        }
     }
 
     [SkillLevelModifier(new string[] { 

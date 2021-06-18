@@ -132,5 +132,65 @@ namespace SkillsPlusPlus.Modifiers {
         }
 
     }
+
+    [SkillLevelModifier("FireSeed", typeof(TreebotFireFruitSeed)/*, typeof(TreebotPrepFruitSeed)*/)]
+    class TreebotHarvestSkillModifier : SimpleSkillModifier<TreebotFireFruitSeed>
+    {
+        static float baseBlastRadius = 0f;
+        static float baseDamageCoefficient = 0f;
+        public override void OnSkillEnter(TreebotFireFruitSeed skillState, int level)
+        {
+            if (skillState is TreebotFireFruitSeed)
+            {
+                TreebotFireFruitSeed skill = (TreebotFireFruitSeed)skillState;
+
+                if (Mathf.Abs(baseDamageCoefficient) < 0.01f)
+                {
+                    baseDamageCoefficient = skill.damageCoefficient;
+
+                    if(skill.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion explosionBase))
+                    {
+                        baseBlastRadius = explosionBase.blastRadius;
+                    }
+                }
+
+                skill.damageCoefficient = MultScaling(baseDamageCoefficient, 0.20f, level);
+
+                if (((TreebotFireFruitSeed)skillState).projectilePrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion))
+                {
+                    projectileImpactExplosion.blastRadius = MultScaling(baseBlastRadius, 0.10f, level);
+                }
+            }
+
+            base.OnSkillEnter(skillState, level);
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
+        {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+
+            FindSkillUpgrade(characterBody, "FireFlower2");
+        }
+
+        public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)
+        {
+            if (registeredSkill != null)
+            {
+                if (di.attacker != null && self != null)
+                {
+                    CharacterBody body = self.GetComponent<CharacterBody>();
+                    if (body != null)
+                    {
+                        if (body.HasBuff(RoR2Content.Buffs.Fruiting))
+                        {
+                            di.attacker.GetComponent<CharacterBody>().healthComponent.Heal(registeredSkill.skillLevel * 0.01f *di.damage , default(ProcChainMask), true);
+                        }
+                    }
+                }
+            }
+
+            orig.Invoke(self, di);
+        }
+    }
 }
 

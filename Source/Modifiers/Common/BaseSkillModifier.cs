@@ -16,6 +16,11 @@ namespace SkillsPlusPlus.Modifiers {
         /// </summary>
         internal string[] skillNames { get; set; }
 
+        /// <summary>
+        /// The SkillUpgrade associated to this Modifier. Call FindSkillUpgrade to assign.
+        /// </summary>
+        public static SkillUpgrade registeredSkill;
+
         public virtual string skillUpgradeDescriptionToken { get { return null; } }
 
         public BaseSkillModifier() {
@@ -125,6 +130,38 @@ namespace SkillsPlusPlus.Modifiers {
         // public static int MultScaling(int baseValue, float multiplier, int level) {
         //     return (int)MultScaling((float)baseValue, multiplier, level);            
         // }
+
+        /// <summary>
+        /// A helper method that find the SkillUpgrade of a Skill by name.
+        /// </summary>
+        /// <param name="characterBody">The characterbody to search.</param>
+        /// <param name="baseSkillName">The base skill name to find.</param>
+        /// <returns></returns>
+        protected void FindSkillUpgrade(CharacterBody characterBody, String baseSkillName)
+        {
+            if (registeredSkill == null)
+            {
+                SkillUpgrade[] upgrades = characterBody.GetComponents<SkillUpgrade>();
+
+                for (int i = 0; i < upgrades.Length; i++)
+                {
+                    if (upgrades[i] != null)
+                    {
+                        Logger.Debug(upgrades[i].targetBaseSkillName);
+                        if (upgrades[i].targetBaseSkillName == baseSkillName)
+                        {
+                            registeredSkill = upgrades[i];
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (registeredSkill == null)
+            {
+                Logger.Warn("Could not find {0}'s Skill Upgrade", baseSkillName);
+            }
+        }
 
         #endregion
     }

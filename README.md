@@ -189,6 +189,7 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Whirlwind | ![Whirlwind](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e0/Whirlwind.png) | `+25%` damage and `+25%` larger hitbox per level |
 | Rising Thunder | ![Rising Thunder](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d4/Rising_Thunder.png) | `+25%` damage per level. `+1` stock per two levels |
 | Blinding Assault | ![Blinding Assault](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/87/Blinding_Assault.png) | `+20%` damage, and `+0.5 seconds` extra delay before reset |
+| Focused Assault | ![Focused Assault](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/a/a8/Focused_Assault.png) | `+20%` hitbox size, and `+15%` proc chance per level |
 | Eviscerate | ![Eviscerate](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9f/Eviscerate.png) | `+30%` chain range, `+15%` attack speed, and `+10%` proc chance per level |
 | Slicing Winds | ![Slicing Winds](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/bc/Slicing_Winds.png) | `+20%` attack speed and `+20%` damage per level |
 
@@ -201,6 +202,7 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Seed Barrage | ![Seed Barrage](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b0/Seed_Barrage.png) | `+20%` radius and `+20%` damage per level |
 | DIRECTIVE: Disperse | ![DIRECTIVE: Disperse](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/22/DIRECTIVE_Disperse.png) | `+30%` range, `+20%` angle, `+20%` debuff duration per level |
 | Bramble Volley | ![Bramble Volley](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/63/Bramble_Volley.png) | `+20%` range, `+20%` angle, `+20%` damage per level |
+| DIRECTIVE: Harvest | ![DIRECTIVE: Harvest](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/db/DIRECTIVE_Harvest.png) | `+20%` damage, `+10%` radius, `+1%` life steal on marked enemy per level |
 | Tangling Growth | ![Tangling Growth](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/9/9d/Tangling_Growth.png) | `+20%` damage, `+20%` radius, `+10%` healing rate per level |
 
 ### Loader
@@ -213,6 +215,7 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Charged Gauntlet | ![Charged Gauntlet](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/79/Charged_Gauntlet.png) | `+10%` max charge, `+20%` base damage, and `+15%` velocity based damage per level |
 | Thunder Gauntlet | ![Thunder Gauntlet](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f3/Thunder_Gauntlet.png) | `+15%` damage and `+20%` cone range per level |
 | M551 Pylon | ![M551 Pylon](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/37/M551_Pylon.png) | `+20%` damage, `+20%` range, and `+20%` rate of fire per level |
+| Thunder Slam | ![Thunder Slam](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/4f/Thunderslam.png) | `+5%` damage, `+10%` to `+100%` range based on travel distance, and `+25%` leap height per level |
 
 ### Acrid
 
@@ -232,11 +235,11 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Vulcan Shotgun | ![Vulcan Shotgun](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b9/Vulcan_Shotgun.png) | `+20%` shell count and `+10%` damage per level |
 | Power Tazer | ![Power Tazer](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b8/Power_Tazer.png) | `+40%` blast radius and `+20%` damage per level |
 | Orbital Probe | ![Orbital Probe](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/4e/Orbital_Probe.png) | `+20%` blast radius and `+20%` damage per level |
+| OGM-72 'DIABLO' Strike | ![OGM-72 'DIABLO' Strike](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/85/OGM-72_%27DIABLO%27_Strike.png) | `-2` second drop time, `-2 second cooldown` and `+4%` friendly fire prevention range per level |
 | Beacon: Healing | ![Beacon: Healing](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/1e/Beacon_Healing.png) | `+20%` healing range per level  |
 | Beacon: Shocking | ![Beacon: Shocking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c4/Beacon_Shocking.png) | `+30%` shock range per level |
 | Beacon: Resupply | ![Beacon: Resupply](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/67/Beacon_Resupply.png) | `+1` resupply stock per level |
 | Beacon: Hacking | ![Beacon: Hacking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/38/Beacon_Hacking.png) | `+20%` hacking speed and `+20%` hacking range per level |
-
 ### Lunar Items
 
 | Skill | | Description |
