@@ -52,6 +52,9 @@ namespace SkillsPlusPlus {
         [SyncVar]
         private int levelsPerSkillPoint = 5;
 
+        [SyncVar]
+        public static bool multScalingLinear = false;
+
         public bool hasUnspentPoints {
             get { return unspentSkillPoints > 0; }
         }
@@ -61,6 +64,7 @@ namespace SkillsPlusPlus {
         void Awake() {
 
             this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
+            multScalingLinear = ConVars.ConVars.multScalingLinear.value;
             Logger.Debug("levelsPerSkillPoint: {0}", this.levelsPerSkillPoint);
 
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();

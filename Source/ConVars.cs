@@ -13,6 +13,7 @@ namespace SkillsPlusPlus.ConVars {
 
         internal static StringListConVar disabledSurvivors = new StringListConVar("spp_disabled_survivors", ConVarFlags.Archive, new List<string>(), "The list of survivors excluded from Skills++ behaviour in a string form");
         internal static BoundedIntConVar levelsPerSkillPoint = new BoundedIntConVar("spp_levels_per_skillpoint", ConVarFlags.Archive, "5", 1, 99, Language.GetString("LEVELS_PER_SKILLPOINT_DESCRIPTION"));
+        internal static BoolConVar multScalingLinear = new BoolConVar("spp_mult_scaling_linear", ConVarFlags.Archive, "0", Language.GetString("MULT_SCALING_LINEAR_DESCRIPTION"));
 
         [ConCommand(commandName = "spp_disable_survivor", flags = ConVarFlags.None, helpText = "spp_disable_survivor <survivor name>\n  Disables Skills++ for the named survivor.")]
         public static void CCDisableSurvivor(ConCommandArgs args) {

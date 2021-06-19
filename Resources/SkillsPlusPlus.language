@@ -8,6 +8,9 @@
 		"LEVELS_PER_SKILLPOINT": "Levels per skill point",
 		"LEVELS_PER_SKILLPOINT_DESCRIPTION": "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run\n\nIn multiplayer runs the host's setting is used",
 
+		"MULT_SCALING_LINEAR": "Linear Skill Multipliers",
+		"MULT_SCALING_LINEAR_DESCRIPTION": "Should Multiplicative (+%) skill values use a linear value rather than an exponential one. (Useful for playing with low \"Levels per skill point\" values)\n\nIn multiplayer runs the host's setting is used",
+
 		"TOOLTIP_UPGRADE_DESCRIPTION": "<style=cStack>[ Upgrade ]</style>\n{0}",
 
 		"FIREPISTOL_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> rate of fire and <style=cIsUtility>+15%</style> recoil reduction",

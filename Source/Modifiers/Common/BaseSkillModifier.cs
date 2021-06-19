@@ -124,7 +124,13 @@ namespace SkillsPlusPlus.Modifiers {
                 Logger.Error("Multipliers less than -1 are not allowed as it causes sporadic behaviour with the scaling.");
                 return baseValue;
             }
-            return (float) ((Math.Pow(multiplier + 1, level) - 1) * baseValue) + baseValue;
+
+            if (SkillPointsController.multScalingLinear) {
+                return (float) ((multiplier * level) + 1) * baseValue;
+            }
+            else {
+                return (float)((Math.Pow(multiplier + 1, level) - 1) * baseValue) + baseValue;
+            }
         }
 
         // public static int MultScaling(int baseValue, float multiplier, int level) {
