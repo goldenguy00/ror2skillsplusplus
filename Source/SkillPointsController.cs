@@ -53,7 +53,7 @@ namespace SkillsPlusPlus {
         private int levelsPerSkillPoint = 5;
 
         [SyncVar]
-        public static bool multScalingLinear = false;
+        public bool multScalingLinear = false;
 
         public bool hasUnspentPoints {
             get { return unspentSkillPoints > 0; }

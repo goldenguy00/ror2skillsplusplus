@@ -76,7 +76,7 @@ namespace SkillsPlusPlus {
 
             CaptainDiabloStrikeSkillModifier.PatchSkillName();
 
-            LunarModifiers.PatchSkillName();
+            //LunarModifiers.PatchSkillName();
 
             BanditSkillThrowSmokebombModifier.RegisterBanditSpeedBuff();
 
@@ -90,11 +90,6 @@ namespace SkillsPlusPlus {
             On.EntityStates.Loader.GroundSlam.FixedUpdate += new On.EntityStates.Loader.GroundSlam.hook_FixedUpdate(LoaderThunderSlamSkillModifier.GroundSlamFixedUpdate);
 
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(TreebotHarvestSkillModifier.HealthComponent_TakeDamage);
-
-            On.EntityStates.Merc.Assaulter.OnEnter += (orig, self) => {
-                Chat.AddMessage("OnEnter");
-                orig(self);
-            };
 
             SkillModifierManager.LoadSkillModifiers();
             SkillInput.SetupCustomInput();

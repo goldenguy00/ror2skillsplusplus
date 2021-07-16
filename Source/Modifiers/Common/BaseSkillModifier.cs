@@ -59,6 +59,7 @@ namespace SkillsPlusPlus.Modifiers {
         /// <param name="skillDef">The associated skill definition</param>
         public virtual void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             Logger.Debug("{0}.OnSkillLeveledUp({1}, {2}, {3})", this.GetType().Name, level, characterBody, skillDef);
+            FindSkillUpgrade(characterBody, "blank");
         }
 
         /// <summary>
@@ -125,8 +126,9 @@ namespace SkillsPlusPlus.Modifiers {
                 return baseValue;
             }
 
-            if (SkillPointsController.multScalingLinear) {
-                return (float) ((multiplier * level) + 1) * baseValue;
+            if ((bool)registeredSkill?.skillPointsController?.multScalingLinear)
+            {
+                return (float)((multiplier * level) + 1) * baseValue;
             }
             else {
                 return (float)((Math.Pow(multiplier + 1, level) - 1) * baseValue) + baseValue;
@@ -153,11 +155,18 @@ namespace SkillsPlusPlus.Modifiers {
                 {
                     if (upgrades[i] != null)
                     {
-                        Logger.Debug(upgrades[i].targetBaseSkillName);
-                        if (upgrades[i].targetBaseSkillName == baseSkillName)
+                        foreach(GenericSkill skill in characterBody?.skillLocator?.allSkills)
                         {
-                            registeredSkill = upgrades[i];
-                            break;
+                            int pos = Array.IndexOf(skillNames, skill.skillName);
+
+                            if (pos > -1)
+                            {
+                                if (upgrades[i].targetGenericSkill.skillFamily == skill.skillFamily)
+                                {
+                                    registeredSkill = upgrades[i];
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
