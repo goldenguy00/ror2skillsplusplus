@@ -14,15 +14,26 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FirePistol", typeof(FirePistol2))]
     class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
 
+        float originalDuration = 0;
+        float originalRecoil = 0;
+        float originalSpread = 0;
         public override void OnSkillEnter(FirePistol2 skillState, int level) {
             base.OnSkillEnter(skillState, level);
         }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            FirePistol2.baseDuration = MultScaling(0.2f, -0.20f, level);
-            FirePistol2.recoilAmplitude = MultScaling(1.5f, -0.1f, level);
-            FirePistol2.spreadBloomValue = MultScaling(0.3f, -0.1f, level);
+            
+            if(Mathf.Abs(originalDuration) < 0.01f)
+            {
+                originalDuration = FirePistol2.baseDuration;
+                originalRecoil = FirePistol2.recoilAmplitude;
+                originalSpread = FirePistol2.spreadBloomValue;
+            }
+            
+            FirePistol2.baseDuration = MultScaling(originalDuration, -0.20f, level);
+            FirePistol2.recoilAmplitude = MultScaling(originalRecoil, -0.1f, level);
+            FirePistol2.spreadBloomValue = MultScaling(originalSpread, -0.1f, level);
         }
 
     }
@@ -30,12 +41,19 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireFMJ", typeof(FireFMJ))]
     class CommandoFMJSkillModifier : SimpleSkillModifier<FireFMJ> {
 
+        float originalForwardSpeed = 0;
         public override void OnSkillEnter(FireFMJ skillState, int level) {
             base.OnSkillEnter(skillState, level);
             Logger.Debug("recoilAmplitude: {0},s damageCoefficient: {1}", skillState.recoilAmplitude, skillState.damageCoefficient);
             skillState.projectilePrefab.transform.localScale = new Vector3(2.90f, 2.19f, 3.86f) * AdditiveScaling(1, 0.2f, level);
             if (skillState.projectilePrefab.TryGetComponent(out ProjectileSimple projectileSimple)) {
-                projectileSimple.velocity = MultScaling(120f, 0.3f, level);
+
+                if (Mathf.Abs(originalForwardSpeed) < 0.01f)
+                {
+                    originalForwardSpeed = projectileSimple.desiredForwardSpeed;
+                }
+
+                projectileSimple.desiredForwardSpeed = MultScaling(originalForwardSpeed, 0.3f, level);
             }
             skillState.recoilAmplitude = MultScaling(skillState.recoilAmplitude, 0.1f, level);
             skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.3f, level);

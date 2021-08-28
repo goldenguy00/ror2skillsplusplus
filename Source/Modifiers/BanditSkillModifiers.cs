@@ -9,7 +9,6 @@ using UnityEngine;
 
 namespace SkillsPlusPlus.Modifiers
 {
-
     [SkillLevelModifier("FireShotgun2", new Type[]
         {
         typeof(FireShotgun2)
@@ -128,16 +127,16 @@ namespace SkillsPlusPlus.Modifiers
 
         public static void RegisterBanditSpeedBuff()
         {
-            BuffDef buffDef = new BuffDef
-            {
-                buffColor = new Color(153, 30, 150),
-                buffIndex = (BuffIndex)63,
-                canStack = true,
-                eliteDef = null,
-                iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texMovespeedBuffIcon"),
-                isDebuff = false,
-                name = "BanditSpeedBuff"
-            };
+            BuffDef buffDef = ScriptableObject.CreateInstance<BuffDef>();
+
+            buffDef.buffColor = new Color(153, 30, 150);
+            buffDef.buffIndex = (BuffIndex)63;
+            buffDef.canStack = true;
+            buffDef.eliteDef = null;
+            buffDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texMovespeedBuffIcon");
+            buffDef.isDebuff = false;
+            buffDef.name = "BanditSpeedBuff";
+
             BanditSpeedBuff = buffDef;
             BuffAPI.Add(new CustomBuff(buffDef));
         }
@@ -229,7 +228,7 @@ namespace SkillsPlusPlus.Modifiers
             base.OnSkillEnter(skillState, level);
 
             //Attempt to get the skill if it's still invalid.
-            FindSkillUpgrade(skillState.outer.commonComponents.characterBody, "Bandit2.ResetRevolver");
+            //FindSkillUpgrade(skillState.outer.commonComponents.characterBody, "Bandit2.ResetRevolver");
         }
 
         public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)

@@ -1,5 +1,16 @@
 # Changelog
 
+## What's new in 0.2.5 to 0.2.8
+- 0.2.5 = Makes the mod functional (unlike 0.2.4)
+- 0.2.6 = Removes logging used to fix 0.2.4
+- 0.2.7 = Fixes Multiplayer
+- 0.2.8 = Corrects some skills' bonuses.
+
+## What's new in 0.2.4
+
+- Added support for Captain's Diablo Strike, Mercenary's Focused Assault, REX's Directive: Harvest, and Loader's Thunderslam.
+- Added new setting to use Linear Multipliers rather than exponentials.
+
 ## What's new in 0.2.3
 
 - Bandit support. Full credit to Volvary, [Risk of Rain 2 modding discord](https://discord.gg/5MbXZvd) and send them some love.

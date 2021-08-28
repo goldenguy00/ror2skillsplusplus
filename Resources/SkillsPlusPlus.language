@@ -87,7 +87,7 @@
 		"CAPTAINSHOTGUN_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> shell count and <style=cIsDamage>+10%</style> damage",
 		"CAPTAINTAZER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+40%</style> blast radius and <style=cIsDamage>+20%</style> damage",
 		"CAPTAINPREPAIRSTRIKE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> blast radius and <style=cIsDamage>+20%</style> damage",
-		"CAPTAINDIABLOSTRIKE_UPGRADE_DESCRIPTION": "<style=cIsUtility>-2</style> second drop time, <style=cIsUtility>-2</style> second cooldown and <style=cIsUtility>+4%</style> friendly fire prevention",
+		"CAPTAINDIABLOSTRIKE_UPGRADE_DESCRIPTION": "<style=cIsUtility>-1</style> second drop time, <style=cIsUtility>-2</style> second cooldown and <style=cIsUtility>+4%</style> friendly fire prevention",
 		"CAPTAINSUPPLYDROPHEALING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> healing range",
 		"CAPTAINSUPPLYDROPPLATING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> shock range",
 		"CAPTAINSUPPLYDROPEQUIPMENTRESTOCK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> resupply stock",

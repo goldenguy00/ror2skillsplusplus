@@ -132,11 +132,17 @@ namespace SkillsPlusPlus {
 
         void Update() {
             if (skillIcon) {
-                var skillUpgrades = skillIcon.targetSkill?.characterBody?.GetComponents<SkillUpgrade>();
-                if(skillUpgrades != null) {
-                    foreach(var skillUpgrade in skillUpgrades) {
-                        if(genericSkill.baseSkill.skillName == skillUpgrade.targetGenericSkill?.baseSkill.skillName) {
-                            this.skillUpgrade = skillUpgrade;
+                if (skillIcon.targetSkill)  //Prevents errors when morphing to Heretic
+                {
+                    var skillUpgrades = skillIcon.targetSkill?.characterBody?.GetComponents<SkillUpgrade>();
+                    if (skillUpgrades != null)
+                    {
+                        foreach (var skillUpgrade in skillUpgrades)
+                        {
+                            if (genericSkill.skillDef.skillName == skillUpgrade.targetGenericSkill?.skillDef.skillName)
+                            {
+                                this.skillUpgrade = skillUpgrade;
+                            }
                         }
                     }
                 }

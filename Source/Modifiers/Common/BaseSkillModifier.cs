@@ -157,7 +157,8 @@ namespace SkillsPlusPlus.Modifiers {
                     {
                         foreach(GenericSkill skill in characterBody?.skillLocator?.allSkills)
                         {
-                            int pos = Array.IndexOf(skillNames, skill.skillName);
+
+                            int pos = Array.IndexOf(skillNames, skill.skillDef.skillName);
 
                             if (pos > -1)
                             {
@@ -168,6 +169,11 @@ namespace SkillsPlusPlus.Modifiers {
                                 }
                             }
                         }
+                    }
+
+                    if (registeredSkill)
+                    {
+                        break;
                     }
                 }
             }

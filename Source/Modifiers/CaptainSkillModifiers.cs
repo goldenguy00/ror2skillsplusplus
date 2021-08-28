@@ -109,8 +109,6 @@ namespace SkillsPlusPlus.Modifiers {
         public override void OnSkillEnter(CallAirstrikeAlt skillState, int level) {
             base.OnSkillEnter(skillState, level);
 
-            Chat.AddMessage("Diablo");
-
             //Try and update the speed of the Indicator
             if (skillState.projectilePrefab.TryGetComponent(out ProjectileController projectileController) && registeredSkill != null)
             {

@@ -1,12 +1,17 @@
+# *__This release is a temporary version while waiting on Cwmlolzlz to return to the modding scene. It will later be deprecated once the main listing is up to date. This version supersedes the official version so no need to delete or disable the official version until it's updated.__*
+
 # Risk of Rain 2 - Skills++ Mod
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-## What's new in 0.2.3
+## What's new in 0.2.4 - 0.2.8
 
-- Bandit support. Full credit to Volvary, [Risk of Rain 2 modding discord](https://discord.gg/5MbXZvd) and send them some love.
-- Updated R2API dependancy to 3.0.30
-- Improved mod support for third party skill upgrades
+- Added support for Captain's Diablo Strike, Mercenary's Focused Assault, REX's Directive: Harvest, and Loader's Thunderslam.
+- Added new setting to use Linear Multipliers rather than exponentials.
+- 0.2.5 = shameful bug fix.
+- 0.2.6 = shameful log removal.
+- 0.2.7 = fixed an error in the build that caused NetWeaver not to run.
+- 0.2.8 = fixed an error that disabled some of Loader, Bandit and Captain's bonuses.
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -237,7 +242,7 @@ Credit to Volvary. Find them on the [Risk of Rain 2 modding discord](https://dis
 | Vulcan Shotgun | ![Vulcan Shotgun](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b9/Vulcan_Shotgun.png) | `+20%` shell count and `+10%` damage per level |
 | Power Tazer | ![Power Tazer](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b8/Power_Tazer.png) | `+40%` blast radius and `+20%` damage per level |
 | Orbital Probe | ![Orbital Probe](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/4e/Orbital_Probe.png) | `+20%` blast radius and `+20%` damage per level |
-| OGM-72 'DIABLO' Strike | ![OGM-72 'DIABLO' Strike](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/85/OGM-72_%27DIABLO%27_Strike.png) | `-2` second drop time, `-2 second cooldown` and `+4%` friendly fire prevention range per level |
+| OGM-72 'DIABLO' Strike | ![OGM-72 'DIABLO' Strike](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/85/OGM-72_%27DIABLO%27_Strike.png) | `-1` second drop time, `-2 second cooldown` and `+4%` friendly fire prevention range per level |
 | Beacon: Healing | ![Beacon: Healing](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/1e/Beacon_Healing.png) | `+20%` healing range per level  |
 | Beacon: Shocking | ![Beacon: Shocking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c4/Beacon_Shocking.png) | `+30%` shock range per level |
 | Beacon: Resupply | ![Beacon: Resupply](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/67/Beacon_Resupply.png) | `+1` resupply stock per level |
