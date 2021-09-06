@@ -19,7 +19,9 @@ namespace SkillsPlusPlus.Modifiers {
         /// <summary>
         /// The SkillUpgrade associated to this Modifier. Call FindSkillUpgrade to assign.
         /// </summary>
-        public static SkillUpgrade registeredSkill;
+        public SkillUpgrade registeredSkill;
+
+        static bool bMultScalingLinear;
 
         public virtual string skillUpgradeDescriptionToken { get { return null; } }
 
@@ -59,7 +61,9 @@ namespace SkillsPlusPlus.Modifiers {
         /// <param name="skillDef">The associated skill definition</param>
         public virtual void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             Logger.Debug("{0}.OnSkillLeveledUp({1}, {2}, {3})", this.GetType().Name, level, characterBody, skillDef);
-            FindSkillUpgrade(characterBody, "blank");
+            FindSkillUpgrade(characterBody, "blank", true);
+
+            bMultScalingLinear = (bool)registeredSkill?.skillPointsController?.multScalingLinear;
         }
 
         /// <summary>
@@ -126,7 +130,7 @@ namespace SkillsPlusPlus.Modifiers {
                 return baseValue;
             }
 
-            if ((bool)registeredSkill?.skillPointsController?.multScalingLinear)
+            if ((bool)bMultScalingLinear)
             {
                 return (float)((multiplier * level) + 1) * baseValue;
             }
@@ -144,9 +148,22 @@ namespace SkillsPlusPlus.Modifiers {
         /// </summary>
         /// <param name="characterBody">The characterbody to search.</param>
         /// <param name="baseSkillName">The base skill name to find.</param>
+        /// <param name="bConfirmSkill">Whether we need to confirm the registered skill is still valid.</param>
         /// <returns></returns>
-        protected void FindSkillUpgrade(CharacterBody characterBody, String baseSkillName)
+        protected void FindSkillUpgrade(CharacterBody characterBody, String baseSkillName, bool bConfirmSkill = false)
         {
+
+            if (bConfirmSkill && registeredSkill)
+            {
+                SkillUpgrade[] upgrades = characterBody.GetComponents<SkillUpgrade>();
+                
+                //If registered skill isn't on this character body, null it.
+                if (Array.IndexOf(upgrades, registeredSkill) == -1)
+                {
+                    registeredSkill = null;
+                }
+            }
+
             if (registeredSkill == null)
             {
                 SkillUpgrade[] upgrades = characterBody.GetComponents<SkillUpgrade>();
@@ -157,9 +174,7 @@ namespace SkillsPlusPlus.Modifiers {
                     {
                         foreach(GenericSkill skill in characterBody?.skillLocator?.allSkills)
                         {
-
                             int pos = Array.IndexOf(skillNames, skill.skillDef.skillName);
-
                             if (pos > -1)
                             {
                                 if (upgrades[i].targetGenericSkill.skillFamily == skill.skillFamily)

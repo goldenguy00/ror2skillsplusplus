@@ -138,6 +138,7 @@ namespace SkillsPlusPlus.Modifiers {
     {
         static float baseBlastRadius = 0f;
         static float baseDamageCoefficient = 0f;
+        static SkillUpgrade seedSkill;
         public override void OnSkillEnter(TreebotFireFruitSeed skillState, int level)
         {
             if (skillState is TreebotFireFruitSeed)
@@ -169,12 +170,15 @@ namespace SkillsPlusPlus.Modifiers {
         {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
 
-            FindSkillUpgrade(characterBody, "FireFlower2");
+            if (!seedSkill)
+            {
+                seedSkill = registeredSkill;
+            }
         }
 
         public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)
         {
-            if (registeredSkill != null)
+            if (seedSkill != null)
             {
                 if (di.attacker != null && self != null)
                 {
@@ -183,7 +187,7 @@ namespace SkillsPlusPlus.Modifiers {
                     {
                         if (body.HasBuff(RoR2Content.Buffs.Fruiting))
                         {
-                            di.attacker.GetComponent<CharacterBody>().healthComponent.Heal(registeredSkill.skillLevel * 0.01f *di.damage , default(ProcChainMask), true);
+                            di.attacker.GetComponent<CharacterBody>().healthComponent.Heal(seedSkill.skillLevel * 0.01f *di.damage , default(ProcChainMask), true);
                         }
                     }
                 }

@@ -75,7 +75,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         static int diabloStrikeProjectileCatalogIndex = -1337;
         static float fuseDuration;
-
+        static SkillUpgrade diabloSkill;
         internal static void PatchSkillName()
         {
             var captainBody = Resources.Load<GameObject>("prefabs/characterbodies/CaptainBody");
@@ -102,8 +102,10 @@ namespace SkillsPlusPlus.Modifiers {
 
             fuseDuration = Mathf.Clamp(20f - (level), 0f, 20f);
 
-            //Attempt to get the skill if it's still invalid.
-            FindSkillUpgrade(characterBody, "CaptainPrepAirstrike");
+            if (!diabloSkill)
+            {
+                diabloSkill = registeredSkill;
+            }
         }
 
         public override void OnSkillEnter(CallAirstrikeAlt skillState, int level) {
@@ -153,7 +155,7 @@ namespace SkillsPlusPlus.Modifiers {
         {
             orig(self, ref fireProjectileInfo);
 
-            if (self is CallAirstrikeAlt && registeredSkill != null)
+            if (self is CallAirstrikeAlt && diabloSkill != null)
             {
                 fireProjectileInfo.useFuseOverride = true;
                 fireProjectileInfo.fuseOverride = fuseDuration;
@@ -162,7 +164,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)
         {
-            if (registeredSkill != null)
+            if (diabloSkill != null)
             {
                 if (di != null && self != null)
                 {
@@ -175,12 +177,12 @@ namespace SkillsPlusPlus.Modifiers {
                     {
                         if (di.attacker && di.attacker.TryGetComponent(out CharacterBody attackerBody))
                         {
-                            if (self?.body?.teamComponent?.teamIndex == attackerBody?.teamComponent?.teamIndex && registeredSkill.skillLevel > 0)
+                            if (self?.body?.teamComponent?.teamIndex == attackerBody?.teamComponent?.teamIndex && diabloSkill.skillLevel > 0)
                             {
-                                var friendlyFireProtection = (25 / ((float)registeredSkill.skillLevel + 25));
+                                var friendlyFireProtection = (25 / ((float)diabloSkill.skillLevel + 25));
                                 if (self.combinedHealthFraction > friendlyFireProtection)
                                 {
-                                    di.damage = (self.combinedHealth - (registeredSkill.skillLevel * 0.04f * self.fullCombinedHealth)) * 2;    //Friendly fire deals half damage
+                                    di.damage = (self.combinedHealth - (diabloSkill.skillLevel * 0.04f * self.fullCombinedHealth)) * 2;    //Friendly fire deals half damage
                                     di.damageType |= DamageType.BypassArmor;
                                     di.damageType &= ~DamageType.AOE;
                                 }

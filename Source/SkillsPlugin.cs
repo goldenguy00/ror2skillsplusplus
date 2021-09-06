@@ -15,7 +15,7 @@ using UnityEngine.Networking;
 namespace SkillsPlusPlus {
 
     [BepInDependency(R2API.R2API.PluginGUID)]
-    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.2.8")]
+    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.3.0")]
     [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(SurvivorAPI), nameof(BuffAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
@@ -76,13 +76,17 @@ namespace SkillsPlusPlus {
 
             CaptainDiabloStrikeSkillModifier.PatchSkillName();
 
-            //LunarModifiers.PatchSkillName();
+            LunarModifiers.PatchSkillName();
 
             BanditSkillThrowSmokebombModifier.RegisterBanditSpeedBuff();
 
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillSkullRevolverModifier.HealthComponent_TakeDamage);
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillResetRevolverModifier.HealthComponent_TakeDamage);
             On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(BanditSkillThrowSmokebombModifier.CharacterBody_RecalculateStats);
+
+            On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(LunarModifiers.CharacterBody_RecalculateStats);
+            On.RoR2.LunarDetonatorPassiveAttachment.DamageListener.OnDamageDealtServer += 
+                new On.RoR2.LunarDetonatorPassiveAttachment.DamageListener.hook_OnDamageDealtServer(LunarModifiers.HeartOfHeresySkillModifier.LunarDetonatorPassiveAttachment_OnDamageDealt);
 
             On.EntityStates.AimThrowableBase.ModifyProjectile += CaptainDiabloStrikeSkillModifier.AimThrowableBase_ModifyProjectile;
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(CaptainDiabloStrikeSkillModifier.HealthComponent_TakeDamage);

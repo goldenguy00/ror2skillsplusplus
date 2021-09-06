@@ -1,5 +1,10 @@
 # Changelog
 
+## What's new in 0.3.0
+- Heretic support is here!
+- Fixed issues caused by changing character mid-run. (Artifact of Metamorphosis, Heretic, Guren Lagann, etc.)
+- Fixed a bug where some aspects of skills wouldn't look at the correct skill's level to determine their power.
+
 ## What's new in 0.2.5 to 0.2.8
 - 0.2.5 = Makes the mod functional (unlike 0.2.4)
 - 0.2.6 = Removes logging used to fix 0.2.4

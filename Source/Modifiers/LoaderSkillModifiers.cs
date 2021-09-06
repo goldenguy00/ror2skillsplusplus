@@ -48,7 +48,7 @@ namespace SkillsPlusPlus.Modifiers {
         static float baseBlastRadius = 0f;
         static float maxVerticalCap = 0f;
         static Vector3 initialPosition;
-
+        static SkillUpgrade slamSkill;
         public override void OnSkillEnter(BaseState skillState, int level) {
 
             if(skillState is GroundSlam)
@@ -69,23 +69,26 @@ namespace SkillsPlusPlus.Modifiers {
                 baseUpwardVelocity = PreGroundSlam.upwardVelocity;
                 baseVerticalAcceleration = GroundSlam.verticalAcceleration;
                 baseBlastRadius = GroundSlam.blastRadius;
-
-                FindSkillUpgrade(characterBody, "ThrowPylon");
             }
 
             PreGroundSlam.upwardVelocity = AdditiveScaling(baseUpwardVelocity, baseUpwardVelocity * 0.25f, level);
             GroundSlam.verticalAcceleration = AdditiveScaling(baseVerticalAcceleration, baseVerticalAcceleration * 0.25f, level);
             maxVerticalCap = AdditiveScaling(0f, 10f, level);
+
+            if (!slamSkill)
+            {
+                slamSkill = registeredSkill;
+            }
         }
 
         public static void GroundSlamFixedUpdate(On.EntityStates.Loader.GroundSlam.orig_FixedUpdate orig, EntityStates.Loader.GroundSlam self)
         {
-            if (self.detonateNextFrame && registeredSkill && registeredSkill.skillLevel > 0)
+            if (self.detonateNextFrame)
             {
                 float distanceTravelled = Vector3.Distance(self.outer.commonComponents.characterBody.transform.position, initialPosition);
                 float distanceRatio = Mathf.Clamp(distanceTravelled / maxVerticalCap, 0f, 1f);
 
-                GroundSlam.blastRadius = baseBlastRadius * (1 + Mathf.Lerp(0.1f, 1f, distanceRatio) * registeredSkill.skillLevel);
+                GroundSlam.blastRadius = baseBlastRadius * (slamSkill ? (1 + Mathf.Lerp(0.1f, 1f, distanceRatio) * slamSkill.skillLevel) : 1);
             }
             orig(self);
         }
@@ -137,6 +140,8 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("FireYankHook", typeof(FireYankHook))]
     class LoaderYankHookSkillModifier : SimpleSkillModifier<FireYankHook> {
 
+        static float baseDamageCoeff = 0f;
+
         public override void OnSkillEnter(FireYankHook skillState, int level) {
             base.OnSkillEnter(skillState, level);
             if(skillState.projectilePrefab.TryGetComponent(out ProjectileGrappleController grappleController)) {
@@ -145,10 +150,17 @@ namespace SkillsPlusPlus.Modifiers {
         }
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
+
+            if(Mathf.Abs(baseDamageCoeff) < 0.1f)
+            {
+                baseDamageCoeff = FireYankHook.damageCoefficient;
+            }
+
             if(characterBody.crosshairPrefab.TryGetComponent(out LoaderHookCrosshairController hookCrosshairController)) {
                 hookCrosshairController.range = MultScaling(80, 0.15f, level);
             }
-            FireYankHook.damageCoefficient = MultScaling(3.2f, 0.20f, level);
+
+            FireYankHook.damageCoefficient = MultScaling(baseDamageCoeff, 0.20f, level);
         }
 
     }

@@ -4,14 +4,10 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-## What's new in 0.2.4 - 0.2.8
-
-- Added support for Captain's Diablo Strike, Mercenary's Focused Assault, REX's Directive: Harvest, and Loader's Thunderslam.
-- Added new setting to use Linear Multipliers rather than exponentials.
-- 0.2.5 = shameful bug fix.
-- 0.2.6 = shameful log removal.
-- 0.2.7 = fixed an error in the build that caused NetWeaver not to run.
-- 0.2.8 = fixed an error that disabled some of Loader, Bandit and Captain's bonuses.
+## What's new in 0.3.0
+- Heretic support is here!
+- Fixed issues caused by changing character mid-run. (Artifact of Metamorphosis, Heretic, Guren Lagann, etc.)
+- Fixed a bug where some aspects of skills wouldn't look at the correct skill's level to determine their power.
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -46,7 +42,7 @@ Go and check out all of these characters and give them some love!
 
 If you have added Skills++ to your own modded character let me know and I will add it here.
 
-[![Aatrox by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Aatrox-3.5.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Aatrox/) [![Twitch by Rob](https://thunderstore.fra1.cdn.digitaloceanspaces.com/live/repository/icons/rob-Twitch-2.1.0.png.256x256_q85_crop.jpg)](https://thunderstore.io/package/rob/Twitch/)
+[![TTGL by Mico27](https://gcdn.thunderstore.io/live/repository/icons/Mico27-TTGL_Mod-0.3.4.png.128x128_q95.jpg)](https://thunderstore.io/package/Mico27/TTGL_Mod/)
 
 ### Controllers
 
@@ -251,5 +247,7 @@ Credit to Volvary. Find them on the [Risk of Rain 2 modding discord](https://dis
 
 | Skill | | Description |
 |:-|-|------|
-| Hungering Gaze | ![Visions of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3c/Hungering_Gaze.png) | `+2` stock per level and `+20%` damage per level |
-| Strides Of Heresy | ![Strides Of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c8/Shadowfade.png) | `+10%` speed bonus and `+15%` healing ticks |
+| Hungering Gaze | ![Visions of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3c/Hungering_Gaze.png) | `+2` stock per level and `+20%` damage per level. As Heretic, `+0.25` base damage per level |
+| Slicing Maelstrom | ![Hooks Of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e9/Slicing_Maelstrom.png) | `+1` maelstrom tick per second and `+15%` hitbox size per level. As Heretic, `+3` base armor per level |
+| Shadowfade | ![Strides Of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c8/Shadowfade.png) | `+10%` speed bonus and `+15%` healing ticks. As Heretic, `+3%` max health per level |
+| Ruin | ![Heart Of Heresy](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/bc/Ruin.png) | `+5%` damage and `+20%` Ruin stack odds per attack, per level. As Heretic, `+0.25` base attack speed per level |

@@ -101,7 +101,19 @@
 		"SLASHBLADE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> hitbox size, <style=cIsDamage>+20%</style> damage",
 		"THROWSMOKEBOMB_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> hitbox size, <style=cIsDamage>+20%</style> damage, <style=cIsUtility>+1</style> movement speed while invisible",
 
-		"LUNARPRIMARYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2</style> stock per level and <style=cIsDamage>+20%</style> damage",
-		"LUNARUTILITYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> speed bonus and <style=cIsHealing>+15%</style> heal ticks"
+		"LUNARPRIMARYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2</style> stock per level and <style=cIsDamage>+20%</style> damage \nAs Heretic, <style=cIsDamage>+0.25</style> base damage",
+		"LUNARSECONDARYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> maelstrom ticks and <style=cIsUtility>+15%</style> hitbox size \nAs Heretic, <style=cIsUtility>+3</style> base armor",
+		"LUNARUTILITYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> speed bonus and <style=cIsHealing>+15%</style> heal ticks \nAs Heretic, <style=cIsHealing>+3%</style> max health",
+		"LUNARDETONATORSPECIALREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsDamage>+5%</style> damage and <style=cIsUtility>+20%</style> Ruin stack odds per attack \nAs Heretic, <style=cIsUtility>+0.25</style> base attack speed",
+
+		"HERETIC_PRIMARY_SKILL_NAME": "Nevermore",
+		"HERETIC_PRIMARY_SKILL_DESCRIPTION": "Squawk a solemn reply.",
+		"HERETIC_SECONDARY_SKILL_NAME": "Nevermore",
+		"HERETIC_SECONDARY_SKILL_DESCRIPTION": "Squawk a solemn reply.",
+		"HERETIC_UTILITY_SKILL_NAME": "Nevermore",
+		"HERETIC_UTILITY_SKILL_DESCRIPTION": "Squawk a solemn reply.",
+		"HERETIC_SPECIAL_SKILL_NAME": "Nevermore",
+		"HERETIC_SPECIAL_SKILL_DESCRIPTION": "Squawk a solemn reply."
+
 	}
 }

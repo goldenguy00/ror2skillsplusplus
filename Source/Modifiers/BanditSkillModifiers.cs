@@ -182,17 +182,25 @@ namespace SkillsPlusPlus.Modifiers
         })]
     internal class BanditSkillResetRevolverModifier : SimpleSkillModifier<FireSidearmResetRevolver>
     {
+        static SkillUpgrade resetSkill;
+
         public override void OnSkillEnter(FireSidearmResetRevolver skillState, int level)
         {
             base.OnSkillEnter(skillState, level);
+        }
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
+        {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
 
-            //Attempt to get the skill if it's still invalid.
-            FindSkillUpgrade(skillState.outer.commonComponents.characterBody, "Bandit2.ResetRevolver");
+            if (!resetSkill)
+            {
+                resetSkill = registeredSkill;
+            }
         }
 
         public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)
         {
-            if(registeredSkill != null)
+            if(resetSkill != null)
             {
                 if (di.attacker != null && self != null)
                 {
@@ -201,7 +209,7 @@ namespace SkillsPlusPlus.Modifiers
                     {
                         if (di.damageType.HasFlag(RoR2.DamageType.BonusToLowHealth) && di.damageType.HasFlag(RoR2.DamageType.ResetCooldownsOnKill))
                         {
-                            di.damage *= Mathf.Lerp(1.0f + registeredSkill.skillLevel * 0.3f, 1.0f + registeredSkill.skillLevel * 0.1f, self.combinedHealthFraction);
+                            di.damage *= Mathf.Lerp(1.0f + resetSkill.skillLevel * 0.3f, 1.0f + resetSkill.skillLevel * 0.1f, self.combinedHealthFraction);
                         }
                     }
                 }
@@ -218,9 +226,16 @@ namespace SkillsPlusPlus.Modifiers
         })]
     internal class BanditSkillSkullRevolverModifier : SimpleSkillModifier<FireSidearmSkullRevolver>
     {
+        static SkillUpgrade revolverSkill;
+        
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
+
+            if (!revolverSkill)
+            {
+                revolverSkill = registeredSkill;
+            }
         }
 
         public override void OnSkillEnter(FireSidearmSkullRevolver skillState, int level)
@@ -233,14 +248,14 @@ namespace SkillsPlusPlus.Modifiers
 
         public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)
         {
-            if (registeredSkill != null) 
+            if (revolverSkill != null) 
             {
                 if (di != null && self != null)
                 {
                     if (di.damageType.HasFlag(RoR2.DamageType.GiveSkullOnKill))
                     {
                         float remainingHealth = (self.combinedHealth - di.damage);
-                        if (remainingHealth / self.fullCombinedHealth < registeredSkill.skillLevel * 0.01f && remainingHealth > 0)
+                        if (remainingHealth / self.fullCombinedHealth < revolverSkill.skillLevel * 0.01f && remainingHealth > 0)
                         {
                             di.damage += remainingHealth;
                             di.damageType |= DamageType.BypassArmor;

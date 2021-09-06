@@ -112,17 +112,16 @@ namespace SkillsPlusPlus {
 
         [Server]
         private void TransferSkillUpgrades(CharacterBody body) {
+            unspentSkillPoints = SkillPointsAtLevel((int)body.level);
+            
             var skillUpgrades = body.GetComponents<SkillUpgrade>();
             foreach (var skillUpgrade in skillUpgrades) {
                 if (!isSurvivorEnabled) break;
                 if (skillUpgrade.targetBaseSkillName != null && transferrableSkillUpgrades.ContainsKey(skillUpgrade.targetBaseSkillName)) {
                     skillUpgrade.skillLevel = transferrableSkillUpgrades[skillUpgrade.targetBaseSkillName];
+                    unspentSkillPoints -= skillUpgrade.skillLevel;
                     transferrableSkillUpgrades.Remove(skillUpgrade.targetBaseSkillName);
                 }
-            }
-
-            foreach (var remainingSkillUpgrades in transferrableSkillUpgrades) {
-                this.unspentSkillPoints += remainingSkillUpgrades.Value;
             }
         }
 
@@ -188,6 +187,8 @@ namespace SkillsPlusPlus {
             if (Input.GetKeyDown(KeyCode.Keypad7) && this.playerCharacterMasterController != null) {
                 this.playerCharacterMasterController.master?.inventory.GiveItemString("LunarPrimaryReplacement");
                 this.playerCharacterMasterController.master?.inventory.GiveItemString("LunarUtilityReplacement");
+                this.playerCharacterMasterController.master?.inventory.GiveItemString("LunarSecondaryReplacement");
+                this.playerCharacterMasterController.master?.inventory.GiveItemString("LunarSpecialReplacement");
             }
             #endif
         }
