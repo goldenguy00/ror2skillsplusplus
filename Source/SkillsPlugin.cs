@@ -15,7 +15,8 @@ using UnityEngine.Networking;
 namespace SkillsPlusPlus {
 
     [BepInDependency(R2API.R2API.PluginGUID)]
-    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.3.0")]
+    [BepInDependency("com.KingEnderBrine.ExtendedLoadout", BepInDependency.DependencyFlags.SoftDependency)] //Soft-dependency to make Skills++ load after ExtendedLoadout
+    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.3.1")]
     [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(SurvivorAPI), nameof(BuffAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
@@ -79,10 +80,12 @@ namespace SkillsPlusPlus {
             LunarModifiers.PatchSkillName();
 
             BanditSkillThrowSmokebombModifier.RegisterBanditSpeedBuff();
+            CommandoDiveSkillModifier.RegisterCommandoSlideBuff();
 
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillSkullRevolverModifier.HealthComponent_TakeDamage);
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillResetRevolverModifier.HealthComponent_TakeDamage);
             On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(BanditSkillThrowSmokebombModifier.CharacterBody_RecalculateStats);
+            On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(CommandoDiveSkillModifier.CharacterBody_RecalculateStats);
 
             On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(LunarModifiers.CharacterBody_RecalculateStats);
             On.RoR2.LunarDetonatorPassiveAttachment.DamageListener.OnDamageDealtServer += 

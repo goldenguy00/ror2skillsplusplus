@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Text;
 using EntityStates.Commando;
 using EntityStates.Commando.CommandoWeapon;
+using R2API;
+using R2API.Utils;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
@@ -88,14 +90,63 @@ namespace SkillsPlusPlus.Modifiers {
 
     [SkillLevelModifier("Slide", typeof(SlideState))]
     class CommandoDiveSkillModifier : SimpleSkillModifier<SlideState> {
+        public float baseSlideDuration = 0f;
+        public float baseJumpDuration = 0f;
 
+        static BuffDef CommandoSlideBuff;
+
+        public static void RegisterCommandoSlideBuff()
+        {
+            BuffDef buffDef = ScriptableObject.CreateInstance<BuffDef>();
+
+            buffDef.buffColor = new Color(250, 130, 0);
+            buffDef.buffIndex = (BuffIndex)64;
+            buffDef.canStack = true;
+            buffDef.eliteDef = null;
+            buffDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texMovespeedBuffIcon");
+            buffDef.isDebuff = false;
+            buffDef.name = "CommandoSlideBuff";
+
+            CommandoSlideBuff = buffDef;
+            BuffAPI.Add(new CustomBuff(buffDef));
+        }
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
+        { 
+            if(Mathf.Abs(baseSlideDuration) < 0.0001f)
+            {
+                baseSlideDuration = SlideState.slideDuration;
+                baseJumpDuration = SlideState.jumpDuration;
+            }
+            SlideState.slideDuration = baseSlideDuration + (0.125f * level);
+            SlideState.jumpDuration = baseJumpDuration + (0.125f * level);
+        }
         public override void OnSkillEnter(SlideState skillState, int level) {
+            if (level > 0) {
+                skillState.outer.commonComponents.characterBody.SetBuffCount(CommandoSlideBuff.buffIndex, level);
+            }
             base.OnSkillEnter(skillState, level);
-            float duration = AdditiveScaling(0f, 0.75f, level);
-            if (duration > 0) {
-                Logger.Debug("adding buff for {0} seconds", duration);
-                var energizedBuffIndex = BuffCatalog.FindBuffIndex("Energized");
-                skillState.outer.commonComponents.characterBody.AddTimedBuff(energizedBuffIndex, duration);
+        }
+
+        public override void OnSkillExit(SlideState skillState, int level)
+        {
+            skillState.outer.commonComponents.characterBody.SetBuffCount(CommandoSlideBuff.buffIndex, 0);
+            base.OnSkillExit(skillState, level);
+        }
+
+        public static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, RoR2.CharacterBody self)
+        {
+            orig.Invoke(self);
+
+            if (self.HasBuff(CommandoSlideBuff))
+            {
+                int buffLevel = self.GetBuffCount(CommandoSlideBuff);
+                float speedDrop = self.moveSpeed * (1 - (10.0f/(10.0f+(float)buffLevel)));
+                self.moveSpeed -= speedDrop;
+
+                self.attackSpeed += speedDrop;
+                self.damage += speedDrop;
+                self.armor += speedDrop * 10;
             }
         }
     }

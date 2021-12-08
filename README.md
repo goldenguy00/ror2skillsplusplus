@@ -4,10 +4,9 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-## What's new in 0.3.0
-- Heretic support is here!
-- Fixed issues caused by changing character mid-run. (Artifact of Metamorphosis, Heretic, Guren Lagann, etc.)
-- Fixed a bug where some aspects of skills wouldn't look at the correct skill's level to determine their power.
+## What's new in 0.3.1
+- [ExtendedLoadout] (https://thunderstore.io/package/KingEnderBrine/ExtendedLoadout/) Support!
+- Reworked Commando's Tactical Slide from granting an attack speed buff to converting movement speed into attack speed, damage and armor while sliding.
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -118,7 +117,7 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Phase Round | ![Phase Round](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/38/Phase_Round.png) | `+30%` damage and `+30%` projectile velocity per level |
 | Phase Blast | ![Phase Blast](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/49/Phase_Blast.png) | `+30%` bullets fires and `+20%` blast range per level |
 | Tactical Dive | ![Tactical Dive](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/2/25/Tactical_Dive.png) | Grants `+0.75 seconds` of invulnerability per level |
-| Tactical Slide | ![Tactical Slide](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e8/Tactical_Slide.png) | Grants `+0.75 seconds` of bonus attack speed per level |
+| Tactical Slide | ![Tactical Slide](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e8/Tactical_Slide.png) | `+0.125s` slide duration. Converts `+6%` movespeed while sliding as attack speed, damage and armor |
 | Supressive Fire | ![Supressive fire](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/db/Suppressive_Fire.png) | `+30%` bullets fired per level |
 | Frag Grenade | ![Frag Grenade](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/6b/Frag_Grenade.png) | `+20%` explosion damage and `+20%` blast radius per level |
 

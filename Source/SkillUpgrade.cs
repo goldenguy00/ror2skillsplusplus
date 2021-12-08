@@ -75,6 +75,7 @@ namespace SkillsPlusPlus {
         #region Events
 
         void OnSkillChanged(GenericSkill genericSkill) {
+            this.targetBaseSkillName = genericSkill.baseSkill.skillName;
             Logger.Debug("OnSkillChanged({0})", genericSkill.skillName);
             RefreshUpgrades();
         }

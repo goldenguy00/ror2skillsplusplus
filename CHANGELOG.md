@@ -1,5 +1,9 @@
 # Changelog
 
+## What's new in 0.3.1
+- [ExtendedLoadout] (https://thunderstore.io/package/KingEnderBrine/ExtendedLoadout/) Support!
+- Reworked Commando's Tactical Slide from granting an attack speed buff to converting movement speed into attack speed, damage and armor while sliding.
+
 ## What's new in 0.3.0
 - Heretic support is here!
 - Fixed issues caused by changing character mid-run. (Artifact of Metamorphosis, Heretic, Guren Lagann, etc.)

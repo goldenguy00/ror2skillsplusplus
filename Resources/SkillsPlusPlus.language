@@ -17,7 +17,7 @@
 		"FIREFMJ_UPGRADE_DESCRIPTION": "<style=cIsDamage>+30%</style> damage and <style=cIsUtility>+30%</style> projectile velocity",
 		"FIRESHOTGUNBLAST_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> bullets and <style=cIsUtility>+20%</style> range",
 		"ROLL_UPGRADE_DESCRIPTION": "Grants <style=cIsUtility>+0.75</style> seconds of invulnerability",
-		"SLIDE_UPGRADE_DESCRIPTION": "Grants <style=cIsUtility>+0.75</style> seconds of bonus attack speed",
+		"SLIDE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+0.125s</style> slide duration. Converts <style=cIsUtility>+6%</style> movespeed while sliding as attack speed, damage and armor",
 		"BARRAGE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> bullets",
 		"THROWGRENADE_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage and <style=cIsUtility>+20%</style> blast size",
 
