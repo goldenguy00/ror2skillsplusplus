@@ -133,12 +133,12 @@ namespace SkillsPlusPlus.Modifiers
             buffDef.buffIndex = (BuffIndex)63;
             buffDef.canStack = true;
             buffDef.eliteDef = null;
-            buffDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texMovespeedBuffIcon");
+            buffDef.iconSprite = LegacyResourcesAPI.Load<Sprite>("Textures/BuffIcons/texMovespeedBuffIcon");
             buffDef.isDebuff = false;
             buffDef.name = "BanditSpeedBuff";
 
             BanditSpeedBuff = buffDef;
-            BuffAPI.Add(new CustomBuff(buffDef));
+            ContentAddition.AddBuffDef(buffDef);
         }
 
         public override void OnSkillEnter(ThrowSmokebomb skillState, int level)

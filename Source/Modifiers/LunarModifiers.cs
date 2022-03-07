@@ -12,7 +12,9 @@ using UnityEngine;
 namespace SkillsPlusPlus.Modifiers {
     class LunarModifiers {
 
+        #pragma warning disable CS0649
         static List<String> HereticSkillsWarned;
+        #pragma warning restore CS0649
         public static List<String> HereticSupportedPassiveUpgrades;
         public static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, RoR2.CharacterBody self)
         {
@@ -24,11 +26,10 @@ namespace SkillsPlusPlus.Modifiers {
 
                 foreach (SkillUpgrade upgrade in upgrades)
                 {
-
                     switch (upgrade.targetBaseSkillName)
                     {
                         case "HungeringGaze":
-                            self.damage += (upgrade.skillLevel * 0.25f) ;
+                            self.damage += (upgrade.skillLevel * 0.25f);
                             break;
                         case "SlicingMaelstrom":
                             self.armor += (upgrade.skillLevel * 3);
@@ -52,7 +53,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
         internal static void PatchSkillName()
         {
-            var hereticBody = Resources.Load<GameObject>("prefabs/characterbodies/HereticBody");
+            var hereticBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/HereticBody");
             if (hereticBody.TryGetComponent(out SkillLocator skillLocator))
             {
                 for (int i = 0; i < skillLocator.primary.skillFamily.variants.Length; i++)
@@ -198,7 +199,6 @@ namespace SkillsPlusPlus.Modifiers {
 
         }
 
-        //TODO: Add Damage per level and increase odds of adding a Ruin stack (independant of ruin's cd, doubled on Lunar skills)
         [SkillLevelModifier(new string[] { "LunarDetonatorSpecialReplacement", "Ruin" }, typeof(LunarDetonatorSkill), typeof(Detonate))]
         internal class HeartOfHeresySkillModifier : BaseSkillModifier
         {

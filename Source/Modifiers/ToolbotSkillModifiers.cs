@@ -121,8 +121,8 @@ namespace SkillsPlusPlus.Modifiers {
                     crosshairController.skillStockSpriteDisplays = stockDisplays;                    
                 }
 
-                
-                characterBody.crosshairPrefab = crosshairPrefab;
+                //TODO: Update Crosshair
+                //characterBody.defaultCrosshairPrefab = crosshairPrefab;
             }
         }
     }
@@ -160,7 +160,7 @@ namespace SkillsPlusPlus.Modifiers {
                 projectileImpactExplosion.blastRadius = MultScaling(12f, 0.20f, level);
                 projectileImpactExplosion.childrenCount = AdditiveScaling(5, 3, level);
                 if(projectileImpactExplosion.childrenProjectilePrefab.TryGetComponent(out ProjectileSimple projectileSimple)) {
-                    projectileSimple.velocity = MultScaling(10, 0.4f, level); // 2 * 20%
+                    projectileSimple.desiredForwardSpeed = MultScaling(10, 0.4f, level); // 2 * 20%
                 }
                 if(projectileImpactExplosion.childrenProjectilePrefab.TryGetComponent(out ProjectileImpactExplosion clusterProjectileExplosion)) {
                     clusterProjectileExplosion.blastRadius = MultScaling(6, 0.20f, level);

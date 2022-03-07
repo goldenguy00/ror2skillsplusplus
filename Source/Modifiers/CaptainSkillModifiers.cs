@@ -78,7 +78,7 @@ namespace SkillsPlusPlus.Modifiers {
         static SkillUpgrade diabloSkill;
         internal static void PatchSkillName()
         {
-            var captainBody = Resources.Load<GameObject>("prefabs/characterbodies/CaptainBody");
+            var captainBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/CaptainBody");
             if (captainBody.TryGetComponent(out SkillLocator skillLocator))
             {
                 foreach (SkillFamily.Variant variant in skillLocator.utility.skillFamily.variants)

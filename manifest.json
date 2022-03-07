@@ -1,10 +1,10 @@
 {
 	"name": "SkillsPlusPlus_UnofficialRelease",
-	"version_number": "0.3.1",
+	"version_number": "0.4.0",
 	"website_url": "https://discord.gg/HbqdgMG",
 	"description": "Add progression to your runs with skill upgrades",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.9",
-		"tristanmcpherson-R2API-3.0.30"
+		"tristanmcpherson-R2API-4.0.11"
 	]
 }

@@ -103,12 +103,12 @@ namespace SkillsPlusPlus.Modifiers {
             buffDef.buffIndex = (BuffIndex)64;
             buffDef.canStack = true;
             buffDef.eliteDef = null;
-            buffDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texMovespeedBuffIcon");
+            buffDef.iconSprite = LegacyResourcesAPI.Load<Sprite>("Textures/BuffIcons/texMovespeedBuffIcon");
             buffDef.isDebuff = false;
             buffDef.name = "CommandoSlideBuff";
 
             CommandoSlideBuff = buffDef;
-            BuffAPI.Add(new CustomBuff(buffDef));
+            ContentAddition.AddBuffDef(buffDef);
         }
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)

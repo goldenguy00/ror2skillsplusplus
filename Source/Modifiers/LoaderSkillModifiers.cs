@@ -26,7 +26,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
 
         internal static void PatchSkillName() {
-            var loaderBody = Resources.Load<GameObject>("prefabs/characterbodies/LoaderBody");
+            var loaderBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/LoaderBody");
             if(loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
                 foreach(SkillFamily.Variant variant in skillLocator.primary.skillFamily.variants) {
                     SkillDef skillDef = variant.skillDef;
@@ -94,7 +94,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
 
         internal static void PatchSkillName() {
-            var loaderBody = Resources.Load<GameObject>("prefabs/characterbodies/LoaderBody");
+            var loaderBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/LoaderBody");
             if(loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
                 foreach(SkillFamily.Variant variant in skillLocator.special.skillFamily.variants) {
                     SkillDef skillDef = variant.skillDef;
@@ -130,7 +130,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            if(characterBody.crosshairPrefab.TryGetComponent(out LoaderHookCrosshairController hookCrosshairController)) {
+            if(characterBody.defaultCrosshairPrefab.TryGetComponent(out LoaderHookCrosshairController hookCrosshairController)) {
                 hookCrosshairController.range = MultScaling(80, 0.30f, level);
             }
         }
@@ -155,8 +155,7 @@ namespace SkillsPlusPlus.Modifiers {
             {
                 baseDamageCoeff = FireYankHook.damageCoefficient;
             }
-
-            if(characterBody.crosshairPrefab.TryGetComponent(out LoaderHookCrosshairController hookCrosshairController)) {
+            if (characterBody.defaultCrosshairPrefab.TryGetComponent(out LoaderHookCrosshairController hookCrosshairController)) {
                 hookCrosshairController.range = MultScaling(80, 0.15f, level);
             }
 
@@ -217,7 +216,7 @@ namespace SkillsPlusPlus.Modifiers {
     class LoaderThrowPylonSkillModifier : SimpleSkillModifier<ThrowPylon> {
 
         internal static void PatchSkillName() {
-            var loaderBody = Resources.Load<GameObject>("prefabs/characterbodies/LoaderBody");
+            var loaderBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/LoaderBody");
             if(loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
                 foreach(SkillFamily.Variant variant in skillLocator.special.skillFamily.variants) {
                     SkillDef skillDef = variant.skillDef;

@@ -4,6 +4,7 @@ using BepInEx;
 using R2API;
 using R2API.Utils;
 using RoR2;
+using RoR2.ContentManagement;
 using RoR2.UI;
 
 using SkillsPlusPlus.Modifiers;
@@ -16,10 +17,12 @@ namespace SkillsPlusPlus {
 
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency("com.KingEnderBrine.ExtendedLoadout", BepInDependency.DependencyFlags.SoftDependency)] //Soft-dependency to make Skills++ load after ExtendedLoadout
-    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.3.1")]
-    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(SurvivorAPI), nameof(BuffAPI))]
+    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.4.0")]
+    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
+
+        static SkillsPlugin Instance = null;
 
         void Awake() {
 
@@ -59,7 +62,7 @@ namespace SkillsPlusPlus {
             bool didAttemptToConnect = false;
 
             // disable client authing when connecting to a server to allow two game instances to run in parallel
-            On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
+            //On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
             // On.RoR2.UI.MainMenu.MainMenuController.Start += (orig, self) => {
             //     if (didAttemptToConnect == false) {
             //         didAttemptToConnect = true;
@@ -68,6 +71,7 @@ namespace SkillsPlusPlus {
             //     orig(self);
             // };
 #endif
+            Instance = this;
 
             CommandHelper.AddToConsoleWhenReady();
 
@@ -76,7 +80,6 @@ namespace SkillsPlusPlus {
             LoaderThrowPylonSkillModifier.PatchSkillName();
 
             CaptainDiabloStrikeSkillModifier.PatchSkillName();
-
             LunarModifiers.PatchSkillName();
 
             BanditSkillThrowSmokebombModifier.RegisterBanditSpeedBuff();
@@ -97,15 +100,16 @@ namespace SkillsPlusPlus {
             On.EntityStates.Loader.GroundSlam.FixedUpdate += new On.EntityStates.Loader.GroundSlam.hook_FixedUpdate(LoaderThunderSlamSkillModifier.GroundSlamFixedUpdate);
 
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(TreebotHarvestSkillModifier.HealthComponent_TakeDamage);
-
+           
             SkillModifierManager.LoadSkillModifiers();
+            //TODO: Something crashes in the Input stuff
             SkillInput.SetupCustomInput();
             SkillOptions.SetupGameplayOptions();
 
-            GameObject playerMasterPrefab = Resources.Load<GameObject>("prefabs/charactermasters/CommandoMaster");
+            GameObject playerMasterPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/charactermasters/CommandoMaster");
             playerMasterPrefab.EnsureComponent<SkillPointsController>();
 
-            Resources.Load<GameObject>("Prefabs/UI/Tooltip").EnsureComponent<SkillsPlusPlusTooltipController>();
+            LegacyResourcesAPI.Load<GameObject>("Prefabs/UI/Tooltip").EnsureComponent<SkillsPlusPlusTooltipController>();
             On.RoR2.UI.TooltipController.SetTooltipProvider += (orig, self, provider) => {
                 orig(self, provider);
                 if (provider.TryGetComponent(out SkillUpgradeTooltipProvider tooltipProvider)) {
@@ -127,27 +131,18 @@ namespace SkillsPlusPlus {
                 }
                 return row;
             };
-            // LoadoutPanelController.loadoutButtonPrefab.EnsureComponent<SkillsPlusPlusTooltipProvider>();
 
             On.RoR2.UI.HUD.Awake += this.HUD_Awake;
 
-            On.RoR2.SurvivorCatalog.Init += HookVanillaCharacters;
             SkillsPlusPlus.Logger.Debug("Awake() SurvivorCatalog.allSurvivorDef: {0}", SurvivorCatalog.allSurvivorDefs);
-            SurvivorAPI.SurvivorDefinitions.CollectionChanged += OnSurvivorDefinitionsChanged;
         }
 
-        private void HookVanillaCharacters(On.RoR2.SurvivorCatalog.orig_Init orig) {
-            orig();
-            foreach (var survivorDef in SurvivorCatalog.allSurvivorDefs) {
-                PrepareSurvivor(survivorDef);
-            }
-        }
-
-        private void OnSurvivorDefinitionsChanged(object sender, NotifyCollectionChangedEventArgs args) {
-            foreach (var item in args.NewItems) {
-                if (item is SurvivorDef survivorDef) {
-                    PrepareSurvivor(survivorDef);
-                }
+        [SystemInitializer(typeof(SurvivorCatalog))]
+        private static void OnCatalogInitializer()
+        {
+            foreach (var survivorDef in SurvivorCatalog.allSurvivorDefs)
+            {
+                Instance.PrepareSurvivor(survivorDef);
             }
         }
 
