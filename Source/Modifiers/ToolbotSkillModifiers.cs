@@ -120,9 +120,6 @@ namespace SkillsPlusPlus.Modifiers {
 
                     crosshairController.skillStockSpriteDisplays = stockDisplays;                    
                 }
-
-                //TODO: Update Crosshair
-                //characterBody.defaultCrosshairPrefab = crosshairPrefab;
             }
         }
     }

@@ -1,12 +1,10 @@
-# *__This release is a temporary version while waiting on Cwmlolzlz to return to the modding scene. It will later be deprecated once the main listing is up to date. This version supersedes the official version so no need to delete or disable the official version until it's updated.__*
-
 # Risk of Rain 2 - Skills++ Mod
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-## What's new in 0.3.1
-- [ExtendedLoadout] (https://thunderstore.io/package/KingEnderBrine/ExtendedLoadout/) Support!
-- Reworked Commando's Tactical Slide from granting an attack speed buff to converting movement speed into attack speed, damage and armor while sliding.
+## What's new in 0.4.0
+- Survivors of the Void update! (Expect some bugs)
+- Mod has been stabilized for SotV but new content will come in 0.4.1
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 

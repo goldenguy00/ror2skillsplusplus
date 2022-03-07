@@ -22,12 +22,12 @@ namespace SkillsPlusPlus {
         private const string UI_HOVER_TOKEN = "SKILLS_GAMEPAD_BUY_DESCRIPTION";
 
         internal static void SetupCustomInput() {
-            var userDataInit = typeof(UserData).GetMethod("KFIfLMJhIpfzcbhqEXHpaKpGsgeZ", BindingFlags.NonPublic | BindingFlags.Instance);
+            var userDataInit = typeof(UserData).GetMethod("wVZZKoPFwEvodLvLcYNvVAPKpUj", BindingFlags.NonPublic | BindingFlags.Instance);
             if (userDataInit != null) {
-                new Hook(userDataInit, (Action<Action<UserData>, UserData>) SkillInput.ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ);
+                new Hook(userDataInit, (Action<Action<UserData>, UserData>) SkillInput.ReInput_wVZZKoPFwEvodLvLcYNvVAPKpUj);
                 isControllerSupported = true;
             } else {
-                Logger.Error("Unable to add extra action to controller bindings. Was not able to find the method \"KFIfLMJhIpfzcbhqEXHpaKpGsgeZ\" in Rewired.UserData");
+                Logger.Error("Unable to add extra action to controller bindings. Was not able to find the method \"wVZZKoPFwEvodLvLcYNvVAPKpUj\" in Rewired.UserData");
             }
             SceneManager.activeSceneChanged += OnFirstSceneLoad;
 
@@ -57,7 +57,7 @@ namespace SkillsPlusPlus {
             }
         }
 
-        private static void ReInput_KFIfLMJhIpfzcbhqEXHpaKpGsgeZ(Action<UserData> orig, UserData userData) {
+        private static void ReInput_wVZZKoPFwEvodLvLcYNvVAPKpUj(Action<UserData> orig, UserData userData) {
 
             int newActionId = userData.GetFieldValue<int>("actionIdCounter");
             SkillsPlusPlus.Logger.Debug(newActionId);

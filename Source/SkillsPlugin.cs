@@ -102,7 +102,6 @@ namespace SkillsPlusPlus {
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(TreebotHarvestSkillModifier.HealthComponent_TakeDamage);
            
             SkillModifierManager.LoadSkillModifiers();
-            //TODO: Something crashes in the Input stuff
             SkillInput.SetupCustomInput();
             SkillOptions.SetupGameplayOptions();
 

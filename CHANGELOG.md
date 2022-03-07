@@ -1,5 +1,9 @@
 # Changelog
 
+## What's new in 0.4.0
+- Survivors of the Void update! (Expect some bugs)
+- Mod has been stabilized for SotV but new content will come in 0.4.1
+
 ## What's new in 0.3.1
 - [ExtendedLoadout] (https://thunderstore.io/package/KingEnderBrine/ExtendedLoadout/) Support!
 - Reworked Commando's Tactical Slide from granting an attack speed buff to converting movement speed into attack speed, damage and armor while sliding.
