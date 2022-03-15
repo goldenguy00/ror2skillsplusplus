@@ -76,6 +76,9 @@ namespace SkillsPlusPlus.Modifiers {
         static int diabloStrikeProjectileCatalogIndex = -1337;
         static float fuseDuration;
         static SkillUpgrade diabloSkill;
+
+        static float originalRechargeRate = 0f;
+
         internal static void PatchSkillName()
         {
             var captainBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/CaptainBody");
@@ -97,15 +100,17 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
-            base.OnSkillLeveledUp(level, characterBody, skillDef);
-            skillDef.baseRechargeInterval = Mathf.Clamp(40f - (level * 2f), 1f, 40f);
-
-            fuseDuration = Mathf.Clamp(20f - (level), 0f, 20f);
-
             if (!diabloSkill)
             {
                 diabloSkill = registeredSkill;
+                originalRechargeRate = skillDef.baseRechargeInterval;
             }
+
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+
+            skillDef.baseRechargeInterval = originalRechargeRate * (5f / (level + 5f));
+
+            fuseDuration = Mathf.Clamp(20f - (level), 0f, 20f);
         }
 
         public override void OnSkillEnter(CallAirstrikeAlt skillState, int level) {
