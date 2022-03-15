@@ -8,6 +8,7 @@ using RoR2;
 using RoR2.Skills;
 using RoR2.UI;
 using UnityEngine;
+using static RoR2.RoR2Content;
 
 namespace SkillsPlusPlus.Modifiers {
 
@@ -85,9 +86,8 @@ namespace SkillsPlusPlus.Modifiers {
             if(skillState is MiniBlinkState) {
                 duration /= 2f;
             }
-            if(duration > 0) {
-                var fullCritBuffIndex = BuffCatalog.FindBuffIndex("FullCrit");
-                skillState.outer.commonComponents.characterBody?.AddTimedBuff(fullCritBuffIndex, duration);
+            if (duration > 0) {
+                skillState.outer.commonComponents.characterBody?.AddTimedBuff(Buffs.FullCrit, duration);
             }
         }
     }

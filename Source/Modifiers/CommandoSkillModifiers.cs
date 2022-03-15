@@ -10,6 +10,8 @@ using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using static RoR2.RoR2Content;
 
 namespace SkillsPlusPlus.Modifiers {
 
@@ -82,8 +84,7 @@ namespace SkillsPlusPlus.Modifiers {
             float duration = AdditiveScaling(0, 0.75f, level);
             if (duration > 0) {
                 Logger.Debug("adding buff for {0} seconds", duration);
-                var immuneBuffIndex = BuffCatalog.FindBuffIndex("Immune");
-                skillState.outer.commonComponents.characterBody.AddTimedBuff(immuneBuffIndex, duration);
+                skillState.outer.commonComponents.characterBody.AddTimedBuff(Buffs.Immune, duration);
             }
         }
     }
@@ -99,11 +100,11 @@ namespace SkillsPlusPlus.Modifiers {
         {
             BuffDef buffDef = ScriptableObject.CreateInstance<BuffDef>();
 
-            buffDef.buffColor = new Color(250, 130, 0);
+            buffDef.buffColor = new Color(0.78f, 0.5f, 0);
             buffDef.buffIndex = (BuffIndex)64;
             buffDef.canStack = true;
             buffDef.eliteDef = null;
-            buffDef.iconSprite = LegacyResourcesAPI.Load<Sprite>("Textures/BuffIcons/texMovespeedBuffIcon");
+            buffDef.iconSprite = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Bandit2/bdCloakSpeed.asset").WaitForCompletion().iconSprite;
             buffDef.isDebuff = false;
             buffDef.name = "CommandoSlideBuff";
 

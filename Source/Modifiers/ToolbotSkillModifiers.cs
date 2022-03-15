@@ -12,6 +12,7 @@ using EntityStates;
 using EntityStates.Toolbot;
 using R2API.Utils;
 using UnityEngine;
+using static RoR2.RoR2Content;
 
 namespace SkillsPlusPlus.Modifiers {
 
@@ -201,8 +202,7 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillExit(skillState, level);
             float duration = AdditiveScaling(0, 1, level);
             if(duration > 0) {
-                var energizedBuffIndex = BuffCatalog.FindBuffIndex("Energized");
-                skillState.outer.commonComponents.characterBody.AddTimedBuff(energizedBuffIndex, AdditiveScaling(0, 1, level));
+                skillState.outer.commonComponents.characterBody.AddTimedBuff(Buffs.Energized, AdditiveScaling(0, 1, level));
             }
             skillState.outer.commonComponents.characterBody.inventory.DeductActiveEquipmentCooldown(level);
         }

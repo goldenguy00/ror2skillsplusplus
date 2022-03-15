@@ -6,6 +6,7 @@ using RoR2;
 using RoR2.Skills;
 using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace SkillsPlusPlus.Modifiers
 {
@@ -129,11 +130,11 @@ namespace SkillsPlusPlus.Modifiers
         {
             BuffDef buffDef = ScriptableObject.CreateInstance<BuffDef>();
 
-            buffDef.buffColor = new Color(153, 30, 150);
+            buffDef.buffColor = new Color(0.6f, 0.11f, 0.59f);
             buffDef.buffIndex = (BuffIndex)63;
             buffDef.canStack = true;
             buffDef.eliteDef = null;
-            buffDef.iconSprite = LegacyResourcesAPI.Load<Sprite>("Textures/BuffIcons/texMovespeedBuffIcon");
+            buffDef.iconSprite = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Bandit2/bdCloakSpeed.asset").WaitForCompletion().iconSprite;
             buffDef.isDebuff = false;
             buffDef.name = "BanditSpeedBuff";
 
