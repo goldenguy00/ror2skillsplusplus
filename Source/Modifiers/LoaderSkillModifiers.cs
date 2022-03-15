@@ -55,7 +55,7 @@ namespace SkillsPlusPlus.Modifiers {
             {
                 initialPosition = skillState.outer.commonComponents.characterBody.transform.position;
 
-                GroundSlam.blastDamageCoefficient = MultScaling(20f, 0.5f, level);
+                GroundSlam.blastDamageCoefficient = MultScaling(20f, 0.05f, level);
             }
 
             base.OnSkillEnter(skillState, level);
