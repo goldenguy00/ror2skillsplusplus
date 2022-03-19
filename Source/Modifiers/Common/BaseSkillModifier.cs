@@ -83,6 +83,14 @@ namespace SkillsPlusPlus.Modifiers {
             Logger.Warn("Skill {0} is broken. Cannot access the following items: {1}", this.GetType().FullName, fieldInfo);
         }
 
+        /// <summary>
+        /// Called before registering a BaseSkillModifier. Override this function to call things such as adding hooks and Patching Skill Names
+        /// </summary>
+        public virtual void SetupSkill()
+        {
+            return;
+        }
+
         #region Helpers
 
         /// <summary>

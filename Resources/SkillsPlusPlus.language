@@ -87,7 +87,7 @@
 		"CAPTAINSHOTGUN_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> shell count and <style=cIsDamage>+10%</style> damage",
 		"CAPTAINTAZER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+40%</style> blast radius and <style=cIsDamage>+20%</style> damage",
 		"CAPTAINPREPAIRSTRIKE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> blast radius and <style=cIsDamage>+20%</style> damage",
-		"CAPTAINDIABLOSTRIKE_UPGRADE_DESCRIPTION": "<style=cIsUtility>-1</style> second drop time, <style=cIsUtility>-2</style> second cooldown and <style=cIsUtility>+4%</style> friendly fire prevention",
+		"CAPTAINDIABLOSTRIKE_UPGRADE_DESCRIPTION": "<style=cIsUtility>-1</style> second drop time, <style=cIsUtility>-15%</style> cooldown duration and <style=cIsUtility>+4%</style> friendly fire prevention",
 		"CAPTAINSUPPLYDROPHEALING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> healing range",
 		"CAPTAINSUPPLYDROPPLATING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> shock range",
 		"CAPTAINSUPPLYDROPEQUIPMENTRESTOCK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> resupply stock",
@@ -113,7 +113,15 @@
 		"HERETIC_UTILITY_SKILL_NAME": "Nevermore",
 		"HERETIC_UTILITY_SKILL_DESCRIPTION": "Squawk a solemn reply.",
 		"HERETIC_SPECIAL_SKILL_NAME": "Nevermore",
-		"HERETIC_SPECIAL_SKILL_DESCRIPTION": "Squawk a solemn reply."
+		"HERETIC_SPECIAL_SKILL_DESCRIPTION": "Squawk a solemn reply.",
+		
+		"XQRSYSTEM_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> rate of fire and <style=cIsUtility>+20%</style> range",
+		"SCOPEHEAVY_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> max empowered round and <style=cIsUtility>+1</style> stock every 2 levels",
+		"SCOPELIGHT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> temporary armor per kill. Turns into <style=cIsUtility>+0.25s</style> movement speed boost after zoom out",
+		"CONCUSSIONDEVICE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+0.5s</style> slowfall on hit and <style=cIsUtility>+15%</style> throw range",
+		"POLARFIELDDEVICE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> global damage on affected enemies, <style=cIsUtility>+15%</style> range, and <style=cIsUtility>+15%</style> throw range",
+		"SUPERCHARGE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> proc chance, <style=cIsUtility>+20%</style> crit multiplier, and <style=cIsUtility>-5%</style> cooldown duration",
+		"CRYOCHARGE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2s</style> frostfire burn and <style=cIsUtility>-10%</style> cooldown duration",
 
 	}
 }

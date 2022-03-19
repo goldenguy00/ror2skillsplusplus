@@ -1,5 +1,12 @@
 # Changelog
 
+## What's new in 0.4.1
+- Railgunner support!
+- Changed how Captain's Diablo Missile' cooldown is calculated
+- Fixed an issue with Huntress blinking endlessly when Zet mods is present
+- Fixed an issue with Loader gaining 10x the amount of damage expected with Thunderslam
+- Fixed an issue with buffs not being applied and their icons not working
+
 ## What's new in 0.4.0
 - Survivors of the Void update! (Expect some bugs)
 - Mod has been stabilized for SotV but new content will come in 0.4.1

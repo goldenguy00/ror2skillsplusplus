@@ -1,10 +1,15 @@
 # Risk of Rain 2 - Skills++ Mod
 
-[![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/HbqdgMG) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
+# *__Please note that due to CWMlolzlz's continued absence, I am moving to a new discord channel as of 0.4.1. I will still be in the original discord but I will be redirecting feedback/bug reports to the new discord for better control. You can find the new discord below__*
 
-## What's new in 0.4.0
-- Survivors of the Void update! (Expect some bugs)
-- Mod has been stabilized for SotV but new content will come in 0.4.1
+[![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/gGtcnJDnDw) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
+
+## What's new in 0.4.1
+- Railgunner support!
+- Changed how Captain's Diablo Missile' cooldown is calculated
+- Fixed an issue with Huntress blinking endlessly when Zet mods is present
+- Fixed an issue with Loader gaining 10x the amount of damage expected with Thunderslam
+- Fixed an issue with buffs not being applied and their icons not working
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
@@ -105,7 +110,7 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 
 **Jump to character**
 
-[![Commando](https://img.shields.io/static/v1?label=&message=Commando&color=ED9612)](#commando) [![Huntress](https://img.shields.io/static/v1?label=&message=Huntress&color=D53C3C)](#huntress) [![Bandit](https://img.shields.io/static/v1?label=&message=Bandit&color=C374C5)](#bandit) [![MUL-T](https://img.shields.io/static/v1?label=&message=MUL-T&color=D3C450)](#mul-t) [![Engineer](https://img.shields.io/static/v1?label=&message=Engineer&color=5FE286)](#engineer) [![Artificer](https://img.shields.io/static/v1?label=&message=Artificer&color=F7C1FD)](#artificer) [![Mercenary](https://img.shields.io/static/v1?label=&message=Mercenary&color=6CD1EA)](#mercenary) [![REX](https://img.shields.io/static/v1?label=&message=REX&color=869E54)](#rex) [![Loader](https://img.shields.io/static/v1?label=&message=Loader&color=6770DE)](#loader) [![Acrid](https://img.shields.io/static/v1?label=&message=Acrid&color=C9F24D)](#acrid) [![Captain](https://img.shields.io/static/v1?label=&message=Captain&color=BEBA92)](#captain) [![Lunar Items](https://img.shields.io/static/v1?label=&message=Lunar%20Items&color=307FFF)](#lunar-items)
+[![Commando](https://img.shields.io/static/v1?label=&message=Commando&color=ED9612)](#Commando) [![Huntress](https://img.shields.io/static/v1?label=&message=Huntress&color=D53C3C)](#Huntress) [![Bandit](https://img.shields.io/static/v1?label=&message=Bandit&color=C374C5)](#Bandit) [![MUL-T](https://img.shields.io/static/v1?label=&message=MUL-T&color=D3C450)](#Mul-t) [![Engineer](https://img.shields.io/static/v1?label=&message=Engineer&color=5FE286)](#Engineer) [![Artificer](https://img.shields.io/static/v1?label=&message=Artificer&color=F7C1FD)](#Artificer) [![Mercenary](https://img.shields.io/static/v1?label=&message=Mercenary&color=6CD1EA)](#Mercenary) [![REX](https://img.shields.io/static/v1?label=&message=REX&color=869E54)](#Rex) [![Loader](https://img.shields.io/static/v1?label=&message=Loader&color=6770DE)](#Loader) [![Acrid](https://img.shields.io/static/v1?label=&message=Acrid&color=C9F24D)](#Acrid) [![Captain](https://img.shields.io/static/v1?label=&message=Captain&color=BEBA92)](#Captain) [![Railgunner](https://img.shields.io/static/v1?label=&message=Railgunner&color=ed164d)](#Railgunner) [![Lunar Items](https://img.shields.io/static/v1?label=&message=Lunar%20Items&color=307FFF)](#Lunar-items)
 
 ### Commando
 
@@ -132,8 +137,6 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Ballista | ![Ballista](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/d/d5/Ballista.png) | `+1` bullet and `+20%` damage per level |
 
 ### Bandit
-
-Credit to Volvary. Find them on the [Risk of Rain 2 modding discord](https://discord.gg/5MbXZvd)
 
 | Skill | | Description |
 |:-|-|------|
@@ -235,11 +238,25 @@ Credit to Volvary. Find them on the [Risk of Rain 2 modding discord](https://dis
 | Vulcan Shotgun | ![Vulcan Shotgun](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b9/Vulcan_Shotgun.png) | `+20%` shell count and `+10%` damage per level |
 | Power Tazer | ![Power Tazer](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/b8/Power_Tazer.png) | `+40%` blast radius and `+20%` damage per level |
 | Orbital Probe | ![Orbital Probe](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/4e/Orbital_Probe.png) | `+20%` blast radius and `+20%` damage per level |
-| OGM-72 'DIABLO' Strike | ![OGM-72 'DIABLO' Strike](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/85/OGM-72_%27DIABLO%27_Strike.png) | `-1` second drop time, `-2 second cooldown` and `+4%` friendly fire prevention range per level |
+| OGM-72 'DIABLO' Strike | ![OGM-72 'DIABLO' Strike](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/85/OGM-72_%27DIABLO%27_Strike.png) | `-1` second drop time, `-15%` cooldown duration and `+4%` friendly fire prevention range per level |
 | Beacon: Healing | ![Beacon: Healing](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/1e/Beacon_Healing.png) | `+20%` healing range per level  |
 | Beacon: Shocking | ![Beacon: Shocking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/c/c4/Beacon_Shocking.png) | `+30%` shock range per level |
 | Beacon: Resupply | ![Beacon: Resupply](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/6/67/Beacon_Resupply.png) | `+1` resupply stock per level |
 | Beacon: Hacking | ![Beacon: Hacking](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/38/Beacon_Hacking.png) | `+20%` hacking speed and `+20%` hacking range per level |
+
+### Railgunner
+
+| Skill | | Description |
+|:-|-|------|
+| 
+XQR Smart Round System | ![XQR Smart Round System](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/71/XQR_Smart_Round_System.png) | +10%` rate of fire and `+20%` range |
+| M99 Sniper | ![M99 Sniper](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/88/M99_Sniper.png) | `+1` max empowered round and `+1` stock every 2 levels |
+| HH44 Marksman | ![HH44 Marksman](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/ec/HH44_Marksman.png) | `+1` temporary armor per kill. Turns into `+0.25s` movement speed boost after zoom out |
+| Concussion Device | ![Concussion Device](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/48/Concussion_Device.png) | `+0.5s` slowfall on hit and `+15%` throw range |
+| Polar Field Device | ![Polar Field Device](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3f/Polar_Field_Device.png) | `+10%` global damage on affected enemies, `+15%` range, and `+15%` throw range  |
+| Supercharge | ![Supercharge](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e4/Supercharge.png) | `+10%` proc chance, `+20%` crit multiplier, and `-5%` cooldown duration |
+| Cryocharge | ![Cryocharge](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3a/Cryocharge.png) | `+2s` frostfire burn and `-10%` cooldown duration |
+
 ### Lunar Items
 
 | Skill | | Description |

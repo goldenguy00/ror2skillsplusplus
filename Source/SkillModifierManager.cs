@@ -44,6 +44,8 @@ namespace SkillsPlusPlus {
                         object someSkillModifier = constructorInfo.Invoke(new object[0]);
 
                         if (someSkillModifier is BaseSkillModifier skillModifier) {
+                            skillModifier.SetupSkill();
+
                             skillModifier.skillNames = attribute.skillNames;
                             skillModifier.EntityStateTypes = attribute.baseStateTypes;
                             foreach (string skillName in attribute.skillNames) {

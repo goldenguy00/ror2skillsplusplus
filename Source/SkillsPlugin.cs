@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Reflection;
 using BepInEx;
 using R2API;
 using R2API.Utils;
@@ -18,7 +19,7 @@ namespace SkillsPlusPlus {
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency("com.KingEnderBrine.ExtendedLoadout", BepInDependency.DependencyFlags.SoftDependency)] //Soft-dependency to make Skills++ load after ExtendedLoadout
     [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.4.0")]
-    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI))]
+    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(DotAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
@@ -44,12 +45,6 @@ namespace SkillsPlusPlus {
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
             UnityEngine.Networking.LogFilter.currentLogLevel = LogFilter.Debug;
 
-            On.RoR2.Console.InitConVars += (orig, self) => {
-                orig(self);
-                RoR2.Console.instance.SubmitCmd(null, "splash_skip 1", false);
-                RoR2.Console.instance.SubmitCmd(null, "intro_skip 1", false);
-            };
-
             On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
                 return true;
             };
@@ -59,7 +54,7 @@ namespace SkillsPlusPlus {
             //     orig(self, sender, cmd, userArgs);
             // };
 
-            bool didAttemptToConnect = false;
+            //bool didAttemptToConnect = false;
 
             // disable client authing when connecting to a server to allow two game instances to run in parallel
             //On.RoR2.Networking.GameNetworkManager.ClientSendAuth += (orig, self, connection) => { };
@@ -100,7 +95,7 @@ namespace SkillsPlusPlus {
             On.EntityStates.Loader.GroundSlam.FixedUpdate += new On.EntityStates.Loader.GroundSlam.hook_FixedUpdate(LoaderThunderSlamSkillModifier.GroundSlamFixedUpdate);
 
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(TreebotHarvestSkillModifier.HealthComponent_TakeDamage);
-           
+
             SkillModifierManager.LoadSkillModifiers();
             SkillInput.SetupCustomInput();
             SkillOptions.SetupGameplayOptions();
