@@ -577,7 +577,7 @@ namespace SkillsPlusPlus.Modifiers
 
             if (Mathf.Abs(originalRechargeRate) < 0.1f)
             {
-                originalProcRate = skillDef.baseRechargeInterval;
+                originalRechargeRate = skillDef.baseRechargeInterval;
             }
 
             skillDef.baseRechargeInterval = originalRechargeRate * (20f / (level + 20f));
