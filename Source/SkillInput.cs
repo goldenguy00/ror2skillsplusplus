@@ -7,6 +7,7 @@ using Rewired;
 using Rewired.Data;
 using Rewired.Data.Mapping;
 using RoR2;
+using RoR2.Skills;
 using RoR2.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -85,26 +86,44 @@ namespace SkillsPlusPlus {
             if (SkillInput.isControllerSupported == false) {
                 return;
             }
-            if (settingsPanelController.name != "SettingsSubPanel, Controls (Gamepad)") {
+            if (settingsPanelController.name != "SettingsSubPanel, Controls (M&KB)" && settingsPanelController.name != "SettingsSubPanel, Controls (Gamepad)") {
                 return;
             }
             if (InputCatalog.GetActionNameToken(BUY_SKILLS_ACTION_NAME) == null) {
                 return;
             }
-            if (settingsPanelController.TryGetComponentInChildren(out InputBindingControl existingInputBindingController)) {
-                GameObject buySkillsOptionGameObject = GameObject.Instantiate(existingInputBindingController.gameObject, existingInputBindingController.gameObject.transform.parent);
-                buySkillsOptionGameObject.name = "SettingsEntryButton, Binding (Skills++)";
-                InputBindingControl inputBindingControl = buySkillsOptionGameObject.GetComponent<InputBindingControl>();
-                //inputBindingControl.nameLabel.token = "SKILLS++_TOKEN";
-                inputBindingControl.actionName = BUY_SKILLS_ACTION_NAME;
-                inputBindingControl.Awake();
 
-                HGButton button = buySkillsOptionGameObject.GetComponent<HGButton>();
-                button.hoverToken = UI_HOVER_TOKEN;
-                button.interactable = SkillInput.isControllerSupported;
-                inputBindingControl.button.enabled = SkillInput.isControllerSupported;
+            var jumpBindingTransform = settingsPanelController.transform.Find("Scroll View/Viewport/VerticalLayout/SettingsEntryButton, Binding (Jump)");
+
+            var inputBindingObject = GameObject.Instantiate(jumpBindingTransform, jumpBindingTransform.parent);
+            var inputBindingControl = inputBindingObject.GetComponent<InputBindingControl>();
+            inputBindingControl.actionName = BUY_SKILLS_ACTION_NAME;
+            //Usualy calling awake is bad as it's supposed to be called only by unity.
+            //But in this case it is necessary to apply "actionName" change.
+            inputBindingControl.Awake();
+
+        }
+
+        public static bool GenericSkill_CanExecute(On.RoR2.Skills.SkillDef.orig_CanExecute orig, SkillDef self, GenericSkill skillSlot) {
+
+            if (skillSlot)
+            {
+                var masterController = skillSlot.characterBody?.master?.GetComponent<PlayerCharacterMasterController>();
+
+                if (masterController)
+                {
+                    LocalUser localUser = masterController?.networkUser?.localUser;
+                    Player inputPlayer = localUser?.inputPlayer;
+
+                    //If this skill is on the active player and they are pressing their BuySkill key, prevent the ability from going off.
+                    if(skillSlot.characterBody == PlayerCharacterMasterController.instances[0].master.GetBody() && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME))
+                    {
+                        return false;
+                    }
+                }
             }
-
+            
+            return orig(self, skillSlot);
         }
     }
 }

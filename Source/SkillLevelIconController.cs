@@ -164,35 +164,35 @@ namespace SkillsPlusPlus {
 
                     if (inputPlayer != null) {
 
-                        if (localUser.eventSystem.currentInputSource == MPEventSystem.InputSource.Gamepad) {
-                            if (skillIcon != null) {
-                                SkillSlot skillSlot = skillIcon.targetSkillSlot;
-                                int skillAction = 0;
-                                switch (skillSlot) {
-                                    case SkillSlot.None:
-                                        skillAction = 0;
-                                        break;
-                                    case SkillSlot.Primary:
-                                        skillAction = RewiredConsts.Action.PrimarySkill;
-                                        break;
-                                    case SkillSlot.Secondary:
-                                        skillAction = RewiredConsts.Action.SecondarySkill;
-                                        break;
-                                    case SkillSlot.Utility:
-                                        skillAction = RewiredConsts.Action.UtilitySkill;
-                                        break;
-                                    case SkillSlot.Special:
-                                        skillAction = RewiredConsts.Action.SpecialSkill;
-                                        break;
-                                }
-                                UpgradeButton.SetActive(canBuySkill && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME));
-                                if (skillAction != 0 && inputPlayer.GetButtonDown(skillAction) && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME)) {
-                                    this.OnBuySkill();
-                                }
+                        //if (localUser.eventSystem.currentInputSource == MPEventSystem.InputSource.Gamepad) {
+                        if (skillIcon != null) {
+                            SkillSlot skillSlot = skillIcon.targetSkillSlot;
+                            int skillAction = 0;
+                            switch (skillSlot) {
+                                case SkillSlot.None:
+                                    skillAction = 0;
+                                    break;
+                                case SkillSlot.Primary:
+                                    skillAction = RewiredConsts.Action.PrimarySkill;
+                                    break;
+                                case SkillSlot.Secondary:
+                                    skillAction = RewiredConsts.Action.SecondarySkill;
+                                    break;
+                                case SkillSlot.Utility:
+                                    skillAction = RewiredConsts.Action.UtilitySkill;
+                                    break;
+                                case SkillSlot.Special:
+                                    skillAction = RewiredConsts.Action.SpecialSkill;
+                                    break;
                             }
-                        } else {
-                            UpgradeButton.SetActive(canBuySkill && inputPlayer.GetButton(RewiredConsts.Action.Info));
+                            UpgradeButton.SetActive(canBuySkill && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME) || inputPlayer.GetButton(RewiredConsts.Action.Info));
+                            if (skillAction != 0 && inputPlayer.GetButtonDown(skillAction) && (inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME))) {
+                                this.OnBuySkill();
+                            }
                         }
+                        //} else {
+                        //    UpgradeButton.SetActive(canBuySkill && inputPlayer.GetButton(RewiredConsts.Action.Info));
+                        //}
                     }
                 }
             }
