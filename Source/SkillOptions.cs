@@ -14,6 +14,7 @@ namespace SkillsPlusPlus {
         private static Transform gameplaySettingsPanelTransform;
         private static CarouselController levelsPerSkillPointCarousel;
         private static CarouselController multLinearScaleCarousel;
+        private static CarouselController disableOnBuyCarousel;
 
         internal static void SetupGameplayOptions() {
             On.RoR2.UI.SettingsPanelController.Start += (orig, self) => {
@@ -96,6 +97,25 @@ namespace SkillsPlusPlus {
 
                     multLinearScaleCarousel.enabled = false;
                     multLinearScaleCarousel.enabled = true;
+                }
+            }
+
+            if (!disableOnBuyCarousel)
+            {
+                if (boolPrefab)
+                {
+                    GameObject gameObject1 = GameObject.Instantiate(boolPrefab, gameplaySettingsPanelTransform);
+                    gameObject1.name = "SettingsEntryButton, Bool (DisableOnBuy - Skills++)";
+                    disableOnBuyCarousel = gameObject1.GetComponent<CarouselController>();
+                    disableOnBuyCarousel.forceValidChoice = false;
+                    disableOnBuyCarousel.settingSource = BaseSettingsControl.SettingSource.ConVar;
+                    disableOnBuyCarousel.settingName = ConVars.ConVars.disableOnBuy.name;
+                    disableOnBuyCarousel.nameToken = "DISABLE_SKILL_BUY_INPUT";
+                    disableOnBuyCarousel.nameLabel.token = "DISABLE_SKILL_BUY_INPUT";
+                    disableOnBuyCarousel.GetComponent<HGButton>().hoverToken = ConVars.ConVars.disableOnBuy.helpText;
+
+                    disableOnBuyCarousel.enabled = false;
+                    disableOnBuyCarousel.enabled = true;
                 }
             }
         }

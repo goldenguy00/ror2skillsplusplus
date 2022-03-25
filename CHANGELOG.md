@@ -1,5 +1,8 @@
 # Changelog
 
+## What's new in 0.4.3
+- Added a missing setting for Buy Skills to disable the input block when buying
+
 ## What's new in 0.4.2
 - Extended support for Buy Skill key to Keyboard+Mouse (as well as enabling the VR version)
 - Fixed Railgunner's Supercharge cooldown issue with some mods

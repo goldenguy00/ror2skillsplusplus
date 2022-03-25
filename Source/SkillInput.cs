@@ -116,7 +116,7 @@ namespace SkillsPlusPlus {
                     Player inputPlayer = localUser?.inputPlayer;
 
                     //If this skill is on the active player and they are pressing their BuySkill key, prevent the ability from going off.
-                    if(skillSlot.characterBody == PlayerCharacterMasterController.instances[0].master.GetBody() && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME))
+                    if(ConVars.ConVars.disableOnBuy.value && skillSlot.characterBody == PlayerCharacterMasterController.instances[0].master.GetBody() && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME))
                     {
                         return false;
                     }

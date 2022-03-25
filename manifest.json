@@ -1,6 +1,6 @@
 {
 	"name": "SkillsPlusPlus",
-	"version_number": "0.4.1",
+	"version_number": "0.4.4",
 	"website_url": "https://discord.gg/gGtcnJDnDw",
 	"description": "Add progression to your runs with skill upgrades",
 	"dependencies": [

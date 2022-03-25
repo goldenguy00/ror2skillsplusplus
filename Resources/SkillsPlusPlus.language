@@ -10,6 +10,9 @@
 
 		"MULT_SCALING_LINEAR": "Linear Skill Multipliers",
 		"MULT_SCALING_LINEAR_DESCRIPTION": "Should Multiplicative (+%) skill values use a linear value rather than an exponential one. (Useful for playing with low \"Levels per skill point\" values)\n\nIn multiplayer runs the host's setting is used",
+		
+		"DISABLE_SKILL_BUY_INPUT": "Disable Skills While Buying",
+		"DISABLE_SKILL_BUY_INPUT_DESCRIPTION": "Should skills be disabled while the Buy Skills Input is pressed. (Disable this if you find yourself hitting the key by mistake)",
 
 		"TOOLTIP_UPGRADE_DESCRIPTION": "<style=cStack>[ Upgrade ]</style>\n{0}",
 

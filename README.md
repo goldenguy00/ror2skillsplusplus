@@ -4,12 +4,16 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/gGtcnJDnDw) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-## What's new in 0.4.1
-- Railgunner support!
-- Changed how Captain's Diablo Missile' cooldown is calculated
-- Fixed an issue with Huntress blinking endlessly when Zet mods is present
-- Fixed an issue with Loader gaining 10x the amount of damage expected with Thunderslam
-- Fixed an issue with buffs not being applied and their icons not working
+
+
+## What's new in 0.4.2 - 0.4.4
+- Extended support for Buy Skill key to Keyboard+Mouse (as well as enabling the VR version)
+- Fixed Railgunner's Supercharge cooldown issue with some mods
+- Fixed Captain not being able to hack after level 6 in Linear Mult mode
+- Captain's Supply Drop now properly show its range before dropping
+- Fixed Captain's Diablo cooldown not returning to normal on repeat games
+- 0.4.3: Added a missing setting for Buy Skills to disable the input block when buying
+- 0.4.4: Unify all tokens to point to 0.4.4 =_=
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 
