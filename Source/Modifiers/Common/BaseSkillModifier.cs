@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EntityStates;
 using RoR2;
 using RoR2.Skills;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace SkillsPlusPlus.Modifiers {
@@ -91,6 +92,29 @@ namespace SkillsPlusPlus.Modifiers {
             return;
         }
 
+        public static void PatchSkillName(string bodyName, string skillNameToken, string replacementName)
+        {
+            var characterBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/" + bodyName);
+            if (characterBody.TryGetComponent(out SkillLocator skillLocator))
+            {
+                SkillFamily[] skillFamilies = { skillLocator.primary.skillFamily, skillLocator.secondary.skillFamily, skillLocator.utility.skillFamily, skillLocator.special.skillFamily };
+                foreach (SkillFamily skill in skillFamilies)
+                {
+                    foreach(SkillFamily.Variant variant in skill.variants)
+                    {
+                        SkillDef skillDef = variant.skillDef;
+                        if (skillDef != null)
+                        {
+                            if (skillDef.skillNameToken == skillNameToken)
+                            {
+                                skillDef.skillName = replacementName;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         #region Helpers
 
         /// <summary>
@@ -138,7 +162,8 @@ namespace SkillsPlusPlus.Modifiers {
                 return baseValue;
             }
 
-            if ((bool)bMultScalingLinear)
+            //Do not use linear scaling if using negative multipliers as it can lead to < 0 values.
+            if ((bool)bMultScalingLinear && multiplier > 0)
             {
                 return (float)((multiplier * level) + 1) * baseValue;
             }

@@ -1,5 +1,12 @@
 # Changelog
 
+## What's new in 0.4.2
+- Extended support for Buy Skill key to Keyboard+Mouse (as well as enabling the VR version)
+- Fixed Railgunner's Supercharge cooldown issue with some mods
+- Fixed Captain not being able to hack after level 6 in Linear Mult mode
+- Captain's Supply Drop now properly show its range before dropping
+- Fixed Captain's Diablo cooldown not returning to normal on repeat games
+
 ## What's new in 0.4.1
 - Railgunner support!
 - Changed how Captain's Diablo Missile' cooldown is calculated

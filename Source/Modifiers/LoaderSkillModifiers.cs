@@ -25,18 +25,11 @@ namespace SkillsPlusPlus.Modifiers {
             SwingComboFist.barrierPercentagePerHit = AdditiveScaling(0.05f, 0.01f, level);
         }
 
-        internal static void PatchSkillName() {
-            var loaderBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/LoaderBody");
-            if(loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
-                foreach(SkillFamily.Variant variant in skillLocator.primary.skillFamily.variants) {
-                    SkillDef skillDef = variant.skillDef;
-                    if(skillDef != null) {
-                        if(skillDef.skillNameToken == "LOADER_PRIMARY_NAME") {
-                            skillDef.skillName = "Knuckleboom";
-                        }
-                    }
-                }
-            }
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+
+            PatchSkillName("LoaderBody", "LOADER_PRIMARY_NAME", "Knuckleboom");
         }
     }
 
@@ -93,18 +86,14 @@ namespace SkillsPlusPlus.Modifiers {
             orig(self);
         }
 
-        internal static void PatchSkillName() {
-            var loaderBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/LoaderBody");
-            if(loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
-                foreach(SkillFamily.Variant variant in skillLocator.special.skillFamily.variants) {
-                    SkillDef skillDef = variant.skillDef;
-                    if(skillDef != null) {
-                        if(skillDef.skillNameToken == "LOADER_SPECIAL_ALT_NAME") {
-                            skillDef.skillName = "ThunderSlam";
-                        }
-                    }
-                }
-            }
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+
+            PatchSkillName("LoaderBody", "LOADER_SPECIAL_ALT_NAME", "ThunderSlam");
+
+            On.EntityStates.Loader.GroundSlam.FixedUpdate += GroundSlamFixedUpdate;
+
         }
     }
 
@@ -215,18 +204,11 @@ namespace SkillsPlusPlus.Modifiers {
     [SkillLevelModifier("ThrowPylon", typeof(ThrowPylon))]
     class LoaderThrowPylonSkillModifier : SimpleSkillModifier<ThrowPylon> {
 
-        internal static void PatchSkillName() {
-            var loaderBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/LoaderBody");
-            if(loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
-                foreach(SkillFamily.Variant variant in skillLocator.special.skillFamily.variants) {
-                    SkillDef skillDef = variant.skillDef;
-                    if(skillDef != null) {
-                        if(skillDef.skillNameToken == "LOADER_SPECIAL_NAME") {
-                            skillDef.skillName = "ThrowPylon";
-                        }
-                    }
-                }
-            }
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+
+            PatchSkillName("LoaderBody", "LOADER_SPECIAL_NAME", "ThrowPylon");
         }
 
         public override void OnSkillEnter(ThrowPylon skillState, int level) {

@@ -195,6 +195,13 @@ namespace SkillsPlusPlus.Modifiers {
 
             orig.Invoke(self, di);
         }
+
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+        }
     }
 }
 

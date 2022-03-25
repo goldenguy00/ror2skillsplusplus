@@ -55,7 +55,7 @@
 
 		"GROUNDLIGHT2_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, and <style=cIsUtility>+15%</style> attack speed",
 		"WHIRLWIND_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> damage and <style=cIsUtility>+25%</style> larger hitbox",
-		"UPPERCUT_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> damage per level. <style=cIsUtility>+1</style> stock",
+		"UPPERCUT_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> damage per level. <style=cIsUtility>+1</style> stock every two levels",
 		"DASH1_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, and <style=cIsUtility>+0.5</style> seconds extra delay before reset",
 		"DASH2_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> larger hitbox and <style=cIsUtility>+15%</style> proc chance",
 		"EVIS_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> chain range, <style=cIsUtility>+15%</style> attack speed, and <style=cIsUtility>+10%</style> proc chance",
@@ -99,7 +99,7 @@
 		"FIRESHOTGUN2_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> bullet, <style=cIsDamage>+5%</style> damage",
 		"BANDIT2.RESETREVOLVER_UPGRADE_DESCRIPTION": "<style=cIsDamage>+10%</style> to <style=cIsDamage>+30%</style> damage based on remaining enemy health",
 		"SLASHBLADE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> hitbox size, <style=cIsDamage>+20%</style> damage",
-		"THROWSMOKEBOMB_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> hitbox size, <style=cIsDamage>+20%</style> damage, <style=cIsUtility>+1</style> movement speed while invisible",
+		"THROWSMOKEBOMB_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> hitbox size, <style=cIsDamage>+20%</style> damage, <style=cIsUtility>+1</style> base movement speed while invisible",
 
 		"LUNARPRIMARYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2</style> stock per level and <style=cIsDamage>+20%</style> damage \nAs Heretic, <style=cIsDamage>+0.25</style> base damage",
 		"LUNARSECONDARYREPLACEMENT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> maelstrom ticks and <style=cIsUtility>+15%</style> hitbox size \nAs Heretic, <style=cIsUtility>+3</style> base armor",
@@ -116,7 +116,7 @@
 		"HERETIC_SPECIAL_SKILL_DESCRIPTION": "Squawk a solemn reply.",
 		
 		"XQRSYSTEM_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> rate of fire and <style=cIsUtility>+20%</style> range",
-		"SCOPEHEAVY_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> max empowered round and <style=cIsUtility>+1</style> stock every 2 levels",
+		"SCOPEHEAVY_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> max empowered round and <style=cIsUtility>+1</style> stock every two levels",
 		"SCOPELIGHT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> temporary armor per kill. Turns into <style=cIsUtility>+0.25s</style> movement speed boost after zoom out",
 		"CONCUSSIONDEVICE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+0.5s</style> slowfall on hit and <style=cIsUtility>+15%</style> throw range",
 		"POLARFIELDDEVICE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> global damage on affected enemies, <style=cIsUtility>+15%</style> range, and <style=cIsUtility>+15%</style> throw range",

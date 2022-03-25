@@ -17,6 +17,9 @@ using RoR2.Skills;
 
 using SkillsPlusPlus.Modifiers;
 using R2API.Utils;
+using R2API;
+
+using static R2API.RecalculateStatsAPI;
 
 namespace SkillsPlusPlus.Modifiers {
 
@@ -71,53 +74,29 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier(new string[] { "CaptainDiabloStrike" }, typeof(CallAirstrikeAlt), typeof(SetupAirstrikeAlt))]
-    class CaptainDiabloStrikeSkillModifier : SimpleSkillModifier<CallAirstrikeAlt> {
+    class CaptainDiabloStrikeSkillModifier : BaseSkillModifier{
 
         static int diabloStrikeProjectileCatalogIndex = -1337;
         static float fuseDuration;
         static SkillUpgrade diabloSkill;
 
-        static float originalRechargeRate = 0f;
-
-        internal static void PatchSkillName()
-        {
-            var captainBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/CaptainBody");
-            if (captainBody.TryGetComponent(out SkillLocator skillLocator))
-            {
-                foreach (SkillFamily.Variant variant in skillLocator.utility.skillFamily.variants)
-                {
-                    SkillDef skillDef = variant.skillDef;
-                    if (skillDef != null)
-                    {
-                        if (skillDef.skillNameToken == "CAPTAIN_UTILITY_ALT1_NAME")
-                        {
-                            skillDef.skillName = "CaptainDiabloStrike";
-                        }
-                    }
-                }
-            }
-        }
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+
             if (!diabloSkill)
             {
                 diabloSkill = registeredSkill;
-                originalRechargeRate = skillDef.baseRechargeInterval;
             }
-
-            base.OnSkillLeveledUp(level, characterBody, skillDef);
-
-            skillDef.baseRechargeInterval = originalRechargeRate * (5f / (level + 5f));
 
             fuseDuration = Mathf.Clamp(20f - (level), 0f, 20f);
         }
 
-        public override void OnSkillEnter(CallAirstrikeAlt skillState, int level) {
+        public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
 
             //Try and update the speed of the Indicator
-            if (skillState.projectilePrefab.TryGetComponent(out ProjectileController projectileController) && registeredSkill != null)
+            if (skillState is CallAirstrikeAlt callAirstrikeAlt && callAirstrikeAlt.projectilePrefab.TryGetComponent(out ProjectileController projectileController) && registeredSkill != null)
             {
 
                 var CenterTransform = projectileController.ghostPrefab.transform.Find("AreaIndicatorCenter");
@@ -154,6 +133,45 @@ namespace SkillsPlusPlus.Modifiers {
                 }
             }
 
+        }
+
+        public override void SetupSkill()
+        {
+            GetStatCoefficients += RecalculateStats;
+
+            On.EntityStates.AimThrowableBase.ModifyProjectile += AimThrowableBase_ModifyProjectile;
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+
+            PatchSkillName("CaptainBody", "CAPTAIN_UTILITY_ALT1_NAME", "CaptainDiabloStrike");
+
+            base.SetupSkill();
+        }
+
+        private void RecalculateStats(CharacterBody sender, StatHookEventArgs args)
+        {
+            Chat.AddMessage("1");
+            if (sender)
+            {
+                Chat.AddMessage("send");
+
+            }
+            if (diabloSkill)
+            {
+                Chat.AddMessage("diablo");
+
+            }
+
+            if (!sender || !diabloSkill)
+            {
+                return;
+            }
+            Chat.AddMessage("2");
+
+            if (sender == PlayerCharacterMasterController.instances[0].master.GetBody())
+            {
+                Chat.AddMessage("3");
+                args.utilityCooldownMultAdd -= 1 - (5f / (diabloSkill.skillLevel + 5f));
+            }
         }
 
         public static void AimThrowableBase_ModifyProjectile(On.EntityStates.AimThrowableBase.orig_ModifyProjectile orig, EntityStates.AimThrowableBase self, ref RoR2.Projectile.FireProjectileInfo fireProjectileInfo)
@@ -208,7 +226,7 @@ namespace SkillsPlusPlus.Modifiers {
         //"CaptainSupplyDropPlating",
         //"CaptainSupplyDropEquipmentRestock",
         //"CaptainSupplyDropHacking"
-    }, typeof(DeployState), typeof(HealZoneMainState), typeof(ShockZoneMainState), typeof(HackingMainState), typeof(HackingInProgressState), typeof(EquipmentRestockMainState))]
+    }, typeof(SetupSupplyDrop), typeof(DeployState), typeof(HealZoneMainState), typeof(ShockZoneMainState), typeof(HackingMainState), typeof(HackingInProgressState), typeof(EquipmentRestockMainState))]
     class CaptainSupplyDropHealingSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -242,6 +260,12 @@ namespace SkillsPlusPlus.Modifiers {
 
             HackingMainState.baseRadius = MultScaling(10, 0.2f, level);
             HackingInProgressState.baseDuration = MultScaling(15, -0.2f, level);
+
+            var warningZone = SetupSupplyDrop.blueprintPrefab.transform.Find("Base")?.Find("Warning");
+            if (warningZone)
+            {
+                warningZone.localScale = new Vector3(HackingMainState.baseRadius / 2, HackingMainState.baseRadius / 2, warningZone.localScale.z);
+            }
         }
         
     }

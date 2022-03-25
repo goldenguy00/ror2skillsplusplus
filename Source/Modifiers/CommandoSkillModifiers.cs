@@ -11,6 +11,7 @@ using RoR2.Projectile;
 using RoR2.Skills;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using static R2API.RecalculateStatsAPI;
 using static RoR2.RoR2Content;
 
 namespace SkillsPlusPlus.Modifiers {
@@ -135,20 +136,32 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillExit(skillState, level);
         }
 
-        public static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, RoR2.CharacterBody self)
+        public static void RecalculateStats(CharacterBody sender, StatHookEventArgs args)
         {
-            orig.Invoke(self);
-
-            if (self.HasBuff(CommandoSlideBuff))
+            if (!sender)
             {
-                int buffLevel = self.GetBuffCount(CommandoSlideBuff);
-                float speedDrop = self.moveSpeed * (1 - (10.0f/(10.0f+(float)buffLevel)));
-                self.moveSpeed -= speedDrop;
-
-                self.attackSpeed += speedDrop;
-                self.damage += speedDrop;
-                self.armor += speedDrop * 10;
+                return;
             }
+
+            if (sender.HasBuff(CommandoSlideBuff))
+            {
+                int buffLevel = sender.GetBuffCount(CommandoSlideBuff);
+                float speedDrop = sender.moveSpeed * (1 - (10.0f/(10.0f+(float)buffLevel)));
+                args.baseMoveSpeedAdd -= speedDrop;
+
+                args.baseAttackSpeedAdd += speedDrop;
+                args.baseDamageAdd += speedDrop;
+                args.armorAdd += speedDrop * 10;
+            }
+        }
+
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+
+            RegisterCommandoSlideBuff();
+
+            GetStatCoefficients += RecalculateStats;
         }
     }
 

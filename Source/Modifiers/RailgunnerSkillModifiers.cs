@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using static RoR2.RoR2Content;
+using static R2API.RecalculateStatsAPI;
 
 namespace SkillsPlusPlus.Modifiers
 {
@@ -270,17 +271,19 @@ namespace SkillsPlusPlus.Modifiers
             orig(self);
         }
 
-        public static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, RoR2.CharacterBody self)
+        public static void RecalculateStats(CharacterBody sender, StatHookEventArgs args)
         {
-            orig.Invoke(self);
-
-            if (self.HasBuff(StrategicRetreatBuff))
+            if (!sender)
             {
-                self.moveSpeed = self.moveSpeed + 3f;
+                return;
             }
-            if (self.HasBuff(KillingSpreeBuff))
+            if (sender.HasBuff(StrategicRetreatBuff))
             {
-                self.armor = self.armor + (self.GetBuffCount(KillingSpreeBuff) * HH44Skill.skillLevel);
+                args.baseMoveSpeedAdd += 3f;
+            }
+            if (sender.HasBuff(KillingSpreeBuff))
+            {
+                args.armorAdd += (sender.GetBuffCount(KillingSpreeBuff) * HH44Skill.skillLevel);
             }
         }
 
@@ -290,7 +293,7 @@ namespace SkillsPlusPlus.Modifiers
 
             On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
             On.RoR2.CharacterBody.Update += CharacterBody_Update;
-            On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+            GetStatCoefficients += RecalculateStats;
 
             base.SetupSkill();
         }
@@ -553,7 +556,8 @@ namespace SkillsPlusPlus.Modifiers
     {
         static float originalProcRate = 0f;
         static float originalCritMult = 0f;
-        static float originalRechargeRate = 0f;
+
+        static SkillUpgrade superchargeSkill;
 
         public override void OnSkillEnter(FireSnipeSuper skillState, int level)
         {
@@ -575,12 +579,30 @@ namespace SkillsPlusPlus.Modifiers
         {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
 
-            if (Mathf.Abs(originalRechargeRate) < 0.1f)
+            if (!superchargeSkill)
             {
-                originalRechargeRate = skillDef.baseRechargeInterval;
+                superchargeSkill = registeredSkill;
+            }
+        }
+
+        public override void SetupSkill()
+        {
+            GetStatCoefficients += RecalculateStats;
+
+            base.SetupSkill();
+        }
+
+        private void RecalculateStats(CharacterBody sender, StatHookEventArgs args)
+        {
+            if (!sender || !superchargeSkill)
+            {
+                return;
             }
 
-            skillDef.baseRechargeInterval = originalRechargeRate * (20f / (level + 20f));
+            if (sender == PlayerCharacterMasterController.instances[0].master.GetBody())
+            {
+                args.utilityCooldownMultAdd -= 1 - (20f / (superchargeSkill.skillLevel + 20f));
+            }
         }
     }
 

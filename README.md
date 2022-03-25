@@ -144,7 +144,7 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 | Blast | ![Blast](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e7/Blast.png) | `+20%` damage, `+10%` proc chance, and `+20%` stability per level |
 | Serrated Dagger | ![Serrated Dagger](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/b/bb/Serrated_Dagger.png) | `+20%` hitbox size and `+20%` damage per level |
 | Serrated Shiv | ![Serrated Shiv](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/80/Serrated_Shiv.png) | `+1` projectile per two levels. `+10%` damage per level |
-| Smoke Bomb | ![Smoke Bomb](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/eb/Smoke_Bomb.png) | `+1` movement speed while invisible. `+15%` hitbox size and `+20%` damage per level |
+| Smoke Bomb | ![Smoke Bomb](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/eb/Smoke_Bomb.png) | `+1` base movement speed while invisible. `+15%` hitbox size and `+20%` damage per level |
 | Lights Out | ![Lights Out](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/7c/Lights_Out.png) | `+10%` to `+30%` damage per level, based on remaining enemy health |
 | Desperado | ![Desperado](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/5/57/Desperado.png) | `+1%` Execute threshold |
 

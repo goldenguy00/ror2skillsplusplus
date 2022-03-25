@@ -7,6 +7,7 @@ using RoR2.Skills;
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using static R2API.RecalculateStatsAPI;
 
 namespace SkillsPlusPlus.Modifiers
 {
@@ -165,14 +166,26 @@ namespace SkillsPlusPlus.Modifiers
             StealthMode.blastAttackDamageCoefficient = MultScaling(baseDamage, 0.2f, level);
         }
 
-        public static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, RoR2.CharacterBody self)
+        public static void RecalculateStats(CharacterBody sender, StatHookEventArgs args)
         {
-            orig.Invoke(self);
-
-            if (self.HasBuff(BanditSpeedBuff))
+            if (!sender)
             {
-                Reflection.SetPropertyValue<float>(self, "moveSpeed", self.moveSpeed + self.GetBuffCount(BanditSpeedBuff));
+                return;
             }
+
+            if (sender.HasBuff(BanditSpeedBuff))
+            {
+                args.baseMoveSpeedAdd += sender.GetBuffCount(BanditSpeedBuff);
+            }
+        }
+
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+
+            RegisterBanditSpeedBuff();
+            GetStatCoefficients += RecalculateStats;
+
         }
     }
 
@@ -217,6 +230,14 @@ namespace SkillsPlusPlus.Modifiers
             }
 
             orig.Invoke(self, di);
+        }
+
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+
         }
     }
 
@@ -265,6 +286,14 @@ namespace SkillsPlusPlus.Modifiers
                 }
             }
             orig.Invoke(self, di);
+        }
+
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+
         }
     }
 

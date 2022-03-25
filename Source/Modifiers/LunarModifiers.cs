@@ -8,6 +8,7 @@ using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
 using UnityEngine;
+using static R2API.RecalculateStatsAPI;
 
 namespace SkillsPlusPlus.Modifiers {
     class LunarModifiers {
@@ -16,29 +17,32 @@ namespace SkillsPlusPlus.Modifiers {
         static List<String> HereticSkillsWarned;
         #pragma warning restore CS0649
         public static List<String> HereticSupportedPassiveUpgrades;
-        public static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, RoR2.CharacterBody self)
+        public static void RecalculateStats_GetLunarStats(CharacterBody sender, StatHookEventArgs args)
         {
-            orig.Invoke(self);
-
-            if (self.baseNameToken == "HERETIC_BODY_NAME") /*Heretic*/
+            if (!sender)
             {
-                SkillUpgrade[] upgrades = self.GetComponents<SkillUpgrade>();
+                return;
+            }
+
+            if (sender.baseNameToken == "HERETIC_BODY_NAME") /*Heretic*/
+            {
+                SkillUpgrade[] upgrades = sender.GetComponents<SkillUpgrade>();
 
                 foreach (SkillUpgrade upgrade in upgrades)
                 {
                     switch (upgrade.targetBaseSkillName)
                     {
                         case "HungeringGaze":
-                            self.damage += (upgrade.skillLevel * 0.25f);
+                            args.baseDamageAdd += (upgrade.skillLevel * 0.25f);
                             break;
                         case "SlicingMaelstrom":
-                            self.armor += (upgrade.skillLevel * 3);
+                            args.armorAdd += (upgrade.skillLevel * 3);
                             break;
                         case "Shadowfade":
-                            self.maxHealth += (upgrade.skillLevel * self.maxHealth * 0.03f);
+                            args.healthMultAdd += (upgrade.skillLevel * 0.03f);
                             break;
                         case "Ruin":
-                            self.attackSpeed += (upgrade.skillLevel * 0.25f);
+                            args.baseAttackSpeedAdd += (upgrade.skillLevel * 0.25f);
                             break;
                         default:
                             if (!HereticSupportedPassiveUpgrades.Contains(upgrade.targetGenericSkill.name) && !HereticSkillsWarned.Contains(upgrade.targetGenericSkill.name))
@@ -139,6 +143,11 @@ namespace SkillsPlusPlus.Modifiers {
                 skillDef.baseMaxStock = 12 + (2 * level);
                 FireLunarNeedle.damageCoefficient = MultScaling(0.05f, 0.2f, level);
             }
+
+            public override void SetupSkill()
+            {
+                base.SetupSkill();
+            }
         }
 
         [SkillLevelModifier(new string[] { "LunarSecondaryReplacement", "SlicingMaelstrom" }, typeof(ThrowLunarSecondary), typeof(ChargeLunarSecondary))]
@@ -185,6 +194,10 @@ namespace SkillsPlusPlus.Modifiers {
                 }
             }
 
+            public override void SetupSkill()
+            {
+                base.SetupSkill();
+            }
         }
 
         [SkillLevelModifier(new string[] { "LunarUtilityReplacement" , "Shadowfade"} , typeof(GhostUtilitySkillState))]
@@ -197,6 +210,10 @@ namespace SkillsPlusPlus.Modifiers {
                 GhostUtilitySkillState.healFrequency = MultScaling(5, 0.15f, level); // +15%
             }
 
+            public override void SetupSkill()
+            {
+                base.SetupSkill();
+            }
         }
 
         [SkillLevelModifier(new string[] { "LunarDetonatorSpecialReplacement", "Ruin" }, typeof(LunarDetonatorSkill), typeof(Detonate))]
@@ -245,6 +262,13 @@ namespace SkillsPlusPlus.Modifiers {
                         damageReport.victimBody.AddTimedBuff(RoR2Content.Buffs.LunarDetonationCharge, 10f);
                     }
                 }
+            }
+
+            public override void SetupSkill()
+            {
+                base.SetupSkill();
+
+                On.RoR2.LunarDetonatorPassiveAttachment.DamageListener.OnDamageDealtServer += LunarDetonatorPassiveAttachment_OnDamageDealt;
             }
         }
     }

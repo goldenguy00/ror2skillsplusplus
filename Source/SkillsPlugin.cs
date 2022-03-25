@@ -19,7 +19,7 @@ namespace SkillsPlusPlus {
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency("com.KingEnderBrine.ExtendedLoadout", BepInDependency.DependencyFlags.SoftDependency)] //Soft-dependency to make Skills++ load after ExtendedLoadout
     [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.4.2")]
-    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(DotAPI))]
+    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(DotAPI), nameof(RecalculateStatsAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
@@ -70,31 +70,8 @@ namespace SkillsPlusPlus {
 
             CommandHelper.AddToConsoleWhenReady();
 
-            LoaderKnucklesSkillModifier.PatchSkillName();
-            LoaderThunderSlamSkillModifier.PatchSkillName();
-            LoaderThrowPylonSkillModifier.PatchSkillName();
-
-            CaptainDiabloStrikeSkillModifier.PatchSkillName();
             LunarModifiers.PatchSkillName();
-
-            BanditSkillThrowSmokebombModifier.RegisterBanditSpeedBuff();
-            CommandoDiveSkillModifier.RegisterCommandoSlideBuff();
-
-            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillSkullRevolverModifier.HealthComponent_TakeDamage);
-            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(BanditSkillResetRevolverModifier.HealthComponent_TakeDamage);
-            On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(BanditSkillThrowSmokebombModifier.CharacterBody_RecalculateStats);
-            On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(CommandoDiveSkillModifier.CharacterBody_RecalculateStats);
-
-            On.RoR2.CharacterBody.RecalculateStats += new On.RoR2.CharacterBody.hook_RecalculateStats(LunarModifiers.CharacterBody_RecalculateStats);
-            On.RoR2.LunarDetonatorPassiveAttachment.DamageListener.OnDamageDealtServer += 
-                new On.RoR2.LunarDetonatorPassiveAttachment.DamageListener.hook_OnDamageDealtServer(LunarModifiers.HeartOfHeresySkillModifier.LunarDetonatorPassiveAttachment_OnDamageDealt);
-
-            On.EntityStates.AimThrowableBase.ModifyProjectile += CaptainDiabloStrikeSkillModifier.AimThrowableBase_ModifyProjectile;
-            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(CaptainDiabloStrikeSkillModifier.HealthComponent_TakeDamage);
-
-            On.EntityStates.Loader.GroundSlam.FixedUpdate += new On.EntityStates.Loader.GroundSlam.hook_FixedUpdate(LoaderThunderSlamSkillModifier.GroundSlamFixedUpdate);
-
-            On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(TreebotHarvestSkillModifier.HealthComponent_TakeDamage);
+            R2API.RecalculateStatsAPI.GetStatCoefficients += LunarModifiers.RecalculateStats_GetLunarStats;
 
             On.RoR2.Skills.SkillDef.CanExecute += SkillInput.GenericSkill_CanExecute;
 
