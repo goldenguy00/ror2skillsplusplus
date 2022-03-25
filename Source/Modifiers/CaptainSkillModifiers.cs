@@ -149,27 +149,13 @@ namespace SkillsPlusPlus.Modifiers {
 
         private void RecalculateStats(CharacterBody sender, StatHookEventArgs args)
         {
-            Chat.AddMessage("1");
-            if (sender)
-            {
-                Chat.AddMessage("send");
-
-            }
-            if (diabloSkill)
-            {
-                Chat.AddMessage("diablo");
-
-            }
-
             if (!sender || !diabloSkill)
             {
                 return;
             }
-            Chat.AddMessage("2");
 
             if (sender == PlayerCharacterMasterController.instances[0].master.GetBody())
             {
-                Chat.AddMessage("3");
                 args.utilityCooldownMultAdd -= 1 - (5f / (diabloSkill.skillLevel + 5f));
             }
         }
