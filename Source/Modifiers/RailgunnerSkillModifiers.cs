@@ -129,7 +129,10 @@ namespace SkillsPlusPlus.Modifiers
         
         public static void OnEnterBoostConfirm(On.EntityStates.Railgunner.Reload.BoostConfirm.orig_OnEnter orig, BoostConfirm self)
         {
-            EmpoweredRoundsLeft = Math.Min(M99skill.targetGenericSkill.maxStock, MaxEmpoweredRounds);
+            if (M99skill)
+            {
+                EmpoweredRoundsLeft = Math.Min(M99skill.targetGenericSkill.maxStock, MaxEmpoweredRounds);
+            }
 
             orig(self);
         }
@@ -404,7 +407,7 @@ namespace SkillsPlusPlus.Modifiers
 
         public static void CharacterBody_FixedUpdate(On.RoR2.CharacterBody.orig_FixedUpdate orig, CharacterBody self)
         {
-            if (self.HasBuff(FeatherFallBuff) && !self.characterMotor.isGrounded)
+            if (self && self.HasBuff(FeatherFallBuff) && !self.characterMotor.isGrounded)
             {
                 float upVelocity = self.characterMotor.velocity.y;
 
