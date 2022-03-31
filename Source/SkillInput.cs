@@ -104,6 +104,8 @@ namespace SkillsPlusPlus {
 
         }
 
+        private static bool bAlerted = false;
+
         public static bool GenericSkill_CanExecute(On.RoR2.Skills.SkillDef.orig_CanExecute orig, SkillDef self, GenericSkill skillSlot) {
 
             if (skillSlot)
@@ -115,12 +117,36 @@ namespace SkillsPlusPlus {
                     LocalUser localUser = masterController?.networkUser?.localUser;
                     Player inputPlayer = localUser?.inputPlayer;
 
+                    if (ConVars.ConVars.disableOnBuy == null)
+                    {
+                        if (!bAlerted)
+                        {
+                            Logger.Error("DisableOnBuy ConVar has somehow broken. GenericSkill_CanExecute will abort unless things fix themselves.");
+                            bAlerted = true;
+                        }
+                        return orig(self, skillSlot);
+                    }
+
                     if(localUser != null && inputPlayer != null)
                     {
                         //If this skill is on the active player and they are pressing their BuySkill key, prevent the ability from going off.
                         if (ConVars.ConVars.disableOnBuy.value && skillSlot.characterBody == PlayerCharacterMasterController.instances[0].master.GetBody() && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME))
                         {
                             return false;
+                        }
+                    }
+                    else if(!bAlerted)
+                    {
+                        if(localUser == null)
+                        {
+                            Logger.Error("localUser has somehow broken. GenericSkill_CanExecute will abort unless things fix themselves.");
+                            bAlerted = true;
+                        }
+
+                        if (inputPlayer == null)
+                        {
+                            Logger.Error("inputPlayer has somehow broken. GenericSkill_CanExecute will abort unless things fix themselves.");
+                            bAlerted = true;
                         }
                     }
                 }
