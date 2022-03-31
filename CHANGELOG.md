@@ -1,5 +1,8 @@
 # Changelog
 
+## What's new in 0.4.5
+- Added more protection against NullReferenceErrors and added error logging to some to track the issue.
+
 ## What's new in 0.4.3
 - Added a missing setting for Buy Skills to disable the input block when buying
 

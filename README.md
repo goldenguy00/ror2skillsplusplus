@@ -4,7 +4,8 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/gGtcnJDnDw) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
-
+## What's new in 0.4.5
+- Added more protection against NullReferenceErrors and added error logging to some to track the issue.
 
 ## What's new in 0.4.2 - 0.4.4
 - Extended support for Buy Skill key to Keyboard+Mouse (as well as enabling the VR version)
