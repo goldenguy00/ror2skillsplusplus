@@ -125,6 +125,16 @@
 		"POLARFIELDDEVICE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> global damage on affected enemies, <style=cIsUtility>+15%</style> range, and <style=cIsUtility>+15%</style> throw range",
 		"SUPERCHARGE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> proc chance, <style=cIsUtility>+20%</style> crit multiplier, and <style=cIsUtility>-5%</style> cooldown duration",
 		"CRYOCHARGE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2s</style> frostfire burn and <style=cIsUtility>-10%</style> cooldown duration",
+		
+		"FIREHANDBEAM_UPGRADE_DESCRIPTION": "Squawk a solemn reply.",
+		"CHARGEMEGABLASTER_UPGRADE_DESCRIPTION": "Squawk a solemn reply.",
+		"VOIDBLINKUP_UPGRADE_DESCRIPTION": "Squawk a solemn reply.",
+		"CRUSHCORRUPTION_UPGRADE_DESCRIPTION": "Squawk a solemn reply.",
+		
+		"FIRECORRUPTBEAM_UPGRADE_DESCRIPTION": "Squawk a solemn reply.",
+		"FIRECORRUPTDISK_UPGRADE_DESCRIPTION": "Squawk a solemn reply.",
+		"VOIDBLINKDOWN_UPGRADE_DESCRIPTION": "Squawk a solemn reply.",
+		"CRUSHHEALTH_UPGRADE_DESCRIPTION": "Squawk a solemn reply.",
 
 	}
 }

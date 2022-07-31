@@ -138,20 +138,37 @@ namespace SkillsPlusPlus {
             return SkillModifierManager.HasSkillModifier(this.targetBaseSkillName);
         }
 
+        static List<EntityState> pastStates = new List<EntityState>();
+
         private CharacterBody FindOwningCharacterBody(EntityState state) {
             if (state == null) {
+                Logger.Debug("State was null, returning.");
                 return null;
             }
+
+            bool bLogging = !pastStates.Contains(state);
+            if (bLogging) pastStates.Add(state);
+
             if (state.outer) {
                 if (state.outer.TryGetComponent(out CharacterBody characterBody)) {
+                    if (characterBody.master && characterBody.master.gameObject.TryGetComponent(out MinionOwnership minion) && minion.ownerMaster) {
+                        if (bLogging) Logger.Debug(state.GetType().Name + ": Found MinionOwner in CharacterBody, returning " + minion.ownerMaster.GetBody().GetDisplayName());
+                        return minion.ownerMaster.GetBody();
+                    }
+
+                    if (bLogging) Logger.Debug(state.GetType().Name + ": Found CharacterBody, returning " + characterBody.GetDisplayName());
                     return characterBody;
                 } else if (state.outer.TryGetComponent(out ProjectileController projectileController) && projectileController.owner) {
+                    if (bLogging) Logger.Debug(state.GetType().Name + ": Found ProjectileController, returning " + projectileController.owner.GetComponent<CharacterBody>().GetDisplayName());
                     return projectileController.owner.GetComponent<CharacterBody>();
                 } else if (state.outer.TryGetComponent(out MinionOwnership minionOwnership) && minionOwnership.ownerMaster) {
+                    if (bLogging) Logger.Debug(state.GetType().Name + ": Found MinionOwnership, returning " + minionOwnership.ownerMaster.GetBody().GetDisplayName());
                     return minionOwnership.ownerMaster.GetBody();
                 } else if (state.outer.TryGetComponent(out GenericOwnership genericOwnership) && genericOwnership.ownerObject) {
+                    if (bLogging) Logger.Debug(state.GetType().Name + ": Found GenericOwnership, returning " + genericOwnership.ownerObject.GetComponent<CharacterBody>().GetDisplayName());
                     return genericOwnership.ownerObject.GetComponent<CharacterBody>();
                 } else if (state.outer.TryGetComponent(out Deployable deployable) && deployable.ownerMaster) {
+                    if (bLogging) Logger.Debug(state.GetType().Name + ": Found Deployable, returning " + deployable.ownerMaster.GetBody().GetDisplayName());
                     return deployable.ownerMaster.GetBody();
                 }
             }
