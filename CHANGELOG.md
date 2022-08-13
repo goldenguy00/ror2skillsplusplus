@@ -1,5 +1,12 @@
 # Changelog
 
+## What's new in 0.5.0
+- Updated the way the mod finds the names of skills to hopefully alleviate future problems with implementing new skills. (For modders: Skill Names now finds the Object.Name of the SkillDef rather than skilldef.skillname. If your mod was using different names for those two, please update your Skills++ integration to use the correct name.) 
+
+- Fixed an error that prevented Engi's turrets from getting their buffs.
+- Fixed some tooltip issues regarding Huntress' second utility skill and Void Fiend picking up Acrid's tooltips by mistake.
+- Added Not Yet Implemented messages to the unsupported vanilla skills to reduce confusion.
+
 ## What's new in 0.4.5
 - Added more protection against NullReferenceErrors and added error logging to some to track the issue.
 

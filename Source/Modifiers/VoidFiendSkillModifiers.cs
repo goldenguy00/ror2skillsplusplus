@@ -32,7 +32,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
 
     //}
 
-    [SkillLevelModifier("FireBlaster", typeof(FireHandBeam), typeof(ChargeHandBeam))]
+    [SkillLevelModifier("FireHandBeam", typeof(FireHandBeam), typeof(ChargeHandBeam))]
     class VoidFiendHandBeamSkillModifier : BaseSkillModifier {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -50,7 +50,25 @@ namespace SkillsPlusPlus.Source.Modifiers {
         }
     }
 
-    [SkillLevelModifier("MegaBlaster", typeof(ChargeMegaBlaster), typeof(FireMegaBlasterBase),
+    [SkillLevelModifier("FireCorruptBeam", typeof(FireCorruptHandBeam), typeof(ChargeCorruptHandBeam))]
+    class VoidFiendCorruptHandBeamSkillModifier : BaseSkillModifier {
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+        }
+
+        public override void OnSkillEnter(BaseState skillState, int level) {
+            base.OnSkillEnter(skillState, level);
+
+            if (skillState is FireCorruptHandBeam) {
+                Logger.Debug("FireCorruptHandBeam");
+            } else if (skillState is ChargeCorruptHandBeam) {
+                Logger.Debug("ChargeCorruptHandBeam");
+            }
+        }
+    }
+
+    [SkillLevelModifier("ChargeMegaBlaster", typeof(ChargeMegaBlaster), typeof(FireMegaBlasterBase),
         typeof(FireMegaBlasterBig), typeof(FireMegaBlasterSmall))]
     class VoidFiendChargeMegaSkillModifier : BaseSkillModifier {
 
@@ -65,25 +83,13 @@ namespace SkillsPlusPlus.Source.Modifiers {
                 Logger.Debug("FireMegaBlasterSmall");
             }
         }
+    }
 
-        internal static void PatchSkillName() {
-            var loaderBody = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBody.prefab").WaitForCompletion();
-            if (loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
-                foreach (SkillFamily.Variant variant in skillLocator.secondary.skillFamily.variants) {
-                    SkillDef skillDef = variant.skillDef;
-                    if (skillDef != null) {
-                        if (skillDef.skillNameToken == "VOIDSURVIVOR_SECONDARY_NAME") {
-                            skillDef.skillName = "MegaBlaster";
-                        }
-                    }
-                }
-            }
-        }
+    [SkillLevelModifier("FireCorruptDisk", typeof(FireCorruptDisks))]
+    class VoidFiendFireCorruptDiskSkillModifier : SimpleSkillModifier<FireCorruptDisks> {
 
-        public override void SetupSkill() {
-            PatchSkillName();
-
-            base.SetupSkill();
+        public override void OnSkillEnter(FireCorruptDisks skillState, int level) {
+            Logger.Debug("FireCorruptDisks");
         }
     }
 
@@ -93,25 +99,13 @@ namespace SkillsPlusPlus.Source.Modifiers {
         public override void OnSkillEnter(VoidBlinkUp skillState, int level) {
             Logger.Debug("VoidBlinkUp");
         }
+    }
 
-        internal static void PatchSkillName() {
-            var loaderBody = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBody.prefab").WaitForCompletion();
-            if (loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
-                foreach (SkillFamily.Variant variant in skillLocator.utility.skillFamily.variants) {
-                    SkillDef skillDef = variant.skillDef;
-                    if (skillDef != null) {
-                        if (skillDef.skillNameToken == "VOIDSURVIVOR_UTILITY_NAME") {
-                            skillDef.skillName = "VoidBlinkUp";
-                        }
-                    }
-                }
-            }
-        }
+    [SkillLevelModifier("VoidBlinkDown", typeof(VoidBlinkDown))]
+    class VoidFiendVoidBlinkDownSkillModifier : SimpleSkillModifier<VoidBlinkDown> {
 
-        public override void SetupSkill() {
-            PatchSkillName();
-
-            base.SetupSkill();
+        public override void OnSkillEnter(VoidBlinkDown skillState, int level) {
+            Logger.Debug("VoidBlinkDown");
         }
     }
 
@@ -125,25 +119,17 @@ namespace SkillsPlusPlus.Source.Modifiers {
                 Logger.Debug("ChargeCrushCorruption");
             }
         }
+    }
 
-        internal static void PatchSkillName() {
-            var loaderBody = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBody.prefab").WaitForCompletion();
-            if (loaderBody.TryGetComponent(out SkillLocator skillLocator)) {
-                foreach (SkillFamily.Variant variant in skillLocator.special.skillFamily.variants) {
-                    SkillDef skillDef = variant.skillDef;
-                    if (skillDef != null) {
-                        if (skillDef.skillNameToken == "VOIDSURVIVOR_SPECIAL_NAME") {
-                            skillDef.skillName = "CrushCorruption";
-                        }
-                    }
-                }
+    [SkillLevelModifier("CrushHealth", typeof(CrushHealth), typeof(ChargeCrushHealth))]
+    class VoidFiendCrushHealthSkillModifier : BaseSkillModifier {
+
+        public override void OnSkillEnter(BaseState skillState, int level) {
+            if (skillState is CrushHealth) {
+                Logger.Debug("CrushHealth");
+            } else if (skillState is ChargeCrushHealth) {
+                Logger.Debug("ChargeCrushHealth");
             }
-        }
-
-        public override void SetupSkill() {
-            PatchSkillName();
-
-            base.SetupSkill();
         }
     }
 }

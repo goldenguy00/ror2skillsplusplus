@@ -4,17 +4,15 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/gGtcnJDnDw) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
 
+## What's new in 0.5.0
+- Updated the way the mod finds the names of skills to hopefully alleviate future problems with implementing new skills. (For modders: Skill Names now finds the Object.Name of the SkillDef rather than skilldef.skillname. If your mod was using different names for those two, please update your Skills++ integration to use the correct name.) 
+
+- Fixed an error that prevented Engi's turrets from getting their buffs.
+- Fixed some tooltip issues regarding Huntress' second utility skill and Void Fiend picking up Acrid's tooltips by mistake.
+- Added Not Yet Implemented messages to the unsupported vanilla skills to reduce confusion.
+
 ## What's new in 0.4.5
 - Added more protection against NullReferenceErrors and added error logging to some to track the issue.
-
-## What's new in 0.4.2 - 0.4.4
-- Extended support for Buy Skill key to Keyboard+Mouse (as well as enabling the VR version)
-- Fixed Railgunner's Supercharge cooldown issue with some mods
-- Fixed Captain not being able to hack after level 6 in Linear Mult mode
-- Captain's Supply Drop now properly show its range before dropping
-- Fixed Captain's Diablo cooldown not returning to normal on repeat games
-- 0.4.3: Added a missing setting for Buy Skills to disable the input block when buying
-- 0.4.4: Unify all tokens to point to 0.4.4 =_=
 
 [Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
 

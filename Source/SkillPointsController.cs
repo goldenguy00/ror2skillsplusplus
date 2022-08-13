@@ -110,18 +110,28 @@ namespace SkillsPlusPlus {
             #endif
         }
 
+
+        bool bMorphedToHeretic = false;
+
         [Server]
         private void TransferSkillUpgrades(CharacterBody body) {
             unspentSkillPoints = SkillPointsAtLevel((int)body.level);
-            
+
+            //If this is the first time we morph into heretic, Heretic skill levels will be reset to allow respec'ing.
+            bool bFirstHereticMorph = body.baseNameToken == "HERETIC_BODY_NAME" && !bMorphedToHeretic;
+
             var skillUpgrades = body.GetComponents<SkillUpgrade>();
             foreach (var skillUpgrade in skillUpgrades) {
                 if (!isSurvivorEnabled) break;
                 if (skillUpgrade.targetBaseSkillName != null && transferrableSkillUpgrades.ContainsKey(skillUpgrade.targetBaseSkillName)) {
-                    skillUpgrade.skillLevel = transferrableSkillUpgrades[skillUpgrade.targetBaseSkillName];
+                    skillUpgrade.skillLevel = (bFirstHereticMorph ? 0 : transferrableSkillUpgrades[skillUpgrade.targetBaseSkillName]);
                     unspentSkillPoints -= skillUpgrade.skillLevel;
                     transferrableSkillUpgrades.Remove(skillUpgrade.targetBaseSkillName);
                 }
+            }
+
+            if (bFirstHereticMorph) {
+                bMorphedToHeretic = true;
             }
         }
 

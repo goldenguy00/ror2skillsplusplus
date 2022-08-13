@@ -53,7 +53,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier(new string[] { "CaptainPrepAirstrike", "21-Probe Salute" }, typeof(CallAirstrike1), typeof(CallAirstrike2), typeof(CallAirstrike3))]
+    [SkillLevelModifier(new string[] { "PrepAirstrike", "21-Probe Salute" }, typeof(CallAirstrike1), typeof(CallAirstrike2), typeof(CallAirstrike3))]
     class CaptainAirstrikeSkillModifier : SimpleSkillModifier<CallAirstrikeBase> {
 
         public override void OnSkillEnter(CallAirstrikeBase skillState, int level) {
@@ -73,7 +73,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier(new string[] { "CaptainDiabloStrike" }, typeof(CallAirstrikeAlt), typeof(SetupAirstrikeAlt))]
+    [SkillLevelModifier(new string[] { "PrepAirstrikeAlt" }, typeof(CallAirstrikeAlt), typeof(SetupAirstrikeAlt))]
     class CaptainDiabloStrikeSkillModifier : BaseSkillModifier{
 
         static int diabloStrikeProjectileCatalogIndex = -1337;
@@ -142,8 +142,6 @@ namespace SkillsPlusPlus.Modifiers {
             On.EntityStates.AimThrowableBase.ModifyProjectile += AimThrowableBase_ModifyProjectile;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
 
-            PatchSkillName("CaptainBody", "CAPTAIN_UTILITY_ALT1_NAME", "CaptainDiabloStrike");
-
             base.SetupSkill();
         }
 
@@ -205,7 +203,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier(new string[] { 
-        "CaptainPrepSupplyDrop", 
+        "PrepSupplyDrop", 
         //"CaptainSkillUsedUp", 
         //"CaptainSupplyDropDepleted", 
         //"CaptainSupplyDropHealing", 

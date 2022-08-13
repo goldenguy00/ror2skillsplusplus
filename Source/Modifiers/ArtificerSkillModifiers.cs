@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("FireFirebolt", typeof(FireFireBolt))]
+    [SkillLevelModifier("MageBodyFireFirebolt", typeof(FireFireBolt))]
     class ArtificerFireBoltSkillModifier : SimpleSkillModifier<FireFireBolt> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -25,7 +25,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireLightningBolt", typeof(FireLightningBolt))]
+    [SkillLevelModifier("MageBodyFireLightningBolt", typeof(FireLightningBolt))]
     class ArtificerLightningBoltSkillModifier : SimpleSkillModifier<FireLightningBolt> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -38,7 +38,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("NovaBomb", typeof(ChargeNovabomb), typeof(ThrowNovabomb))]
+    [SkillLevelModifier("MageBodyNovaBomb", typeof(ChargeNovabomb), typeof(ThrowNovabomb))]
     class MageNovaBombSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -60,7 +60,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("IceBomb", typeof(ChargeIcebomb), typeof(ThrowIcebomb))]
+    [SkillLevelModifier("MageBodyIceBomb", typeof(ChargeIcebomb), typeof(ThrowIcebomb))]
     class MageIceBombSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -77,7 +77,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Wall", typeof(PrepWall))]
+    [SkillLevelModifier("MageBodyWall", typeof(PrepWall))]
     class MageWallSkillModifier : SimpleSkillModifier<PrepWall> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -97,7 +97,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier(new string[] { "Flamethrower", "Dragon's Breath" }, typeof(Flamethrower))]
+    [SkillLevelModifier(new string[] { "MageBodyFlamethrower", "Dragon's Breath" }, typeof(Flamethrower))]
     class MageFlamethrowerSkillModifier : SimpleSkillModifier<Flamethrower> {
 
         private float baseRadius = 2f;
@@ -126,7 +126,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier(new string[] { "FlyUp", "Antimatter Surge" }, typeof(FlyUpState))]
+    [SkillLevelModifier(new string[] { "MageBodyFlyUp", "Antimatter Surge" }, typeof(FlyUpState))]
     class MageFlyUpSkillModifier : SimpleSkillModifier<FlyUpState> {
 
         public override void OnSkillEnter(FlyUpState skillState, int level) {

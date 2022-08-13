@@ -70,7 +70,6 @@ namespace SkillsPlusPlus {
 
             CommandHelper.AddToConsoleWhenReady();
 
-            LunarModifiers.PatchSkillName();
             R2API.RecalculateStatsAPI.GetStatCoefficients += LunarModifiers.RecalculateStats_GetLunarStats;
 
             On.RoR2.Skills.SkillDef.CanExecute += SkillInput.GenericSkill_CanExecute;
@@ -99,7 +98,7 @@ namespace SkillsPlusPlus {
                     var skillDef = genericSkill?.skillFamily?.variants[i].skillDef;
                     if (skillDef != null) {
                         var provider = button.gameObject.EnsureComponent<SkillUpgradeTooltipProvider>();
-                        provider.skillName = skillDef.skillName;
+                        provider.skillName = ((ScriptableObject)skillDef)?.name;
                     }
                 }
                 return row;

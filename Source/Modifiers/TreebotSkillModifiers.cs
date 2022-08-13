@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("FireSyringe", typeof(FireSyringe))]
+    [SkillLevelModifier("TreebotBodyFireSyringe", typeof(FireSyringe))]
     class TreebotSyringeSkillModifier : SimpleSkillModifier<FireSyringe> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -27,7 +27,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("AimMortarRain", typeof(AimMortarRain))]
+    [SkillLevelModifier("TreebotBodyAimMortarRain", typeof(AimMortarRain))]
     class TreebotMortarRainSkillModifier : SimpleSkillModifier<AimMortarRain> {
 
         public override void OnSkillEnter(AimMortarRain skillState, int level) {
@@ -65,7 +65,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("AimMortar2", typeof(FireMortar2))]
+    [SkillLevelModifier("TreebotBodyAimMortar2", typeof(FireMortar2))]
     class TreebotMortar2SkillModifier : SimpleSkillModifier<AimMortar2> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -83,7 +83,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("SonicBoom", typeof(FireSonicBoom))]
+    [SkillLevelModifier("TreebotBodySonicBoom", typeof(FireSonicBoom))]
     class TreebotSonicBoomSkillModifier : SimpleSkillModifier<FireSonicBoom> {
 
         public override void OnSkillEnter(FireSonicBoom skillState, int level) {
@@ -96,7 +96,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("SonicBoom2", typeof(FirePlantSonicBoom))]
+    [SkillLevelModifier("TreebotBodyPlantSonicBoom", typeof(FirePlantSonicBoom))]
     class TreebotPlantSonicBoomSkillModifier : SimpleSkillModifier<FirePlantSonicBoom> {
         public override void OnSkillEnter(FirePlantSonicBoom skillState, int level) {
             base.OnSkillEnter(skillState, level);
@@ -111,7 +111,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier(new string[] { "FireFlower2", "Chaotic Growth" }, typeof(TreebotFlower2Projectile))]
+    [SkillLevelModifier(new string[] { "TreebotBodyFireFlower2", "Chaotic Growth" }, typeof(TreebotFlower2Projectile))]
     class TreebotFlowerSkillModifier : SimpleSkillModifier<TreebotFlower2Projectile> {
 
         public override void OnSkillEnter(TreebotFlower2Projectile skillState, int level) {
@@ -133,7 +133,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireSeed", typeof(TreebotFireFruitSeed)/*, typeof(TreebotPrepFruitSeed)*/)]
+    [SkillLevelModifier("TreebotBodyFireFruitSeed", typeof(TreebotFireFruitSeed)/*, typeof(TreebotPrepFruitSeed)*/)]
     class TreebotHarvestSkillModifier : SimpleSkillModifier<TreebotFireFruitSeed>
     {
         static float baseBlastRadius = 0f;

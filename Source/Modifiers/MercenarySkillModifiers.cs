@@ -16,7 +16,7 @@ using SkillsPlusPlus.Util;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("GroundLight", typeof(GroundLight))]
+    [SkillLevelModifier("MercGroundLight", typeof(GroundLight))]
     class GroundLightSkillModifier : SimpleSkillModifier<GroundLight> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -31,7 +31,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("GroundLight2", typeof(GroundLight2))]
+    [SkillLevelModifier("MercGroundLight2", typeof(GroundLight2))]
     class GroundLight2SkillModifier : SimpleSkillModifier<GroundLight2> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -53,7 +53,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Whirlwind", typeof(WhirlwindEntry), typeof(WhirlwindGround), typeof(WhirlwindAir))]
+    [SkillLevelModifier("MercBodyWhirlwind", typeof(WhirlwindEntry), typeof(WhirlwindGround), typeof(WhirlwindAir))]
     class WhirlwindSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -78,7 +78,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Uppercut", typeof(Uppercut))]
+    [SkillLevelModifier("MercBodyUppercut", typeof(Uppercut))]
     class UppercutSkillModifier : SimpleSkillModifier<Uppercut> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -89,7 +89,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Dash1", typeof(Assaulter))]
+    [SkillLevelModifier("MercBodyAssaulter", typeof(Assaulter))]
     class AssaultSkillModifier : SimpleSkillModifier<Assaulter> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -105,7 +105,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Dash2", typeof(FocusedAssaultDash))]
+    [SkillLevelModifier("MercBodyFocusedAssault", typeof(FocusedAssaultDash))]
     class Assault2SkillModifier : SimpleSkillModifier<FocusedAssaultDash> {
 
         Transform assaultHitbox;
@@ -152,7 +152,7 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     // both Mercenary special skills have the same skill name
-    [SkillLevelModifier(new string[] { "Evis", "Massacre", "Gale-Force" }, typeof(Evis), typeof(EvisDash), typeof(ThrowEvisProjectile))]
+    [SkillLevelModifier(new string[] { "MercBodyEvis", "MercBodyEvisProjectile", "Gale-Force" }, typeof(Evis), typeof(EvisDash), typeof(ThrowEvisProjectile))]
     class EviscerateSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {

@@ -16,7 +16,7 @@ using RoR2.UI;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("Knuckleboom", typeof(SwingComboFist))]
+    [SkillLevelModifier("SwingFist", typeof(SwingComboFist))]
     class LoaderKnucklesSkillModifier : SimpleSkillModifier<SwingComboFist> {
 
         public override void OnSkillEnter(SwingComboFist skillState, int level) {
@@ -24,16 +24,9 @@ namespace SkillsPlusPlus.Modifiers {
             skillState.damageCoefficient = MultScaling(skillState.damageCoefficient, 0.20f, level);
             SwingComboFist.barrierPercentagePerHit = AdditiveScaling(0.05f, 0.01f, level);
         }
-
-        public override void SetupSkill()
-        {
-            base.SetupSkill();
-
-            PatchSkillName("LoaderBody", "LOADER_PRIMARY_NAME", "Knuckleboom");
-        }
     }
 
-    [SkillLevelModifier("ThunderSlam", typeof(GroundSlam), typeof(PreGroundSlam))]
+    [SkillLevelModifier("GroundSlam", typeof(GroundSlam), typeof(PreGroundSlam))]
     class LoaderThunderSlamSkillModifier : BaseSkillModifier {
 
         static float baseUpwardVelocity = 0f;
@@ -89,8 +82,6 @@ namespace SkillsPlusPlus.Modifiers {
         public override void SetupSkill()
         {
             base.SetupSkill();
-
-            PatchSkillName("LoaderBody", "LOADER_SPECIAL_ALT_NAME", "ThunderSlam");
 
             On.EntityStates.Loader.GroundSlam.FixedUpdate += GroundSlamFixedUpdate;
 
@@ -207,8 +198,6 @@ namespace SkillsPlusPlus.Modifiers {
         public override void SetupSkill()
         {
             base.SetupSkill();
-
-            PatchSkillName("LoaderBody", "LOADER_SPECIAL_NAME", "ThrowPylon");
         }
 
         public override void OnSkillEnter(ThrowPylon skillState, int level) {

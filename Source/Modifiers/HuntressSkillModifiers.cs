@@ -12,7 +12,7 @@ using static RoR2.RoR2Content;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("FireSeekingArrow", typeof(FireSeekingArrow))]
+    [SkillLevelModifier("HuntressBodyFireSeekingArrow", typeof(FireSeekingArrow))]
     class HuntressSeekingArrowSkillModifier : SimpleSkillModifier<FireSeekingArrow> {
 
         public override void OnSkillEnter(FireSeekingArrow skillState, int level) {
@@ -58,7 +58,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Glaive", typeof(ThrowGlaive))]
+    [SkillLevelModifier("HuntressBodyGlaive", typeof(ThrowGlaive))]
     class HuntressGlaiveSkillModifier : SimpleSkillModifier<ThrowGlaive> {
 
         static HuntressGlaiveSkillModifier() {
@@ -77,7 +77,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("Blink", typeof(BlinkState), typeof(MiniBlinkState))]
+    [SkillLevelModifier(new string[] { "HuntressBodyBlink", "HuntressBodyMiniBlink" }, typeof(BlinkState), typeof(MiniBlinkState))]
     class HuntressBlinkSkillModifier : BaseSkillModifier {
 
         public override void OnSkillExit(BaseState skillState, int level) {
@@ -92,7 +92,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier(new string[] { "ArrowRain", "Burning Rain" }, typeof(ArrowRain))]
+    [SkillLevelModifier(new string[] { "HuntressBodyArrowRain", "Burning Rain" }, typeof(ArrowRain))]
     class HuntressArrowRainSkillModifier : SimpleSkillModifier<ArrowRain> {
 
         static HuntressArrowRainSkillModifier() {

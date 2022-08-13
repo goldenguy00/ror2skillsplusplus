@@ -5,6 +5,7 @@ using System.Text;
 using Rewired;
 using RoR2;
 using RoR2.Skills;
+using UnityEngine;
 
 namespace SkillsPlusPlus.Util {
     static class SkillLocatorExtension {
@@ -12,7 +13,7 @@ namespace SkillsPlusPlus.Util {
         public static GenericSkill FindGenericSkillBySkillDef(this SkillLocator skillLocator, string skillName, bool allowMatchBaseSkill = false) {
             GenericSkill[] genericSkills = skillLocator.FindAllGenericSkills();
             return Array.Find(genericSkills, genericSkill => {
-                return (allowMatchBaseSkill && genericSkill.baseSkill.skillName == skillName) || genericSkill.skillDef.skillName == skillName;
+                return (allowMatchBaseSkill && genericSkill.baseSkill.skillName == skillName) || ((ScriptableObject)genericSkill.skillDef)?.name == skillName;
             });
         }
 

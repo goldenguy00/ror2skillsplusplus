@@ -24,7 +24,7 @@ namespace SkillsPlusPlus.UI {
                 return SkillNameToToken(skillName);
             }
             if (skillIcon) {
-                var skillName = skillIcon.targetSkill?.skillDef?.skillName;
+                var skillName = ((ScriptableObject)skillIcon.targetSkill?.skillDef)?.name;
                 if (skillName != null) {
                     return SkillNameToToken(skillName);
                 }

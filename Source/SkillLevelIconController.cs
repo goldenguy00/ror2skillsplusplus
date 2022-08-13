@@ -139,7 +139,7 @@ namespace SkillsPlusPlus {
                     {
                         foreach (var skillUpgrade in skillUpgrades)
                         {
-                            if (genericSkill.skillDef.skillName == skillUpgrade.targetGenericSkill?.skillDef.skillName)
+                            if (skillUpgrade.targetGenericSkill && ((ScriptableObject)genericSkill.skillDef)?.name == ((ScriptableObject)skillUpgrade.targetGenericSkill.skillDef)?.name)
                             {
                                 this.skillUpgrade = skillUpgrade;
                             }

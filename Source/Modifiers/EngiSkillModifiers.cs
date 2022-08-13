@@ -32,7 +32,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireGrenade", typeof(ChargeGrenades))]
+    [SkillLevelModifier("EngiBodyFireGrenade", typeof(ChargeGrenades))]
     class EngiGrenadesSkillModifier : SimpleSkillModifier<ChargeGrenades> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -43,7 +43,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("PlaceMine", typeof(FireMines), typeof(MineArmingFull), typeof(MineArmingWeak))]
+    [SkillLevelModifier("EngiBodyPlaceMine", typeof(FireMines), typeof(MineArmingFull), typeof(MineArmingWeak))]
     class EngiMineSkillModifier : BaseSkillModifier {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -90,7 +90,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("PlaceSpiderMine", typeof(FireSpiderMine), typeof(EntityStates.Engi.SpiderMine.WaitForTarget))]
+    [SkillLevelModifier("EngiBodyPlaceSpiderMine", typeof(FireSpiderMine), typeof(EntityStates.Engi.SpiderMine.WaitForTarget))]
     class EngiSpiderMineSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -123,7 +123,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("PlaceBubbleShield", typeof(FireBubbleShield))]
+    [SkillLevelModifier("EngiBodyPlaceBubbleShield", typeof(FireBubbleShield))]
     class EngiBubbleShieldSkillModifier : SimpleSkillModifier<FireBubbleShield> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -158,7 +158,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier(new string[] {"PlaceTurret", "TR12-C Gauss Compact"}, typeof(PlaceTurret), typeof(FireGauss))]
+    [SkillLevelModifier(new string[] { "EngiBodyPlaceTurret", "TR12-C Gauss Compact"}, typeof(PlaceTurret), typeof(FireGauss))]
     class EngiTurretSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -191,7 +191,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier(new string[] { "PlaceWalkerTurret", "TR58-C Carbonizer Mini" }, typeof(PlaceWalkerTurret), typeof(FireBeam))]
+    [SkillLevelModifier(new string[] { "EngiBodyPlaceWalkerTurret", "TR58-C Carbonizer Mini" }, typeof(PlaceWalkerTurret), typeof(FireBeam))]
     class EngiWalkerTurretSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {

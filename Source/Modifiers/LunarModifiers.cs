@@ -14,10 +14,11 @@ namespace SkillsPlusPlus.Modifiers {
     class LunarModifiers {
 
         #pragma warning disable CS0649
-        static List<String> HereticSkillsWarned;
+        static List<String> HereticSkillsWarned = new List<string>();
         #pragma warning restore CS0649
-        public static List<String> HereticSupportedPassiveUpgrades;
-        public static void RecalculateStats_GetLunarStats(CharacterBody sender, StatHookEventArgs args)
+        public static List<String> HereticSupportedPassiveUpgrades = new List<String> { "LunarPrimaryReplacement", "LunarSecondaryReplacement", "LunarUtilityReplacement", "LunarDetonatorSpecialReplacement" };
+
+    public static void RecalculateStats_GetLunarStats(CharacterBody sender, StatHookEventArgs args)
         {
             if (!sender)
             {
@@ -32,16 +33,16 @@ namespace SkillsPlusPlus.Modifiers {
                 {
                     switch (upgrade.targetBaseSkillName)
                     {
-                        case "HungeringGaze":
+                        case "LunarPrimaryReplacement":
                             args.baseDamageAdd += (upgrade.skillLevel * 0.25f);
                             break;
-                        case "SlicingMaelstrom":
+                        case "LunarSecondaryReplacement":
                             args.armorAdd += (upgrade.skillLevel * 3);
                             break;
-                        case "Shadowfade":
+                        case "LunarUtilityReplacement":
                             args.healthMultAdd += (upgrade.skillLevel * 0.03f);
                             break;
-                        case "Ruin":
+                        case "LunarDetonatorSpecialReplacement":
                             args.baseAttackSpeedAdd += (upgrade.skillLevel * 0.25f);
                             break;
                         default:
@@ -54,82 +55,6 @@ namespace SkillsPlusPlus.Modifiers {
                     }
                 }
             }
-        }
-        internal static void PatchSkillName()
-        {
-            var hereticBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/HereticBody");
-            if (hereticBody.TryGetComponent(out SkillLocator skillLocator))
-            {
-                for (int i = 0; i < skillLocator.primary.skillFamily.variants.Length; i++)
-                {
-                    SkillDef skillDef = skillLocator.primary.skillFamily.variants[i].skillDef;
-                    if (skillDef != null)
-                    {
-                        if (skillDef.skillNameToken == "HERETIC_DEFAULT_SKILL_NAME")
-                        {
-                            //Debug.Log("Found Primary. Disambiguiting...");
-                            var clone = UnityEngine.Object.Instantiate(skillDef);
-                            clone.skillNameToken = "HERETIC_PRIMARY_SKILL_NAME";
-                            clone.skillDescriptionToken = "HERETIC_PRIMARY_SKILL_DESCRIPTION";
-                            clone.skillName = "HungeringGaze";
-                            skillLocator.primary.skillFamily.variants[i].skillDef = clone;
-                        }
-                    }
-                }
-
-                for (int i = 0; i < skillLocator.secondary.skillFamily.variants.Length; i++)
-                {
-                    SkillDef skillDef = skillLocator.secondary.skillFamily.variants[i].skillDef;
-                    if (skillDef != null)
-                    {
-                        if (skillDef.skillNameToken == "HERETIC_DEFAULT_SKILL_NAME")
-                        {
-                            //Debug.Log("Found Secondary. Disambiguiting...");
-                            var clone = UnityEngine.Object.Instantiate(skillDef);
-                            clone.skillNameToken = "HERETIC_SECONDARY_SKILL_NAME";
-                            clone.skillDescriptionToken = "HERETIC_SECONDARY_SKILL_DESCRIPTION";
-                            clone.skillName = "SlicingMaelstrom";
-                            skillLocator.secondary.skillFamily.variants[i].skillDef = clone;
-                        }
-                    }
-                }
-
-                for (int i = 0; i < skillLocator.utility.skillFamily.variants.Length; i++)
-                {
-                    SkillDef skillDef = skillLocator.utility.skillFamily.variants[i].skillDef;
-                    if (skillDef != null)
-                    {
-                        if (skillDef.skillNameToken == "HERETIC_DEFAULT_SKILL_NAME")
-                        {
-                            //Debug.Log("Found Utility. Disambiguiting...");
-                            var clone = UnityEngine.Object.Instantiate(skillDef);
-                            clone.skillNameToken = "HERETIC_UTILITY_SKILL_NAME";
-                            clone.skillDescriptionToken = "HERETIC_UTILITY_SKILL_DESCRIPTION";
-                            clone.skillName = "Shadowfade";
-                            skillLocator.utility.skillFamily.variants[i].skillDef = clone;
-                        }
-                    }
-                }
-
-                for (int i = 0; i < skillLocator.special.skillFamily.variants.Length; i++)
-                {
-                    SkillDef skillDef = skillLocator.special.skillFamily.variants[i].skillDef;
-                    if (skillDef != null)
-                    {
-                        if (skillDef.skillNameToken == "HERETIC_DEFAULT_SKILL_NAME")
-                        {
-                            //Logger.Debug("Found Special. Disambiguiting...");
-                            var clone = UnityEngine.Object.Instantiate(skillDef);
-                            clone.skillNameToken = "HERETIC_SPECIAL_SKILL_NAME";
-                            clone.skillDescriptionToken = "HERETIC_SPECIAL_SKILL_DESCRIPTION";
-                            clone.skillName = "Ruin";
-                            skillLocator.special.skillFamily.variants[i].skillDef = clone;
-                        }
-                    }
-                }
-            }
-
-            HereticSupportedPassiveUpgrades = new List<String> { "HungeringGaze", "SlicingMaelstrom", "Shadowfade", "Ruin" };
         }
 
         [SkillLevelModifier(new string[] { "LunarPrimaryReplacement", "HungeringGaze" }, typeof(FireLunarNeedle))]

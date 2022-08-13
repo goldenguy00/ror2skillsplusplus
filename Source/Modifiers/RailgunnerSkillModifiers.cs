@@ -17,7 +17,7 @@ using static R2API.RecalculateStatsAPI;
 
 namespace SkillsPlusPlus.Modifiers
 {
-    [SkillLevelModifier("XQRSystem",typeof(FirePistol))]
+    [SkillLevelModifier("RailgunnerBodyFirePistol", typeof(FirePistol))]
     internal class RailgunnerXQRSkillModifier : SimpleSkillModifier<FirePistol>
     {
         float originalDuration = 0;
@@ -53,39 +53,13 @@ namespace SkillsPlusPlus.Modifiers
             base.OnSkillEnter(skillState, level);
         }
 
-        internal static void PatchSkillName()
-        {
-            var loaderBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/RailgunnerBody");
-            if (loaderBody.TryGetComponent(out SkillLocator skillLocator))
-            {
-                foreach (SkillFamily.Variant variant in skillLocator.primary.skillFamily.variants)
-                {
-                    SkillDef skillDef = variant.skillDef;
-                    if (skillDef != null)
-                    {
-                        if (skillDef.skillNameToken == "RAILGUNNER_PRIMARY_NAME")
-                        {
-                            skillDef.skillName = "XQRSystem";
-                        }
-                    }
-                }
-            }
-        }
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
         }
-
-        public override void SetupSkill()
-        {
-            PatchSkillName();
-
-            base.SetupSkill();
-        }
     }
 
-    [SkillLevelModifier("ScopeHeavy", typeof(FireSnipeHeavy))]
+    [SkillLevelModifier("RailgunnerBodyScopeHeavy", typeof(FireSnipeHeavy))]
     internal class RailgunnerM99SkillModifier : SimpleSkillModifier<FireSnipeHeavy>
     {
         static int EmpoweredRoundsLeft = 0;
@@ -138,7 +112,7 @@ namespace SkillsPlusPlus.Modifiers
         }
     }
 
-    [SkillLevelModifier("ScopeLight",typeof(FireSnipeLight),typeof(WindUpScopeLight), typeof(WindDownScopeLight))]
+    [SkillLevelModifier("RailgunnerBodyScopeLight", typeof(FireSnipeLight),typeof(WindUpScopeLight), typeof(WindDownScopeLight))]
     internal class RailgunnerHH44SkillModifier : BaseSkillModifier
     {
         static BuffDef KillingSpreeBuff;
@@ -302,7 +276,7 @@ namespace SkillsPlusPlus.Modifiers
         }
     }
 
-    [SkillLevelModifier("ConcussionDevice",typeof(FireMineConcussive))]
+    [SkillLevelModifier("RailgunnerBodyFireMineConcussive", typeof(FireMineConcussive))]
     internal class RailgunnerConcussiveMineSkillModifier : SimpleSkillModifier<FireMineConcussive>
     {
         static BuffDef FeatherFallBuff;
@@ -344,7 +318,6 @@ namespace SkillsPlusPlus.Modifiers
 
         public override void SetupSkill()
         {
-            PatchSkillName();
             RegisterFeatherFallBuff();
 
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(RailgunnerConcussiveMineSkillModifier.HealthComponent_TakeDamage);
@@ -367,25 +340,6 @@ namespace SkillsPlusPlus.Modifiers
 
             FeatherFallBuff = buffDef;
             ContentAddition.AddBuffDef(buffDef);
-        }
-
-        internal static void PatchSkillName()
-        {
-            var loaderBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/RailgunnerBody");
-            if (loaderBody.TryGetComponent(out SkillLocator skillLocator))
-            {
-                foreach (SkillFamily.Variant variant in skillLocator.utility.skillFamily.variants)
-                {
-                    SkillDef skillDef = variant.skillDef;
-                    if (skillDef != null)
-                    {
-                        if (skillDef.skillNameToken == "RAILGUNNER_UTILITY_NAME")
-                        {
-                            skillDef.skillName = "ConcussionDevice";
-                        }
-                    }
-                }
-            }
         }
 
         public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)
@@ -419,7 +373,7 @@ namespace SkillsPlusPlus.Modifiers
         }
     }
 
-    [SkillLevelModifier("PolarFieldDevice", typeof(FireMineBlinding))]
+    [SkillLevelModifier("RailgunnerBodyFireMineBlinding", typeof(FireMineBlinding))]
     internal class RailgunnerPolarFieldMineSkillModifier : SimpleSkillModifier<FireMineBlinding>
     {
         static BuffDef TimePressureDebuff;
@@ -502,7 +456,6 @@ namespace SkillsPlusPlus.Modifiers
 
         public override void SetupSkill()
         {
-            PatchSkillName();
             RegisterTimePressureDebuff();
 
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(HealthComponent_TakeDamage);
@@ -533,28 +486,9 @@ namespace SkillsPlusPlus.Modifiers
             TimePressureDebuff = buffDef;
             ContentAddition.AddBuffDef(buffDef);
         }
-
-        internal static void PatchSkillName()
-        {
-            var loaderBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/RailgunnerBody");
-            if (loaderBody.TryGetComponent(out SkillLocator skillLocator))
-            {
-                foreach (SkillFamily.Variant variant in skillLocator.utility.skillFamily.variants)
-                {
-                    SkillDef skillDef = variant.skillDef;
-                    if (skillDef != null)
-                    {
-                        if (skillDef.skillNameToken == "RAILGUNNER_UTILITY_ALT_NAME")
-                        {
-                            skillDef.skillName = "PolarFieldDevice";
-                        }
-                    }
-                }
-            }
-        }
     }
 
-    [SkillLevelModifier("Supercharge",typeof(FireSnipeSuper))]
+    [SkillLevelModifier("RailgunnerBodyChargeSnipeSuper", typeof(FireSnipeSuper))]
     internal class RailgunnerSuperchargeSkillModifier : SimpleSkillModifier<FireSnipeSuper>
     {
         static float originalProcRate = 0f;
@@ -609,7 +543,7 @@ namespace SkillsPlusPlus.Modifiers
         }
     }
 
-    [SkillLevelModifier("Cryocharge",typeof(FireSnipeCryo), typeof(ExpiredCryo), typeof(ChargedCryo))]
+    [SkillLevelModifier("RailgunnerBodyChargeSnipeCryo", typeof(FireSnipeCryo), typeof(ExpiredCryo), typeof(ChargedCryo))]
     internal class RailgunnerCryochargeSkillModifier : BaseSkillModifier
     {
         static BuffDef FrostfireBuff;

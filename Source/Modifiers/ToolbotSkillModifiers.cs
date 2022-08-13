@@ -16,7 +16,7 @@ using static RoR2.RoR2Content;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("FireNailgun", typeof(FireNailgun))]
+    [SkillLevelModifier("ToolbotBodyFireNailgun", typeof(FireNailgun))]
     class ToolbotSkillModifier : SimpleSkillModifier<FireNailgun> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
@@ -28,7 +28,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("FireSpear", typeof(FireSpear), typeof(CooldownSpear))]
+    [SkillLevelModifier("ToolbotBodyFireSpear", typeof(FireSpear), typeof(CooldownSpear))]
     class ToolbotSpearSkillModifier : BaseSkillModifier {
 
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -47,7 +47,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("FireGrenadeLauncher", typeof(FireGrenadeLauncher))]
+    [SkillLevelModifier("ToolbotBodyFireGrenadeLauncher", typeof(FireGrenadeLauncher))]
     class ToolbotGrenadeLauncherSkillModifier : SimpleSkillModifier<FireGrenadeLauncher> {
 
         private static readonly float stockImageInterspacing = 13.5f;
@@ -125,7 +125,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("FireBuzzsaw", typeof(FireBuzzsaw))]
+    [SkillLevelModifier("ToolbotBodyFireBuzzsaw", typeof(FireBuzzsaw))]
     class ToolbotBuzzsawSkillModifier : SimpleSkillModifier<FireBuzzsaw> {
 
         public override void OnSkillEnter(FireBuzzsaw fireBuzzsaw, int level) {
@@ -147,7 +147,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("StunDrone", typeof(AimStunDrone))]
+    [SkillLevelModifier("ToolbotBodyStunDrone", typeof(AimStunDrone))]
     class ToolbotStunDroneSkillModifier : SimpleSkillModifier<AimStunDrone> {
 
         public override void OnSkillEnter(AimStunDrone aimStunDrone, int level) {
@@ -169,7 +169,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier(new string[] { "ToolbotDash", "Breach Mode" }, typeof(ToolbotDash))]
+    [SkillLevelModifier(new string[] { "ToolbotBodyToolbotDash", "Breach Mode" }, typeof(ToolbotDash))]
     class ToolbotDashSkillModifier : SimpleSkillModifier<ToolbotDash> {
 
         public override void OnSkillEnter(ToolbotDash toolbotDash, int level) {
@@ -189,7 +189,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Swap", typeof(ToolbotStanceSwap))]
+    [SkillLevelModifier("ToolbotBodySwap", typeof(ToolbotStanceSwap))]
     class ToolbotEquipmentSwapSkillModifier : SimpleSkillModifier<ToolbotStanceSwap> {
 
         public override void OnSkillEnter(ToolbotStanceSwap toolbotStanceSwap, int level) {
@@ -205,6 +205,18 @@ namespace SkillsPlusPlus.Modifiers {
                 skillState.outer.commonComponents.characterBody.AddTimedBuff(Buffs.Energized, AdditiveScaling(0, 1, level));
             }
             skillState.outer.commonComponents.characterBody.inventory.DeductActiveEquipmentCooldown(level);
+        }
+    }
+
+    [SkillLevelModifier("ToolbotDualWield", typeof(ToolbotDualWield))]
+    class ToolbotPowerModeSkillModifier : SimpleSkillModifier<ToolbotDualWield> {
+
+        public override void OnSkillEnter(ToolbotDualWield toolbotStanceSwap, int level) {
+            base.OnSkillEnter(toolbotStanceSwap, level);
+        }
+
+        public override void OnSkillExit(ToolbotDualWield skillState, int level) {
+            base.OnSkillExit(skillState, level);
         }
     }
 }

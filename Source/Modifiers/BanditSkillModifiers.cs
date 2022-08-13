@@ -29,7 +29,7 @@ namespace SkillsPlusPlus.Modifiers
         }
     }
 
-    [SkillLevelModifier("Bandit2Rifle", new Type[]
+    [SkillLevelModifier("Bandit2Blast", new Type[]
         {
         typeof(Bandit2FireRifle)
         })]
@@ -190,7 +190,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
 
-    [SkillLevelModifier("Bandit2.ResetRevolver", new Type[]
+    [SkillLevelModifier("ResetRevolver", new Type[]
         {
         typeof(FireSidearmResetRevolver)
         })]
@@ -242,7 +242,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
 
-    [SkillLevelModifier("Bandit2Desperado", new Type[]
+    [SkillLevelModifier("SkullRevolver", new Type[]
         {
         typeof(FireSidearmSkullRevolver)
         })]

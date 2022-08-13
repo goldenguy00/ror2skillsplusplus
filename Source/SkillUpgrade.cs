@@ -36,7 +36,7 @@ namespace SkillsPlusPlus {
 
         void Awake() {
             this.characterBody = this.GetComponent<CharacterBody>();
-            this.targetBaseSkillName = targetGenericSkill.baseSkill.skillName;
+            this.targetBaseSkillName = ((ScriptableObject)targetGenericSkill.skillDef)?.name;
             Logger.Debug("Awake() targetBaseSkillName: {0}", targetBaseSkillName);
         }
 
@@ -45,6 +45,7 @@ namespace SkillsPlusPlus {
             this.targetGenericSkill.onSkillChanged += this.OnSkillChanged;
             On.EntityStates.BaseState.OnEnter += this.OnBaseStateEnter;
             On.EntityStates.EntityState.OnExit += this.OnBaseStateExit;
+
             RefreshUpgrades();
         }
 
@@ -55,6 +56,7 @@ namespace SkillsPlusPlus {
             if (targetGenericSkill) {
                 targetGenericSkill.onSkillChanged -= this.OnSkillChanged;
             }
+
             if (this.skillPointsController) {
                 this.skillPointsController.PersistUpgrade(skillLevel, this.targetBaseSkillName);
             }
@@ -75,8 +77,9 @@ namespace SkillsPlusPlus {
         #region Events
 
         void OnSkillChanged(GenericSkill genericSkill) {
-            this.targetBaseSkillName = genericSkill.baseSkill.skillName;
-            Logger.Debug("OnSkillChanged({0})", genericSkill.skillName);
+
+            this.targetBaseSkillName = ((ScriptableObject)genericSkill.skillDef)?.name;
+            Logger.Debug("OnSkillChanged({0})", targetBaseSkillName);
             RefreshUpgrades();
         }
 
@@ -99,7 +102,7 @@ namespace SkillsPlusPlus {
                 Logger.Debug("Couldn't refresh upgrades because there is no active skill. targetBaseSkillName: {0}", targetBaseSkillName);
                 return;
             }
-            Logger.Debug("RefreshUpgrades() activeSkillDef: {0}", activeSkillDef.skillName);
+            Logger.Debug("RefreshUpgrades() activeSkillDef: {0}", ((ScriptableObject)activeSkillDef)?.name);
             var modifier = SkillModifierManager.GetSkillModifier(activeSkillDef);
             if (modifier != null) {
                 // TODO: rename OnSkillLeveledUp to OnSkillChanged
@@ -179,36 +182,19 @@ namespace SkillsPlusPlus {
             if (genericSkill == null) {
                 return null;
             }
-            try {
-                var skillOverrides = genericSkill.GetFieldValue<GenericSkill.SkillOverride[]>("skillOverrides");
-                var skillOverridePriority = GenericSkill.SkillOverridePriority.Default;
-                var skillIndex = -1;
-                for (int i = 0; i < skillOverrides.Length; i++) {
-                    GenericSkill.SkillOverridePriority priority = skillOverrides[i].priority;
-                    if (skillOverridePriority <= priority) {
-                        skillIndex = i;
-                        skillOverridePriority = priority;
-                    }
-                }
-                // the currently active skill in the generic skill is only temporary
-                // so there is no upgrade context for it
-                if (skillOverridePriority >= GenericSkill.SkillOverridePriority.Contextual) {
-                    return null;
-                } else if (skillIndex != -1) {
-                    return skillOverrides[skillIndex].skillDef;
-                } else {
-                    return genericSkill.baseSkill;
-                }
-            } catch {
-                return genericSkill.baseSkill;
+
+            if (genericSkill.skillDef != null) {
+                return genericSkill.skillDef;
             }
+
+            return genericSkill.baseSkill;
         }
 
         private void OnBaseStateEnter(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
             if (isSurvivorEnabled && FindOwningCharacterBody(self)?.gameObject == this.gameObject && self is BaseState baseState) {
                 var skillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(baseState.GetType());
                 var activeSkillDef = GetActiveSkillDef(this.targetGenericSkill);
-                if (skillModifier != null && activeSkillDef != null && skillModifier.skillNames.Contains(activeSkillDef.skillName)) {
+                if (skillModifier != null && activeSkillDef != null && skillModifier.skillNames.Contains(((ScriptableObject)activeSkillDef)?.name)) {
                     skillModifier.OnSkillEnter(skillState: baseState, this.skillLevel);
                     orig(self);
                     return;
@@ -222,7 +208,7 @@ namespace SkillsPlusPlus {
             if (isSurvivorEnabled && self is BaseState baseState && FindOwningCharacterBody(self)?.gameObject == this.gameObject) {
                 var skillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(baseState.GetType());
                 var activeSkillDef = GetActiveSkillDef(this.targetGenericSkill);
-                if (skillModifier != null && activeSkillDef != null && skillModifier.skillNames.Contains(activeSkillDef.skillName)) {
+                if (skillModifier != null && activeSkillDef != null && skillModifier.skillNames.Contains(((ScriptableObject)activeSkillDef)?.name)) {
                     skillModifier.OnSkillExit(skillState: baseState, this.skillLevel);
                     orig(self);
                     return;

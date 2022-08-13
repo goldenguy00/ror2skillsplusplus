@@ -16,7 +16,7 @@ using static RoR2.RoR2Content;
 
 namespace SkillsPlusPlus.Modifiers {
 
-    [SkillLevelModifier("FirePistol", typeof(FirePistol2))]
+    [SkillLevelModifier("CommandoBodyFirePistol", typeof(FirePistol2))]
     class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2> {
 
         float originalDuration = 0;
@@ -43,7 +43,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireFMJ", typeof(FireFMJ))]
+    [SkillLevelModifier("CommandoBodyFireFMJ", typeof(FireFMJ))]
     class CommandoFMJSkillModifier : SimpleSkillModifier<FireFMJ> {
 
         float originalForwardSpeed = 0;
@@ -66,7 +66,7 @@ namespace SkillsPlusPlus.Modifiers {
 
     }
 
-    [SkillLevelModifier("FireShotgunBlast", typeof(FireShotgunBlast))]
+    [SkillLevelModifier("CommandoBodyFireShotgunBlast", typeof(FireShotgunBlast))]
     class CommandoShotgunBlastSkillModifier : SimpleSkillModifier<FireShotgunBlast> {
 
         public override void OnSkillEnter(FireShotgunBlast skillState, int level) {
@@ -77,7 +77,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Roll", typeof(DodgeState))]
+    [SkillLevelModifier("CommandoBodyRoll", typeof(DodgeState))]
     class CommandoRollSkillModifier : SimpleSkillModifier<DodgeState> {
 
         public override void OnSkillEnter(DodgeState skillState, int level) {
@@ -90,7 +90,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier("Slide", typeof(SlideState))]
+    [SkillLevelModifier("CommandoSlide", typeof(SlideState))]
     class CommandoDiveSkillModifier : SimpleSkillModifier<SlideState> {
         public float baseSlideDuration = 0f;
         public float baseJumpDuration = 0f;
@@ -165,7 +165,7 @@ namespace SkillsPlusPlus.Modifiers {
         }
     }
 
-    [SkillLevelModifier(new string[] { "Barrage", "Death Blossom" }, typeof(FireBarrage))]
+    [SkillLevelModifier(new string[] { "CommandoBodyBarrage", "Death Blossom" }, typeof(FireBarrage))]
     class CommandoBarrageSkillModifier : SimpleSkillModifier<FireBarrage> {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {

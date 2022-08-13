@@ -92,29 +92,6 @@ namespace SkillsPlusPlus.Modifiers {
             return;
         }
 
-        public static void PatchSkillName(string bodyName, string skillNameToken, string replacementName)
-        {
-            var characterBody = LegacyResourcesAPI.Load<GameObject>("prefabs/characterbodies/" + bodyName);
-            if (characterBody.TryGetComponent(out SkillLocator skillLocator))
-            {
-                SkillFamily[] skillFamilies = { skillLocator.primary.skillFamily, skillLocator.secondary.skillFamily, skillLocator.utility.skillFamily, skillLocator.special.skillFamily };
-                foreach (SkillFamily skill in skillFamilies)
-                {
-                    foreach(SkillFamily.Variant variant in skill.variants)
-                    {
-                        SkillDef skillDef = variant.skillDef;
-                        if (skillDef != null)
-                        {
-                            if (skillDef.skillNameToken == skillNameToken)
-                            {
-                                skillDef.skillName = replacementName;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         #region Helpers
 
         /// <summary>
@@ -207,7 +184,7 @@ namespace SkillsPlusPlus.Modifiers {
                     {
                         foreach(GenericSkill skill in characterBody?.skillLocator?.allSkills)
                         {
-                            int pos = Array.IndexOf(skillNames, skill.skillDef.skillName);
+                            int pos = Array.IndexOf(skillNames, ((ScriptableObject)skill.skillDef)?.name);
                             if (pos > -1)
                             {
                                 if (upgrades[i].targetGenericSkill.skillFamily == skill.skillFamily)
