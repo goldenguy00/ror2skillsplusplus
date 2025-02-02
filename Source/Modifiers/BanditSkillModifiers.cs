@@ -221,7 +221,8 @@ namespace SkillsPlusPlus.Modifiers
                     CharacterBody body = self.GetComponent<CharacterBody>();
                     if (body != null)
                     {
-                        if (di.damageType.HasFlag(RoR2.DamageType.BonusToLowHealth) && di.damageType.HasFlag(RoR2.DamageType.ResetCooldownsOnKill))
+                        
+                        if ((di.damageType & RoR2.DamageType.BonusToLowHealth) == RoR2.DamageType.BonusToLowHealth && (di.damageType & RoR2.DamageType.ResetCooldownsOnKill) == RoR2.DamageType.ResetCooldownsOnKill)
                         {
                             di.damage *= Mathf.Lerp(1.0f + resetSkill.skillLevel * 0.3f, 1.0f + resetSkill.skillLevel * 0.1f, self.combinedHealthFraction);
                         }
@@ -274,7 +275,7 @@ namespace SkillsPlusPlus.Modifiers
             {
                 if (di != null && self != null)
                 {
-                    if (di.damageType.HasFlag(RoR2.DamageType.GiveSkullOnKill))
+                    if ((di.damageType & RoR2.DamageType.GiveSkullOnKill) == RoR2.DamageType.GiveSkullOnKill)
                     {
                         float remainingHealth = (self.combinedHealth - di.damage);
                         if (remainingHealth / self.fullCombinedHealth < revolverSkill.skillLevel * 0.01f && remainingHealth > 0)

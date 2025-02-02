@@ -13,13 +13,13 @@ using SkillsPlusPlus.UI;
 using SkillsPlusPlus.Util;
 using UnityEngine;
 using UnityEngine.Networking;
+using LoadoutPanelController = On.RoR2.UI.LoadoutPanelController;
 
 namespace SkillsPlusPlus {
 
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency("com.KingEnderBrine.ExtendedLoadout", BepInDependency.DependencyFlags.SoftDependency)] //Soft-dependency to make Skills++ load after ExtendedLoadout
     [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.4.6")]
-    [R2APISubmoduleDependency(nameof(CommandHelper), nameof(LanguageAPI), nameof(DotAPI), nameof(RecalculateStatsAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
@@ -41,7 +41,7 @@ namespace SkillsPlusPlus {
             // Raise bugs here https://discord.gg/wU94CjJ
             //             ", this.Info.Metadata.Version.ToString());
 
-#if DEBUG
+            #if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
             UnityEngine.Networking.LogFilter.currentLogLevel = LogFilter.Debug;
 
@@ -65,7 +65,7 @@ namespace SkillsPlusPlus {
             //     }
             //     orig(self);
             // };
-#endif
+            #endif
             Instance = this;
 
             CommandHelper.AddToConsoleWhenReady();
@@ -89,21 +89,34 @@ namespace SkillsPlusPlus {
                     tooltipController.skillUpgradeToken = tooltipProvider.GetToken();
                 }
             };
-            On.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot += (orig, owner, bodyIndex, skillSlotIndex, genericSkill) => {
-                object row = orig(owner, bodyIndex, skillSlotIndex, genericSkill);
-                var buttons = row.GetFieldValue<List<MPButton>>("buttons");
-                for (int i = 0; i < buttons.Count; i++) {
-                    SkillsPlusPlus.Logger.Debug("Ensuring SkillsPlusPlusTooltipProvider({0})", i);
-                    var button = buttons[i];
-                    var skillDef = genericSkill?.skillFamily?.variants[i].skillDef;
-                    if (skillDef != null) {
-                        var provider = button.gameObject.EnsureComponent<SkillUpgradeTooltipProvider>();
-                        provider.skillName = ((ScriptableObject)skillDef)?.name;
+            On.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot += RowOnFromSkillSlot;
+
+            object RowOnFromSkillSlot(LoadoutPanelController.Row.orig_FromSkillSlot orig, RoR2.UI.LoadoutPanelController owner, BodyIndex bodyindex, int skillslotindex, GenericSkill skillslot)
+            {
+                RoR2.UI.LoadoutPanelController.Row row = orig(owner, bodyindex, skillslotindex, skillslot) as RoR2.UI.LoadoutPanelController.Row;
+                //var buttons = row.GetFieldValue<List<MPButton>>("buttons");
+                if (row != null)
+                {
+                    var buttons = row.rowData;
+                    SkillsPlusPlus.Logger.Debug("row " + buttons);
+                    for (int i = 0; i < buttons.Count; i++) {
+                        SkillsPlusPlus.Logger.Debug("Ensuring SkillsPlusPlusTooltipProvider({0})", i);
+                        var button = buttons[i];
+                        var skillDef = skillslot?.skillFamily?.variants[i].skillDef;
+                        if (skillDef != null) {
+                            var provider = button.button.gameObject.EnsureComponent<SkillUpgradeTooltipProvider>();
+                            provider.skillName = ((ScriptableObject)skillDef)?.name;
+                        }
                     }
                 }
-                return row;
-            };
+                else
+                {
+                    SkillsPlusPlus.Logger.Debug("row null ");
+                }
 
+                return row;
+            }
+            
             On.RoR2.UI.HUD.Awake += this.HUD_Awake;
 
             SkillsPlusPlus.Logger.Debug("Awake() SurvivorCatalog.allSurvivorDef: {0}", SurvivorCatalog.allSurvivorDefs);
