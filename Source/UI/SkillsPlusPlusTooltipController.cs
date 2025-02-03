@@ -26,7 +26,6 @@ namespace SkillsPlusPlus.UI {
 
             skillUpgradeRect.SetActive(skillUpgradeToken != null && Language.IsTokenInvalid(skillUpgradeToken) == false);
             if (skillUpgradeToken != null && Language.IsTokenInvalid(skillUpgradeToken) == false) {
-
                 var description = Language.GetString(skillUpgradeToken);
                 var label = skillUpgradeRect.GetComponentInChildren<TMPro.TextMeshProUGUI>();
                 label.text = Language.GetStringFormatted("TOOLTIP_UPGRADE_DESCRIPTION", description);

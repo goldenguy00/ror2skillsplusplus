@@ -19,7 +19,7 @@ namespace SkillsPlusPlus {
 
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency("com.KingEnderBrine.ExtendedLoadout", BepInDependency.DependencyFlags.SoftDependency)] //Soft-dependency to make Skills++ load after ExtendedLoadout
-    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.4.6")]
+    [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.6.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin {
 
@@ -106,6 +106,7 @@ namespace SkillsPlusPlus {
                         if (skillDef != null) {
                             var provider = button.button.gameObject.EnsureComponent<SkillUpgradeTooltipProvider>();
                             provider.skillName = ((ScriptableObject)skillDef)?.name;
+                            SkillsPlusPlus.Logger.Debug(((ScriptableObject)skillDef)?.name);
                         }
                     }
                 }
