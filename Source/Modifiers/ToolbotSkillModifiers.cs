@@ -230,6 +230,7 @@ namespace SkillsPlusPlus.Modifiers {
         
         static float armorBonus = 0f;
         static float damageBonus = 0f;
+        static float moveSpeedBonus = 0f;
         static BuffDef dualWieldArmorBuff;
 
         
@@ -239,6 +240,7 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             armorBonus = AdditiveScaling(0, 20, level);
             damageBonus = AdditiveScaling(0, 0.2f, level);
+            moveSpeedBonus = AdditiveScaling(0, 1f, level);
             Logger.Debug("leveled up dualwield");
         }
 
@@ -270,7 +272,8 @@ namespace SkillsPlusPlus.Modifiers {
             if (sender.HasBuff(dualWieldArmorBuff))
             {
                 args.damageMultAdd += damageBonus;
-                args.armorAdd += armorBonus;
+                args.armorAdd += armorBonus; 
+                args.moveSpeedMultAdd += 0.2f+(0.7f-0.3f)*(1f-1f/(1f+0.6f*(moveSpeedBonus-1f))); //i hate hyperbolic </3 
             }
         }
     }

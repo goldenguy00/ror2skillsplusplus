@@ -6,20 +6,20 @@ using SkillsPlusPlus.Modifiers;
 using RoR2;
 
 using EntityStates;
-using EntityStates.Chef;
+using EntityStates.Seeker;
 
 using RoR2.Projectile;
 using RoR2.Skills;
 
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine.AddressableAssets;
 using EntityStates.VoidSurvivor.CorruptMode;
 
 namespace SkillsPlusPlus.Source.Modifiers {
-    [SkillLevelModifier("ChefDice", typeof(Dice))]
-    class ChefDiceSkillModifier : BaseSkillModifier
+    [SkillLevelModifier("SeekerBodySpiritPunchCrosshair", typeof(SpiritPunch))]
+    class SeekerPunchSkillModifier : BaseSkillModifier
     {
-
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -28,15 +28,15 @@ namespace SkillsPlusPlus.Source.Modifiers {
         public override void OnSkillEnter(BaseState skillState, int level)
         {
             base.OnSkillEnter(skillState, level);
-            if (skillState is Dice)
+            if (skillState is SpiritPunch)
             {
-                Logger.Debug("Dice");
+                Logger.Debug("SpiritPunch");
             }
         }
     }
 
-    [SkillLevelModifier("ChefSear", typeof(Sear))]
-    class ChefSearSkillModifier : BaseSkillModifier
+    [SkillLevelModifier("SeekerBodyUnseenHand", typeof(UnseenHand))]
+    class SeekerUnseenHandSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -48,16 +48,15 @@ namespace SkillsPlusPlus.Source.Modifiers {
         {
             base.OnSkillEnter(skillState, level);
 
-            if (skillState is Sear)
+            if (skillState is UnseenHand)
             {
-                Logger.Debug("FireCorruptHandBeam");
+                Logger.Debug("UnseenHand");
             }
         }
     }
 
-    [SkillLevelModifier("ChefRolyPoly", typeof(RolyPoly), typeof(ChargeRolyPoly), typeof(RolyPolyWeaponBlockingState),
-        typeof(RolyPolyBoostedProjectileTimer))]
-    class ChefRolyPolySkillModifier : BaseSkillModifier
+    [SkillLevelModifier("SeekerBodySoulSpiral", typeof(SoulSpiral))]
+    class SeekerSoulSpiralSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -69,23 +68,15 @@ namespace SkillsPlusPlus.Source.Modifiers {
         {
             base.OnSkillEnter(skillState, level);
 
-            if (skillState is RolyPoly)
+            if (skillState is SoulSpiral)
             {
-                Logger.Debug("RolyPoly");
-            }
-            else if (skillState is ChargeRolyPoly)
-            {
-                Logger.Debug("ChargeRolyPoly");
-            }
-            else if (skillState is RolyPolyWeaponBlockingState)
-            {
-                Logger.Debug("RolyPolyWeaponBlockingState");
+                Logger.Debug("SoulSpiral");
             }
         }
     }
 
-    [SkillLevelModifier("ChefGlaze", typeof(Glaze))]
-    class ChefGlazeSkillModifier : BaseSkillModifier
+    [SkillLevelModifier("SeekerBodySojourn", typeof(Sojourn), typeof(SojournVehicle))]
+    class SeekerSojournSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -97,15 +88,38 @@ namespace SkillsPlusPlus.Source.Modifiers {
         {
             base.OnSkillEnter(skillState, level);
 
-            if (skillState is Glaze)
+            if (skillState is Sojourn)
             {
-                Logger.Debug("Glaze");
-            }
+                Logger.Debug("Sojourn");
+            } 
+        }
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+
+            On.RoR2.VehicleSeat.OnPassengerEnter += (orig, self, passenger) =>
+            {
+                orig(self, passenger);
+                if (self.name.Contains("SojournVehicle"))
+                {
+                    Logger.Debug("sojourn started !!!");
+                    var car = self.GetComponent<SojournVehicle>();
+                    if (car == null)
+                    {
+                        Logger.Debug("erm., ,. nvm ,.,..");
+                    }
+                    else
+                    {
+                        Logger.Debug("sojourn real !!");
+                        car.startingSpeedBoost = 100f;
+                    }
+                }
+            };
         }
     }
 
-    [SkillLevelModifier("YesChef", typeof(YesChef))]
-    class ChefYesChefSkillModifier : BaseSkillModifier
+    [SkillLevelModifier("SeekerBodyMeditate2", typeof(Meditate),typeof(MeditationUI))]
+    class SeekerMeditateSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -117,28 +131,13 @@ namespace SkillsPlusPlus.Source.Modifiers {
         {
             base.OnSkillEnter(skillState, level);
 
-            if (skillState is YesChef)
+            if (skillState is Meditate)
             {
-                Logger.Debug("YesChef");
+                Logger.Debug("Meditate");
+            } else if (skillState is MeditationUI)
+            {
+                Logger.Debug("MeditationUI");
             }
         }
     }
 }
-/*
-    [SkillLevelModifier("", typeof())]
-    class SkillModifier : BaseSkillModifier {
-
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
-            base.OnSkillLeveledUp(level, characterBody, skillDef);
-        }
-
-        public override void OnSkillEnter(BaseState skillState, int level) {
-            base.OnSkillEnter(skillState, level);
-
-            if (skillState is ) {
-                Logger.Debug("");
-            }
-        }
-    }
-    */
-
