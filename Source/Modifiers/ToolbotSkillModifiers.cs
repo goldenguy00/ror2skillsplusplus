@@ -10,8 +10,10 @@ using RoR2.UI;
 
 using EntityStates;
 using EntityStates.Toolbot;
+using R2API;
 using R2API.Utils;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using static RoR2.RoR2Content;
 
 namespace SkillsPlusPlus.Modifiers {
@@ -213,10 +215,63 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillEnter(ToolbotDualWield toolbotStanceSwap, int level) {
             base.OnSkillEnter(toolbotStanceSwap, level);
+            if (armorBonus > 0)
+            {
+                Logger.Debug("enter dualwield");
+                toolbotStanceSwap.characterBody.SetBuffCount(dualWieldArmorBuff.buffIndex, 1);
+            }
+        }
+        public override void OnSkillExit(ToolbotDualWield skillState, int level)
+        {
+            base.OnSkillExit(skillState, level);
+            Logger.Debug("exit dualwield");
+            skillState.characterBody.SetBuffCount(dualWieldArmorBuff.buffIndex, 0);
+        }
+        
+        static float armorBonus = 0f;
+        static float damageBonus = 0f;
+        static BuffDef dualWieldArmorBuff;
+
+        
+
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
+        {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            armorBonus = AdditiveScaling(0, 20, level);
+            damageBonus = AdditiveScaling(0, 0.2f, level);
+            Logger.Debug("leveled up dualwield");
         }
 
-        public override void OnSkillExit(ToolbotDualWield skillState, int level) {
-            base.OnSkillExit(skillState, level);
+        public override void SetupSkill()
+        {
+            base.SetupSkill();
+            registerDualWieldBuff();
+            
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPIOnGetStatCoefficients;
+        }
+
+        private void registerDualWieldBuff()
+        {
+            BuffDef buffDef = ScriptableObject.CreateInstance<BuffDef>();
+
+            buffDef.buffColor = new Color(0.74f, 0.36f, 0.23f);
+            buffDef.canStack = false;
+            buffDef.eliteDef = null;
+            buffDef.iconSprite = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdArmorBoost.asset").WaitForCompletion().iconSprite;
+            buffDef.isDebuff = true;
+            buffDef.name = "DualWieldArmorBuff";
+
+            dualWieldArmorBuff = buffDef;
+            ContentAddition.AddBuffDef(buffDef);
+        }
+
+        private void RecalculateStatsAPIOnGetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.HasBuff(dualWieldArmorBuff))
+            {
+                args.damageMultAdd += damageBonus;
+                args.armorAdd += armorBonus;
+            }
         }
     }
 }
