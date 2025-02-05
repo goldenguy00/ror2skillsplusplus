@@ -168,7 +168,6 @@ namespace SkillsPlusPlus.Modifiers {
                 }
             }
         }
-
     }
 
     [SkillLevelModifier(new string[] { "ToolbotBodyToolbotDash", "Breach Mode" }, typeof(ToolbotDash))]
@@ -184,7 +183,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            ToolbotDash.chargeDamageCoefficient = MultScaling(10, 0.30f, level);
+            ToolbotDash.chargeDamageCoefficient = MultScaling(2.5f, 0.30f, level);
             ToolbotDash.knockbackDamageCoefficient = MultScaling(10, 0.30f, level);
             ToolbotDash.massThresholdForKnockback = MultScaling(250, 0.3f, level);
             ToolbotDash.knockbackForce = MultScaling(8000, 0.15f, level);
