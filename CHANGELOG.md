@@ -1,10 +1,10 @@
 # Changelog
 
-## What's new in 0.6.0 
-- Update by icebro (bread)
+## What's new in 0.6.0
 - Updated for Seekers of the Storm! (Expect some bugs (again))
 - Fixed incorrect scaling for MUL-T causing his dash to deal 4x damage 
 - Added new upgrade for MUL-T's Power Mode 
+- SOTS survivor support is yet to be added
 
 ## What's new in 0.5.0
 - Updated the way the mod finds the names of skills to hopefully alleviate future problems with implementing new skills. (For modders: Skill Names now finds the Object.Name of the SkillDef rather than skilldef.skillname. If your mod was using different names for those two, please update your Skills++ integration to use the correct name.) 

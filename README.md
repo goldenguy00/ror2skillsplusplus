@@ -1,8 +1,12 @@
 # Risk of Rain 2 - Skills++ Mod
 
-# *__Please note that due to CWMlolzlz's continued absence, I am moving to a new discord channel as of 0.4.1. I will still be in the original discord but I will be redirecting feedback/bug reports to the new discord for better control. You can find the new discord below__*
+[![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/gGtcnJDnDw) [![source code](https://img.shields.io/static/v1?label=github&logo=github&message=source%20code&color=FFFFFF)](https://github.com/gamrtiem/ror2skillsplusplus/)
 
-[![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/gGtcnJDnDw) [![source code](https://img.shields.io/static/v1?label=gitlab&logo=gitlab&message=source%20code&color=FCA121)](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/tree/master)
+## What's new in 0.6.0
+- Updated for Seekers of the Storm! (Expect some bugs (again) (please report them on the github !!))
+- Fixed incorrect scaling for MUL-T causing his dash to deal 4x damage
+- Added new upgrade for MUL-T's Power Mode
+- SOTS survivor support is yet to be added
 
 ## What's new in 0.5.0
 - Updated the way the mod finds the names of skills to hopefully alleviate future problems with implementing new skills. (For modders: Skill Names now finds the Object.Name of the SkillDef rather than skilldef.skillname. If your mod was using different names for those two, please update your Skills++ integration to use the correct name.) 
@@ -14,11 +18,11 @@
 ## What's new in 0.4.5
 - Added more protection against NullReferenceErrors and added error logging to some to track the issue.
 
-[Full changelog history](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/CHANGELOG.md)
+[Full changelog history](https://github.com/gamrtiem/ror2skillsplusplus/blob/main/CHANGELOG.md)
 
 ## Installation
 
-Extract the mod's files to your `BepInEx/plugins` folder.
+Using a mod manager like [r2modman](https://thunderstore.io/package/ebkr/r2modman/) or [gale](https://thunderstore.io/package/Kesomannen/GaleModManager/) is recommended to install mods in general, but if you're running a manual install simply extract the mod's files to your `BepInEx/plugins` folder.
 
 ## Usage
 
@@ -27,19 +31,19 @@ By default, your first skill point is earned upon reaching level five, and subse
 
 You can change the number of levels between skill points within the gameplay settings in Risk of Rain 2. Changes to this setting will be applied at the start of each run.
 
-![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/levels_per_skillpoint_option.png)
+![](https://raw.githubusercontent.com/gamrtiem/ror2skillsplusplus/refs/heads/main/Images/levels_per_skillpoint_option.png)
 
 To redeem points open the info screen (hold TAB by default) and click the skill you would like to buy.
 Upgrades do not carry over between runs so you will be starting from scratch every time.
 
 1. When you have levelled up enough to buy a skill the icons will change to have a yellow border.
-![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skillpoint_available.png)
+![](https://raw.githubusercontent.com/gamrtiem/ror2skillsplusplus/refs/heads/main/Images/skillpoint_available.png)
 
 1. Opening the info screen will present 'Buy' buttons over the top of skills that can be purchased.
-![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/buy_options.png)
+![](https://raw.githubusercontent.com/gamrtiem/ror2skillsplusplus/refs/heads/main/Images/buy_options.png)
 
 1. Clicking on any of the 'Buy' buttons will spend a single point and the skill will upgrade.
-![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skillpoint_spent.png)
+![](https://raw.githubusercontent.com/gamrtiem/ror2skillsplusplus/refs/heads/main/Images/skillpoint_spent.png)
 
 ## Modded characters
 
@@ -54,7 +58,7 @@ If you have added Skills++ to your own modded character let me know and I will a
 Using controllers is now support for purchasing upgrades for your skills.
 In order to begin using it you must bind your desired control to entering the buying mode.
 You can find the binding at the end of all the gamepad controls.
-![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skills_gamepad_settings.jpg)
+![](https://raw.githubusercontent.com/gamrtiem/ror2skillsplusplus/refs/heads/main/Images/skills_gamepad_settings.jpg)
 
 While ingame just press and the bound button and activate the skill you wish to upgrade.
 
@@ -77,7 +81,7 @@ The enable command is there to re-enable a survivor if the conflict no longer ex
 
 ## Feedback and bug reports
 
-The best way to give feedback or raise bugs is through [my modding discord](https://discord.gg/HbqdgMG).
+The best way to give feedback or raise bugs is through [opening a github issue](https://github.com/gamrtiem/ror2skillsplusplus/issues/new?template=Blank+issue) (please provide a log !!). 
 I welcome everyone who uses Skills++ to drop by and share your thoughts.
 
 ## FAQ
@@ -85,15 +89,15 @@ I welcome everyone who uses Skills++ to drop by and share your thoughts.
 **When playing multiplayer my/friend's game doesn't work. What is going wrong?**
 
 Skills++ does have multiplayer support but there may still be gaps in the logic.
-The best action to resolve this is to raise it in the [modding discord](https://discord.gg/HbqdgMG) with as much info as possible
+The best action to resolve this is to raise it in a [github issue](https://github.com/gamrtiem/ror2skillsplusplus/issues/new?template=Blank+issue) with as much info as possible
 
 **Will Skills++ support modded characters?**
   
-Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/blob/master/Documentation/supporting-modded-characters.md) alongside the mod's source code.
+Yes. There is support for third party code to integrate with the Skills++ system. Guides are available [here](https://github.com/gamrtiem/ror2skillsplusplus/blob/main/Documentation/supporting-modded-characters.md) alongside the mod's source code.
 
 **Skills++ makes the game a cakewalk. Do you recommend any other mods to balance the game?**
 
-I'd highly recommend harb's [Diluvian Difficulty](https://thunderstore.io/package/Harb/DiluvianDifficulty/) mod. It adds two extra difficulties to the game that should level the playing fields a bit more.
+I'd highly recommend HIFU's [Inferno](https://thunderstore.io/package/prodzpod/Inferno/) mod. It adds an extra difficulty to the game that should level the playing fields a bit more.
 
 ## Special thanks
 
@@ -109,7 +113,7 @@ A very special thanks to the following people. They have been amazing people pro
 
 Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 
-![](https://gitlab.com/cwmlolzlz/ror2skillsplusplus/-/raw/master/Images/skill_upgrade_tooltip.png)
+![](https://raw.githubusercontent.com/gamrtiem/ror2skillsplusplus/refs/heads/main/Images/skill_upgrade_tooltip.png)
 
 **Jump to character**
 
@@ -153,15 +157,16 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 
 ### MUL-T
 
-| Skill | | Description |
-|:-|-|------|
-| Auto-Nailgun | ![Auto-Nailgun](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/ec/Auto-Nailgun.png) | `+20%` damage and `+4` bullets to final burst per level |
-| Rebar Puncher | ![Rebar Puncher](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/10/Rebar_Puncher.png) | `+15%` rate of fire and `+10%` damage per level |
-| Scrap Launcher | ![Scrap Launcher](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e6/Scrap_Launcher.png) | `+1` stock, `+20%` damage, and `+15%` blast radius per level |
-| Power-Saw | ![Power-Saw](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8e/Power-Saw.png) | `+20%` rate of fire, `+20%` damage, and `+30%` blade hitbox size per level |
-| Blast Cannister | ![Blast Cannister](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f2/Blast_Canister.png) | `+3` child bombs, `+20%` spread radius, `+20%` child blast radius, and `+20%` damage per level |
-| Transport Mode | ![Transport Mode](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/85/Transport_Mode.png) | `+10%` duration, `+10%` speed, and `+30%` damage per level |
-| Swap | ![Swap](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8d/Retool.png) | Upon activating gain `+1 second` of bonus attack speed and `+1 second` equipment cooldown per level |
+| Skill           |                                                                                                               | Description                                                                                         |
+|:----------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| Auto-Nailgun    | ![Auto-Nailgun](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/ec/Auto-Nailgun.png)      | `+20%` damage and `+4` bullets to final burst per level                                             |
+| Rebar Puncher   | ![Rebar Puncher](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/1/10/Rebar_Puncher.png)    | `+15%` rate of fire and `+10%` damage per level                                                     |
+| Scrap Launcher  | ![Scrap Launcher](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e6/Scrap_Launcher.png)  | `+1` stock, `+20%` damage, and `+15%` blast radius per level                                        |
+| Power-Saw       | ![Power-Saw](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8e/Power-Saw.png)            | `+20%` rate of fire, `+20%` damage, and `+30%` blade hitbox size per level                          |
+| Blast Cannister | ![Blast Cannister](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/f/f2/Blast_Canister.png) | `+3` child bombs, `+20%` spread radius, `+20%` child blast radius, and `+20%` damage per level      |
+| Transport Mode  | ![Transport Mode](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/85/Transport_Mode.png)  | `+10%` duration, `+10%` speed, and `+30%` damage per level                                          |
+| Swap            | ![Swap](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/8d/Retool.png)                    | Upon activating gain `+1 second` of bonus attack speed and `+1 second` equipment cooldown per level |
+| Power Mode      | ![Power Mode](https://riskofrain2.wiki.gg/images/7/7c/Power_Mode.png)               | Gain `+25 defense`, `15% damage` and `10% speed` per level                                          |
 
 ### Engineer
 

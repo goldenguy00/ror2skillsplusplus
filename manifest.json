@@ -1,8 +1,8 @@
 {
 	"name": "SkillsPlusPlus",
 	"version_number": "0.6.0",
-	"website_url": "https://discord.gg/gGtcnJDnDw",
-	"description": "Add progression to your runs with skill upgrades",
+	"website_url": "https://github.com/gamrtiem/ror2skillsplusplus",
+	"description": "Add progression to your runs with skill upgrades (+SOTS support!)",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.2117",
 		"tristanmcpherson-R2API-5.0.5"
