@@ -16,10 +16,6 @@ namespace SkillsPlusPlus.UI {
             if (skillName == null) {
                 return null;
             }
-            if (skillName == "")
-            {
-                skillName = "DEFAULT";
-            }
             return (skillName + "_UPGRADE_DESCRIPTION").ToUpper();
         }
 
