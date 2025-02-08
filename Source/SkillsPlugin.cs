@@ -1,9 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Reflection;
 using BepInEx;
+using BepInEx.Configuration;
 using R2API;
 using R2API.Utils;
+using RiskOfOptions;
+using RiskOfOptions.OptionConfigs;
+using RiskOfOptions.Options;
 using RoR2;
 using RoR2.ContentManagement;
 using RoR2.UI;
@@ -117,8 +122,29 @@ namespace SkillsPlusPlus {
 
                 return row;
             }
-            
+
             On.RoR2.UI.HUD.Awake += this.HUD_Awake;
+            
+            var levelsPerSkillPoint = Config.Bind("Skills++",
+                "Levels per skill point",
+                5f,
+                @"The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run\n\nIn multiplayer runs the host's setting is used");
+
+            SliderConfig slider = new SliderConfig
+            {
+                max = 50,
+                min = 1,
+                FormatString = "{0:0}"
+            };
+            
+            ModSettingsManager.AddOption(new SliderOption(levelsPerSkillPoint, slider));
+
+            levelsPerSkillPoint.SettingChanged += (sender, args) =>
+            {
+                SkillsPlusPlus.Logger.Error("woerwsoietn s" + ConVars.ConVars.levelsPerSkillPoint.value);
+                ConVars.ConVars.levelsPerSkillPoint.value = Mathf.RoundToInt(levelsPerSkillPoint.Value);
+                SkillsPlusPlus.Logger.Error("woerwsoietn s" + ConVars.ConVars.levelsPerSkillPoint.value);
+            };
 
             SkillsPlusPlus.Logger.Debug("Awake() SurvivorCatalog.allSurvivorDef: {0}", SurvivorCatalog.allSurvivorDefs);
         }

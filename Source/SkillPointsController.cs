@@ -50,7 +50,7 @@ namespace SkillsPlusPlus {
         private int unspentSkillPoints = 0;
 
         [SyncVar]
-        private int levelsPerSkillPoint = 5;
+        private int levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
 
         [SyncVar]
         public bool multScalingLinear = false;
@@ -62,13 +62,10 @@ namespace SkillsPlusPlus {
         private Dictionary<string, int> transferrableSkillUpgrades = new Dictionary<string, int>();
 
         void Awake() {
-
-            this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
             multScalingLinear = ConVars.ConVars.multScalingLinear.value;
             Logger.Debug("levelsPerSkillPoint: {0}", this.levelsPerSkillPoint);
-
+            
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
-
         }
 
         void OnEnable() {
@@ -215,6 +212,8 @@ namespace SkillsPlusPlus {
                 return;
             }
 
+            levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value; 
+            Logger.Error(" levles needed " + levelsPerSkillPoint);
             int newSkillPoints = Math.Max(0, SkillPointsAtLevel(characterLevel) - earnedSkillPoints);
 
             earnedSkillPoints += newSkillPoints;
