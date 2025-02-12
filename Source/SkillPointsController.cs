@@ -213,7 +213,6 @@ namespace SkillsPlusPlus {
             }
 
             levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value; 
-            Logger.Error(" levles needed " + levelsPerSkillPoint);
             int newSkillPoints = Math.Max(0, SkillPointsAtLevel(characterLevel) - earnedSkillPoints);
 
             earnedSkillPoints += newSkillPoints;

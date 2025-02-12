@@ -128,7 +128,7 @@ namespace SkillsPlusPlus {
             var levelsPerSkillPoint = Config.Bind("Skills++",
                 "Levels per skill point",
                 5f,
-                @"The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run\n\nIn multiplayer runs the host's setting is used");
+                "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run. In multiplayer runs the host's setting is used");
 
             SliderConfig slider = new SliderConfig
             {
@@ -141,11 +141,21 @@ namespace SkillsPlusPlus {
 
             levelsPerSkillPoint.SettingChanged += (sender, args) =>
             {
-                SkillsPlusPlus.Logger.Error("woerwsoietn s" + ConVars.ConVars.levelsPerSkillPoint.value);
                 ConVars.ConVars.levelsPerSkillPoint.value = Mathf.RoundToInt(levelsPerSkillPoint.Value);
-                SkillsPlusPlus.Logger.Error("woerwsoietn s" + ConVars.ConVars.levelsPerSkillPoint.value);
             };
+            
+            var disableInput = Config.Bind("Skills++",
+                "Disable Skills While Buying",
+                true,
+                "Should skills be disabled while the Buy Skills Input is pressed. (Disable this if you find yourself hitting the key by mistake)");
 
+            ModSettingsManager.AddOption(new ChoiceOption(disableInput));
+
+            disableInput.SettingChanged += (sender, args) =>
+            {
+                ConVars.ConVars.disableOnBuy.value = disableInput.Value;
+            };
+            
             SkillsPlusPlus.Logger.Debug("Awake() SurvivorCatalog.allSurvivorDef: {0}", SurvivorCatalog.allSurvivorDefs);
         }
 
