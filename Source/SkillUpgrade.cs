@@ -160,6 +160,7 @@ namespace SkillsPlusPlus {
                     }
 
                     if (bLogging) Logger.Debug(state.GetType().Name + ": Found CharacterBody, returning " + characterBody.GetDisplayName());
+                    RefreshUpgrades(); // kinda a hacky way to do it ? idk it works and 4 am <3 
                     return characterBody;
                 } else if (state.outer.TryGetComponent(out ProjectileController projectileController) && projectileController.owner) {
                     if (bLogging) Logger.Debug(state.GetType().Name + ": Found ProjectileController, returning " + projectileController.owner.GetComponent<CharacterBody>().GetDisplayName());
@@ -196,6 +197,7 @@ namespace SkillsPlusPlus {
                 var activeSkillDef = GetActiveSkillDef(this.targetGenericSkill);
                 if (skillModifier != null && activeSkillDef != null && skillModifier.skillNames.Contains(((ScriptableObject)activeSkillDef)?.name)) {
                     skillModifier.OnSkillEnter(skillState: baseState, this.skillLevel);
+                    Logger.Debug("skill level = " + skillLevel);
                     orig(self);
                     return;
                 }
