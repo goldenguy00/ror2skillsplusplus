@@ -599,10 +599,11 @@ namespace SkillsPlusPlus.Modifiers
             if (!CryochargeSkill)
             {
                 CryochargeSkill = registeredSkill;
-                originalRechargeRate = skillDef.baseRechargeInterval;
+                originalRechargeRate = 15f; // probably no repercussions for not getting this while in runtime :clueless:
             }
-
+            //Logger.Debug("recahge rate = " + skillDef.rech);
             skillDef.baseRechargeInterval = originalRechargeRate * (10f / (level + 10f));
+            
         }
 
         public void RegisterFrostfireBuff()
