@@ -93,6 +93,7 @@ namespace SkillsPlusPlus.Modifiers {
             float newXScale = MultScaling(23.69f, 0.20f, level);
             PrepWall.areaIndicatorPrefab.transform.localScale = new Vector3(newXScale, PrepWall.areaIndicatorPrefab.transform.localScale.y, PrepWall.areaIndicatorPrefab.transform.localScale.z);
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
+            Logger.Debug(PrepWall.projectilePrefab.name);
         }
 
     }

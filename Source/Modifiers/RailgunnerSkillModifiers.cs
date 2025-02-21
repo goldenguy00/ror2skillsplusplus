@@ -599,11 +599,9 @@ namespace SkillsPlusPlus.Modifiers
             if (!CryochargeSkill)
             {
                 CryochargeSkill = registeredSkill;
-                originalRechargeRate = 15f; // probably no repercussions for not getting this while in runtime :clueless:
             }
-            //Logger.Debug("recahge rate = " + skillDef.rech);
-            skillDef.baseRechargeInterval = originalRechargeRate * (10f / (level + 10f));
-            
+            originalRechargeRate = 1 - (10f / (level + 10f));
+            Logger.Debug(originalRechargeRate);
         }
 
         public void RegisterFrostfireBuff()
@@ -654,6 +652,13 @@ namespace SkillsPlusPlus.Modifiers
             On.RoR2.HealthComponent.TakeDamage += new On.RoR2.HealthComponent.hook_TakeDamage(HealthComponent_TakeDamage);
 
             base.SetupSkill();
+            
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPIOnGetStatCoefficients;
+        }
+
+        private void RecalculateStatsAPIOnGetStatCoefficients(CharacterBody sender, StatHookEventArgs args)
+        {
+            args.specialCooldownMultAdd -= originalRechargeRate;
         }
     }
 }

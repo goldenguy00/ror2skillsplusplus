@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using EntityStates;
 using R2API.Utils;
 using Rewired;
+using RiskOfOptions;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
@@ -124,6 +125,7 @@ namespace SkillsPlusPlus {
                     skillUpgrade.skillLevel = (bFirstHereticMorph ? 0 : transferrableSkillUpgrades[skillUpgrade.targetBaseSkillName]);
                     unspentSkillPoints -= skillUpgrade.skillLevel;
                     transferrableSkillUpgrades.Remove(skillUpgrade.targetBaseSkillName);
+                    //skillUpgrade.OnBuySkill();
                 }
             }
 
@@ -137,7 +139,7 @@ namespace SkillsPlusPlus {
         private bool GenericCharacterMain_CanExecuteSkill(On.EntityStates.GenericCharacterMain.orig_CanExecuteSkill orig, GenericCharacterMain self, GenericSkill skillSlot) {
             if (this.isSurvivorEnabled && this.body != null && self.outer.commonComponents.characterBody == this.body) {
                 Player inputPlayer = this.playerCharacterMasterController?.networkUser?.localUser?.inputPlayer;
-                if (inputPlayer != null && inputPlayer.GetButtonDown(SkillInput.BUY_SKILLS_ACTION_ID)) {
+                if (inputPlayer != null && ConVars.ConVars.buySkillsKeybind.IsPressedInclusive() && ConVars.ConVars.disableOnBuy.value && unspentSkillPoints > 0) {
                     return false;
                 }
             }

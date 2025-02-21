@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using R2API.Utils;
 using Rewired;
+using RiskOfOptions;
 using RoR2;
 using RoR2.UI;
 using RoR2.UI.SkinControllers;
@@ -163,7 +164,6 @@ namespace SkillsPlusPlus {
                     Player inputPlayer = localUser?.inputPlayer;
 
                     if (inputPlayer != null) {
-
                         //if (localUser.eventSystem.currentInputSource == MPEventSystem.InputSource.Gamepad) {
                         if (skillIcon != null) {
                             SkillSlot skillSlot = skillIcon.targetSkillSlot;
@@ -185,8 +185,8 @@ namespace SkillsPlusPlus {
                                     skillAction = RewiredConsts.Action.SpecialSkill;
                                     break;
                             }
-                            UpgradeButton.SetActive(canBuySkill && inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME) || inputPlayer.GetButton(RewiredConsts.Action.Info));
-                            if (skillAction != 0 && inputPlayer.GetButtonDown(skillAction) && (inputPlayer.GetButton(SkillInput.BUY_SKILLS_ACTION_NAME))) {
+                            UpgradeButton.SetActive(canBuySkill && ConVars.ConVars.buySkillsKeybind.IsPressedInclusive() || inputPlayer.GetButton(RewiredConsts.Action.Info));
+                            if (skillAction != 0 && inputPlayer.GetButtonDown(skillAction) && (ConVars.ConVars.buySkillsKeybind.IsPressedInclusive())) {
                                 this.OnBuySkill();
                             }
                         }
