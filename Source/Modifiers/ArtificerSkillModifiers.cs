@@ -5,6 +5,7 @@ using EntityStates;
 using EntityStates.LemurianBruiserMonster;
 using EntityStates.Mage;
 using EntityStates.Mage.Weapon;
+using R2API;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
@@ -82,20 +83,39 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
+
+            if (skillDef != characterBody.skillLocator.utility.skillDef) return;
+            Logger.Debug("upgraded util");
+
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
             PrepWall.damageCoefficient = AdditiveScaling(1, 0.3f, level);
 
-            if (PrepWall.projectilePrefab.TryGetComponent(out ProjectileCharacterController projectileCharacterController)) {
-                projectileCharacterController.lifetime = MultScaling(0.3f, 0.15f, level);
-                Logger.Debug("projectileCharacterController.lifetime: {0}", projectileCharacterController.lifetime);
+            if (PrepWall.projectilePrefab.TryGetComponent(out ProjectileMageFirewallWalkerController projectileMageFirewallWalkerController))
+            {
+                projectileMageFirewallWalkerController.totalProjectiles = (int)AdditiveScaling(6, 1, level);
+                Logger.Debug("projectileMageFirewallWalkerController.totalProjectiles: {0}", projectileMageFirewallWalkerController.totalProjectiles);
+                if (projectileMageFirewallWalkerController.firePillarPrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion))
+                {
+                    projectileImpactExplosion.lifetime = AdditiveScaling(8, 8f * 0.15f, level);
+                    if (projectileImpactExplosion.TryGetComponent(out ProjectileController projectileController))
+                    {
+                        if (projectileController.ghostPrefab.transform.Find("Mesh").TryGetComponent(out ParticleSystem particleSystem))
+                        {
+                            particleSystem.startLifetime = AdditiveScaling(8, 8f * 0.15f, level);
+                        }
+                    }
+                }
             }
 
-            float newXScale = MultScaling(23.69f, 0.20f, level);
+            float newXScale = AdditiveScaling(23.69f, 23.69f/6f * 2, level);
             PrepWall.areaIndicatorPrefab.transform.localScale = new Vector3(newXScale, PrepWall.areaIndicatorPrefab.transform.localScale.y, PrepWall.areaIndicatorPrefab.transform.localScale.z);
+            
+            PrepWall.projectilePrefab = PrepWall.projectilePrefab.gameObject.InstantiateClone(PrepWall.projectilePrefab.gameObject.name);
+            PrepWall.areaIndicatorPrefab = PrepWall.areaIndicatorPrefab.gameObject.InstantiateClone(PrepWall.areaIndicatorPrefab.gameObject.name);
+                
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);
             Logger.Debug(PrepWall.projectilePrefab.name);
         }
-
     }
 
     [SkillLevelModifier(new string[] { "MageBodyFlamethrower", "Dragon's Breath" }, typeof(Flamethrower))]
