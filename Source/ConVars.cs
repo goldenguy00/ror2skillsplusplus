@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BepInEx.Configuration;
 using HarmonyLib;
 using R2API.Utils;
 using RoR2;
@@ -12,6 +13,7 @@ namespace SkillsPlusPlus.ConVars {
     internal static class ConVars {
 
         internal static StringListConVar disabledSurvivors = new StringListConVar("spp_disabled_survivors", ConVarFlags.Archive, new List<string>(), "The list of survivors excluded from Skills++ behaviour in a string form");
+        internal static KeyboardShortcut buySkillsKeybind = new KeyboardShortcut();
         internal static BoundedIntConVar levelsPerSkillPoint = new BoundedIntConVar("spp_levels_per_skillpoint", ConVarFlags.Archive, "5", 1, 99, Language.GetString("LEVELS_PER_SKILLPOINT_DESCRIPTION"));
         internal static BoolConVar multScalingLinear = new BoolConVar("spp_mult_scaling_linear", ConVarFlags.Archive, "0", Language.GetString("MULT_SCALING_LINEAR_DESCRIPTION"));
         internal static BoolConVar disableOnBuy = new BoolConVar("spp_disable_skills_buy_input", ConVarFlags.Archive, "1", Language.GetString("DISABLE_SKILL_BUY_INPUT_DESCRIPTION"));

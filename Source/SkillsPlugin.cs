@@ -1,9 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Reflection;
 using BepInEx;
+using BepInEx.Configuration;
 using R2API;
 using R2API.Utils;
+using RiskOfOptions;
+using RiskOfOptions.OptionConfigs;
+using RiskOfOptions.Options;
 using RoR2;
 using RoR2.ContentManagement;
 using RoR2.UI;
@@ -72,10 +77,10 @@ namespace SkillsPlusPlus {
 
             R2API.RecalculateStatsAPI.GetStatCoefficients += LunarModifiers.RecalculateStats_GetLunarStats;
 
-            On.RoR2.Skills.SkillDef.CanExecute += SkillInput.GenericSkill_CanExecute;
+            //On.RoR2.Skills.SkillDef.CanExecute += SkillInput.GenericSkill_CanExecute;
 
             SkillModifierManager.LoadSkillModifiers();
-            SkillInput.SetupCustomInput();
+            //SkillInput.SetupCustomInput();
             SkillOptions.SetupGameplayOptions();
 
             GameObject playerMasterPrefab = LegacyResourcesAPI.Load<GameObject>("prefabs/charactermasters/CommandoMaster");
@@ -117,10 +122,78 @@ namespace SkillsPlusPlus {
 
                 return row;
             }
-            
+
             On.RoR2.UI.HUD.Awake += this.HUD_Awake;
 
+            initConfig();
+            
             SkillsPlusPlus.Logger.Debug("Awake() SurvivorCatalog.allSurvivorDef: {0}", SurvivorCatalog.allSurvivorDefs);
+        }
+
+        private void initConfig()
+        {
+            var levelsPerSkillPoint = Config.Bind("Skills++",
+                "Levels per skill point",
+                5f,
+                "The number of levels to reach to be rewarded with a skillpoint. Changes will not be applied during a run. In multiplayer runs the host's setting is used");
+
+            SliderConfig slider = new SliderConfig
+            {
+                max = 50,
+                min = 1,
+                FormatString = "{0:0}"
+            };
+            
+            ModSettingsManager.AddOption(new SliderOption(levelsPerSkillPoint, slider));
+
+            levelsPerSkillPoint.SettingChanged += (sender, args) =>
+            {
+                ConVars.ConVars.levelsPerSkillPoint.value = Mathf.RoundToInt(levelsPerSkillPoint.Value);
+            };
+            
+            var skillActionName = Config.Bind("Skills++",
+                "Keybind to upgrade skills",
+                KeyboardShortcut.Empty,
+                "Key to upgrade skills. When a skill is available to be upgraded, holding the key down and pressing the associated skill key will upgrade the skill.");
+            
+            ModSettingsManager.AddOption(new KeyBindOption(skillActionName));
+
+            skillActionName.SettingChanged += (sender, args) =>
+            {
+                ConVars.ConVars.buySkillsKeybind = skillActionName.Value;
+                SkillsPlusPlus.Logger.Debug(skillActionName.Value.MainKey.ToString());
+            };
+            
+            var disableInput = Config.Bind("Skills++",
+                "Disable Skills While Buying",
+                true,
+                "Should skills be disabled while the Buy Skills Input is pressed. (Disable this if you find yourself hitting the key by mistake)");
+            
+            disableInput.SettingChanged += (sender, args) =>
+            {
+                ConVars.ConVars.disableOnBuy.value = disableInput.Value;
+            };
+            
+            ModSettingsManager.AddOption(new CheckBoxOption(disableInput));
+            
+            
+            
+            var multScalingLinear = Config.Bind("Skills++",
+                "Linear Skill Multipliers",
+                false,
+                "Should Multiplicative (+%) skill values use a linear value rather than an exponential one. (Useful for playing with low \"Levels per skill point\" values). In multiplayer runs the host's setting is used");
+            
+            multScalingLinear.SettingChanged += (sender, args) =>
+            {
+                ConVars.ConVars.multScalingLinear.value = multScalingLinear.Value;
+            };
+            
+            ModSettingsManager.AddOption(new CheckBoxOption(multScalingLinear));
+
+            ConVars.ConVars.buySkillsKeybind = skillActionName.Value;
+            ConVars.ConVars.levelsPerSkillPoint.value = Mathf.RoundToInt(levelsPerSkillPoint.Value);
+            ConVars.ConVars.disableOnBuy.value = disableInput.Value;
+            ConVars.ConVars.multScalingLinear.value = multScalingLinear.Value;
         }
 
         [SystemInitializer(typeof(SurvivorCatalog))]

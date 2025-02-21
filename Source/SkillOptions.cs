@@ -22,7 +22,6 @@ namespace SkillsPlusPlus {
                 SettingsPanelControllerAwake(self);
             };
         }
-
         private static void SettingsPanelControllerAwake(SettingsPanelController settingsPanelController) {
             if(!levelsPerSkillPointCarousel) {
 
@@ -37,7 +36,7 @@ namespace SkillsPlusPlus {
                 }
 
                 if(gameplaySettingsPanelTransform != null && carouselPrefab != null) {
-                    Logger.Debug("Adding option");
+                    /*Logger.Debug("Adding option");
                     GameObject gameObject = GameObject.Instantiate(carouselPrefab, gameplaySettingsPanelTransform);
                     gameObject.name = "SettingsEntryButton, Carousel (Skills++)";
                     levelsPerSkillPointCarousel = gameObject.GetComponent<CarouselController>();
@@ -61,7 +60,7 @@ namespace SkillsPlusPlus {
 
                     // triggers a OnEnable call that will revalidate the controls
                     levelsPerSkillPointCarousel.enabled = false;
-                    levelsPerSkillPointCarousel.enabled = true;
+                    levelsPerSkillPointCarousel.enabled = true;*/
 
 
                     //HGButton button = buySkillsOptionGameObject.GetComponent<HGButton>();

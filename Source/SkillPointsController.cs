@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using EntityStates;
 using R2API.Utils;
 using Rewired;
+using RiskOfOptions;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
@@ -50,7 +51,7 @@ namespace SkillsPlusPlus {
         private int unspentSkillPoints = 0;
 
         [SyncVar]
-        private int levelsPerSkillPoint = 5;
+        private int levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
 
         [SyncVar]
         public bool multScalingLinear = false;
@@ -62,13 +63,10 @@ namespace SkillsPlusPlus {
         private Dictionary<string, int> transferrableSkillUpgrades = new Dictionary<string, int>();
 
         void Awake() {
-
-            this.levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value;
             multScalingLinear = ConVars.ConVars.multScalingLinear.value;
             Logger.Debug("levelsPerSkillPoint: {0}", this.levelsPerSkillPoint);
-
+            
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
-
         }
 
         void OnEnable() {
@@ -127,6 +125,7 @@ namespace SkillsPlusPlus {
                     skillUpgrade.skillLevel = (bFirstHereticMorph ? 0 : transferrableSkillUpgrades[skillUpgrade.targetBaseSkillName]);
                     unspentSkillPoints -= skillUpgrade.skillLevel;
                     transferrableSkillUpgrades.Remove(skillUpgrade.targetBaseSkillName);
+                    //skillUpgrade.OnBuySkill();
                 }
             }
 
@@ -140,7 +139,7 @@ namespace SkillsPlusPlus {
         private bool GenericCharacterMain_CanExecuteSkill(On.EntityStates.GenericCharacterMain.orig_CanExecuteSkill orig, GenericCharacterMain self, GenericSkill skillSlot) {
             if (this.isSurvivorEnabled && this.body != null && self.outer.commonComponents.characterBody == this.body) {
                 Player inputPlayer = this.playerCharacterMasterController?.networkUser?.localUser?.inputPlayer;
-                if (inputPlayer != null && inputPlayer.GetButtonDown(SkillInput.BUY_SKILLS_ACTION_ID)) {
+                if (inputPlayer != null && ConVars.ConVars.buySkillsKeybind.IsPressedInclusive() && ConVars.ConVars.disableOnBuy.value && unspentSkillPoints > 0) {
                     return false;
                 }
             }
@@ -215,6 +214,7 @@ namespace SkillsPlusPlus {
                 return;
             }
 
+            levelsPerSkillPoint = ConVars.ConVars.levelsPerSkillPoint.value; 
             int newSkillPoints = Math.Max(0, SkillPointsAtLevel(characterLevel) - earnedSkillPoints);
 
             earnedSkillPoints += newSkillPoints;

@@ -124,7 +124,7 @@
 		"RAILGUNNERBODYSCOPELIGHT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1</style> temporary armor per kill. Turns into <style=cIsUtility>+0.25s</style> movement speed boost after zoom out",
 		"RAILGUNNERBODYFIREMINECONCUSSIVE_UPGRADE_DESCRIPTION": "<style=cIsUtility>+0.5s</style> slowfall on hit and <style=cIsUtility>+15%</style> throw range",
 		"RAILGUNNERBODYFIREMINEBLINDING_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> global damage on affected enemies, <style=cIsUtility>+15%</style> range, and <style=cIsUtility>+15%</style> throw range",
-		"RAILGUNNERBODYCHARGESNIPESUPER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> proc chance, <style=cIsUtility>+20%</style> crit multiplier, and <style=cIsUtility>-5%</style> cooldown duration",
+		"RAILGUNNERBODYCHARGESNIPESUPER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> proc chance and <style=cIsUtility>+20%</style> crit multiplier",
 		"RAILGUNNERBODYCHARGESNIPECRYO_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2s</style> frostfire burn and <style=cIsUtility>-10%</style> cooldown duration",
 		
 		"FIREHANDBEAM_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
