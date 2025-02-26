@@ -79,8 +79,8 @@ namespace SkillsPlusPlus.Modifiers {
     }
 
     [SkillLevelModifier("MageBodyWall", typeof(PrepWall))]
-    class MageWallSkillModifier : SimpleSkillModifier<PrepWall> {
-
+    class MageWallSkillModifier : SimpleSkillModifier<PrepWall>
+    {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
 
@@ -94,23 +94,30 @@ namespace SkillsPlusPlus.Modifiers {
             {
                 projectileMageFirewallWalkerController.totalProjectiles = (int)AdditiveScaling(6, 1, level);
                 Logger.Debug("projectileMageFirewallWalkerController.totalProjectiles: {0}", projectileMageFirewallWalkerController.totalProjectiles);
-                if (projectileMageFirewallWalkerController.firePillarPrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion))
+                // this just like ,.., doesnt update the ones not newly added ?? for no reason ???? ive spent like 4 days rethinking this over just gonna remove it ,.,
+                /*if (projectileMageFirewallWalkerController.firePillarPrefab.TryGetComponent(out ProjectileImpactExplosion projectileImpactExplosion))
                 {
                     projectileImpactExplosion.lifetime = AdditiveScaling(8, 8f * 0.15f, level);
                     if (projectileImpactExplosion.TryGetComponent(out ProjectileController projectileController))
                     {
                         if (projectileController.ghostPrefab.transform.Find("Mesh").TryGetComponent(out ParticleSystem particleSystem))
                         {
+                            ParticleSystem.MainModule main = particleSystem.main;
+
+                            main.startLifetimeMultiplier = AdditiveScaling(8, 8f * 0.15f, level);
+                            
                             particleSystem.startLifetime = AdditiveScaling(8, 8f * 0.15f, level);
                         }
                     }
-                }
+
+                    pillar = projectileMageFirewallWalkerController.firePillarPrefab;
+                }*/
             }
 
             float newXScale = AdditiveScaling(23.69f, 23.69f/6f * 2, level);
             PrepWall.areaIndicatorPrefab.transform.localScale = new Vector3(newXScale, PrepWall.areaIndicatorPrefab.transform.localScale.y, PrepWall.areaIndicatorPrefab.transform.localScale.z);
             
-            PrepWall.projectilePrefab = PrepWall.projectilePrefab.gameObject.InstantiateClone(PrepWall.projectilePrefab.gameObject.name);
+            //PrepWall.projectilePrefab = PrepWall.projectilePrefab.gameObject.InstantiateClone(PrepWall.projectilePrefab.gameObject.name);
             PrepWall.areaIndicatorPrefab = PrepWall.areaIndicatorPrefab.gameObject.InstantiateClone(PrepWall.areaIndicatorPrefab.gameObject.name);
                 
             Logger.Debug("baseDuration: {0}, damageCoefficient: {1}", PrepWall.baseDuration, PrepWall.damageCoefficient);

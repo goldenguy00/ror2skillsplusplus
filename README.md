@@ -2,6 +2,11 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/gGtcnJDnDw) [![source code](https://img.shields.io/static/v1?label=github&logo=github&message=source%20code&color=FFFFFF)](https://github.com/gamrtiem/ror2skillsplusplus/)
 
+## What's new in 6.0.1
+- Re-added configs with support for Risk of Options (sorry controller bros .., looking into how extra skill slots adds controller support!)
+- Fixed a bug where skill upgrades wouldn't stay until re-upgraded on the next stage
+- Fixed Arti's Snapfreeze upgrade not doing anything
+
 ## What's new in 0.6.0
 - Updated for Seekers of the Storm! (Expect some bugs (again) (please report them on the github !!))
 - Fixed incorrect scaling for MUL-T causing his dash to deal 4x damage
@@ -14,9 +19,6 @@
 - Fixed an error that prevented Engi's turrets from getting their buffs.
 - Fixed some tooltip issues regarding Huntress' second utility skill and Void Fiend picking up Acrid's tooltips by mistake.
 - Added Not Yet Implemented messages to the unsupported vanilla skills to reduce confusion.
-
-## What's new in 0.4.5
-- Added more protection against NullReferenceErrors and added error logging to some to track the issue.
 
 [Full changelog history](https://github.com/gamrtiem/ror2skillsplusplus/blob/main/CHANGELOG.md)
 
@@ -52,15 +54,6 @@ Go and check out all of these characters and give them some love!
 If you have added Skills++ to your own modded character let me know and I will add it here.
 
 [![TTGL by Mico27](https://gcdn.thunderstore.io/live/repository/icons/Mico27-TTGL_Mod-0.3.4.png.128x128_q95.jpg)](https://thunderstore.io/package/Mico27/TTGL_Mod/)
-
-### Controllers
-
-Using controllers is now support for purchasing upgrades for your skills.
-In order to begin using it you must bind your desired control to entering the buying mode.
-You can find the binding at the end of all the gamepad controls.
-![](https://raw.githubusercontent.com/gamrtiem/ror2skillsplusplus/refs/heads/main/Images/skills_gamepad_settings.jpg)
-
-While ingame just press and the bound button and activate the skill you wish to upgrade.
 
 ### Disabling survivors
 

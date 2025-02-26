@@ -53,7 +53,7 @@
 		"MAGEBODYFIRELIGHTNINGBOLT_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2</style> stock and <style=cIsUtility>-10%</style> stock recharge time",
 		"MAGEBODYNOVABOMB_UPGRADE_DESCRIPTION": "<style=cIsDamage>+15%</style> damage, <style=cIsUtility>+5%</style> max charge time, and <style=cIsUtility>+10%</style> blast size",
 		"MAGEBODYICEBOMB_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage",
-		"MAGEBODYWALL_UPGRADE_DESCRIPTION": "<style=cIsDamage>+30%</style> wall damage, <style=cIsUtility>+15%</style> wall duration, and <style=cIsUtility>+20%</style> wall length",
+		"MAGEBODYWALL_UPGRADE_DESCRIPTION": "<style=cIsDamage>+30%</style> wall damage and <style=cIsUtility>+20%</style> wall length",
 		"MAGEBODYFLAMETHROWER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+20%</style> range, <style=cIsUtility>+25%</style> flame radius, and <style=cIsDamage>+20%</style> damage",
 		"MAGEBODYFLYUP_UPGRADE_DESCRIPTION": "<style=cIsDamage>+25%</style> damage and <style=cIsUtility>+30%</style> area of effect",
 

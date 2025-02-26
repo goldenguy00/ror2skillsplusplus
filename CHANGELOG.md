@@ -1,5 +1,10 @@
 # Changelog
 
+## What's new in 0.6.1
+- Re-added configs with support for Risk of Options (sorry controller bros .., looking into how extra skill slots adds controller support!)
+- Fixed a bug where skill upgrades wouldn't stay until re-upgraded on the next stage
+- Fixed Arti's Snapfreeze upgrade not doing anything
+
 ## What's new in 0.6.0
 - Updated for Seekers of the Storm! (Expect some bugs (again))
 - Fixed incorrect scaling for MUL-T causing his dash to deal 4x damage 
