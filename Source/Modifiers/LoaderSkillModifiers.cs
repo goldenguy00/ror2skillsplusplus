@@ -175,6 +175,7 @@ namespace SkillsPlusPlus.Modifiers {
             base.OnSkillEnter(baseState, level);
             if(baseState is ChargeZapFist) {
                 ChargeZapFist chargeState = (ChargeZapFist)baseState;
+                chargeState.baseChargeDuration = MultScaling(chargeState.baseChargeDuration, -0.15f, level); // +15% charge speed
             } else if(baseState is SwingZapFist) {
                 SwingZapFist swingState = (SwingZapFist)baseState;
                 swingState.damageCoefficient = MultScaling(swingState.damageCoefficient, 0.15f, level);
@@ -183,6 +184,7 @@ namespace SkillsPlusPlus.Modifiers {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
+            Logger.Debug(SwingZapFist.selfKnockback);
             SwingZapFist.selfKnockback = MultScaling(7000, 0.015f, level); // +10% knockback
             if(SwingZapFist.overchargeImpactEffectPrefab.TryGetComponent(out ProjectileProximityBeamController proximityBeamController)) {
                 proximityBeamController.attackRange = MultScaling(40, 0.20f, level);

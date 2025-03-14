@@ -15,6 +15,8 @@ using RoR2.Skills;
 using System.Linq;
 using UnityEngine.AddressableAssets;
 using EntityStates.VoidSurvivor.CorruptMode;
+using R2API;
+using GlobalEventManager = On.RoR2.GlobalEventManager;
 
 namespace SkillsPlusPlus.Source.Modifiers {
     class VoidFiendSkillModifiers {
@@ -31,21 +33,68 @@ namespace SkillsPlusPlus.Source.Modifiers {
     //    }
 
     //}
-
-    [SkillLevelModifier("FireHandBeam", typeof(FireHandBeam), typeof(ChargeHandBeam))]
+    [SkillLevelModifier(new[] { "FireHandBeam", "ChargeHandBeam", "FireCorruptBeam", "CrushCorruption" }, typeof(FireHandBeam), typeof(ChargeHandBeam), typeof(FireCorruptHandBeam))]
     class VoidFiendHandBeamSkillModifier : BaseSkillModifier {
-
+        GameObject surv;
+        private int debuffTimerAdd;
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
+            surv = characterBody.gameObject;
         }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
             base.OnSkillEnter(skillState, level);
-
-            if(skillState is FireHandBeam) {
+            if(skillState is FireHandBeam beam) {
                 Logger.Debug("FireHandBeam");
-            } else if (skillState is ChargeHandBeam) {
-                Logger.Debug("ChargeHandBeam");
+                Logger.Debug(debuffTimerAdd);
+                beam.damageCoefficient = MultScaling(beam.damageCoefficient, 0.10f, level);
+                debuffTimerAdd = level;
+                //beam.bulletCount = MultScaling(beam.bulletCount, 1, level);
+            } else if (skillState is ChargeHandBeam chargebeam) {
+                debuffTimerAdd = 0;
+                Logger.Debug("ChargeHandBeam" + debuffTimerAdd);
+                //chargebeam.muzzleflashEffectPrefab.transform.localScale = new Vector3(120f, 120f, 120f);
+            } else if (skillState is FireCorruptHandBeam corruptbeam) {
+                debuffTimerAdd = 0;
+                Logger.Debug("FireCorruptHandBeam");
+                Logger.Debug("FireCorruptHandBeam" + debuffTimerAdd);
+                corruptbeam.beamVfxPrefab.transform.localScale = new Vector3(corruptbeam.beamVfxPrefab.transform.localScale.x, corruptbeam.beamVfxPrefab.transform.localScale.y, MultScaling(1, 0.30f, level)); //vfx should extend a bit farther imo 
+                Logger.Debug("FireCorruptHandBeam" + corruptbeam.maxDistance);
+                corruptbeam.maxDistance = MultScaling(corruptbeam.maxDistance, 0.25f, level);
+                Logger.Debug("FireCorruptHandBeam" + corruptbeam.maxDistance);
+                Logger.Debug("firecorruptmanged " + corruptbeam.damageCoefficientPerSecond);
+                corruptbeam.damageCoefficientPerSecond = MultScaling(corruptbeam.damageCoefficientPerSecond, 0.15f, level);
+                Logger.Debug("firecorruptmanged " + corruptbeam.damageCoefficientPerSecond);
+
+                //add a buff here for movespeed 
+            }
+        }
+        
+        public override void SetupSkill()
+        {
+            On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManagerOnOnHitEnemy;
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPIOnGetStatCoefficients;
+            base.SetupSkill();
+        }
+
+        private void RecalculateStatsAPIOnGetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.gameObject == surv)
+            {
+                //check for buff here maybe hook onto where it applys slow debuff to player
+            }
+        }
+
+        private void GlobalEventManagerOnOnHitEnemy(GlobalEventManager.orig_OnHitEnemy orig, RoR2.GlobalEventManager self, DamageInfo damageinfo, GameObject victim)
+        {
+            orig(self, damageinfo, victim);
+            if (damageinfo != null)
+            {
+                if (damageinfo.damageType.damageSource != DamageSource.Primary) return;
+                if (damageinfo.attacker != surv) return;
+                if(debuffTimerAdd == 0) return;
+                Logger.Debug(debuffTimerAdd + " debuffing longer");
+                victim.GetComponent<CharacterBody>().AddTimedBuff(RoR2Content.Buffs.Slow50, 3 + debuffTimerAdd); // 3 is the one the damagetype adds 
             }
         }
     }

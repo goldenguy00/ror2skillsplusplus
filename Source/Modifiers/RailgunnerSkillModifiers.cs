@@ -496,6 +496,8 @@ namespace SkillsPlusPlus.Modifiers
 
         static SkillUpgrade superchargeSkill;
 
+        private static float originalRechargeRate;
+
         public override void OnSkillEnter(FireSnipeSuper skillState, int level)
         {
             if (Mathf.Abs(originalProcRate) < 0.1f)
@@ -520,6 +522,9 @@ namespace SkillsPlusPlus.Modifiers
             {
                 superchargeSkill = registeredSkill;
             }
+            
+            originalRechargeRate = 1 - (5f / (level + 5f));
+            Logger.Debug(originalRechargeRate);
         }
 
         public override void SetupSkill()
@@ -539,6 +544,7 @@ namespace SkillsPlusPlus.Modifiers
             if (sender == PlayerCharacterMasterController.instances[0].master.GetBody())
             {
                 args.utilityCooldownMultAdd -= 1 - (20f / (superchargeSkill.skillLevel + 20f));
+                args.specialCooldownMultAdd -= originalRechargeRate;
             }
         }
     }
@@ -658,7 +664,10 @@ namespace SkillsPlusPlus.Modifiers
 
         private void RecalculateStatsAPIOnGetStatCoefficients(CharacterBody sender, StatHookEventArgs args)
         {
-            args.specialCooldownMultAdd -= originalRechargeRate;
+            if (sender == PlayerCharacterMasterController.instances[0].master.GetBody())
+            {
+                args.specialCooldownMultAdd -= originalRechargeRate;
+            }
         }
     }
 }

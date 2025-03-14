@@ -77,7 +77,7 @@
 		"FIREHOOK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+30%</style> hook range",
 		"FIREYANKHOOK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> hook range and <style=cIsDamage>+20%</style> damage",
 		"CHARGEFIST_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> max charge, <style=cIsDamage>+20%</style> base damage, and <style=cIsDamage>+15%</style> velocity based damage",
-		"CHARGEZAPFIST_UPGRADE_DESCRIPTION": "<style=cIsDamage>+15%</style> damage and <style=cIsUtility>+20%</style> cone range",
+		"CHARGEZAPFIST_UPGRADE_DESCRIPTION": "<style=cIsDamage>+15%</style> damage, <style=cIsUtility>+15%</style> charge speed and <style=cIsUtility>+20%</style> cone range",
 		"THROWPYLON_UPGRADE_DESCRIPTION": "<style=cIsDamage>+20%</style> damage, <style=cIsUtility>+20%</style> range, and <style=cIsUtility>+20%</style> rate of fire",
 		"GROUNDSLAM_UPGRADE_DESCRIPTION": "<style=cIsDamage>+5%</style> damage, <style=cIsUtility>+10%</style> to <style=cIsUtility>+100%</style> range based on travel distance, <style=cIsUtility>+25%</style> leap height",
 

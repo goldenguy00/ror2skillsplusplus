@@ -192,6 +192,11 @@ namespace SkillsPlusPlus {
         }
 
         private void OnBaseStateEnter(On.EntityStates.BaseState.orig_OnEnter orig, BaseState self) {
+            if (self == null) // we can probably ujsthand this to the main func then <3 ,.
+            {
+                orig(self);
+                return;
+            }
             if (isSurvivorEnabled && FindOwningCharacterBody(self)?.gameObject == this.gameObject && self is BaseState baseState) {
                 var skillModifier = SkillModifierManager.GetSkillModifiersForEntityStateType(baseState.GetType());
                 var activeSkillDef = GetActiveSkillDef(this.targetGenericSkill);
