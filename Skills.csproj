@@ -101,8 +101,8 @@
   </ItemGroup>
   <!--Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="IF &quot;$(ConfigurationName)&quot; == &quot;Release&quot; (&#xD;&#xA;del /Q &quot;$(TargetDir)$(TargetName).zip&quot;&#xD;&#xA;)" />
-  </Target>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="robocopy $(TargetDir) $(ProjectDir)\NetworkWeaver $(TargetFileName) &gt; $(TargetDir)Robocopy&#xD;&#xA;cd $(ProjectDir)\NetworkWeaver&#xD;&#xA;REM Unity.UNetWeaver.exe {path to Coremodule} {Path to Networking} {Path to output folder} {Path to the dll you want patched} {Path to all needed references for the to-be-patched dll}&#xD;&#xA;Unity.UNetWeaver.exe &quot;..\libs\UnityEngine.CoreModule.dll&quot; &quot;..\libs\com.unity.multiplayer-hlapi.Runtime.dll&quot; &quot;Patched/&quot;  $(TargetFileName) &quot;$(ProjectDir)\libs&quot;&#xD;&#xA;IF EXIST $(TargetFileName).prepatch (&#xD;&#xA;DEL /F $(TargetFileName).prepatch&#xD;&#xA;)&#xD;&#xA;ren $(TargetFileName) $(TargetFileName).prepatch&#xD;&#xA;cd Patched&#xD;&#xA;robocopy . $(TargetDir)  $(TargetFileName) &gt; $(TargetDir)Robocopy&#xD;&#xA;del $(TargetFileName)&#xD;&#xA;del $(TargetDir)Robocopy&#xD;&#xA;&#xD;&#xA;IF &quot;$(ConfigurationName)&quot; == &quot;Release&quot; (&#xD;&#xA;del /Q &quot;$(TargetDir)\$(TargetName).deps.json&quot;&#xD;&#xA;REM 7z a &quot;&quot;&quot;$(TargetDir)\$(TargetName).zip&quot;&quot;&quot; &quot;$(TargetDir)\*&quot;&#xD;&#xA;)" />
   </Target-->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cp &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(ProjectDir)NetworkWeaver&quot;&#xA;cp &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(ProjectDir)NetworkWeaver&quot;&#xA;&#xA;cd &quot;$(ProjectDir)NetworkWeaver&quot;&#xA;&#xA;wine Unity.UNetWeaver.exe &quot;../libs/UnityEngine.CoreModule.dll&quot; &quot;../libs/com.unity.multiplayer-hlapi.Runtime.dll&quot; &quot;Patched/&quot;  $(TargetFileName) &quot;$(ProjectDir)/libs&quot;&#xA;&#xA;mv &quot;$(TargetFileName)&quot; &quot;$(TargetFileName).prepatch&quot;&#xA;mv &quot;$(TargetName).pdb&quot; &quot;$(TargetName).pdb.prepatch&quot;&#xA;&#xA;cd ./Patched&#xA;&#xA;cp -r $(ProjectDir)NetworkWeaver/Patched $(TargetDir)Robocopy&#xA;&#xA;rm -rf $(ProjectDir)NetworkWeaver/Patched&#xA;" />
+  </Target>
 </Project>

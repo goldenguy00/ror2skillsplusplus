@@ -35,11 +35,12 @@ namespace SkillsPlusPlus.Source.Modifiers {
     //}
     [SkillLevelModifier(new[] { "FireHandBeam", "ChargeHandBeam", "FireCorruptBeam", "CrushCorruption" }, typeof(FireHandBeam), typeof(ChargeHandBeam), typeof(FireCorruptHandBeam))]
     class VoidFiendHandBeamSkillModifier : BaseSkillModifier {
-        GameObject surv;
+        CharacterBody surv;
         private int debuffTimerAdd;
+        public BuffDef VoidFiendSpeedBuff;
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
-            surv = characterBody.gameObject;
+            surv = characterBody;
         }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -50,39 +51,57 @@ namespace SkillsPlusPlus.Source.Modifiers {
                 beam.damageCoefficient = MultScaling(beam.damageCoefficient, 0.10f, level);
                 debuffTimerAdd = level;
                 //beam.bulletCount = MultScaling(beam.bulletCount, 1, level);
-            } else if (skillState is ChargeHandBeam chargebeam) {
-                debuffTimerAdd = 0;
-                Logger.Debug("ChargeHandBeam" + debuffTimerAdd);
-                //chargebeam.muzzleflashEffectPrefab.transform.localScale = new Vector3(120f, 120f, 120f);
             } else if (skillState is FireCorruptHandBeam corruptbeam) {
-                debuffTimerAdd = 0;
                 Logger.Debug("FireCorruptHandBeam");
-                Logger.Debug("FireCorruptHandBeam" + debuffTimerAdd);
                 corruptbeam.beamVfxPrefab.transform.localScale = new Vector3(corruptbeam.beamVfxPrefab.transform.localScale.x, corruptbeam.beamVfxPrefab.transform.localScale.y, MultScaling(1, 0.30f, level)); //vfx should extend a bit farther imo 
                 Logger.Debug("FireCorruptHandBeam" + corruptbeam.maxDistance);
                 corruptbeam.maxDistance = MultScaling(corruptbeam.maxDistance, 0.25f, level);
+                corruptbeam.minDistance = MultScaling(corruptbeam.minDistance, 0.25f, level);
                 Logger.Debug("FireCorruptHandBeam" + corruptbeam.maxDistance);
                 Logger.Debug("firecorruptmanged " + corruptbeam.damageCoefficientPerSecond);
                 corruptbeam.damageCoefficientPerSecond = MultScaling(corruptbeam.damageCoefficientPerSecond, 0.15f, level);
                 Logger.Debug("firecorruptmanged " + corruptbeam.damageCoefficientPerSecond);
-
-                //add a buff here for movespeed 
+                if (surv && VoidFiendSpeedBuff)
+                {
+                    surv.AddBuff(VoidFiendSpeedBuff);
+                }
+                else
+                {
+                    Logger.Debug(surv);
+                    Logger.Debug(VoidFiendSpeedBuff);
+                }
+            }
+        }
+        public override void OnSkillExit(BaseState skillState, int level) {
+            base.OnSkillExit(skillState, level);
+            if (skillState is FireCorruptHandBeam corruptbeam) {
+                if (surv && VoidFiendSpeedBuff)
+                {
+                    surv.RemoveBuff(VoidFiendSpeedBuff);
+                }
             }
         }
         
         public override void SetupSkill()
         {
+            RegisterSpeedBuff();
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManagerOnOnHitEnemy;
-            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPIOnGetStatCoefficients;
             base.SetupSkill();
         }
-
-        private void RecalculateStatsAPIOnGetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        
+        public void RegisterSpeedBuff()
         {
-            if (sender.gameObject == surv)
-            {
-                //check for buff here maybe hook onto where it applys slow debuff to player
-            }
+            BuffDef buffDef = ScriptableObject.CreateInstance<BuffDef>();
+
+            buffDef.buffColor = new Color(0.9f, 0.6f, 0.9f);
+            buffDef.canStack = false;
+            buffDef.eliteDef = null;
+            buffDef.iconSprite = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/SprintOutOfCombat/bdWhipBoost.asset").WaitForCompletion().iconSprite;
+            buffDef.isDebuff = false;
+            buffDef.name = "VoidFiendSpeedBuff";
+
+            VoidFiendSpeedBuff = buffDef;
+            ContentAddition.AddBuffDef(buffDef);
         }
 
         private void GlobalEventManagerOnOnHitEnemy(GlobalEventManager.orig_OnHitEnemy orig, RoR2.GlobalEventManager self, DamageInfo damageinfo, GameObject victim)
@@ -91,8 +110,9 @@ namespace SkillsPlusPlus.Source.Modifiers {
             if (damageinfo != null)
             {
                 if (damageinfo.damageType.damageSource != DamageSource.Primary) return;
-                if (damageinfo.attacker != surv) return;
+                if (damageinfo.attacker != surv.gameObject) return;
                 if(debuffTimerAdd == 0) return;
+                if (surv.GetComponent<VoidSurvivorController>().isCorrupted) return;
                 Logger.Debug(debuffTimerAdd + " debuffing longer");
                 victim.GetComponent<CharacterBody>().AddTimedBuff(RoR2Content.Buffs.Slow50, 3 + debuffTimerAdd); // 3 is the one the damagetype adds 
             }
@@ -117,28 +137,74 @@ namespace SkillsPlusPlus.Source.Modifiers {
         }
     }
 
-    [SkillLevelModifier("ChargeMegaBlaster", typeof(ChargeMegaBlaster), typeof(FireMegaBlasterBase),
+    [SkillLevelModifier("ChargeMegaBlaster", typeof(ChargeMegaBlaster), typeof(FireMegaBlasterBase), // flood
         typeof(FireMegaBlasterBig), typeof(FireMegaBlasterSmall))]
     class VoidFiendChargeMegaSkillModifier : BaseSkillModifier {
+        
 
         public override void OnSkillEnter(BaseState skillState, int level) {
-            if (skillState is ChargeMegaBlaster) {
+            if (skillState is ChargeMegaBlaster chargeMegaBlaster) {
                 Logger.Debug("ChargeMegaBlaster");
-            } else if (skillState is FireMegaBlasterBase) {
+                chargeMegaBlaster.baseDuration =  MultScaling(2f, -0.15f, level);
+            } else if (skillState is FireMegaBlasterBase firemegablaster) {
                 Logger.Debug("FireMegaBlasterBase");
-            } else if (skillState is FireMegaBlasterBig) {
+                firemegablaster.force = MultScaling(20f, 0.10f, level);
+                firemegablaster.projectilePrefab.transform.localScale = new Vector3(MultScaling(1, 0.15f, level), MultScaling(1, 0.15f, level), MultScaling(1, 0.15f, level));
+                Logger.Debug(firemegablaster.projectilePrefab.tag);
+                if (!firemegablaster.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion impactExplosion))
+                    return;
+                impactExplosion.blastRadius = MultScaling(5, 0.15f, level);
+                impactExplosion.blastDamageCoefficient = MultScaling(1, 0.15f, level);
+                impactExplosion.impactEffect.transform.localScale = new Vector3(MultScaling(1, 0.15f, level), MultScaling(1, 0.15f, level), MultScaling(1, 0.15f, level));
+            } /*else if (skillState is FireMegaBlasterBig) {
                 Logger.Debug("FireMegaBlasterBig");
             } else if (skillState is FireMegaBlasterSmall) {
                 Logger.Debug("FireMegaBlasterSmall");
-            }
+            }*/
         }
+        
     }
 
-    [SkillLevelModifier("FireCorruptDisk", typeof(FireCorruptDisks))]
+    [SkillLevelModifier("FireCorruptDisk", typeof(FireCorruptDisks))] // corrupt flood
     class VoidFiendFireCorruptDiskSkillModifier : SimpleSkillModifier<FireCorruptDisks> {
-
-        public override void OnSkillEnter(FireCorruptDisks skillState, int level) {
+        CharacterBody surv;
+        public float stockamount;
+        public int skilllevel;
+        
+        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            base.OnSkillLeveledUp(level, characterBody, skillDef);
+            skilllevel = level;
+            surv = characterBody;
+        }
+        public override void OnSkillEnter(FireCorruptDisks skillState, int level)
+        {
+            if (!(skillState is FireCorruptDisks fireCorruptDisks)) return;
             Logger.Debug("FireCorruptDisks");
+            fireCorruptDisks.force = MultScaling(20f, 0.15f, level);
+            fireCorruptDisks.projectilePrefab.transform.localScale = new Vector3(MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level));
+            Logger.Debug(fireCorruptDisks.projectilePrefab.tag);
+            if (!fireCorruptDisks.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion impactExplosion))
+                return;
+            impactExplosion.blastRadius = MultScaling(5, 0.10f, level);
+            impactExplosion.blastDamageCoefficient = MultScaling(1, 0.10f, level);
+            impactExplosion.impactEffect.transform.localScale = new Vector3(MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level));
+        }
+        
+        public override void SetupSkill()
+        {
+            //On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManagerOnOnHitEnemy;
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPIOnGetStatCoefficients;
+            base.SetupSkill();
+        }
+        
+        private void RecalculateStatsAPIOnGetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            Logger.Debug(sender.gameObject);
+            Logger.Debug(surv);
+            if (sender != surv) return;
+            if(surv.GetComponent<VoidSurvivorController>().isCorrupted)
+                args.secondaryCooldownMultAdd -= 1 - MultScaling(1, -0.20f, skilllevel);
+            Logger.Debug(1 - MultScaling(1, -0.20f, skilllevel));
         }
     }
 
