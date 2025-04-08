@@ -127,15 +127,15 @@
 		"RAILGUNNERBODYCHARGESNIPESUPER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+10%</style> proc chance and <style=cIsUtility>+20%</style> crit multiplier",
 		"RAILGUNNERBODYCHARGESNIPECRYO_UPGRADE_DESCRIPTION": "<style=cIsUtility>+2s</style> frostfire burn and <style=cIsUtility>-10%</style> cooldown duration",
 		
-		"FIREHANDBEAM_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
-		"CHARGEMEGABLASTER_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
-		"VOIDBLINKUP_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
-		"CRUSHCORRUPTION_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
-		
-		"FIRECORRUPTBEAM_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
-		"FIRECORRUPTDISK_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
-		"VOIDBLINKDOWN_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
-		"CRUSHHEALTH_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
+		"FIREHANDBEAM_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1s</style> of slow on hit and <style=cIsUtility>+10%</style> more damage \n\n<style=cIsVoid>[Corrupted]</style> \n<style=cIsUtility>+25%</style> range, <style=cIsUtility>+15%</style> more damage and <style=cIsUtility>+15%</style> extra speed while in use",
+        "CHARGEMEGABLASTER_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> faster charge speed, <style=cIsUtility>+10%</style> more damage, <style=cIsUtility>+15%</style> faster projectile and <style=cIsUtility>15%</style> bigger projectile \n\n<style=cIsVoid>[Corrupted]</style>\n<style=cIsUtility>+15%</style> more damage, <style=cIsUtility>+10%</style> less cooldown, <style=cIsUtility>+15%</style> faster projectile and <style=cIsUtility>10%</style> bigger projectile",
+        "VOIDBLINKUP_UPGRADE_DESCRIPTION": "<style=cIsUtility>+50</style> armor for <style=cIsUtility>3</style> seconds\n\n<style=cIsVoid>[Corrupted]</style>\n<style=cIsUtility>+20%</style> attack speed and <style=cIsUtility>+20%</style> move speed for <style=cIsUtility>+1</style> second",
+        "CRUSHCORRUPTION_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> extra health on use\n\n<style=cIsVoid>[Corrupted]</style>\n<style=cIsUtility>+15%</style> extra corruption on use",
+        		
+		"FIRECORRUPTBEAM_UPGRADE_DESCRIPTION": "<style=cIsUtility>+1s</style> of slow on hit and <style=cIsUtility>+10%</style> more damage \n\n<style=cIsVoid>[Corrupted]</style> \n<style=cIsUtility>+25%</style> range, <style=cIsUtility>+15%</style> more damage and <style=cIsUtility>+15%</style> extra speed while in use",
+		"FIRECORRUPTDISK_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> faster charge speed, <style=cIsUtility>+10%</style> more damage, <style=cIsUtility>+15%</style> faster projectile and <style=cIsUtility>15%</style> bigger projectile \n\n<style=cIsVoid>[Corrupted]</style>\n<style=cIsUtility>+15%</style> more damage, <style=cIsUtility>+10%</style> less cooldown, <style=cIsUtility>+15%</style> faster projectile and <style=cIsUtility>10%</style> bigger projectile",
+		"VOIDBLINKDOWN_UPGRADE_DESCRIPTION": "<style=cIsUtility>+50</style> armor for <style=cIsUtility>3</style> seconds\n\n<style=cIsVoid>[Corrupted]</style>\n<style=cIsUtility>+20%</style> attack speed and <style=cIsUtility>+20%</style> move speed for <style=cIsUtility>+1</style> second",
+		"CRUSHHEALTH_UPGRADE_DESCRIPTION": "<style=cIsUtility>+15%</style> extra health on use\n\n<style=cIsVoid>[Corrupted]</style>\n<style=cIsUtility>+15%</style> extra corruption on use",
 
 		"SEEKERBODYSPIRITPUNCHCROSSHAIR_UPGRADE_DESCRIPTION": "Not Yet Implemented...",
 		"SEEKERBODYUNSEENHAND_UPGRADE_DESCRIPTION": "Not Yet Implemented...",

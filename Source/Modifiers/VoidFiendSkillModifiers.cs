@@ -38,9 +38,11 @@ namespace SkillsPlusPlus.Source.Modifiers {
         CharacterBody surv;
         private int debuffTimerAdd;
         public BuffDef VoidFiendSpeedBuff;
+        private int survlevel;
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
             surv = characterBody;
+            survlevel = level;
         }
 
         public override void OnSkillEnter(BaseState skillState, int level) {
@@ -61,7 +63,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
                 Logger.Debug("firecorruptmanged " + corruptbeam.damageCoefficientPerSecond);
                 corruptbeam.damageCoefficientPerSecond = MultScaling(corruptbeam.damageCoefficientPerSecond, 0.15f, level);
                 Logger.Debug("firecorruptmanged " + corruptbeam.damageCoefficientPerSecond);
-                if (surv && VoidFiendSpeedBuff)
+                if (surv && VoidFiendSpeedBuff && level > 0)
                 {
                     surv.AddBuff(VoidFiendSpeedBuff);
                 }
@@ -94,7 +96,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
         {
             if (sender.HasBuff(VoidFiendSpeedBuff))
             {
-                args.baseMoveSpeedAdd += .1f;
+                args.baseMoveSpeedAdd += MultScaling(0.2f, 0.10f, survlevel);
             }
         }
 
@@ -162,7 +164,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
                 if (!firemegablaster.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion impactExplosion))
                     return;
                 impactExplosion.blastRadius = MultScaling(5, 0.15f, level);
-                impactExplosion.blastDamageCoefficient = MultScaling(1, 0.15f, level);
+                impactExplosion.blastDamageCoefficient = MultScaling(1, 0.10f, level);
                 impactExplosion.impactEffect.transform.localScale = new Vector3(MultScaling(1, 0.15f, level), MultScaling(1, 0.15f, level), MultScaling(1, 0.15f, level));
             } /*else if (skillState is FireMegaBlasterBig) {
                 Logger.Debug("FireMegaBlasterBig");
@@ -194,7 +196,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
             if (!fireCorruptDisks.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion impactExplosion))
                 return;
             impactExplosion.blastRadius = MultScaling(5, 0.10f, level);
-            impactExplosion.blastDamageCoefficient = MultScaling(1, 0.10f, level);
+            impactExplosion.blastDamageCoefficient = MultScaling(1, 0.15f, level);
             impactExplosion.impactEffect.transform.localScale = new Vector3(MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level));
         }
         
@@ -212,8 +214,8 @@ namespace SkillsPlusPlus.Source.Modifiers {
             Logger.Debug(sender.gameObject);
             Logger.Debug(surv);
             if(surv.GetComponent<VoidSurvivorController>().isCorrupted) 
-                args.secondaryCooldownMultAdd -= 1 - MultScaling(1, -0.20f, skilllevel);
-            Logger.Debug(1 - MultScaling(1, -0.20f, skilllevel));
+                args.secondaryCooldownMultAdd -= 1 - MultScaling(1, -0.10f, skilllevel);
+            Logger.Debug(1 - MultScaling(1, -0.10f, skilllevel));
         }
     }
 
@@ -230,7 +232,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
         public override void OnSkillExit(VoidBlinkUp skillState, int level) {
             Logger.Debug("VoidBlinkUp");
             if(level > 0)
-                surv.AddTimedBuff(VoidFiendArmorBuff, 2);
+                surv.AddTimedBuff(VoidFiendArmorBuff, 3);
         }
         public override void SetupSkill()
         {
@@ -257,7 +259,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
         {
             if (sender.HasBuff(VoidFiendArmorBuff))
             {
-                args.armorAdd += AdditiveScaling(60, 15, skilllevel);
+                args.armorAdd += AdditiveScaling(0, 50, skilllevel);
             }
         }
     }
@@ -286,8 +288,8 @@ namespace SkillsPlusPlus.Source.Modifiers {
         private void RecalculateStatsAPIOnGetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
             if (!sender.HasBuff(VoidFiendDamageSpeedBuff)) return;
-            args.attackSpeedMultAdd += 0.25f;
-            args.moveSpeedMultAdd += 0.25f;
+            args.attackSpeedMultAdd += 0.20f;
+            args.moveSpeedMultAdd += 0.20f;
         }
 
         public void RegisterDamageSpeedBuff()
@@ -312,7 +314,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
         public override void OnSkillEnter(BaseState skillState, int level) {
             if (skillState is CrushCorruption crushCorruption) {
                 Logger.Debug("CrushCorruption");
-                crushCorruption.selfHealFraction = AdditiveScaling(crushCorruption.selfHealFraction, 0.10f, level);
+                crushCorruption.selfHealFraction = AdditiveScaling(crushCorruption.selfHealFraction, 0.15f, level);
             } 
         }
     }
@@ -327,13 +329,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
         public override void OnSkillEnter(BaseState skillState, int level) {
             if (skillState is CrushHealth crushHealth) {
                 Logger.Debug("CrushHealth");
-                
-                VoidSurvivorController component = surv.GetComponent<VoidSurvivorController>();
-                if ((bool)component)
-                {
-                    //this doesnt work ? look into later 
-                    component.AddCorruption(AdditiveScaling(0, 0.10f, level));
-                } 
+                crushHealth.corruptionChange = AdditiveScaling(crushHealth.corruptionChange, 15f, level);
             } else if (skillState is ChargeCrushHealth) {
                 Logger.Debug("ChargeCrushHealth");
             }
