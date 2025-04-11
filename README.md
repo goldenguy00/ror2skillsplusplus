@@ -2,7 +2,11 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/gGtcnJDnDw) [![source code](https://img.shields.io/static/v1?label=github&logo=github&message=source%20code&color=FFFFFF)](https://github.com/gamrtiem/ror2skillsplusplus/)
 
-## What's new in 6.0.1
+## What's new in 0.6.2
+- Added Void fiend upgrades!
+- (Hopefully) fixed multiplayer not adding levels for clients
+
+## What's new in 0.6.1
 - Re-added configs with support for Risk of Options (sorry controller bros .., looking into how extra skill slots adds controller support!)
 - Fixed a bug where skill upgrades wouldn't stay until re-upgraded on the next stage
 - Fixed Arti's Snapfreeze upgrade not doing anything
@@ -249,14 +253,27 @@ Upgrade descriptions are also shown ingame when hovering over a skill's icon.
 
 | Skill | | Description |
 |:-|-|------|
-| 
-XQR Smart Round System | ![XQR Smart Round System](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/71/XQR_Smart_Round_System.png) | +10%` rate of fire and `+20%` range |
+|
+XQR Smart Round System | ![XQR Smart Round System](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/7/71/XQR_Smart_Round_System.png) | `+10%` rate of fire and `+20%` range |
 | M99 Sniper | ![M99 Sniper](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/8/88/M99_Sniper.png) | `+1` max empowered round and `+1` stock every 2 levels |
 | HH44 Marksman | ![HH44 Marksman](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/ec/HH44_Marksman.png) | `+1` temporary armor per kill. Turns into `+0.25s` movement speed boost after zoom out |
 | Concussion Device | ![Concussion Device](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/4/48/Concussion_Device.png) | `+0.5s` slowfall on hit and `+15%` throw range |
 | Polar Field Device | ![Polar Field Device](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3f/Polar_Field_Device.png) | `+10%` global damage on affected enemies, `+15%` range, and `+15%` throw range  |
 | Supercharge | ![Supercharge](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/e/e4/Supercharge.png) | `+10%` proc chance, `+20%` crit multiplier, and `-5%` cooldown duration |
 | Cryocharge | ![Cryocharge](https://static.wikia.nocookie.net/riskofrain2_gamepedia_en/images/3/3a/Cryocharge.png) | `+2s` frostfire burn and `-10%` cooldown duration |
+
+### Void Fiend
+
+| Skill              |                                                                                  | Description                                                                          |
+|:-------------------|----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| Drown              | ![Drown](https://riskofrain2.wiki.gg/images/thumb/e/e0/Drown.png/120px-Drown.png) | `+1s` of slow on hit and `+10%` damage                                               
+| Corrupted Drown    | ![Drown](https://riskofrain2.wiki.gg/images/c/c0/Corrupted_Drown.png) | `+25%` range, `+10%` damage and `+15%` extra speed while in use                       |
+| Flood              | ![Flood](https://riskofrain2.wiki.gg/images/f/f7/Flood.png)       | `+15%` faster charge speed, `+10%` damage and `15%` bigger projectile                                |
+| Corrupted Flood    | ![Corrupted Flood](https://riskofrain2.wiki.gg/images/7/78/Corrupted_Flood.png) | `+15%` damage and `+10%` less cooldown  |
+| Trespass           | ![Trespass](https://riskofrain2.wiki.gg/images/7/7f/Trespass.png) | `+50` armor for `3` seconds                                     |
+| Corrupted Trespass | ![Corrupted Trespass](https://riskofrain2.wiki.gg/images/0/04/Corrupted_Trespass.png) | `20%` attack speed and `20%` move speed for `+1` second       |
+| Suppress           | ![Suppress](https://riskofrain2.wiki.gg/images/a/ad/Suppress.png) | `+15%` extra health on use              |
+| Corrupted Suppress         | ![Corrupted Suppress](https://riskofrain2.wiki.gg/images/7/7b/Corrupted_Suppress.png) | `+15%` extra corruption on use                                    |
 
 ### Lunar Items
 
