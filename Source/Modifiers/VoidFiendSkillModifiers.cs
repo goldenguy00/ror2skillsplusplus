@@ -61,7 +61,7 @@ namespace SkillsPlusPlus.Source.Modifiers {
                 corruptbeam.minDistance = MultScaling(corruptbeam.minDistance, 0.25f, level);
                 Logger.Debug("FireCorruptHandBeam" + corruptbeam.maxDistance);
                 Logger.Debug("firecorruptmanged " + corruptbeam.damageCoefficientPerSecond);
-                corruptbeam.damageCoefficientPerSecond = MultScaling(corruptbeam.damageCoefficientPerSecond, 0.15f, level);
+                corruptbeam.damageCoefficientPerSecond = MultScaling(corruptbeam.damageCoefficientPerSecond, 0.10f, level);
                 Logger.Debug("firecorruptmanged " + corruptbeam.damageCoefficientPerSecond);
                 if (surv && VoidFiendSpeedBuff && level > 0)
                 {
@@ -123,9 +123,16 @@ namespace SkillsPlusPlus.Source.Modifiers {
             if (damageinfo.damageType.damageSource != DamageSource.Primary) return;
             if (damageinfo.attacker != surv.gameObject) return;
             if(debuffTimerAdd == 0) return;
-            if (surv.GetComponent<VoidSurvivorController>().isCorrupted) return;
+            if(surv.TryGetComponent(out VoidSurvivorController controller))
+            {
+                if (controller.isCorrupted)
+                    return;
+            }
             Logger.Debug(debuffTimerAdd + " debuffing longer");
-            victim.GetComponent<CharacterBody>().AddTimedBuff(RoR2Content.Buffs.Slow50, 3 + debuffTimerAdd); // 3 is the one the damagetype adds 
+            if(victim.TryGetComponent(out CharacterBody charbody))
+            {
+                charbody.AddTimedBuff(RoR2Content.Buffs.Slow50, 3 + debuffTimerAdd); // 3 is the one the damagetype adds 
+            }
         }
     }
 
@@ -158,7 +165,6 @@ namespace SkillsPlusPlus.Source.Modifiers {
                 chargeMegaBlaster.baseDuration =  MultScaling(2f, -0.15f, level);
             } else if (skillState is FireMegaBlasterBase firemegablaster) {
                 Logger.Debug("FireMegaBlasterBase");
-                firemegablaster.force = MultScaling(20f, 0.10f, level);
                 firemegablaster.projectilePrefab.transform.localScale = new Vector3(MultScaling(1, 0.15f, level), MultScaling(1, 0.15f, level), MultScaling(1, 0.15f, level));
                 Logger.Debug(firemegablaster.projectilePrefab.tag);
                 if (!firemegablaster.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion impactExplosion))
@@ -190,14 +196,11 @@ namespace SkillsPlusPlus.Source.Modifiers {
         {
             if (!(skillState is FireCorruptDisks fireCorruptDisks)) return;
             Logger.Debug("FireCorruptDisks");
-            fireCorruptDisks.force = MultScaling(20f, 0.15f, level);
             fireCorruptDisks.projectilePrefab.transform.localScale = new Vector3(MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level));
             Logger.Debug(fireCorruptDisks.projectilePrefab.tag);
             if (!fireCorruptDisks.projectilePrefab.TryGetComponent(out ProjectileImpactExplosion impactExplosion))
                 return;
-            impactExplosion.blastRadius = MultScaling(5, 0.10f, level);
             impactExplosion.blastDamageCoefficient = MultScaling(1, 0.15f, level);
-            impactExplosion.impactEffect.transform.localScale = new Vector3(MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level), MultScaling(1, 0.10f, level));
         }
         
         public override void SetupSkill()
@@ -209,12 +212,15 @@ namespace SkillsPlusPlus.Source.Modifiers {
         
         private void RecalculateStatsAPIOnGetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            
             if (sender != surv) return;
             Logger.Debug(sender.gameObject);
             Logger.Debug(surv);
-            if(surv.GetComponent<VoidSurvivorController>().isCorrupted) 
-                args.secondaryCooldownMultAdd -= 1 - MultScaling(1, -0.10f, skilllevel);
+            // this should technically never be null but you never know ,..
+            if(surv.TryGetComponent(out VoidSurvivorController controller))
+            {
+                if(controller.isCorrupted)
+                    args.secondaryCooldownMultAdd -= 1 - MultScaling(1, -0.10f, skilllevel);
+            }
             Logger.Debug(1 - MultScaling(1, -0.10f, skilllevel));
         }
     }
