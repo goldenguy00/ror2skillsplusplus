@@ -16,7 +16,7 @@ using UnityEngine.AddressableAssets;
 using EntityStates.VoidSurvivor.CorruptMode;
 
 namespace SkillsPlusPlus.Source.Modifiers {
-    [SkillLevelModifier("ChefDice", typeof(Dice))]
+    /*[SkillLevelModifier("ChefDice", typeof(Dice))]
     class ChefDiceSkillModifier : BaseSkillModifier
     {
 
@@ -28,9 +28,11 @@ namespace SkillsPlusPlus.Source.Modifiers {
         public override void OnSkillEnter(BaseState skillState, int level)
         {
             base.OnSkillEnter(skillState, level);
-            if (skillState is Dice)
+            if (skillState is Dice dice)
             {
                 Logger.Debug("Dice");
+                //dice.force = AdditiveScaling(4, 3, level);
+                //chargeState.baseChargeDuration = MultScaling(chargeState.baseChargeDuration, -0.15f, level); // +15% charge spee
             }
         }
     }
@@ -122,23 +124,5 @@ namespace SkillsPlusPlus.Source.Modifiers {
                 Logger.Debug("YesChef");
             }
         }
-    }
+    }*/
 }
-/*
-    [SkillLevelModifier("", typeof())]
-    class SkillModifier : BaseSkillModifier {
-
-        public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
-            base.OnSkillLeveledUp(level, characterBody, skillDef);
-        }
-
-        public override void OnSkillEnter(BaseState skillState, int level) {
-            base.OnSkillEnter(skillState, level);
-
-            if (skillState is ) {
-                Logger.Debug("");
-            }
-        }
-    }
-    */
-

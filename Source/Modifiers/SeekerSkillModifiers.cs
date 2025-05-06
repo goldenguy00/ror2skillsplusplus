@@ -11,13 +11,8 @@ using EntityStates.Seeker;
 using RoR2.Projectile;
 using RoR2.Skills;
 
-using System.Linq;
-using System.Runtime.CompilerServices;
-using UnityEngine.AddressableAssets;
-using EntityStates.VoidSurvivor.CorruptMode;
-
 namespace SkillsPlusPlus.Source.Modifiers {
-    [SkillLevelModifier("SeekerBodySpiritPunchCrosshair", typeof(SpiritPunch))]
+    /*[SkillLevelModifier("SeekerBodySpiritPunchCrosshair", typeof(SpiritPunch))]
     class SeekerPunchSkillModifier : BaseSkillModifier
     {
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -139,5 +134,5 @@ namespace SkillsPlusPlus.Source.Modifiers {
                 Logger.Debug("MeditationUI");
             }
         }
-    }
+    }*/
 }
