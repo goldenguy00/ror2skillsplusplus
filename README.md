@@ -2,6 +2,9 @@
 
 [![Discord](https://img.shields.io/discord/745162241359478894?color=7289DA&label=modding%20discord&logo=discord&logoColor=white)](https://discord.gg/gGtcnJDnDw) [![source code](https://img.shields.io/static/v1?label=github&logo=github&message=source%20code&color=FFFFFF)](https://github.com/gamrtiem/ror2skillsplusplus/)
 
+## What's new in 0.6.3
+- Updated for SOTS phase 3!!
+
 ## What's new in 0.6.2
 - Added Void fiend upgrades!
 - (Hopefully) fixed multiplayer not adding levels for clients
