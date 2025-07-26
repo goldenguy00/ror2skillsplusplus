@@ -14,7 +14,7 @@ namespace SkillsPlusPlus.Modifiers
 {
 
     [SkillLevelModifier("HuntressBodyFireSeekingArrow", typeof(FireSeekingArrow))]
-    class HuntressSeekingArrowSkillModifier : SimpleSkillModifier<FireSeekingArrow>
+    internal class HuntressSeekingArrowSkillModifier : SimpleSkillModifier<FireSeekingArrow>
     {
 
         public override void OnSkillEnter(FireSeekingArrow skillState, int level)
@@ -40,7 +40,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("FireFlurrySeekingArrow", typeof(FireFlurrySeekingArrow))]
-    class HuntressFlurrySkillModifier : SimpleSkillModifier<FireFlurrySeekingArrow>
+    internal class HuntressFlurrySkillModifier : SimpleSkillModifier<FireFlurrySeekingArrow>
     {
 
         public override void OnSkillEnter(FireFlurrySeekingArrow skillState, int level)
@@ -72,7 +72,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("HuntressBodyGlaive", typeof(ThrowGlaive))]
-    class HuntressGlaiveSkillModifier : SimpleSkillModifier<ThrowGlaive>
+    internal class HuntressGlaiveSkillModifier : SimpleSkillModifier<ThrowGlaive>
     {
 
         static HuntressGlaiveSkillModifier()
@@ -94,7 +94,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "HuntressBodyBlink", "HuntressBodyMiniBlink" }, typeof(BlinkState), typeof(MiniBlinkState))]
-    class HuntressBlinkSkillModifier : BaseSkillModifier
+    internal class HuntressBlinkSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillExit(BaseState skillState, int level)
@@ -113,7 +113,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "HuntressBodyArrowRain", "Burning Rain" }, typeof(ArrowRain))]
-    class HuntressArrowRainSkillModifier : SimpleSkillModifier<ArrowRain>
+    internal class HuntressArrowRainSkillModifier : SimpleSkillModifier<ArrowRain>
     {
 
         static HuntressArrowRainSkillModifier()
@@ -134,10 +134,9 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "AimArrowSnipe", "Rabauld" }, typeof(BeginArrowSnipe), typeof(FireArrowSnipe), typeof(AimArrowSnipe))]
-    class HuntressSnipeSkillModifier : BaseSkillModifier
+    internal class HuntressSnipeSkillModifier : BaseSkillModifier
     {
-
-        static readonly float stockImageInterspacing = 18.0f;
+        private static readonly float stockImageInterspacing = 18.0f;
 
         public override void OnSkillEnter(BaseState skillState, int level)
         {

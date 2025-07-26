@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Xml;
 using EntityStates;
-using R2API.Utils;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
-using SkillsPlusPlus.Modifiers;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -29,22 +22,18 @@ namespace SkillsPlusPlus
         public GenericSkill targetGenericSkill;
 
         public string targetBaseSkillName;
+        private CharacterBody characterBody;
 
-        CharacterBody characterBody;
+        private bool isSurvivorEnabled => skillPointsController?.isSurvivorEnabled == true;
 
-        private bool isSurvivorEnabled
-        {
-            get { return skillPointsController?.isSurvivorEnabled == true; }
-        }
-
-        void Awake()
+        private void Awake()
         {
             this.characterBody = this.GetComponent<CharacterBody>();
             this.targetBaseSkillName = ((ScriptableObject)targetGenericSkill.skillDef)?.name;
             Logger.Debug("Awake() targetBaseSkillName: {0}", targetBaseSkillName);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             Logger.Debug("OnEnable() targetBaseSkillName: {0}", targetBaseSkillName);
             this.targetGenericSkill.onSkillChanged += this.OnSkillChanged;
@@ -54,7 +43,7 @@ namespace SkillsPlusPlus
             RefreshUpgrades();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             Logger.Debug("OnDisable() targetBaseSkillName: {0}", targetBaseSkillName);
             On.EntityStates.BaseState.OnEnter -= this.OnBaseStateEnter;
@@ -86,7 +75,7 @@ namespace SkillsPlusPlus
 
         #region Events
 
-        void OnSkillChanged(GenericSkill genericSkill)
+        private void OnSkillChanged(GenericSkill genericSkill)
         {
 
             this.targetBaseSkillName = ((ScriptableObject)genericSkill.skillDef)?.name;
@@ -95,7 +84,7 @@ namespace SkillsPlusPlus
         }
 
         [Client]
-        void OnSkillLevelChanged(int newSkillLevel)
+        private void OnSkillLevelChanged(int newSkillLevel)
         {
             Logger.Debug("OnSkillLevelChanged({0})", newSkillLevel);
             this.skillLevel = newSkillLevel;
@@ -104,7 +93,7 @@ namespace SkillsPlusPlus
 
         #endregion
 
-        void RefreshUpgrades()
+        private void RefreshUpgrades()
         {
             if (!isSurvivorEnabled)
             {
@@ -164,7 +153,7 @@ namespace SkillsPlusPlus
             return SkillModifierManager.HasSkillModifier(this.targetBaseSkillName);
         }
 
-        static List<EntityState> pastStates = new List<EntityState>();
+        private static List<EntityState> pastStates = new List<EntityState>();
 
         private CharacterBody FindOwningCharacterBody(EntityState state)
         {

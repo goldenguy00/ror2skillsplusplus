@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Reflection;
 using BepInEx;
 using BepInEx.Configuration;
-using R2API;
 using R2API.Utils;
 using RiskOfOptions;
 using RiskOfOptions.OptionConfigs;
 using RiskOfOptions.Options;
 using RoR2;
-using RoR2.ContentManagement;
 using RoR2.UI;
 
 using SkillsPlusPlus.Modifiers;
@@ -29,10 +23,9 @@ namespace SkillsPlusPlus
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
     public sealed class SkillsPlugin : BaseUnityPlugin
     {
+        private static SkillsPlugin Instance = null;
 
-        static SkillsPlugin Instance = null;
-
-        void Awake()
+        private void Awake()
         {
 
             //             SkillsPlusPlus.Logger.Warn(@"

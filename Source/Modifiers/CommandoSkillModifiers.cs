@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using EntityStates.Commando;
 using EntityStates.Commando.CommandoWeapon;
 using R2API;
-using R2API.Utils;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
@@ -18,12 +13,11 @@ namespace SkillsPlusPlus.Modifiers
 {
 
     [SkillLevelModifier("CommandoBodyFirePistol", typeof(FirePistol2))]
-    class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2>
+    internal class CommandoFirePistolSkillModifier : SimpleSkillModifier<FirePistol2>
     {
-
-        float originalDuration = 0;
-        float originalRecoil = 0;
-        float originalSpread = 0;
+        private float originalDuration = 0;
+        private float originalRecoil = 0;
+        private float originalSpread = 0;
         public override void OnSkillEnter(FirePistol2 skillState, int level)
         {
             base.OnSkillEnter(skillState, level);
@@ -48,10 +42,9 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("CommandoBodyFireFMJ", typeof(FireFMJ))]
-    class CommandoFMJSkillModifier : SimpleSkillModifier<FireFMJ>
+    internal class CommandoFMJSkillModifier : SimpleSkillModifier<FireFMJ>
     {
-
-        float originalForwardSpeed = 0;
+        private float originalForwardSpeed = 0;
         public override void OnSkillEnter(FireFMJ skillState, int level)
         {
             base.OnSkillEnter(skillState, level);
@@ -74,7 +67,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("CommandoBodyFireShotgunBlast", typeof(FireShotgunBlast))]
-    class CommandoShotgunBlastSkillModifier : SimpleSkillModifier<FireShotgunBlast>
+    internal class CommandoShotgunBlastSkillModifier : SimpleSkillModifier<FireShotgunBlast>
     {
 
         public override void OnSkillEnter(FireShotgunBlast skillState, int level)
@@ -87,7 +80,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("CommandoBodyRoll", typeof(DodgeState))]
-    class CommandoRollSkillModifier : SimpleSkillModifier<DodgeState>
+    internal class CommandoRollSkillModifier : SimpleSkillModifier<DodgeState>
     {
 
         public override void OnSkillEnter(DodgeState skillState, int level)
@@ -103,12 +96,11 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("CommandoSlide", typeof(SlideState))]
-    class CommandoDiveSkillModifier : SimpleSkillModifier<SlideState>
+    internal class CommandoDiveSkillModifier : SimpleSkillModifier<SlideState>
     {
         public float baseSlideDuration = 0f;
         public float baseJumpDuration = 0f;
-
-        static BuffDef CommandoSlideBuff;
+        private static BuffDef CommandoSlideBuff;
 
         public static void RegisterCommandoSlideBuff()
         {
@@ -181,7 +173,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "CommandoBodyBarrage", "Death Blossom" }, typeof(FireBarrage))]
-    class CommandoBarrageSkillModifier : SimpleSkillModifier<FireBarrage>
+    internal class CommandoBarrageSkillModifier : SimpleSkillModifier<FireBarrage>
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -198,7 +190,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "ThrowGrenade", "Carpet Bomb" }, typeof(ThrowGrenade))]
-    class CommandoGrenadeSkillModifier : SimpleSkillModifier<ThrowGrenade>
+    internal class CommandoGrenadeSkillModifier : SimpleSkillModifier<ThrowGrenade>
     {
 
         public override void OnSkillEnter(ThrowGrenade skillState, int level)

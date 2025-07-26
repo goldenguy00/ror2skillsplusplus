@@ -3,14 +3,13 @@ using UnityEngine;
 
 namespace SkillsPlusPlus.UI
 {
-
-    class SkillUpgradeTooltipProvider : MonoBehaviour
+    internal class SkillUpgradeTooltipProvider : MonoBehaviour
     {
 
         public string skillName;
         public SkillIcon skillIcon;
 
-        void Awake()
+        private void Awake()
         {
             this.skillIcon = GetComponent<SkillIcon>();
         }

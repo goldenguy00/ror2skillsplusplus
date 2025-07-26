@@ -1,17 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using EntityStates;
-using R2API.Utils;
 using Rewired;
 using RiskOfOptions;
 using RoR2;
-using RoR2.Projectile;
-using RoR2.Skills;
 using SkillsPlusPlus.Modifiers;
-using SkillsPlusPlus.Util;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -27,14 +20,8 @@ namespace SkillsPlusPlus
 
         private PlayerCharacterMasterController playerCharacterMasterController;
 
-        private CharacterBody body
-        {
-            get { return playerCharacterMasterController.master?.GetBody(); }
-        }
-        private SkillLocator skillLocator
-        {
-            get { return body?.skillLocator; }
-        }
+        private CharacterBody body => playerCharacterMasterController.master?.GetBody();
+        private SkillLocator skillLocator => body?.skillLocator;
 
         private TeamIndex PlayerTeamIndex
         {
@@ -63,14 +50,11 @@ namespace SkillsPlusPlus
         [SyncVar]
         public bool multScalingLinear = false;
 
-        public bool hasUnspentPoints
-        {
-            get { return unspentSkillPoints > 0; }
-        }
+        public bool hasUnspentPoints => unspentSkillPoints > 0;
 
         private Dictionary<string, int> transferrableSkillUpgrades = new Dictionary<string, int>();
 
-        void Awake()
+        private void Awake()
         {
             multScalingLinear = ConVars.ConVars.multScalingLinear.value;
             Logger.Debug("levelsPerSkillPoint: {0}", this.levelsPerSkillPoint);
@@ -78,7 +62,7 @@ namespace SkillsPlusPlus
             this.playerCharacterMasterController = this.GetComponent<PlayerCharacterMasterController>();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             this.playerCharacterMasterController.master.onBodyStart += this.OnBodyStart;
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += this.GetDeployableSameSlotLimit;
@@ -89,7 +73,7 @@ namespace SkillsPlusPlus
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             this.playerCharacterMasterController.master.onBodyStart -= this.OnBodyStart;
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit -= this.GetDeployableSameSlotLimit;
@@ -107,7 +91,7 @@ namespace SkillsPlusPlus
             transferrableSkillUpgrades[targetBaseSkillName] = skillLevel;
         }
 
-        void OnBodyStart(CharacterBody body)
+        private void OnBodyStart(CharacterBody body)
         {
             this.isSurvivorEnabled = !ConVars.ConVars.disabledSurvivors.value.Contains(body.GetDisplayName());
             Logger.Debug("OnBodyStart({0})", body);
@@ -124,8 +108,7 @@ namespace SkillsPlusPlus
 #endif
         }
 
-
-        bool bMorphedToHeretic = false;
+        private bool bMorphedToHeretic = false;
 
         [Server]
         private void TransferSkillUpgrades(CharacterBody body)
@@ -188,9 +171,9 @@ namespace SkillsPlusPlus
             }
         }
 
-        #endregion        
+        #endregion
 
-        void Update()
+        private void Update()
         {
 #if DEBUG
             if (Input.GetKeyDown(KeyCode.Equals) && this.PlayerTeamIndex != TeamIndex.None)

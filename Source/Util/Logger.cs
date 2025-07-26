@@ -1,8 +1,5 @@
 ﻿using BepInEx.Logging;
 using System;
-using UnityEngine;
-
-using BepInEx.Configuration;
 
 namespace SkillsPlusPlus
 {

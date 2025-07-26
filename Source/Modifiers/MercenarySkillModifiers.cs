@@ -1,24 +1,17 @@
-using System;
-using System.Collections.Generic;
-
 using RoR2;
 using RoR2.Skills;
 
 using EntityStates;
 using EntityStates.Merc;
 using EntityStates.Merc.Weapon;
-using EntityStates.Commando.CommandoWeapon;
-using R2API.Utils;
 using UnityEngine;
 using RoR2.Projectile;
-using EntityStates.Engi.EngiMissilePainter;
-using SkillsPlusPlus.Util;
 
 namespace SkillsPlusPlus.Modifiers
 {
 
     [SkillLevelModifier("MercGroundLight", typeof(GroundLight))]
-    class GroundLightSkillModifier : SimpleSkillModifier<GroundLight>
+    internal class GroundLightSkillModifier : SimpleSkillModifier<GroundLight>
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -35,7 +28,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("MercGroundLight2", typeof(GroundLight2))]
-    class GroundLight2SkillModifier : SimpleSkillModifier<GroundLight2>
+    internal class GroundLight2SkillModifier : SimpleSkillModifier<GroundLight2>
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -60,7 +53,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("MercBodyWhirlwind", typeof(WhirlwindEntry), typeof(WhirlwindGround), typeof(WhirlwindAir))]
-    class WhirlwindSkillModifier : BaseSkillModifier
+    internal class WhirlwindSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillEnter(BaseState skillState, int level)
@@ -92,7 +85,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("MercBodyUppercut", typeof(Uppercut))]
-    class UppercutSkillModifier : SimpleSkillModifier<Uppercut>
+    internal class UppercutSkillModifier : SimpleSkillModifier<Uppercut>
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -105,7 +98,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("MercBodyAssaulter", typeof(Assaulter))]
-    class AssaultSkillModifier : SimpleSkillModifier<Assaulter>
+    internal class AssaultSkillModifier : SimpleSkillModifier<Assaulter>
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -124,11 +117,10 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("MercBodyFocusedAssault", typeof(FocusedAssaultDash))]
-    class Assault2SkillModifier : SimpleSkillModifier<FocusedAssaultDash>
+    internal class Assault2SkillModifier : SimpleSkillModifier<FocusedAssaultDash>
     {
-
-        Transform assaultHitbox;
-        Vector3 originalHitboxScale;
+        private Transform assaultHitbox;
+        private Vector3 originalHitboxScale;
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
@@ -173,7 +165,7 @@ namespace SkillsPlusPlus.Modifiers
 
     // both Mercenary special skills have the same skill name
     [SkillLevelModifier(new string[] { "MercBodyEvis", "MercBodyEvisProjectile", "Gale-Force" }, typeof(Evis), typeof(EvisDash), typeof(ThrowEvisProjectile))]
-    class EviscerateSkillModifier : BaseSkillModifier
+    internal class EviscerateSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillEnter(BaseState skillState, int level)

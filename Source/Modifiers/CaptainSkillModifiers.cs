@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 using EntityStates;
-using EntityStates.Captain;
 using EntityStates.Captain.Weapon;
-using EntityStates.CaptainDefenseMatrixItem;
 using EntityStates.CaptainSupplyDrop;
 
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
-
-using SkillsPlusPlus.Modifiers;
-using R2API.Utils;
-using R2API;
 
 using static R2API.RecalculateStatsAPI;
 
@@ -25,7 +14,7 @@ namespace SkillsPlusPlus.Modifiers
 {
 
     [SkillLevelModifier("CaptainShotgun", typeof(FireCaptainShotgun), typeof(ChargeCaptainShotgun))]
-    class CaptainShotgunSkillModifier : BaseSkillModifier
+    internal class CaptainShotgunSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillEnter(BaseState skillState, int level)
@@ -40,7 +29,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("CaptainTazer", typeof(FireTazer))]
-    class CaptainTaserSkillModifier : SimpleSkillModifier<FireTazer>
+    internal class CaptainTaserSkillModifier : SimpleSkillModifier<FireTazer>
     {
 
         public override void OnSkillEnter(FireTazer skillState, int level)
@@ -62,7 +51,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "PrepAirstrike", "21-Probe Salute" }, typeof(CallAirstrike1), typeof(CallAirstrike2), typeof(CallAirstrike3))]
-    class CaptainAirstrikeSkillModifier : SimpleSkillModifier<CallAirstrikeBase>
+    internal class CaptainAirstrikeSkillModifier : SimpleSkillModifier<CallAirstrikeBase>
     {
 
         public override void OnSkillEnter(CallAirstrikeBase skillState, int level)
@@ -87,12 +76,11 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "PrepAirstrikeAlt" }, typeof(CallAirstrikeAlt), typeof(SetupAirstrikeAlt))]
-    class CaptainDiabloStrikeSkillModifier : BaseSkillModifier
+    internal class CaptainDiabloStrikeSkillModifier : BaseSkillModifier
     {
-
-        static int diabloStrikeProjectileCatalogIndex = -1337;
-        static float fuseDuration;
-        static SkillUpgrade diabloSkill;
+        private static int diabloStrikeProjectileCatalogIndex = -1337;
+        private static float fuseDuration;
+        private static SkillUpgrade diabloSkill;
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
@@ -226,7 +214,7 @@ namespace SkillsPlusPlus.Modifiers
         //"CaptainSupplyDropEquipmentRestock",
         //"CaptainSupplyDropHacking"
     }, typeof(SetupSupplyDrop), typeof(DeployState), typeof(HealZoneMainState), typeof(ShockZoneMainState), typeof(HackingMainState), typeof(HackingInProgressState), typeof(EquipmentRestockMainState))]
-    class CaptainSupplyDropHealingSkillModifier : BaseSkillModifier
+    internal class CaptainSupplyDropHealingSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillEnter(BaseState skillState, int level)

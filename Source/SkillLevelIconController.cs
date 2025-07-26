@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using R2API.Utils;
-using Rewired;
+﻿using Rewired;
 using RiskOfOptions;
 using RoR2;
 using RoR2.UI;
-using RoR2.UI.SkinControllers;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace SkillsPlusPlus
 {
-
-    sealed class SkillLevelIconController : MonoBehaviour
+    internal sealed class SkillLevelIconController : MonoBehaviour
     {
 
         private static string BUY_TOKEN = "SKILLS_SLOT_BUY_BTN";
@@ -31,12 +24,7 @@ namespace SkillsPlusPlus
         private CanvasRenderer CanBuyBorderRenderer;
         public SkillUpgrade skillUpgrade;
 
-        public GenericSkill genericSkill
-        {
-            get { return skillIcon?.targetSkill; }
-        }
-
-        void Awake()
+        private void Awake()
         {
             this.skillIcon = GetComponent<SkillIcon>();
 
@@ -135,7 +123,7 @@ namespace SkillsPlusPlus
             }
         }
 
-        void Update()
+        private void Update()
         {
             if (skillIcon)
             {
@@ -146,7 +134,7 @@ namespace SkillsPlusPlus
                     {
                         foreach (var skillUpgrade in skillUpgrades)
                         {
-                            if (skillUpgrade.targetGenericSkill && ((ScriptableObject)genericSkill.skillDef)?.name == ((ScriptableObject)skillUpgrade.targetGenericSkill.skillDef)?.name)
+                            if (skillUpgrade.targetGenericSkill && ((ScriptableObject)skillIcon?.targetSkill.skillDef)?.name == ((ScriptableObject)skillUpgrade.targetGenericSkill.skillDef)?.name)
                             {
                                 this.skillUpgrade = skillUpgrade;
                             }

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using RoR2;
 using RoR2.UI;
-using RoR2.ConVar;
 using UnityEngine;
 
 namespace SkillsPlusPlus
 {
-    class SkillOptions
+    internal class SkillOptions
     {
 
         private static GameObject carouselPrefab;

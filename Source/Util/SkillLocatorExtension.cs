@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-using Rewired;
 using RoR2;
-using RoR2.Skills;
 using UnityEngine;
 
 namespace SkillsPlusPlus.Util
 {
-    static class SkillLocatorExtension
+    internal static class SkillLocatorExtension
     {
 
         public static GenericSkill FindGenericSkillBySkillDef(this SkillLocator skillLocator, string skillName, bool allowMatchBaseSkill = false)

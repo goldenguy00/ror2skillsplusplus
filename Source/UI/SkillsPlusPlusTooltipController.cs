@@ -1,6 +1,4 @@
 using System;
-using System.Reflection.Emit;
-using R2API.MiscHelpers;
 using RoR2;
 using RoR2.UI;
 using UnityEngine;
@@ -9,19 +7,18 @@ namespace SkillsPlusPlus.UI
 {
 
     [RequireComponent(typeof(TooltipController))]
-    class SkillsPlusPlusTooltipController : MonoBehaviour
+    internal class SkillsPlusPlusTooltipController : MonoBehaviour
     {
-
-        TooltipController tooltipController;
+        private TooltipController tooltipController;
 
         public string skillUpgradeToken;
 
-        void Awake()
+        private void Awake()
         {
             this.tooltipController = GetComponent<TooltipController>();
         }
 
-        void Start()
+        private void Start()
         {
             var panelTransform = this.tooltipController.tooltipFlipTransform;
             GameObject bodyRectGameObject = this.tooltipController.bodyLabel.transform.parent.gameObject;

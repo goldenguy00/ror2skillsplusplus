@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using EntityStates;
 using EntityStates.GlobalSkills.LunarDetonator;
 using EntityStates.GlobalSkills.LunarNeedle;
@@ -12,11 +11,11 @@ using static R2API.RecalculateStatsAPI;
 
 namespace SkillsPlusPlus.Modifiers
 {
-    class LunarModifiers
+    internal class LunarModifiers
     {
 
 #pragma warning disable CS0649
-        static List<String> HereticSkillsWarned = new List<string>();
+        private static List<String> HereticSkillsWarned = new List<string>();
 #pragma warning restore CS0649
         public static List<String> HereticSupportedPassiveUpgrades = new List<String> { "LunarPrimaryReplacement", "LunarSecondaryReplacement", "LunarUtilityReplacement", "LunarDetonatorSpecialReplacement" };
 
@@ -80,8 +79,8 @@ namespace SkillsPlusPlus.Modifiers
         [SkillLevelModifier(new string[] { "LunarSecondaryReplacement", "SlicingMaelstrom" }, typeof(ThrowLunarSecondary), typeof(ChargeLunarSecondary))]
         internal class HooksOfHeresySkillModifier : BaseSkillModifier
         {
-            static float baseMaelstromScale = 0f;
-            static float baseBlastRadius = 0f;
+            private static float baseMaelstromScale = 0f;
+            private static float baseBlastRadius = 0f;
 
             public override void OnSkillEnter(BaseState skillState, int level)
             {
@@ -148,9 +147,8 @@ namespace SkillsPlusPlus.Modifiers
         [SkillLevelModifier(new string[] { "LunarDetonatorSpecialReplacement", "Ruin" }, typeof(LunarDetonatorSkill), typeof(Detonate))]
         internal class HeartOfHeresySkillModifier : BaseSkillModifier
         {
-
-            static float baseDamageCoefficient = 0f;
-            static SkillUpgrade heartSkill;
+            private static float baseDamageCoefficient = 0f;
+            private static SkillUpgrade heartSkill;
 
             public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
             {

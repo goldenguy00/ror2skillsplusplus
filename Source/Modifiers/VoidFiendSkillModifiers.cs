@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using SkillsPlusPlus.Modifiers;
 using RoR2;
@@ -11,16 +9,13 @@ using static EntityStates.VoidSurvivor.VoidBlinkBase;
 
 using RoR2.Projectile;
 using RoR2.Skills;
-
-using System.Linq;
 using UnityEngine.AddressableAssets;
-using EntityStates.VoidSurvivor.CorruptMode;
 using R2API;
 using GlobalEventManager = On.RoR2.GlobalEventManager;
 
 namespace SkillsPlusPlus.Source.Modifiers
 {
-    class VoidFiendSkillModifiers
+    internal class VoidFiendSkillModifiers
     {
     }
 
@@ -36,9 +31,9 @@ namespace SkillsPlusPlus.Source.Modifiers
 
     //}
     [SkillLevelModifier(new[] { "FireHandBeam", "ChargeHandBeam", "FireCorruptBeam" }, typeof(FireHandBeam), typeof(ChargeHandBeam), typeof(FireCorruptHandBeam))]
-    class VoidFiendHandBeamSkillModifier : BaseSkillModifier
+    internal class VoidFiendHandBeamSkillModifier : BaseSkillModifier
     {
-        CharacterBody surv;
+        private CharacterBody surv;
         private int debuffTimerAdd;
         public BuffDef VoidFiendSpeedBuff;
         private int survlevel;
@@ -147,7 +142,7 @@ namespace SkillsPlusPlus.Source.Modifiers
     }
 
     [SkillLevelModifier("FireCorruptBeam", typeof(FireCorruptHandBeam), typeof(ChargeCorruptHandBeam))]
-    class VoidFiendCorruptHandBeamSkillModifier : BaseSkillModifier
+    internal class VoidFiendCorruptHandBeamSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -172,7 +167,7 @@ namespace SkillsPlusPlus.Source.Modifiers
 
     [SkillLevelModifier("ChargeMegaBlaster", typeof(ChargeMegaBlaster), typeof(FireMegaBlasterBase), // flood
         typeof(FireMegaBlasterBig), typeof(FireMegaBlasterSmall))]
-    class VoidFiendChargeMegaSkillModifier : BaseSkillModifier
+    internal class VoidFiendChargeMegaSkillModifier : BaseSkillModifier
     {
 
 
@@ -203,9 +198,9 @@ namespace SkillsPlusPlus.Source.Modifiers
     }
 
     [SkillLevelModifier("FireCorruptDisk", typeof(FireCorruptDisks))] // corrupt flood
-    class VoidFiendFireCorruptDiskSkillModifier : SimpleSkillModifier<FireCorruptDisks>
+    internal class VoidFiendFireCorruptDiskSkillModifier : SimpleSkillModifier<FireCorruptDisks>
     {
-        CharacterBody surv;
+        private CharacterBody surv;
         public float stockamount;
         public int skilllevel;
 
@@ -249,10 +244,10 @@ namespace SkillsPlusPlus.Source.Modifiers
     }
 
     [SkillLevelModifier("VoidBlinkUp", typeof(VoidBlinkUp))]
-    class VoidFiendVoidBlinkUpSkillModifier : SimpleSkillModifier<VoidBlinkUp>
+    internal class VoidFiendVoidBlinkUpSkillModifier : SimpleSkillModifier<VoidBlinkUp>
     {
-        BuffDef VoidFiendArmorBuff;
-        CharacterBody surv;
+        private BuffDef VoidFiendArmorBuff;
+        private CharacterBody surv;
         private int skilllevel;
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
@@ -297,10 +292,10 @@ namespace SkillsPlusPlus.Source.Modifiers
     }
 
     [SkillLevelModifier("VoidBlinkDown", typeof(VoidBlinkDown))]
-    class VoidFiendVoidBlinkDownSkillModifier : SimpleSkillModifier<VoidBlinkDown>
+    internal class VoidFiendVoidBlinkDownSkillModifier : SimpleSkillModifier<VoidBlinkDown>
     {
-        BuffDef VoidFiendDamageSpeedBuff;
-        CharacterBody surv;
+        private BuffDef VoidFiendDamageSpeedBuff;
+        private CharacterBody surv;
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -344,7 +339,7 @@ namespace SkillsPlusPlus.Source.Modifiers
     }
 
     [SkillLevelModifier("CrushCorruption", typeof(CrushCorruption), typeof(ChargeCrushCorruption))]
-    class VoidFiendCrushCorruptionSkillModifier : BaseSkillModifier
+    internal class VoidFiendCrushCorruptionSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillEnter(BaseState skillState, int level)
@@ -358,9 +353,9 @@ namespace SkillsPlusPlus.Source.Modifiers
     }
 
     [SkillLevelModifier("CrushHealth", typeof(CrushHealth), typeof(ChargeCrushHealth))]
-    class VoidFiendCrushHealthSkillModifier : BaseSkillModifier
+    internal class VoidFiendCrushHealthSkillModifier : BaseSkillModifier
     {
-        CharacterBody surv;
+        private CharacterBody surv;
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
             base.OnSkillLeveledUp(level, characterBody, skillDef);

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using EntityStates;
 using RoR2;
 using RoR2.Skills;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace SkillsPlusPlus.Modifiers
 {
@@ -23,10 +21,9 @@ namespace SkillsPlusPlus.Modifiers
         /// The SkillUpgrade associated to this Modifier. Call FindSkillUpgrade to assign.
         /// </summary>
         public SkillUpgrade registeredSkill;
+        private static bool bMultScalingLinear;
 
-        static bool bMultScalingLinear;
-
-        public virtual string skillUpgradeDescriptionToken { get { return null; } }
+        public virtual string skillUpgradeDescriptionToken => null;
 
         public BaseSkillModifier()
         {

@@ -1,7 +1,6 @@
 ﻿using EntityStates.Bandit2;
 using EntityStates.Bandit2.Weapon;
 using R2API;
-using R2API.Utils;
 using RoR2;
 using RoR2.Skills;
 using System;
@@ -35,7 +34,7 @@ namespace SkillsPlusPlus.Modifiers
         })]
     internal class BanditFireRifleSkillModifier : SimpleSkillModifier<Bandit2FireRifle>
     {
-        float baseBloom = 0;
+        private float baseBloom = 0;
         public override void OnSkillEnter(Bandit2FireRifle skillState, int level)
         {
             base.OnSkillEnter(skillState, level);
@@ -61,7 +60,7 @@ namespace SkillsPlusPlus.Modifiers
     })]
     internal class BanditBladeSkillModifier : SimpleSkillModifier<SlashBlade>
     {
-        Vector3 originalHitboxScale = Vector3.zero;
+        private Vector3 originalHitboxScale = Vector3.zero;
         public override void OnSkillEnter(SlashBlade slash, int level)
         {
             //Visual Scaling
@@ -122,10 +121,9 @@ namespace SkillsPlusPlus.Modifiers
         })]
     internal class BanditSkillThrowSmokebombModifier : SimpleSkillModifier<ThrowSmokebomb>
     {
-        static float baseRadius = 0;
-        static float baseDamage = 0;
-
-        static BuffDef BanditSpeedBuff;
+        private static float baseRadius = 0;
+        private static float baseDamage = 0;
+        private static BuffDef BanditSpeedBuff;
 
         public static void RegisterBanditSpeedBuff()
         {
@@ -196,7 +194,7 @@ namespace SkillsPlusPlus.Modifiers
         })]
     internal class BanditSkillResetRevolverModifier : SimpleSkillModifier<FireSidearmResetRevolver>
     {
-        static SkillUpgrade resetSkill;
+        private static SkillUpgrade resetSkill;
 
         public override void OnSkillEnter(FireSidearmResetRevolver skillState, int level)
         {
@@ -249,7 +247,7 @@ namespace SkillsPlusPlus.Modifiers
         })]
     internal class BanditSkillSkullRevolverModifier : SimpleSkillModifier<FireSidearmSkullRevolver>
     {
-        static SkillUpgrade revolverSkill;
+        private static SkillUpgrade revolverSkill;
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {

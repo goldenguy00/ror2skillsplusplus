@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 using RoR2;
@@ -19,8 +18,7 @@ using System.Linq;
 
 namespace SkillsPlusPlus.Modifiers
 {
-
-    sealed class EngiSkillModifier
+    internal sealed class EngiSkillModifier
     {
 
         public static Dictionary<DeployableSlot, int> deployableSlotCountBonus = new Dictionary<DeployableSlot, int>();
@@ -37,7 +35,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("EngiBodyFireGrenade", typeof(ChargeGrenades))]
-    class EngiGrenadesSkillModifier : SimpleSkillModifier<ChargeGrenades>
+    internal class EngiGrenadesSkillModifier : SimpleSkillModifier<ChargeGrenades>
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -50,7 +48,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("EngiBodyPlaceMine", typeof(FireMines), typeof(MineArmingFull), typeof(MineArmingWeak))]
-    class EngiMineSkillModifier : BaseSkillModifier
+    internal class EngiMineSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -109,7 +107,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("EngiBodyPlaceSpiderMine", typeof(FireSpiderMine), typeof(EntityStates.Engi.SpiderMine.WaitForTarget))]
-    class EngiSpiderMineSkillModifier : BaseSkillModifier
+    internal class EngiSpiderMineSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillEnter(BaseState skillState, int level)
@@ -153,7 +151,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("EngiBodyPlaceBubbleShield", typeof(FireBubbleShield))]
-    class EngiBubbleShieldSkillModifier : SimpleSkillModifier<FireBubbleShield>
+    internal class EngiBubbleShieldSkillModifier : SimpleSkillModifier<FireBubbleShield>
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -180,7 +178,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("EngiHarpoons", typeof(Paint))]
-    class EngiHarpoonsSkillModifier : SimpleSkillModifier<Paint>
+    internal class EngiHarpoonsSkillModifier : SimpleSkillModifier<Paint>
     {
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
@@ -195,7 +193,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "EngiBodyPlaceTurret", "TR12-C Gauss Compact" }, typeof(PlaceTurret), typeof(FireGauss))]
-    class EngiTurretSkillModifier : BaseSkillModifier
+    internal class EngiTurretSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillEnter(BaseState skillState, int level)
@@ -237,7 +235,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "EngiBodyPlaceWalkerTurret", "TR58-C Carbonizer Mini" }, typeof(PlaceWalkerTurret), typeof(FireBeam))]
-    class EngiWalkerTurretSkillModifier : BaseSkillModifier
+    internal class EngiWalkerTurretSkillModifier : BaseSkillModifier
     {
 
         public override void OnSkillEnter(BaseState skillState, int level)

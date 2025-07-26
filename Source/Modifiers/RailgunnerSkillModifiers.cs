@@ -4,7 +4,6 @@ using EntityStates.Railgunner.Reload;
 using EntityStates.Railgunner.Scope;
 using EntityStates.Railgunner.Weapon;
 using R2API;
-using R2API.Utils;
 using RoR2;
 using RoR2.Projectile;
 using RoR2.Skills;
@@ -12,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using static RoR2.RoR2Content;
 using static R2API.RecalculateStatsAPI;
 
 namespace SkillsPlusPlus.Modifiers
@@ -20,8 +18,8 @@ namespace SkillsPlusPlus.Modifiers
     [SkillLevelModifier("RailgunnerBodyFirePistol", typeof(FirePistol))]
     internal class RailgunnerXQRSkillModifier : SimpleSkillModifier<FirePistol>
     {
-        float originalDuration = 0;
-        float originalLifetime = 0;
+        private float originalDuration = 0;
+        private float originalLifetime = 0;
 
         public override void OnSkillEnter(FirePistol skillState, int level)
         {
@@ -62,10 +60,9 @@ namespace SkillsPlusPlus.Modifiers
     [SkillLevelModifier("RailgunnerBodyScopeHeavy", typeof(FireSnipeHeavy))]
     internal class RailgunnerM99SkillModifier : SimpleSkillModifier<FireSnipeHeavy>
     {
-        static int EmpoweredRoundsLeft = 0;
-        static int MaxEmpoweredRounds = 1;
-
-        static SkillUpgrade M99skill;
+        private static int EmpoweredRoundsLeft = 0;
+        private static int MaxEmpoweredRounds = 1;
+        private static SkillUpgrade M99skill;
 
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
@@ -115,13 +112,12 @@ namespace SkillsPlusPlus.Modifiers
     [SkillLevelModifier("RailgunnerBodyScopeLight", typeof(FireSnipeLight), typeof(WindUpScopeLight), typeof(WindDownScopeLight))]
     internal class RailgunnerHH44SkillModifier : BaseSkillModifier
     {
-        static BuffDef KillingSpreeBuff;
-        static BuffDef StrategicRetreatBuff;
-        static SkillUpgrade HH44Skill;
-        static bool bScopeActive;
-
-        static float KillingSpreeTimer = 0;
-        static float SpreeTimerGrace = 2f;
+        private static BuffDef KillingSpreeBuff;
+        private static BuffDef StrategicRetreatBuff;
+        private static SkillUpgrade HH44Skill;
+        private static bool bScopeActive;
+        private static float KillingSpreeTimer = 0;
+        private static float SpreeTimerGrace = 2f;
 
         public override void OnSkillEnter(BaseState skillState, int level)
         {
@@ -279,10 +275,10 @@ namespace SkillsPlusPlus.Modifiers
     [SkillLevelModifier("RailgunnerBodyFireMineConcussive", typeof(FireMineConcussive))]
     internal class RailgunnerConcussiveMineSkillModifier : SimpleSkillModifier<FireMineConcussive>
     {
-        static BuffDef FeatherFallBuff;
-        static int ConcussiveProjectileCatalogIndex = -1337;
-        static float baseThrowForce = 0;
-        static SkillUpgrade ConcussiveMineSkill;
+        private static BuffDef FeatherFallBuff;
+        private static int ConcussiveProjectileCatalogIndex = -1337;
+        private static float baseThrowForce = 0;
+        private static SkillUpgrade ConcussiveMineSkill;
 
         public override void OnSkillEnter(FireMineConcussive skillState, int level)
         {
@@ -376,13 +372,12 @@ namespace SkillsPlusPlus.Modifiers
     [SkillLevelModifier("RailgunnerBodyFireMineBlinding", typeof(FireMineBlinding))]
     internal class RailgunnerPolarFieldMineSkillModifier : SimpleSkillModifier<FireMineBlinding>
     {
-        static BuffDef TimePressureDebuff;
-        static int PolarProjectileCatalogIndex = -1337;
-        static float baseThrowForce = 0;
-        static SkillUpgrade PolarMineSkill;
-        static float baseRadius = 0;
-
-        static List<BuffWard> Wards = new List<BuffWard>();
+        private static BuffDef TimePressureDebuff;
+        private static int PolarProjectileCatalogIndex = -1337;
+        private static float baseThrowForce = 0;
+        private static SkillUpgrade PolarMineSkill;
+        private static float baseRadius = 0;
+        private static List<BuffWard> Wards = new List<BuffWard>();
 
         public override void OnSkillEnter(FireMineBlinding skillState, int level)
         {
@@ -491,10 +486,9 @@ namespace SkillsPlusPlus.Modifiers
     [SkillLevelModifier("RailgunnerBodyChargeSnipeSuper", typeof(FireSnipeSuper))]
     internal class RailgunnerSuperchargeSkillModifier : SimpleSkillModifier<FireSnipeSuper>
     {
-        static float originalProcRate = 0f;
-        static float originalCritMult = 0f;
-
-        static SkillUpgrade superchargeSkill;
+        private static float originalProcRate = 0f;
+        private static float originalCritMult = 0f;
+        private static SkillUpgrade superchargeSkill;
 
         private static float originalRechargeRate;
 
@@ -552,13 +546,12 @@ namespace SkillsPlusPlus.Modifiers
     [SkillLevelModifier("RailgunnerBodyChargeSnipeCryo", typeof(FireSnipeCryo), typeof(ExpiredCryo), typeof(ChargedCryo))]
     internal class RailgunnerCryochargeSkillModifier : BaseSkillModifier
     {
-        static BuffDef FrostfireBuff;
-        static DotController.DotDef FrostfireDot;
-        static DotController.DotIndex FrostfireIndex;
-        static SkillUpgrade CryochargeSkill;
-        static bool bCryoActive = false;
-
-        static float originalRechargeRate = 0;
+        private static BuffDef FrostfireBuff;
+        private static DotController.DotDef FrostfireDot;
+        private static DotController.DotIndex FrostfireIndex;
+        private static SkillUpgrade CryochargeSkill;
+        private static bool bCryoActive = false;
+        private static float originalRechargeRate = 0;
 
         public override void OnSkillEnter(BaseState skillState, int level)
         {

@@ -8,7 +8,7 @@ namespace SkillsPlusPlus.Modifiers
 {
 
     [SkillLevelModifier("CrocoSlash", typeof(Slash))]
-    class CrocoSlashSkillModifier : SimpleSkillModifier<Slash>
+    internal class CrocoSlashSkillModifier : SimpleSkillModifier<Slash>
     {
 
         public override void OnSkillEnter(Slash slash, int level)
@@ -32,7 +32,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("CrocoSpit", typeof(FireSpit))]
-    class CrocoSpitSkillModifier : SimpleSkillModifier<FireSpit>
+    internal class CrocoSpitSkillModifier : SimpleSkillModifier<FireSpit>
     {
 
         public override void OnSkillEnter(FireSpit fireSpit, int level)
@@ -55,7 +55,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("CrocoBite", typeof(Bite))]
-    class CrocoBiteSkillModifier : SimpleSkillModifier<Bite>
+    internal class CrocoBiteSkillModifier : SimpleSkillModifier<Bite>
     {
 
         public override void OnSkillEnter(Bite bite, int level)
@@ -73,7 +73,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("CrocoLeap", typeof(Leap))]
-    class CrocoLeapSkillModifier : SimpleSkillModifier<Leap>
+    internal class CrocoLeapSkillModifier : SimpleSkillModifier<Leap>
     {
 
         public override void OnSkillEnter(Leap leap, int level)
@@ -102,7 +102,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier("CrocoChainableLeap", typeof(ChainableLeap))]
-    class CrocoChainableLeapSkillModifier : SimpleSkillModifier<ChainableLeap>
+    internal class CrocoChainableLeapSkillModifier : SimpleSkillModifier<ChainableLeap>
     {
 
         public override void OnSkillEnter(ChainableLeap skillState, int level)
@@ -123,7 +123,7 @@ namespace SkillsPlusPlus.Modifiers
     }
 
     [SkillLevelModifier(new string[] { "CrocoDisease", "Plague" }, typeof(FireDiseaseProjectile))]
-    class CrocoDiseaseSkillModifier : SimpleSkillModifier<FireDiseaseProjectile>
+    internal class CrocoDiseaseSkillModifier : SimpleSkillModifier<FireDiseaseProjectile>
     {
 
         public override void OnSkillEnter(FireDiseaseProjectile fireDisease, int level)
