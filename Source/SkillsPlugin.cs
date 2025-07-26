@@ -20,17 +20,20 @@ using UnityEngine;
 using UnityEngine.Networking;
 using LoadoutPanelController = On.RoR2.UI.LoadoutPanelController;
 
-namespace SkillsPlusPlus {
+namespace SkillsPlusPlus
+{
 
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency("com.KingEnderBrine.ExtendedLoadout", BepInDependency.DependencyFlags.SoftDependency)] //Soft-dependency to make Skills++ load after ExtendedLoadout
     [BepInPlugin("com.cwmlolzlz.skills", "Skills", "0.6.3")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod)]
-    public sealed class SkillsPlugin : BaseUnityPlugin {
+    public sealed class SkillsPlugin : BaseUnityPlugin
+    {
 
         static SkillsPlugin Instance = null;
 
-        void Awake() {
+        void Awake()
+        {
 
             //             SkillsPlusPlus.Logger.Warn(@"
             //   _____  _     _  _  _                       ____         _         
@@ -46,11 +49,12 @@ namespace SkillsPlusPlus {
             // Raise bugs here https://discord.gg/wU94CjJ
             //             ", this.Info.Metadata.Version.ToString());
 
-            #if DEBUG
+#if DEBUG
             SkillsPlusPlus.Logger.LOG_LEVEL = SkillsPlusPlus.Logger.LogLevel.Debug;
             UnityEngine.Networking.LogFilter.currentLogLevel = LogFilter.Debug;
 
-            On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) => {
+            On.RoR2.Stats.StatSheet.HasUnlockable += (orig, self, def) =>
+            {
                 return true;
             };
 
@@ -70,7 +74,7 @@ namespace SkillsPlusPlus {
             //     }
             //     orig(self);
             // };
-            #endif
+#endif
             Instance = this;
 
             CommandHelper.AddToConsoleWhenReady();
@@ -87,9 +91,11 @@ namespace SkillsPlusPlus {
             playerMasterPrefab.EnsureComponent<SkillPointsController>();
 
             LegacyResourcesAPI.Load<GameObject>("Prefabs/UI/Tooltip").EnsureComponent<SkillsPlusPlusTooltipController>();
-            On.RoR2.UI.TooltipController.SetTooltipProvider += (orig, self, provider) => {
+            On.RoR2.UI.TooltipController.SetTooltipProvider += (orig, self, provider) =>
+            {
                 orig(self, provider);
-                if (provider.TryGetComponent(out SkillUpgradeTooltipProvider tooltipProvider)) {
+                if (provider.TryGetComponent(out SkillUpgradeTooltipProvider tooltipProvider))
+                {
                     var tooltipController = self.EnsureComponent<SkillsPlusPlusTooltipController>();
                     tooltipController.skillUpgradeToken = tooltipProvider.GetToken();
                 }
@@ -104,11 +110,13 @@ namespace SkillsPlusPlus {
                 {
                     var buttons = row.rowData;
                     SkillsPlusPlus.Logger.Debug("row " + buttons);
-                    for (int i = 0; i < buttons.Count; i++) {
+                    for (int i = 0; i < buttons.Count; i++)
+                    {
                         SkillsPlusPlus.Logger.Debug("Ensuring SkillsPlusPlusTooltipProvider({0})", i);
                         var button = buttons[i];
                         var skillDef = skillslot?.skillFamily?.variants[i].skillDef;
-                        if (skillDef != null) {
+                        if (skillDef != null)
+                        {
                             var provider = button.button.gameObject.EnsureComponent<SkillUpgradeTooltipProvider>();
                             provider.skillName = ((ScriptableObject)skillDef)?.name;
                             SkillsPlusPlus.Logger.Debug(((ScriptableObject)skillDef)?.name);
@@ -126,7 +134,7 @@ namespace SkillsPlusPlus {
             On.RoR2.UI.HUD.Awake += this.HUD_Awake;
 
             initConfig();
-            
+
             SkillsPlusPlus.Logger.Debug("Awake() SurvivorCatalog.allSurvivorDef: {0}", SurvivorCatalog.allSurvivorDefs);
         }
 
@@ -143,19 +151,19 @@ namespace SkillsPlusPlus {
                 min = 1,
                 FormatString = "{0:0}"
             };
-            
+
             ModSettingsManager.AddOption(new SliderOption(levelsPerSkillPoint, slider));
 
             levelsPerSkillPoint.SettingChanged += (sender, args) =>
             {
                 ConVars.ConVars.levelsPerSkillPoint.value = Mathf.RoundToInt(levelsPerSkillPoint.Value);
             };
-            
+
             var skillActionName = Config.Bind("Skills++",
                 "Keybind to upgrade skills",
                 KeyboardShortcut.Empty,
                 "Key to upgrade skills. When a skill is available to be upgraded, holding the key down and pressing the associated skill key will upgrade the skill.");
-            
+
             ModSettingsManager.AddOption(new KeyBindOption(skillActionName));
 
             skillActionName.SettingChanged += (sender, args) =>
@@ -163,31 +171,31 @@ namespace SkillsPlusPlus {
                 ConVars.ConVars.buySkillsKeybind = skillActionName.Value;
                 SkillsPlusPlus.Logger.Debug(skillActionName.Value.MainKey.ToString());
             };
-            
+
             var disableInput = Config.Bind("Skills++",
                 "Disable Skills While Buying",
                 true,
                 "Should skills be disabled while the Buy Skills Input is pressed. (Disable this if you find yourself hitting the key by mistake)");
-            
+
             disableInput.SettingChanged += (sender, args) =>
             {
                 ConVars.ConVars.disableOnBuy.value = disableInput.Value;
             };
-            
+
             ModSettingsManager.AddOption(new CheckBoxOption(disableInput));
-            
-            
-            
+
+
+
             var multScalingLinear = Config.Bind("Skills++",
                 "Linear Skill Multipliers",
                 false,
                 "Should Multiplicative (+%) skill values use a linear value rather than an exponential one. (Useful for playing with low \"Levels per skill point\" values). In multiplayer runs the host's setting is used");
-            
+
             multScalingLinear.SettingChanged += (sender, args) =>
             {
                 ConVars.ConVars.multScalingLinear.value = multScalingLinear.Value;
             };
-            
+
             ModSettingsManager.AddOption(new CheckBoxOption(multScalingLinear));
 
             ConVars.ConVars.buySkillsKeybind = skillActionName.Value;
@@ -205,17 +213,22 @@ namespace SkillsPlusPlus {
             }
         }
 
-        private void PrepareSurvivor(SurvivorDef survivorDef) {
+        private void PrepareSurvivor(SurvivorDef survivorDef)
+        {
             SkillsPlusPlus.Logger.Debug("PrepareSurvivor({0})", survivorDef);
-            if (survivorDef == null) {
+            if (survivorDef == null)
+            {
                 return;
             }
             var skillUpgrades = survivorDef.bodyPrefab.GetComponents<SkillUpgrade>();
             skillUpgrades.ForEachTry(Destroy);
 
-            if (survivorDef.bodyPrefab.TryGetComponent(out SkillLocator skillLocator)) {
-                foreach (GenericSkill genericSkill in skillLocator.FindAllGenericSkills()) {
-                    if (genericSkill == null) {
+            if (survivorDef.bodyPrefab.TryGetComponent(out SkillLocator skillLocator))
+            {
+                foreach (GenericSkill genericSkill in skillLocator.FindAllGenericSkills())
+                {
+                    if (genericSkill == null)
+                    {
                         continue;
                     }
                     // if (SkillModifierManager.HasSkillModifier(genericSkill.baseSkill) == false) {
@@ -231,9 +244,11 @@ namespace SkillsPlusPlus {
             }
         }
 
-        private void HUD_Awake(On.RoR2.UI.HUD.orig_Awake orig, RoR2.UI.HUD self) {
+        private void HUD_Awake(On.RoR2.UI.HUD.orig_Awake orig, RoR2.UI.HUD self)
+        {
             orig(self);
-            self.GetComponentsInChildren<SkillIcon>(true).ForEachTry(skillIcon => {
+            self.GetComponentsInChildren<SkillIcon>(true).ForEachTry(skillIcon =>
+            {
                 skillIcon.EnsureComponent<SkillUpgradeTooltipProvider>();
                 skillIcon.EnsureComponent<SkillLevelIconController>();
             });

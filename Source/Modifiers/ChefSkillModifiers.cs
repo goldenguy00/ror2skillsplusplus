@@ -15,7 +15,8 @@ using System.Linq;
 using UnityEngine.AddressableAssets;
 using EntityStates.VoidSurvivor.CorruptMode;
 
-namespace SkillsPlusPlus.Source.Modifiers {
+namespace SkillsPlusPlus.Source.Modifiers
+{
     /*[SkillLevelModifier("ChefDice", typeof(Dice))]
     class ChefDiceSkillModifier : BaseSkillModifier
     {

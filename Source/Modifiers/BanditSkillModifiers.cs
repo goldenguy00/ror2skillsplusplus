@@ -214,14 +214,14 @@ namespace SkillsPlusPlus.Modifiers
 
         public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)
         {
-            if(resetSkill != null)
+            if (resetSkill != null)
             {
                 if (di.attacker != null && self != null)
                 {
                     CharacterBody body = self.GetComponent<CharacterBody>();
                     if (body != null)
                     {
-                        
+
                         if ((di.damageType & RoR2.DamageType.BonusToLowHealth) == RoR2.DamageType.BonusToLowHealth && (di.damageType & RoR2.DamageType.ResetCooldownsOnKill) == RoR2.DamageType.ResetCooldownsOnKill)
                         {
                             di.damage *= Mathf.Lerp(1.0f + resetSkill.skillLevel * 0.3f, 1.0f + resetSkill.skillLevel * 0.1f, self.combinedHealthFraction);
@@ -250,7 +250,7 @@ namespace SkillsPlusPlus.Modifiers
     internal class BanditSkillSkullRevolverModifier : SimpleSkillModifier<FireSidearmSkullRevolver>
     {
         static SkillUpgrade revolverSkill;
-        
+
         public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
         {
             base.OnSkillLeveledUp(level, characterBody, skillDef);
@@ -271,7 +271,7 @@ namespace SkillsPlusPlus.Modifiers
 
         public static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo di)
         {
-            if (revolverSkill != null) 
+            if (revolverSkill != null)
             {
                 if (di != null && self != null)
                 {

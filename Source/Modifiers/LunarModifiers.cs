@@ -10,15 +10,17 @@ using RoR2.Skills;
 using UnityEngine;
 using static R2API.RecalculateStatsAPI;
 
-namespace SkillsPlusPlus.Modifiers {
-    class LunarModifiers {
+namespace SkillsPlusPlus.Modifiers
+{
+    class LunarModifiers
+    {
 
-        #pragma warning disable CS0649
+#pragma warning disable CS0649
         static List<String> HereticSkillsWarned = new List<string>();
-        #pragma warning restore CS0649
+#pragma warning restore CS0649
         public static List<String> HereticSupportedPassiveUpgrades = new List<String> { "LunarPrimaryReplacement", "LunarSecondaryReplacement", "LunarUtilityReplacement", "LunarDetonatorSpecialReplacement" };
 
-    public static void RecalculateStats_GetLunarStats(CharacterBody sender, StatHookEventArgs args)
+        public static void RecalculateStats_GetLunarStats(CharacterBody sender, StatHookEventArgs args)
         {
             if (!sender)
             {
@@ -96,7 +98,7 @@ namespace SkillsPlusPlus.Modifiers {
 
                         HitBoxGroup group = projectileDot.gameObject.GetComponent<HitBoxGroup>();
 
-                        foreach(HitBox hitbox in group.hitBoxes)
+                        foreach (HitBox hitbox in group.hitBoxes)
                         {
                             if (Mathf.Abs(baseMaelstromScale) < 0.1f)
                             {
@@ -107,7 +109,7 @@ namespace SkillsPlusPlus.Modifiers {
                         }
                     }
 
-                    if(throwSkillState.projectilePrefab.TryGetComponent(out ProjectileExplosion projectileExplosion))
+                    if (throwSkillState.projectilePrefab.TryGetComponent(out ProjectileExplosion projectileExplosion))
                     {
                         if (Mathf.Abs(baseBlastRadius) < 0.1f)
                         {
@@ -125,10 +127,12 @@ namespace SkillsPlusPlus.Modifiers {
             }
         }
 
-        [SkillLevelModifier(new string[] { "LunarUtilityReplacement" , "Shadowfade"} , typeof(GhostUtilitySkillState))]
-        internal class StridesOfHeresySkillModifier : SimpleSkillModifier<GhostUtilitySkillState> {
+        [SkillLevelModifier(new string[] { "LunarUtilityReplacement", "Shadowfade" }, typeof(GhostUtilitySkillState))]
+        internal class StridesOfHeresySkillModifier : SimpleSkillModifier<GhostUtilitySkillState>
+        {
 
-            public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef) {
+            public override void OnSkillLeveledUp(int level, CharacterBody characterBody, SkillDef skillDef)
+            {
                 base.OnSkillLeveledUp(level, characterBody, skillDef);
 
                 GhostUtilitySkillState.moveSpeedCoefficient = MultScaling(1.3f, 0.1f, level); // +10% 

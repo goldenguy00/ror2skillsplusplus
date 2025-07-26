@@ -6,5 +6,6 @@ using EntityStates;
 using RoR2;
 using RoR2.Skills;
 
-namespace SkillsPlusPlus.Modifiers {
+namespace SkillsPlusPlus.Modifiers
+{
 }
